@@ -137,7 +137,7 @@ form.login{
     @include size(15);
     color: #000;
     position: relative;
-    &.pointer{
+    &.pointer, &.pointer2{
       cursor: pointer;
       color: #555555;
       font-size: 16px;
@@ -147,6 +147,9 @@ form.login{
       span{
         margin: 30px 0;
       }
+    }
+    &.pointer2 span{
+      margin-top: 10px;
     }
     .check{
       display: inline-block;
