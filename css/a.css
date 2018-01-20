@@ -2551,6 +2551,136 @@ html, body {
       -webkit-box-shadow: 0 3px 20px 1px rgba(0, 0, 0, 0.5);
       box-shadow: 0 3px 20px 1px rgba(0, 0, 0, 0.5); }
 
+form.login {
+  width: calc(41.66667% - 5px);
+  background: rgba(250, 247, 247, 0.95);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 15px;
+  padding: 45px 0;
+  -webkit-box-shadow: 2px 2px 9px 1px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 2px 9px 1px rgba(0, 0, 0, 0.5); }
+  form.login .btn_social {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: calc(62.5% - 5px);
+    height: 35px;
+    color: #fff;
+    border-radius: 3px;
+    border: none;
+    text-align: left;
+    font-size: 16px;
+    margin-bottom: 15px; }
+    form.login .btn_social img {
+      height: 27px;
+      border-right: 1px solid rgba(0, 0, 0, 0.1);
+      margin-right: 10px; }
+    form.login .btn_social.facebook {
+      background: #3b5998; }
+    form.login .btn_social.google {
+      background: #dc4a38; }
+  form.login h5 {
+    font-size: 24px;
+    color: #c2c2c2;
+    margin-bottom: 10px; }
+  form.login label {
+    width: calc(62.5% - 5px);
+    color: #000;
+    position: relative; }
+    form.login label.pointer {
+      cursor: pointer;
+      color: #555555;
+      font-size: 16px; }
+      form.login label.pointer:hover .checkbox {
+        border: 3px solid #d9d9d9; }
+      form.login label.pointer span {
+        margin: 30px 0; }
+    form.login label .check {
+      display: inline-block;
+      width: 25px;
+      height: 25px;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      text-align: center;
+      font-size: 14px;
+      color: #fff;
+      border-radius: 13px;
+      border: 3px solid #70cf47;
+      background: #70cf47;
+      position: absolute;
+      top: 30px;
+      right: -45px; }
+    form.login label input[type="email"], form.login label input[type="password"] {
+      width: 100%;
+      height: 35px;
+      font-size: 16px;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      padding: 0 15px;
+      background: #fffffe;
+      border: none;
+      border-top: 1px solid #e5e6e5;
+      border-radius: 4px;
+      color: #555555;
+      margin-bottom: 20px;
+      margin-top: 7px; }
+      form.login label input[type="email"]:focus, form.login label input[type="email"]:hover, form.login label input[type="password"]:focus, form.login label input[type="password"]:hover {
+        outline: none; }
+    form.login label input[type="checkbox"] {
+      display: none; }
+      form.login label input[type="checkbox"] + .checkbox {
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        text-align: center;
+        font-size: 14px;
+        color: transparent;
+        border-radius: 13px;
+        border: 3px solid transparent;
+        margin-right: 15px; }
+      form.login label input[type="checkbox"]:checked + .checkbox {
+        border: 3px solid #70cf47;
+        text-align: center;
+        font-size: 14px;
+        color: #70cf47; }
+    form.login label .eye {
+      width: 20px;
+      height: 11px;
+      position: absolute;
+      top: 37px;
+      right: 10px; }
+    form.login label p {
+      color: #c2c2c2;
+      font-size: 14px;
+      margin-left: -7px; }
+      form.login label p span {
+        color: #6fcf46; }
+  form.login .firstPage {
+    width: calc(100% - 5px); }
+
 .avatar {
   width: calc(16.66667% - 5px);
   margin-top: 40px;
