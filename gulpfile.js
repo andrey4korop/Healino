@@ -58,7 +58,7 @@ gulp.task('sass', function(){
 		  console.log('[cleanCSS]  Compressed {' + details.name + '} to : ' + Math.floor(details.stats.minifiedSize / details.stats.originalSize * 100) + ' %');
     }))*/
 	.pipe(gulp.dest('./css'))
-	//.pipe(gulp.dest('../public/css'))
+	.pipe(gulp.dest('./healinoVue/static/css'))
 	.pipe(browserSync.stream());
 });
 gulp.task('serve', ['sass'], function() {

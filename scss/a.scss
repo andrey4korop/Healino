@@ -31,11 +31,69 @@ html,body{
 .container{
   @include wrapper();
   z-index: 1;
-  position: relative
+  position: relative;
+  min-height: 100vh;
 }
 .row{
   @include row-flex();
   justify-content: center;
+}
+.firstPageContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.logo{
+  @include size(8);
+  //margin-top: 225px;
+}
+.langs {
+  @include size(6);
+  @include row-flex();
+  justify-content: space-around;
+  align-items: center;
+  height: 170px;
+  .lang{
+    width: 45px;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 16px;
+    line-height: 24px;
+    &.active{
+      font-size: 24px;
+      img{
+        border:3px solid #00aeef;
+        border-radius: 25px;
+      }
+    }
+  }
+}
+.firstPage{
+  @include size(8);
+  display: flex;
+  justify-content: space-around;
+  button{
+    @include size(11);
+    height: 45px;
+    border-radius: 25px;
+    background: #ff8304;
+    padding: 0;
+    border: none;
+    color: rgba(0,0,0,0.5);
+    font-size: 18px;
+    box-shadow:0 3px 20px 1px rgba(0, 0, 0, 0.3);
+    &:focus, &:hover{
+      outline: none;
+      color: #fff;
+      box-shadow: 0 3px 20px 1px rgba(0, 0, 0, 0.5);
+    }
+    &:active{
+      outline: none;
+      color: #fff;
+      background: #ff9021;
+      box-shadow: 0 3px 20px 1px rgba(0, 0, 0, 0.5);
+    }
+  }
 }
 .avatar{
   @include size(4);
