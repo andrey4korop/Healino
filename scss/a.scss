@@ -95,14 +95,51 @@ html,body{
     }
   }
 }
-form.login{
+.fifthPage{
+  margin: 90px 0;
+}
+.formBlock{
+  margin: 10px;
+  .Metrics{
+    display: flex;
+    @include size(15);
+    background: #f3efef;
+    color: #555555;
+    justify-content: center;
+    text-align: center;
+    font-size: 15px;
+    margin-bottom: 50px;
+    margin-top: 25px;
+    .btn{
+      width: 50%;
+      border: 1px solid #a5a2a2;
+      box-sizing: border-box;
+      padding: 13px 0;
+      &.active{
+        background: #60b23d;
+        color: #fff;
+        border: 1px solid #599939;
+      }
+      &:nth-child(1){
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+      }
+      &:nth-child(2){
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+      }
+
+    }
+  }
+}
+.login{
   @include size(10);
   background: rgba(250,247,247, 0.95);
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 15px;
-  padding: 45px 0;
+  padding: 45px 0 35px 0;
   box-shadow: 2px 2px 9px 1px rgba(0, 0, 0, 0.5);
   .btn_social{
     display: flex;
@@ -151,6 +188,23 @@ form.login{
     &.pointer2 span{
       margin-top: 10px;
     }
+    &.radio{
+      margin-top: 10px;
+      span{
+        margin:  0;
+      }
+    }
+    &.bottom{
+      margin-top: 35px;
+    }
+    .razmer{
+      font-size: 16px;
+      color: #c2c2c2;
+      margin: 10px;
+      &+.check{
+        left: calc(29.16667% + 40px)
+      }
+    }
     .check{
       display: inline-block;
       width: 25px;
@@ -164,10 +218,12 @@ form.login{
       background: #70cf47;
       position: absolute;
       top: 30px;
-      right: -45px;
+      left: calc(100% + 20px)
 
     }
-    input[type="email"], input[type="password"]{
+    input[type="text"], input[type="date"], input[type="email"],
+    input[type="password"], input[type="tel"], input[type="number"],
+    select, option{
       width: 100%;
       height: 35px;
       font-size: 16px;
@@ -183,10 +239,39 @@ form.login{
       &:focus, &:hover{
         outline: none;
       }
+      &.number{
+        @include size(7);
+      }
     }
-    input[type="checkbox"]{
+    select{
+      /*for WebKit*/
+      -webkit-appearance: none;
+      /* for FF */
+      -moz-appearance: none;
+      text-indent: 0.01px;
+      text-overflow: '';
+      /* for IE */
+      -ms-appearance: none;
+      appearance: none!important;
+      background-image: url('../img/Arrow.png');
+      background-position-x: 94%;
+      background-position-y: center;
+      background-repeat: no-repeat;
+      &::-ms-expand {
+        display: none;
+      }
+    }
+    input[type="number"]{
+      -moz-appearance: textfield;
+      &::-webkit-outer-spin-button, &::-webkit-inner-spin-button{
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
+    input[type="radio"], input[type="checkbox"]{
       display: none;
       &+.checkbox{
+        border: 3px solid #d9d9d9;
         display: inline-block;
         width: 25px;
         height: 25px;
@@ -195,7 +280,6 @@ form.login{
         font-size: 14px;
         color: transparent;
         border-radius: 13px;
-        border: 3px solid transparent;
         margin-right: 15px;
       }
       &:checked+.checkbox{

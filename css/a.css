@@ -2551,7 +2551,45 @@ html, body {
       -webkit-box-shadow: 0 3px 20px 1px rgba(0, 0, 0, 0.5);
       box-shadow: 0 3px 20px 1px rgba(0, 0, 0, 0.5); }
 
-form.login {
+.fifthPage {
+  margin: 90px 0; }
+
+.formBlock {
+  margin: 10px; }
+  .formBlock .Metrics {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    width: calc(62.5% - 5px);
+    background: #f3efef;
+    color: #555555;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 15px;
+    margin-bottom: 50px;
+    margin-top: 25px; }
+    .formBlock .Metrics .btn {
+      width: 50%;
+      border: 1px solid #a5a2a2;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      padding: 13px 0; }
+      .formBlock .Metrics .btn.active {
+        background: #60b23d;
+        color: #fff;
+        border: 1px solid #599939; }
+      .formBlock .Metrics .btn:nth-child(1) {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px; }
+      .formBlock .Metrics .btn:nth-child(2) {
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px; }
+
+.login {
   width: calc(41.66667% - 5px);
   background: rgba(250, 247, 247, 0.95);
   display: -webkit-box;
@@ -2568,10 +2606,10 @@ form.login {
   -ms-flex-align: center;
   align-items: center;
   border-radius: 15px;
-  padding: 45px 0;
+  padding: 45px 0 35px 0;
   -webkit-box-shadow: 2px 2px 9px 1px rgba(0, 0, 0, 0.5);
   box-shadow: 2px 2px 9px 1px rgba(0, 0, 0, 0.5); }
-  form.login .btn_social {
+  .login .btn_social {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -2592,33 +2630,45 @@ form.login {
     text-align: left;
     font-size: 16px;
     margin-bottom: 15px; }
-    form.login .btn_social img {
+    .login .btn_social img {
       height: 27px;
       border-right: 1px solid rgba(0, 0, 0, 0.1);
       margin-right: 10px; }
-    form.login .btn_social.facebook {
+    .login .btn_social.facebook {
       background: #3b5998; }
-    form.login .btn_social.google {
+    .login .btn_social.google {
       background: #dc4a38; }
-  form.login h5 {
+  .login h5 {
     font-size: 24px;
     color: #c2c2c2;
     margin-bottom: 10px; }
-  form.login label {
+  .login label {
     width: calc(62.5% - 5px);
     color: #000;
     position: relative; }
-    form.login label.pointer, form.login label.pointer2 {
+    .login label.pointer, .login label.pointer2 {
       cursor: pointer;
       color: #555555;
       font-size: 16px; }
-      form.login label.pointer:hover .checkbox, form.login label.pointer2:hover .checkbox {
+      .login label.pointer:hover .checkbox, .login label.pointer2:hover .checkbox {
         border: 3px solid #d9d9d9; }
-      form.login label.pointer span, form.login label.pointer2 span {
+      .login label.pointer span, .login label.pointer2 span {
         margin: 30px 0; }
-    form.login label.pointer2 span {
+    .login label.pointer2 span {
       margin-top: 10px; }
-    form.login label .check {
+    .login label.radio {
+      margin-top: 10px; }
+      .login label.radio span {
+        margin: 0; }
+    .login label.bottom {
+      margin-top: 35px; }
+    .login label .razmer {
+      font-size: 16px;
+      color: #c2c2c2;
+      margin: 10px; }
+      .login label .razmer + .check {
+        left: calc(29.16667% + 40px); }
+    .login label .check {
       display: inline-block;
       width: 25px;
       height: 25px;
@@ -2632,8 +2682,10 @@ form.login {
       background: #70cf47;
       position: absolute;
       top: 30px;
-      right: -45px; }
-    form.login label input[type="email"], form.login label input[type="password"] {
+      left: calc(100% + 20px); }
+    .login label input[type="text"], .login label input[type="date"], .login label input[type="email"],
+    .login label input[type="password"], .login label input[type="tel"], .login label input[type="number"],
+    .login label select, .login label option {
       width: 100%;
       height: 35px;
       font-size: 16px;
@@ -2647,11 +2699,41 @@ form.login {
       color: #555555;
       margin-bottom: 20px;
       margin-top: 7px; }
-      form.login label input[type="email"]:focus, form.login label input[type="email"]:hover, form.login label input[type="password"]:focus, form.login label input[type="password"]:hover {
+      .login label input[type="text"]:focus, .login label input[type="text"]:hover, .login label input[type="date"]:focus, .login label input[type="date"]:hover, .login label input[type="email"]:focus, .login label input[type="email"]:hover,
+      .login label input[type="password"]:focus,
+      .login label input[type="password"]:hover, .login label input[type="tel"]:focus, .login label input[type="tel"]:hover, .login label input[type="number"]:focus, .login label input[type="number"]:hover,
+      .login label select:focus,
+      .login label select:hover, .login label option:focus, .login label option:hover {
         outline: none; }
-    form.login label input[type="checkbox"] {
+      .login label input[type="text"].number, .login label input[type="date"].number, .login label input[type="email"].number,
+      .login label input[type="password"].number, .login label input[type="tel"].number, .login label input[type="number"].number,
+      .login label select.number, .login label option.number {
+        width: calc(29.16667% - 5px); }
+    .login label select {
+      /*for WebKit*/
+      -webkit-appearance: none;
+      /* for FF */
+      -moz-appearance: none;
+      text-indent: 0.01px;
+      text-overflow: '';
+      /* for IE */
+      -ms-appearance: none;
+      appearance: none !important;
+      background-image: url("../img/Arrow.png");
+      background-position-x: 94%;
+      background-position-y: center;
+      background-repeat: no-repeat; }
+      .login label select::-ms-expand {
+        display: none; }
+    .login label input[type="number"] {
+      -moz-appearance: textfield; }
+      .login label input[type="number"]::-webkit-outer-spin-button, .login label input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0; }
+    .login label input[type="radio"], .login label input[type="checkbox"] {
       display: none; }
-      form.login label input[type="checkbox"] + .checkbox {
+      .login label input[type="radio"] + .checkbox, .login label input[type="checkbox"] + .checkbox {
+        border: 3px solid #d9d9d9;
         display: inline-block;
         width: 25px;
         height: 25px;
@@ -2661,26 +2743,25 @@ form.login {
         font-size: 14px;
         color: transparent;
         border-radius: 13px;
-        border: 3px solid transparent;
         margin-right: 15px; }
-      form.login label input[type="checkbox"]:checked + .checkbox {
+      .login label input[type="radio"]:checked + .checkbox, .login label input[type="checkbox"]:checked + .checkbox {
         border: 3px solid #70cf47;
         text-align: center;
         font-size: 14px;
         color: #70cf47; }
-    form.login label .eye {
+    .login label .eye {
       width: 20px;
       height: 11px;
       position: absolute;
       top: 37px;
       right: 10px; }
-    form.login label p {
+    .login label p {
       color: #c2c2c2;
       font-size: 14px;
       margin-left: -7px; }
-      form.login label p span {
+      .login label p span {
         color: #6fcf46; }
-  form.login .firstPage {
+  .login .firstPage {
     width: calc(100% - 5px); }
 
 .license {
