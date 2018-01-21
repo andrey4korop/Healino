@@ -2666,7 +2666,9 @@ html, body {
       font-size: 16px;
       color: #c2c2c2;
       margin: 10px; }
-      .login label .razmer + .check {
+      .login label .razmer:nth-child(3) ~ .check {
+        left: calc(70% + 45px); }
+      .login label .razmer:nth-child(3) + .check {
         left: calc(29.16667% + 40px); }
     .login label .check {
       display: inline-block;

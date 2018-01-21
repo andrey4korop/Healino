@@ -201,8 +201,11 @@ html,body{
       font-size: 16px;
       color: #c2c2c2;
       margin: 10px;
-      &+.check{
-        left: calc(29.16667% + 40px)
+      &:nth-child(3)~.check{
+        left: calc(70% + 45px);
+      }
+      &:nth-child(3)+.check{
+        left: calc(29.16667% + 40px);
       }
     }
     .check{
