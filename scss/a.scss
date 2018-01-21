@@ -223,9 +223,114 @@ form.login{
   }
   .firstPage{
     @include size(24);
-
   }
+}
+.license{
+  @include size(24);
+  background: rgba(250,247,247, 0.95);
+  min-height: 60vh;
+  padding: 40px 0 30px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #333333;
+  border-radius: 15px;
+  .ob{
+    background: rgba(255,255,255, 0.97);
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 20px 0px 20px 15px;
+    @include size(22);
+  }
+  .text{
+    height: 40vh;
+    overflow: scroll;
+    overflow-x: hidden;
+    padding-right: 10px;
+    h1{
+      font-size: 24px;
+      color: #000;
+    }
+    p{
+      margin: 20px 0;
+    }
+    &::-webkit-scrollbar {
+      width: 5px;
+      background: rgba(196,14,89,0.5);
+      border-radius: 3px;
+    }
 
+    &::-webkit-scrollbar-thumb {
+      background: rgb(196,14,89);
+      border-radius: 3px;
+      width: 5px;
+    }
+    scrollbar-base-color: rgb(196,14,89);
+    scrollbar-3dlight-color: rgb(196,14,89);
+    scrollbar-highlight-color: rgb(196,14,89);
+    scrollbar-track-color: #edb6cc;
+    scrollbar-arrow-color: #edb6cc;
+    scrollbar-shadow-color: rgb(196,14,89);
+  }
+  .checkb{
+    display: flex;
+    justify-content: space-between;
+    @include size(20);
+    font-size: 16px;
+    .pointer:hover .checkbox{
+      border: 3px solid #d9d9d9;
+    }
+    input[type="checkbox"]{
+      display: none;
+      &+.checkbox{
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        box-sizing: border-box;
+        text-align: center;
+        font-size: 14px;
+        color: transparent;
+        border-radius: 13px;
+        border: 3px solid transparent;
+        margin-right: 15px;
+      }
+      &:checked+.checkbox{
+        border: 3px solid #c40e59;
+        text-align: center;
+        font-size: 14px;
+        color: #c40e59;
+      }
+    }
+  }
+  .licensePage{
+    @include size(8);
+    display: flex;
+    justify-content: space-around;
+    button{
+      @include size(11);
+      height: 45px;
+      border-radius: 25px;
+      background: #c40e59;
+      padding: 0;
+      border: none;
+      color: rgba(0,0,0,0.5);
+      font-size: 18px;
+      box-shadow:0 3px 20px 1px rgba(0, 0, 0, 0.3);
+      &:focus, &:hover{
+        outline: none;
+        color: #fff;
+        box-shadow: 0 3px 20px 1px rgba(0, 0, 0, 0.5);
+      }
+      &:active{
+        outline: none;
+        color: #fff;
+        background: #d90f63;
+        box-shadow: 0 3px 20px 1px rgba(0, 0, 0, 0.5);
+      }
+    }
+  }
 
 }
 .avatar{

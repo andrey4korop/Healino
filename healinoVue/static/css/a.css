@@ -2683,6 +2683,126 @@ form.login {
   form.login .firstPage {
     width: calc(100% - 5px); }
 
+.license {
+  width: calc(100% - 5px);
+  background: rgba(250, 247, 247, 0.95);
+  min-height: 60vh;
+  padding: 40px 0 30px 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: 12px;
+  color: #333333;
+  border-radius: 15px; }
+  .license .ob {
+    background: rgba(255, 255, 255, 0.97);
+    border-radius: 5px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 20px 0px 20px 15px;
+    width: calc(91.66667% - 5px); }
+  .license .text {
+    height: 40vh;
+    overflow: scroll;
+    overflow-x: hidden;
+    padding-right: 10px;
+    scrollbar-base-color: #c40e59;
+    scrollbar-3dlight-color: #c40e59;
+    scrollbar-highlight-color: #c40e59;
+    scrollbar-track-color: #edb6cc;
+    scrollbar-arrow-color: #edb6cc;
+    scrollbar-shadow-color: #c40e59; }
+    .license .text h1 {
+      font-size: 24px;
+      color: #000; }
+    .license .text p {
+      margin: 20px 0; }
+    .license .text::-webkit-scrollbar {
+      width: 5px;
+      background: rgba(196, 14, 89, 0.5);
+      border-radius: 3px; }
+    .license .text::-webkit-scrollbar-thumb {
+      background: #c40e59;
+      border-radius: 3px;
+      width: 5px; }
+  .license .checkb {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    width: calc(83.33333% - 5px);
+    font-size: 16px; }
+    .license .checkb .pointer:hover .checkbox {
+      border: 3px solid #d9d9d9; }
+    .license .checkb input[type="checkbox"] {
+      display: none; }
+      .license .checkb input[type="checkbox"] + .checkbox {
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        text-align: center;
+        font-size: 14px;
+        color: transparent;
+        border-radius: 13px;
+        border: 3px solid transparent;
+        margin-right: 15px; }
+      .license .checkb input[type="checkbox"]:checked + .checkbox {
+        border: 3px solid #c40e59;
+        text-align: center;
+        font-size: 14px;
+        color: #c40e59; }
+  .license .licensePage {
+    width: calc(33.33333% - 5px);
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: space-around;
+    -ms-flex-pack: distribute;
+    justify-content: space-around; }
+    .license .licensePage button {
+      width: calc(45.83333% - 5px);
+      height: 45px;
+      border-radius: 25px;
+      background: #c40e59;
+      padding: 0;
+      border: none;
+      color: rgba(0, 0, 0, 0.5);
+      font-size: 18px;
+      -webkit-box-shadow: 0 3px 20px 1px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 3px 20px 1px rgba(0, 0, 0, 0.3); }
+      .license .licensePage button:focus, .license .licensePage button:hover {
+        outline: none;
+        color: #fff;
+        -webkit-box-shadow: 0 3px 20px 1px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 3px 20px 1px rgba(0, 0, 0, 0.5); }
+      .license .licensePage button:active {
+        outline: none;
+        color: #fff;
+        background: #d90f63;
+        -webkit-box-shadow: 0 3px 20px 1px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 3px 20px 1px rgba(0, 0, 0, 0.5); }
+
 .avatar {
   width: calc(16.66667% - 5px);
   margin-top: 40px;
