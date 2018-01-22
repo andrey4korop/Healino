@@ -3240,7 +3240,7 @@ html, body {
     -webkit-align-items: center;
     -ms-flex-align: center;
     align-items: center; }
-    .themesPageContainer .questionBlock.type1 .row {
+    .themesPageContainer .questionBlock.type1 .row, .themesPageContainer .questionBlock.type3 .row {
       -webkit-box-pack: center;
       -webkit-justify-content: center;
       -ms-flex-pack: center;
@@ -3279,6 +3279,23 @@ html, body {
         .themesPageContainer .questionBlock.type2 .row .right label {
           width: calc(87.5% - 5px);
           margin: 0; }
+    .themesPageContainer .questionBlock.type3 .row {
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      margin-bottom: 5vh; }
+    .themesPageContainer .questionBlock.type3 h1 {
+      width: calc(100% - 5px);
+      font-size: 40px; }
+    .themesPageContainer .questionBlock.type3 .imgAnswer {
+      border-radius: 15px;
+      width: calc(25% - 5px);
+      height: 220px;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box; }
+      .themesPageContainer .questionBlock.type3 .imgAnswer.check {
+        border: 3px solid #65d53a; }
     .themesPageContainer .questionBlock h1 {
       font-size: 36px;
       text-align: center;

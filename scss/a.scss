@@ -715,10 +715,12 @@ html,body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    &.type1 .row{
-      justify-content: center;
-      width: 100%;
-      margin-bottom: 10vh;
+    &.type1, &.type3{
+      .row {
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 10vh;
+      }
     }
     &.type2 .row{
       justify-content: space-between;
@@ -745,6 +747,25 @@ html,body{
         label{
           @include size(21);
           margin: 0;
+        }
+      }
+    }
+    &.type3{
+      .row{
+        justify-content: space-between;
+        margin-bottom: 5vh;
+      }
+      h1{
+        @include size(24);
+        font-size: 40px;
+      }
+      .imgAnswer{
+        border-radius: 15px;
+        @include size(6);
+        height: 220px;
+        box-sizing: border-box;
+        &.check{
+          border: 3px solid #65d53a;
         }
       }
     }
