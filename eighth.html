@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:600" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/a.css">
+	<link rel="stylesheet" href="css/jquery.parallax.css" />
+	<style type="text/css" media="screen, projection">
+
+		div.p{
+			position:fixed;
+		}
+
+
+
+
+
+		.par {
+			overflow: hidden;
+			position: absolute;
+			/* height: 300px; */
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			z-index: -2;
+		}
+	</style>
+</head>
+	<body>
+<!--
+	<div class="p layer1"></div>
+	<div class="p layer2"></div>
+	<div class="p layer3"></div>
+	<div class="p layer4"></div>
+	<div class="p layer5"></div>
+	<div class="p layer6"></div>
+	<div class="p layer7"></div>
+	<div class="p layer8"></div>
+-->
+	<div class="container themesPageContainer">
+		<div class="row">
+			<div class="content col">
+				<div class="progressBarTheme">
+
+				</div>
+				<div class="questionBlock type1">
+					<h1>How often do you  eat vagatebles?</h1>
+					<div class="row">
+						<div class="select">
+							<p class="option">Every day</p>
+							<p class="option active">Every week</p>
+							<p class="option">Every month</p>
+
+						</div>
+						<label>
+
+							<select>
+								<option>800 G</option>
+								<option>Пункт 2</option>
+							</select>
+							<span class="check"><i class="fa fa-check" aria-hidden="true"></i></span>
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="green">
+				<button>BACK</button>
+				<button>NEXT</button>
+			</div>
+		</div>
+
+	</div>
+
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+		<script src="js/jquery.plaxmove.js"></script>
+		<script type="text/javascript">
+
+            jQuery(document).ready(function(){
+                // Declare parallax on layers
+                /**jQuery('.parallax-layer').parallax({
+                    //mouseport: jQuery("#port")
+                });*/
+
+                    $('.layer1').plaxmove({ratioH:0.05,ratioV:0.1})
+                    $('.layer2').plaxmove({ratioH:0.12,ratioV:0.08})
+                    $('.layer3').plaxmove({ratioH:0.1,ratioV:0.18})
+                    $('.layer4').plaxmove({ratioH:0.2,ratioV:0.1})
+
+                    $('.layer6').plaxmove({ratioH:0.016,ratioV:0.018})
+                    $('.layer7').plaxmove({ratioH:0.011,ratioV:0.015})
+
+
+            });
+		</script>
+	</body>
+</html>

@@ -681,14 +681,20 @@ html,body{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
+
   .content{
+    width: 100%;
     background: rgba(250, 247, 247, 0.8);
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     padding: 25px;
     display: flex;
     justify-content: space-between;
+    &.col{
+      flex-direction: column;
+      align-items: center;
+    }
   }
   .mar{
     padding: 15px 0;
@@ -697,6 +703,124 @@ html,body{
     border-radius: 15px;
     max-height: 430px;
   }
+  .progressBarTheme{
+    @include size(18);
+    height: 60px;
+    background: url("../img/topScale.png") no-repeat;
+    background-size: 100%;
+  }
+  .questionBlock{
+    @include size(24);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    &.type1 .row{
+      justify-content: center;
+      width: 100%;
+      margin-bottom: 10vh;
+    }
+    h1{
+      font-size: 36px;
+      text-align: center;
+      color: #555555;
+      @include size(9);
+      margin-top: 10vh;
+      margin-bottom: 40px;
+    }
+    .select{
+      font-size: 18px;
+      color: #b8b8b8;
+      border-radius: 15px;
+      border: 2px solid #e1e1e1;
+      overflow-y: scroll;
+      background: rgba(255,255,255,0.97);
+      height: 120px;
+      text-align: center;
+      box-sizing: border-box;
+      margin: 0 calc(100% / 24);
+      @include size(7);
+      &::-webkit-scrollbar {
+        width: 5px;
+        background: rgba(196,14,89,0.5);
+        border-radius: 3px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: rgb(196,14,89);
+        border-radius: 3px;
+        width: 5px;
+      }
+      scrollbar-base-color: rgb(196,14,89);
+      scrollbar-3dlight-color: rgb(196,14,89);
+      scrollbar-highlight-color: rgb(196,14,89);
+      scrollbar-track-color: #edb6cc;
+      scrollbar-arrow-color: #edb6cc;
+      scrollbar-shadow-color: rgb(196,14,89);
+      .option{
+        border-bottom: 1px solid #e1e1e1;
+        //padding: 10px 0;
+        line-height: 38px;
+        &.active{
+          font-size: 22px;
+        }
+      }
+    }
+    label{
+      position: relative;
+      @include size(6);
+      margin: 0 calc(100% / 24);
+      .check{
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        box-sizing: border-box;
+        text-align: center;
+        font-size: 14px;
+        color: #fff;
+        border-radius: 13px;
+        border: 3px solid #70cf47;
+        background: #70cf47;
+        position: absolute;
+        top: 10px;
+        left: calc(100% + 10px)
+
+      }
+    }
+    select, option{
+      @include size(24);
+      height: 35px;
+      font-size: 16px;
+      box-sizing: border-box;
+      padding: 0 15px;
+      background: #fffffe;
+      border: none;
+      border-top: 1px solid #e5e6e5;
+      border-radius: 15px;
+      color: #b8b8b8;
+      margin-bottom: 20px;
+      margin-top: 7px;
+      /*for WebKit*/
+      -webkit-appearance: none;
+      /* for FF */
+      -moz-appearance: none;
+      text-indent: 0.01px;
+      text-overflow: '';
+      /* for IE */
+      -ms-appearance: none;
+      appearance: none!important;
+      background-image: url('../img/Arrow.png');
+      background-position-x: 94%;
+      background-position-y: center;
+      background-repeat: no-repeat;
+      &::-ms-expand {
+        display: none;
+      }
+      &:focus, &:hover{
+        outline: none;
+      }
+    }
+  }
+
   .themes{
 
     display: flex;
@@ -808,6 +932,8 @@ html,body{
     text-align: center;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
+    display: flex;
+    justify-content: space-around;
     button{
       @include size(4);
       height: 45px;

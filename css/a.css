@@ -3182,11 +3182,12 @@ html, body {
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center; }
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch; }
   .themesPageContainer .content {
+    width: 100%;
     background: rgba(250, 247, 247, 0.8);
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
@@ -3199,12 +3200,142 @@ html, body {
     -webkit-justify-content: space-between;
     -ms-flex-pack: justify;
     justify-content: space-between; }
+    .themesPageContainer .content.col {
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center; }
   .themesPageContainer .mar {
     padding: 15px 0;
     width: calc(66.66667% - 5px);
     background: rgba(250, 247, 247, 0.8);
     border-radius: 15px;
     max-height: 430px; }
+  .themesPageContainer .progressBarTheme {
+    width: calc(75% - 5px);
+    height: 60px;
+    background: url("../img/topScale.png") no-repeat;
+    background-size: 100%; }
+  .themesPageContainer .questionBlock {
+    width: calc(100% - 5px);
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center; }
+    .themesPageContainer .questionBlock.type1 .row {
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      width: 100%;
+      margin-bottom: 10vh; }
+    .themesPageContainer .questionBlock h1 {
+      font-size: 36px;
+      text-align: center;
+      color: #555555;
+      width: calc(37.5% - 5px);
+      margin-top: 10vh;
+      margin-bottom: 40px; }
+    .themesPageContainer .questionBlock .select {
+      font-size: 18px;
+      color: #b8b8b8;
+      border-radius: 15px;
+      border: 2px solid #e1e1e1;
+      overflow-y: scroll;
+      background: rgba(255, 255, 255, 0.97);
+      height: 120px;
+      text-align: center;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      margin: 0 calc(100% / 24);
+      width: calc(29.16667% - 5px);
+      scrollbar-base-color: #c40e59;
+      scrollbar-3dlight-color: #c40e59;
+      scrollbar-highlight-color: #c40e59;
+      scrollbar-track-color: #edb6cc;
+      scrollbar-arrow-color: #edb6cc;
+      scrollbar-shadow-color: #c40e59; }
+      .themesPageContainer .questionBlock .select::-webkit-scrollbar {
+        width: 5px;
+        background: rgba(196, 14, 89, 0.5);
+        border-radius: 3px; }
+      .themesPageContainer .questionBlock .select::-webkit-scrollbar-thumb {
+        background: #c40e59;
+        border-radius: 3px;
+        width: 5px; }
+      .themesPageContainer .questionBlock .select .option {
+        border-bottom: 1px solid #e1e1e1;
+        line-height: 38px; }
+        .themesPageContainer .questionBlock .select .option.active {
+          font-size: 22px; }
+    .themesPageContainer .questionBlock label {
+      position: relative;
+      width: calc(25% - 5px);
+      margin: 0 calc(100% / 24); }
+      .themesPageContainer .questionBlock label .check {
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        text-align: center;
+        font-size: 14px;
+        color: #fff;
+        border-radius: 13px;
+        border: 3px solid #70cf47;
+        background: #70cf47;
+        position: absolute;
+        top: 10px;
+        left: calc(100% + 10px); }
+    .themesPageContainer .questionBlock select, .themesPageContainer .questionBlock option {
+      width: calc(100% - 5px);
+      height: 35px;
+      font-size: 16px;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      padding: 0 15px;
+      background: #fffffe;
+      border: none;
+      border-top: 1px solid #e5e6e5;
+      border-radius: 15px;
+      color: #b8b8b8;
+      margin-bottom: 20px;
+      margin-top: 7px;
+      /*for WebKit*/
+      -webkit-appearance: none;
+      /* for FF */
+      -moz-appearance: none;
+      text-indent: 0.01px;
+      text-overflow: '';
+      /* for IE */
+      -ms-appearance: none;
+      appearance: none !important;
+      background-image: url("../img/Arrow.png");
+      background-position-x: 94%;
+      background-position-y: center;
+      background-repeat: no-repeat; }
+      .themesPageContainer .questionBlock select::-ms-expand, .themesPageContainer .questionBlock option::-ms-expand {
+        display: none; }
+      .themesPageContainer .questionBlock select:focus, .themesPageContainer .questionBlock select:hover, .themesPageContainer .questionBlock option:focus, .themesPageContainer .questionBlock option:hover {
+        outline: none; }
   .themesPageContainer .themes {
     display: -webkit-box;
     display: -webkit-flex;
@@ -3310,7 +3441,14 @@ html, body {
     width: 100%;
     text-align: center;
     border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px; }
+    border-bottom-right-radius: 15px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: space-around;
+    -ms-flex-pack: distribute;
+    justify-content: space-around; }
     .themesPageContainer .green button {
       width: calc(16.66667% - 5px);
       height: 45px;
