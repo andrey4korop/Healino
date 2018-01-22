@@ -3191,7 +3191,7 @@ html, body {
     background: rgba(250, 247, 247, 0.8);
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    padding: 25px;
+    padding: 25px calc(100% /24);
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -3247,6 +3247,38 @@ html, body {
       justify-content: center;
       width: 100%;
       margin-bottom: 10vh; }
+    .themesPageContainer .questionBlock.type2 .row {
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 20px;
+      margin-top: 35px; }
+      .themesPageContainer .questionBlock.type2 .row .imgQ {
+        width: calc(62.5% - 5px);
+        padding-top: 10px; }
+        .themesPageContainer .questionBlock.type2 .row .imgQ img {
+          border-radius: 15px; }
+      .themesPageContainer .questionBlock.type2 .row .right {
+        width: calc(33.33333% - 5px);
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-align: start;
+        -webkit-align-items: flex-start;
+        -ms-flex-align: start;
+        align-items: flex-start; }
+        .themesPageContainer .questionBlock.type2 .row .right h1 {
+          width: calc(79.16667% - 5px);
+          margin-top: 0;
+          text-align: left;
+          margin-bottom: 20px; }
+        .themesPageContainer .questionBlock.type2 .row .right label {
+          width: calc(87.5% - 5px);
+          margin: 0; }
     .themesPageContainer .questionBlock h1 {
       font-size: 36px;
       text-align: center;

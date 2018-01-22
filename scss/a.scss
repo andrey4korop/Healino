@@ -688,7 +688,7 @@ html,body{
     background: rgba(250, 247, 247, 0.8);
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    padding: 25px;
+    padding: 25px calc(100% /24);
     display: flex;
     justify-content: space-between;
     &.col{
@@ -719,6 +719,34 @@ html,body{
       justify-content: center;
       width: 100%;
       margin-bottom: 10vh;
+    }
+    &.type2 .row{
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 20px;
+      margin-top: 35px;
+      .imgQ{
+        @include size(15);
+        padding-top: 10px;
+        img{
+          border-radius: 15px;
+        }
+      }
+      .right{
+        @include size(8);
+        flex-direction: column;
+        align-items: flex-start;
+        h1{
+          @include size(19);
+          margin-top: 0;
+          text-align: left;
+          margin-bottom: 20px;
+        }
+        label{
+          @include size(21);
+          margin: 0;
+        }
+      }
     }
     h1{
       font-size: 36px;
