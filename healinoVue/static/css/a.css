@@ -3247,7 +3247,7 @@ html, body {
       justify-content: center;
       width: 100%;
       margin-bottom: 10vh; }
-    .themesPageContainer .questionBlock.type2 .row {
+    .themesPageContainer .questionBlock.type2 .row, .themesPageContainer .questionBlock.type4 .row {
       -webkit-box-pack: justify;
       -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
@@ -3255,12 +3255,12 @@ html, body {
       width: 100%;
       margin-bottom: 20px;
       margin-top: 35px; }
-      .themesPageContainer .questionBlock.type2 .row .imgQ {
+      .themesPageContainer .questionBlock.type2 .row .imgQ, .themesPageContainer .questionBlock.type4 .row .imgQ {
         width: calc(62.5% - 5px);
         padding-top: 10px; }
-        .themesPageContainer .questionBlock.type2 .row .imgQ img {
+        .themesPageContainer .questionBlock.type2 .row .imgQ img, .themesPageContainer .questionBlock.type4 .row .imgQ img {
           border-radius: 15px; }
-      .themesPageContainer .questionBlock.type2 .row .right {
+      .themesPageContainer .questionBlock.type2 .row .right, .themesPageContainer .questionBlock.type4 .row .right {
         width: calc(33.33333% - 5px);
         -webkit-box-orient: vertical;
         -webkit-box-direction: normal;
@@ -3271,12 +3271,12 @@ html, body {
         -webkit-align-items: flex-start;
         -ms-flex-align: start;
         align-items: flex-start; }
-        .themesPageContainer .questionBlock.type2 .row .right h1 {
+        .themesPageContainer .questionBlock.type2 .row .right h1, .themesPageContainer .questionBlock.type4 .row .right h1 {
           width: calc(79.16667% - 5px);
           margin-top: 0;
           text-align: left;
           margin-bottom: 20px; }
-        .themesPageContainer .questionBlock.type2 .row .right label {
+        .themesPageContainer .questionBlock.type2 .row .right label, .themesPageContainer .questionBlock.type4 .row .right label {
           width: calc(87.5% - 5px);
           margin: 0; }
     .themesPageContainer .questionBlock.type3 .row {
@@ -3296,6 +3296,58 @@ html, body {
       box-sizing: border-box; }
       .themesPageContainer .questionBlock.type3 .imgAnswer.check {
         border: 3px solid #65d53a; }
+    .themesPageContainer .questionBlock.type4 .row .imgQ {
+      font-size: 36px;
+      background: rgba(250, 247, 247, 0.8);
+      border-radius: 15px;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      padding: 20px; }
+      .themesPageContainer .questionBlock.type4 .row .imgQ h1 {
+        width: calc(100% - 5px);
+        margin-top: 0;
+        margin-bottom: 10px; }
+    .themesPageContainer .questionBlock.type4 .row .right {
+      background: rgba(250, 247, 247, 0.8);
+      border-radius: 15px;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      padding: 20px;
+      width: calc(37.5% - 5px); }
+      .themesPageContainer .questionBlock.type4 .row .right h1 {
+        font-size: 24px;
+        margin-bottom: 45px;
+        margin-top: 5px; }
+      .themesPageContainer .questionBlock.type4 .row .right .answer {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        -webkit-align-content: space-between;
+        -ms-flex-line-pack: justify;
+        align-content: space-between;
+        width: calc(100% - 5px); }
+        .themesPageContainer .questionBlock.type4 .row .right .answer .imgAnswer {
+          width: calc(50% - 5px);
+          height: 140px;
+          margin: 7px 0;
+          border-radius: 15px;
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box; }
+          .themesPageContainer .questionBlock.type4 .row .right .answer .imgAnswer.check {
+            border: 3px solid #6dcf4d; }
     .themesPageContainer .questionBlock h1 {
       font-size: 36px;
       text-align: center;
