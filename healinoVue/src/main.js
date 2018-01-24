@@ -1,5 +1,20 @@
 import Vue from 'vue'
 import App from './App.vue'
+/**
+ * загрузка главных страниц
+ */
+import rezultComponent  from './components/Rezult-component.vue'
+import startComponent  from './components/Start-component.vue'
+import loginComponent  from './components/Login-component.vue'
+import registerComponent  from './components/Register-component.vue'
+import licenseComponent  from './components/License-component.vue'
+import userComponent  from './components/User-component.vue'
+import themeComponent  from './components/Theme-component.vue'
+import questionComponent  from './components/Question-component.vue'
+/**
+ * загрущка малых компонентов
+ * индикаторов
+ */
 import indicatorBF  from './components/indicatorBF.vue'
 import indicatorBMR  from './components/indicatorBMR.vue'
 import indicatorLMP  from './components/indicatorLMP.vue'
@@ -15,6 +30,21 @@ import indicatorCVD10  from './components/indicator-CVD10.vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios);
+/**
+ * загрузка главных страниц
+ */
+Vue.component('rezult-component', rezultComponent);
+Vue.component('start-component', startComponent);
+Vue.component('login-component', loginComponent);
+Vue.component('register-component', registerComponent);
+Vue.component('license-component', licenseComponent);
+Vue.component('user-component', userComponent);
+Vue.component('theme-component', themeComponent);
+Vue.component('question-component', questionComponent);
+/**
+ * загрущка малых компонентов
+ * индикаторов
+ */
 Vue.component('indicator1', indicator1);
 Vue.component('indicatorBF', indicatorBF);
 Vue.component('indicatorBMR', indicatorBMR);
