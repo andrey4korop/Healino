@@ -5,78 +5,56 @@
       <div class="content">
         <div class="mar">
           <div class="themes">
-            <div class="theme check" style="background: url('ststic/img/theme.png')">
+            <!--<div class="theme check" style="background: url('static/img/theme.png')">
 
               <div class="filter">
                 <img src="static/img/mark.png" alt="">
                 <button>VIEW RESULT</button>
               </div>
             </div>
-            <div class="theme" style="background: url('ststic/img/theme.png')">
+            <div class="theme" style="background: url('static/img/theme.png')">
 
               <div class="filter">
                 <img src="static/img/mark.png" alt="">
                 <button>VIEW RESULT</button>
               </div>
             </div>
-            <div class="theme active" style="background: url('ststic/img/theme.png')">
+            <div class="theme active" style="background: url('static/img/theme.png')">
+              <div class="filter">margin-rigth: 3px
+                <img src="static/img/mark.png" alt="">
+                <button>VIEW RESULT</button>
+              </div>
+            </div>
+            <div class="theme disable" style="background: url('static/img/theme.png')">
 
               <div class="filter">
                 <img src="static/img/mark.png" alt="">
                 <button>VIEW RESULT</button>
               </div>
-            </div>
-            <div class="theme disable" style="background: url('ststic/img/theme.png')">
+            </div>-->
 
-              <div class="filter">
+
+
+
+            <div class="theme" v-for="list in List"
+                 v-on:click.prevent="changeActive(list)"
+                 v-bind:style="{background: 'url(' + list.ImageUrl + ') center center / cover' }"
+                 v-bind:class="[(list.ThemeStatus=='2') ? 'disable' : '', (list.ThemeStatus=='1') ? 'check' : '', (isActive(list.Id)) ? 'active' : '' ]" >
+              <div class="filter" v-on:click="changeActive(list)">
                 <img src="static/img/mark.png" alt="">
-                <button>VIEW RESULT</button>
+                <button v-on:click.prevent="getRezult(list)">VIEW RESULT</button>
               </div>
             </div>
-            <div class="theme disable" style="background: url('ststic/img/theme.png')">
 
-              <div class="filter">
-                <img src="static/img/mark.png" alt="">
-                <button>VIEW RESULT</button>
-              </div>
-            </div>
-            <div class="theme disable" style="background: url('ststic/img/theme.png')">
-
-              <div class="filter">
-                <img src="static/img/mark.png" alt="">
-                <button>VIEW RESULT</button>
-              </div>
-            </div>
-            <div class="theme disable" style="background: url('ststic/img/theme.png')">
-
-              <div class="filter">
-                <img src="static/img/mark.png" alt="">
-                <button>VIEW RESULT</button>
-              </div>
-            </div>
-            <div class="theme disable" style="background: url('ststic/img/theme.png')">
-
-              <div class="filter">
-                <img src="static/img/mark.png" alt="">
-                <button>VIEW RESULT</button>
-              </div>
-            </div>
-            <div class="theme disable" style="background: url('ststic/img/theme.png')">
-
-              <div class="filter">
-                <img src="static/img/mark.png" alt="">
-                <button>VIEW RESULT</button>
-              </div>
-            </div>
           </div>
         </div>
         <div class="description">
-          <h1>Them Name</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium atque consequuntur corporis culpa, eius facere iusto laudantium molestias nam natus nemo omnis </p>
-          <h4>Lorem ipsum dolor sit amet.</h4>
+          <h1>{{Title}}</h1>
+          <p>{{Description}} </p>
+          <!--<h4>Lorem ipsum dolor sit amet.</h4>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid animi asperiores cumque dicta
             dignissimos distinctio eius esse, id illo numquam omnis perferendis provident quod repellendus sequi
-            veritatis?</p>
+            veritatis?</p>-->
         </div>
       </div>
       <div class="green">
@@ -90,18 +68,72 @@
 
 <script>
     export default {
-        //name: 'app',
+        props: ['SessionData'],
         data () {
             return {
-
+                activeId:0,
+                Description:"",
+                Title:"",
+                List: [
+                    {
+                        Description: "",
+                        Id: 0,
+                        ImageUrl:"",
+                        QuestionsFinished: 0,
+                        QuestionsTotal: 0,
+                        ThemeStatus: 0,
+                        Title: "",
+                    }
+                ]
 
             }
         },
         computed: {
+            body: function () {
+                return {
+                    SessionData: this.SessionData,
+                }
+            },
 
         },
         created: function() {
-
+            let t = this;
+            $.post( 'http://healino-api.azurewebsites.net/api/Theme/GetAllThemes',  this.body  )
+                .done(function( data ){
+                    t.List = data.List;
+                    console.log(data)
+                });
+        },
+        methods: {
+            changeActive: function (list) {
+                console.log('1111111111111111111111111111111111');
+                if(list.ThemeStatus == 0 || list.ThemeStatus == 1 || list.ThemeStatus == 2 ) {
+                    this.activeId = list.Id;
+                    this.Description = list.Description;
+                    this.Title = list.Title;
+                }
+            },
+            isActive: function (id) {
+                //console.log(id);
+                if(this.activeId == id){
+                    return true;
+                }else {
+                    return false;
+                }
+            },
+            getRezult:function (list) {
+                $.post( 'http://healino-api.azurewebsites.net/api/Theme/GetThemeTestResult',  this.bodyForResult(list)  )
+                    .done(function( data ){
+                        //t.List = data.List;
+                        console.log(data)
+                    });
+            },
+            bodyForResult: function (list) {
+                return {
+                    SessionData: this.SessionData,
+                    Argument: list.Id,
+                }
+            },
         }
     }
 </script>

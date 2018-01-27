@@ -18,17 +18,17 @@
         </div>
         <div class="row checkb">
           <label class="pointer">
-            <input type="checkbox">
+            <input type="checkbox" v-model="check1">
             <span class="checkbox"><i class="fa fa-check" aria-hidden="true"></i></span><span>Accept our privacy policy</span></label>
           <label class="pointer">
-            <input type="checkbox">
+            <input type="checkbox" v-model="check2">
             <span class="checkbox"><i class="fa fa-check" aria-hidden="true"></i></span><span>Accept our privacy policy</span></label>
           <label class="pointer">
-            <input type="checkbox">
+            <input type="checkbox" v-model="check3">
             <span class="checkbox"><i class="fa fa-check" aria-hidden="true"></i></span><span>Accept our privacy policy</span></label>
         </div>
         <div class="licensePage">
-          <button>LOGIN</button>
+          <button v-on:click="next()">ACCEPT</button>
         </div>
       </div>
 
@@ -42,12 +42,21 @@
         //name: 'app',
         data () {
             return {
-
+                check1:false,
+                check2:false,
+                check3:false
 
             }
         },
         computed: {
 
+        },
+        methods: {
+            next: function () {
+                if(this.check1 && this.check2 && this.check3 && true){
+                    this.$emit('onToUser')
+                }
+            }
         },
         created: function() {
 
