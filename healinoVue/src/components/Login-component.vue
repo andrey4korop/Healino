@@ -17,6 +17,9 @@
           <span class="check" v-bind:class="(showLoadEmail) ? 'loading': ''" v-if="showCheckEmail">
             <i class="fa fa-check" aria-hidden="true"></i>
           </span>
+          <span class="check" v-bind:class="(errorEmail) ? 'error' : ''" v-if="errorEmail">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </span>
         </label>
         <label>
           <p><span>*</span>Password</p>
@@ -25,11 +28,17 @@
           <span class="check" v-bind:class="(showLoadPass) ? 'loading': ''" v-if="showCheckPass">
             <i class="fa fa-check" aria-hidden="true"></i>
           </span>
+          <span class="check" v-bind:class="(errorPass) ? 'error' : ''" v-if="errorPass">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </span>
         </label>
         <label class="pointer">
           <p>Forgot password?</p>
           <input type="checkbox" v-model="remember">
-          <span class="checkbox"><i class="fa fa-check" aria-hidden="true"></i></span><span>Remember me</span></label>
+          <span class="checkbox">
+            <i class="fa fa-check" aria-hidden="true"></i>
+          </span>
+          <span>Remember me</span></label>
         <div class="firstPage">
           <button v-on:click.prevent="send">LOGIN</button>
         </div>
@@ -56,8 +65,10 @@ if (!r.test(document.forma.email.value) {
 
                 showCheckEmail: false,
                 showLoadEmail: true,
+                errorEmail: false,
                 showCheckPass: false,
                 showLoadPass: true,
+                errorPass: false
             }
         },
         computed: {
@@ -93,6 +104,9 @@ if (!r.test(document.forma.email.value) {
                               remember:t.remember
                           };
                           t.$emit('logined', temp);
+                      }else if(data.ErrorCode==5 || data.DebagMessage=="User not found. User name or password are not corect"){
+                          t.showCheckPass = false;
+                          t.errorPass = true;
                       }
                   })
                   .fail(function() {
@@ -126,6 +140,7 @@ if (!r.test(document.forma.email.value) {
                 console.log(t);
                 this.showCheckPass = true;
                 this.showLoadPass =true;
+                t.errorPass = false;
                 setTimeout( function () {
                     t.showLoadPass = false;
                     var r = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}/g;
