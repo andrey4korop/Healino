@@ -37,7 +37,7 @@
 
 
             <div class="theme" v-for="list in List"
-                 v-on:click.prevent="changeActive(list)"
+                 c
                  v-bind:style="{background: 'url(' + list.ImageUrl + ') center center / cover' }"
                  v-bind:class="[(list.ThemeStatus=='3') ? 'disable' : '', (list.ThemeStatus=='2') ? 'check' : '', (isActive(list.Id)) ? 'active' : '' ]" >
               <div class="filter" v-on:click="changeActive(list)">

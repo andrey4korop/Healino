@@ -10,6 +10,8 @@
                        :questionData="questionData" @changeVal="changeVal"></questionType0>
         <questionType2 v-if="getType()==2"
                 :questionData="questionData" @changeVal="changeVal"></questionType2>
+        <questionType1 v-if="getType()==1"
+                       :questionData="questionData" @changeVal="changeVal"></questionType1>
       </div>
       <div class="green">
         <button>BACK</button>
@@ -63,6 +65,7 @@
                 this.AnswerValue= newVal.AnswerValue;
             },
             nextQuestion(){
+
               this.$emit('nextQuestion', this.body);
             }
         }
