@@ -39,7 +39,8 @@
                         :SessionData="SessionData"
                         @nextQuestion="nextQuestion"></question-component>
 
-    <rezult-component v-else-if="state == 'rezult'"></rezult-component>
+    <rezult-component v-else-if="state == 'rezult'"
+                      :rezultData="rezultData"></rezult-component>
   </div>
 </template>
 
@@ -49,6 +50,7 @@ export default {
    data () {
     return {
         List:[],
+        rezultData:{},
         userData:{},
         themeActive:0,
         lang:'ru',
@@ -169,9 +171,13 @@ export default {
                     console.log("done" );
                     if(data.ErrorCode==1){
                         //t.toQuestion(this.themeActive);
-
-                        t.questionData = data;
-                        t.state = "question";
+                        if(data.IsFinished){
+                            t.rezultData= data;
+                            t.state = "rezult";
+                        }else {
+                            t.questionData = data;
+                            t.state = "question";
+                        }
                     }else{
                         console.log("error from server" );
                     }

@@ -91,7 +91,7 @@
 
 <script>
     export default {
-        //name: 'app',
+        props:['rezultData'],
         data () {
             return {
                 temp:'',
@@ -128,9 +128,9 @@
         computed: {
             getTemp: function () {
                 if(!this.temp){
-                    this.axios.get('http://healinoapicloudservice.azurewebsites.net/api/TestData/GetTestResult').then((response) => {
-                        this.temp = response.data;
-                    })
+
+                        this.temp = rezultData;
+
                 }
                 return this.LMPCategoryScale;//this.temp;
             },
@@ -142,22 +142,21 @@
             }
         },
         created: function() {
-            this.axios.get('http://healinoapicloudservice.azurewebsites.net/api/TestData/GetTestResult').then((response) => {
-                console.log(response.data);
+
                 //console.log(this.$data);
-                this.$data.BMI = response.data.BMI;
-                this.$data.BioMentalAge = response.data.BioMentalAge;
-                this.$data.DaylyCallorie = response.data.DaylyCallorie;
-                this.$data.CallorieScale = response.data.CallorieScale;
-                this.$data.LMP = response.data.LMP;
-                this.$data.LMPCategoryScale = response.data.LMPCategoryScale;
-                this.$data.RASCVD = response.data.RASCVD;
-                this.$data.TenYearsASCVD = response.data.TenYearsASCVD;
-                this.$data.BFP = response.data.BFP;
-                this.$data.BMR = response.data.BMR;
-                this.$data.FM = response.data.FM;
-                this.$data.WHRatio = response.data.WHRatio;
-            })
+                this.BMI = rezultData.BMI;
+                this.BioMentalAge = rezultData.BioMentalAge;
+                this.DaylyCallorie = rezultData.DaylyCallorie;
+                this.CallorieScale = rezultData.CallorieScale;
+                this.LMP = rezultData.LMP;
+                this.LMPCategoryScale = rezultData.LMPCategoryScale;
+                this.RASCVD = rezultData.RASCVD;
+                this.TenYearsASCVD = rezultData.TenYearsASCVD;
+                this.BFP = rezultData.BFP;
+                this.BMR = rezultData.BMR;
+                this.FM = rezultData.FM;
+                this.WHRatio = rezultData.WHRatio;
+
         }
     }
 </script>
