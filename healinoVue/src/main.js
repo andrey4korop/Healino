@@ -27,6 +27,8 @@ import indicatorMentalAge  from './components/indicator-Mental-age.vue'
 import indicatorCVD5  from './components/indicator-CVD5.vue'
 import indicatorCVD15  from './components/indicator-CVD15.vue'
 import indicatorCVD10  from './components/indicator-CVD10.vue'
+import questionType0  from './components/questionType0.vue'
+import questionType2  from './components/questionType2.vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios);
@@ -57,6 +59,8 @@ Vue.component('indicator-Mental-age', indicatorMentalAge);
 Vue.component('indicator-CVD5', indicatorCVD5);
 Vue.component('indicator-CVD15', indicatorCVD15);
 Vue.component('indicator-CVD10', indicatorCVD10);
+Vue.component('questionType0', questionType0);
+Vue.component('questionType2', questionType2);
 
 new Vue({
   el: '#app',

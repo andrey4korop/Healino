@@ -58,7 +58,7 @@
         </div>
       </div>
       <div class="green">
-        <button>START</button>
+        <button v-on:click="$emit('toQuestion', activeId)">START</button>
       </div>
     </div>
 
@@ -106,11 +106,12 @@
         },
         methods: {
             changeActive: function (list) {
-                console.log('1111111111111111111111111111111111');
+                console.log('changeActive');
                 if(list.ThemeStatus == 0 || list.ThemeStatus == 1 || list.ThemeStatus == 2 ) {
                     this.activeId = list.Id;
                     this.Description = list.Description;
                     this.Title = list.Title;
+                    this.$emit('chAc', list.Id);
                 }
             },
             isActive: function (id) {

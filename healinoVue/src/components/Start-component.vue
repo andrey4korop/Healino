@@ -31,11 +31,11 @@
     <div class="row">
       <div class="firstPage">
         <button  v-on:click.prevent="$emit('onRegister')"
-                 v-if="SessionData==''">SING IN</button>
+                 v-if="!SessionData">SING IN</button>
         <button  v-on:click.prevent="$emit('onLogin')"
-                 v-if="SessionData==''">LOGIN</button>
+                 v-if="!SessionData">LOGIN</button>
         <button  v-on:click.prevent="$emit('onUser')"
-                 v-if="SessionData!=''">START</button>
+                 v-if="SessionData">START</button>
 
       </div>
     </div>

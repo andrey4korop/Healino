@@ -122,7 +122,7 @@
 
 <script>
     export default {
-        props: ['SessionData'],
+        props: ['SessionData', 'userData'],
         data () {
             return {
                 Name:"",
@@ -169,27 +169,31 @@
 
         },
         created: function() {
-            this.Birthday = this.birth();
-            let t = this;
-            $.post( 'http://healino-api.azurewebsites.net/api/Account/GetUserProfile',  this.bodyGet  )
-                .done(function( data ){
+            //this.Birthday = this.birth();
+           // let t = this;
+           // console.log('getUser');
+           // $.post( 'http://healino-api.azurewebsites.net/api/Account/GetUserProfile',  this.bodyGet  )
+                //.done(function( data ){
                     //if(data.ErrorCode==1 || data.UserId != null){
-                    t.Name = data.Name;
-                    t.SurName = data.SurName;
-                    t.Birthday = t.birth(data.Birthday);
-                    t.Location = data.Location;
-                    t.Race = data.Race;
-                    t.Phone = data.Phone;
-                    t.Height = data.Height;
-                    t.HeightAdditional = data.HeightAdditional;
-                    t.Weight = data.Weight;
-                    t.WeightAdditional = data.WeightAdditional;
-                    t.Activity = data.Activity;
-                    t.Gender = data.Gender;
-                    t.PersonMeasurementSystem = data.PersonMeasurementSystem;
-                       console.log(data);
-                    //}
-                });
+                      this.Name = this.userData.Name;
+                      this.SurName = this.userData.SurName;
+                      this.Birthday = this.birth(this.userData.Birthday);
+                      this.Location = this.userData.Location;
+                      this.Race = this.userData.Race;
+                      this.Phone = this.userData.Phone;
+                      this.Height = this.userData.Height;
+                      this.HeightAdditional = this.userData.HeightAdditional;
+                      this.Weight = this.userData.Weight;
+                      this.WeightAdditional = this.userData.WeightAdditional;
+                      this.Activity = this.userData.Activity;
+                      this.Gender = this.userData.Gender;
+                      this.PersonMeasurementSystem = this.userData.PersonMeasurementSystem;
+                        // console.log(data);
+                  //  }
+               // })
+               // .fail(function() {
+               //     console.log("error" );
+              //  });
         },
         methods: {
             birth:function(strDate){

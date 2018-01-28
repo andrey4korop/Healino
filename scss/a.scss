@@ -47,6 +47,21 @@ html,body{
   @include size(8);
   //margin-top: 225px;
 }
+.loading{
+  background: url("../img/loadIcon.png") no-repeat !important;
+  background-size: contain !important;
+  animation: rotate 1s infinite linear;
+  border: none !important;
+}
+@keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
 .langs {
   @include size(6);
   @include row-flex();
@@ -298,6 +313,12 @@ html,body{
       position: absolute;
       top: 37px;
       right: 10px;
+      background: url("../img/eye_grey.png") no-repeat;
+      background-size: contain;
+      &.active{
+        background: url("../img/eye_g.png") no-repeat;
+        background-size: contain;
+      }
     }
     p{
       color: #c2c2c2;
@@ -879,7 +900,7 @@ html,body{
 
       }
     }
-    select, option{
+    select, option, input{
       @include size(24);
       height: 35px;
       font-size: 16px;
@@ -911,6 +932,9 @@ html,body{
       &:focus, &:hover{
         outline: none;
       }
+    }
+    input{
+      background: #fffffe;
     }
   }
 
