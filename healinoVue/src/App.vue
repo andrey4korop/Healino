@@ -31,6 +31,7 @@
                     @toTheme="toTheme"></user-component>
     <theme-component v-if="state == 'theme'"
                      :SessionData="SessionData"
+                     :List="List"
                      @toQuestion="toQuestion"
                      @chAc="chAc"></theme-component>
     <question-component v-if="state == 'question'"
@@ -47,6 +48,7 @@ export default {
   name: 'app',
    data () {
     return {
+        List:[],
         userData:{},
         themeActive:0,
         lang:'ru',
@@ -128,7 +130,14 @@ export default {
             this.isFirst();
         },
         toTheme(){
-            this.state = "theme"
+            let t = this;
+            $.post( 'http://healino-api.azurewebsites.net/api/Theme/GetAllThemes',  this.bodyGet  )
+                .done(function( data ){
+                    t.List = data.List;
+                    console.log(data);
+                    t.state = "theme";
+                });
+
         },
         toQuestion(id){
             let body ={

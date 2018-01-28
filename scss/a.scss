@@ -52,6 +52,13 @@ html,body{
   background-size: contain !important;
   animation: rotate 1s infinite linear;
   border: none !important;
+  i{
+    display: none;
+  }
+}
+.error{
+  background: red !important;
+  border: 3px solid red !important;
 }
 @keyframes rotate {
   0% {

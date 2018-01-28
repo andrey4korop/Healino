@@ -2493,6 +2493,12 @@ html, body {
   -webkit-animation: rotate 1s infinite linear;
   animation: rotate 1s infinite linear;
   border: none !important; }
+  .loading i {
+    display: none; }
+
+.error {
+  background: red !important;
+  border: 3px solid red !important; }
 
 @-webkit-keyframes rotate {
   0% {

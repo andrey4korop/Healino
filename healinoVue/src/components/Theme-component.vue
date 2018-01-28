@@ -39,7 +39,7 @@
             <div class="theme" v-for="list in List"
                  v-on:click.prevent="changeActive(list)"
                  v-bind:style="{background: 'url(' + list.ImageUrl + ') center center / cover' }"
-                 v-bind:class="[(list.ThemeStatus=='2') ? 'disable' : '', (list.ThemeStatus=='1') ? 'check' : '', (isActive(list.Id)) ? 'active' : '' ]" >
+                 v-bind:class="[(list.ThemeStatus=='3') ? 'disable' : '', (list.ThemeStatus=='2') ? 'check' : '', (isActive(list.Id)) ? 'active' : '' ]" >
               <div class="filter" v-on:click="changeActive(list)">
                 <img src="static/img/mark.png" alt="">
                 <button v-on:click.prevent="getRezult(list)">VIEW RESULT</button>
@@ -68,13 +68,13 @@
 
 <script>
     export default {
-        props: ['SessionData'],
+        props: ['SessionData', 'List'],
         data () {
             return {
                 activeId:0,
                 Description:"",
                 Title:"",
-                List: [
+                /*List: [
                     {
                         Description: "",
                         Id: 0,
@@ -84,7 +84,7 @@
                         ThemeStatus: 0,
                         Title: "",
                     }
-                ]
+                ]*/
 
             }
         },
@@ -97,12 +97,12 @@
 
         },
         created: function() {
-            let t = this;
+           /* let t = this;
             $.post( 'http://healino-api.azurewebsites.net/api/Theme/GetAllThemes',  this.body  )
                 .done(function( data ){
                     t.List = data.List;
                     console.log(data)
-                });
+                });*/
         },
         methods: {
             changeActive: function (list) {

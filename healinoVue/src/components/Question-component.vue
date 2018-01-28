@@ -40,15 +40,10 @@
         },
         computed: {
             body: function () {
-                let v;
-                if(this.questionData.UsetThemeTestId){
-                    v=this.questionData.UsetThemeTestId;
-                }else {
-                    v=this.questionData.UserThemeTestId;
-                }
+
                 return {
                     SessionData: this.SessionData,
-                    UserThemeTestId: v,
+                    UserThemeTestId: this.questionData.UserThemeTestId,
                     QuestionId: this.QuestionId,
                     AnswersId: this.AnswersId,
                     AnswerValue: this.AnswerValue,
