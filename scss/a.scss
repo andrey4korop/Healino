@@ -4,8 +4,7 @@
 @include reset();
 
 html,body{
-  background: url("../img/bg.png") repeat;
-  background-size: cover;
+
   font-family: 'Open Sans', sans-serif;
   font-size: 12px;
   color: #fff;
@@ -19,14 +18,78 @@ html,body{
   height: 100%;
   z-index: 0;
 }
-.layer1{background:url(../img/paralax1.png) no-repeat ;background-size: 100%;}
-.layer2{background:url(../img/paralax2.png) no-repeat ;background-size: 100%;left: -50px;}
-.layer3{background:url(../img/paralax3.png) no-repeat ;background-size: 100%; top: -300px}
-.layer4{background:url(../img/paralax4.png) no-repeat ;background-size: 100%; top: -350px}
+.main1{
+  background: url("../img/bg.png") no-repeat;
+  background-size: cover;
+}
+
+.main2{
+  background: url("../img/bg2.png") no-repeat;
+  background-size: cover;
+}
+
+.main3{
+  background: url("../img/bg3.png") no-repeat;
+  background-size: cover;
+}
+
+.main4{
+  background: url("../img/bg4.png") no-repeat;
+  background-size: cover;
+}
+
+.main5{
+  background: url("../img/bg5.png") no-repeat;
+  background-size: cover;
+}
+.layer1{background:url(../img/paralax1.png) no-repeat ;background-size: cover;}
+.layer2{background:url(../img/paralax2.png) no-repeat ;background-size: cover;left: -50px;}
+.layer3{background:url(../img/paralax3.png) no-repeat ;background-size: cover; top: -300px}
+.layer4{background:url(../img/paralax4.png) no-repeat ;background-size: cover; top: -350px}
 .layer5{background:url(../img/paralax5.png) no-repeat ;background-size: cover; bottom: 0}
 .layer8{background:url(../img/paralax8.png) no-repeat ;background-size: cover; bottom: 0}
-.layer6{background:url(../img/paralax6.png) no-repeat ;background-size: 100%; top: 400px; left: 200px}
-.layer7{background:url(../img/paralax7.png) no-repeat ;background-size: 100%; top: 400px; left: 50px}
+.layer6{background:url(../img/paralax6.png) no-repeat ;background-size: cover; top: 400px; left: 200px}
+.layer7{background:url(../img/paralax7.png) no-repeat ;background-size: cover; top: 400px; left: 50px}
+.layer8{background:url(../img/paralax8.png) no-repeat ;background-size: cover;}
+
+.layer9{background:url(../img/paralax9.png) no-repeat ;background-size: cover; top:0}
+.layer10{background:url(../img/paralax10.png) no-repeat ;background-size: cover;top:0}
+.layer11{background:url(../img/paralax11.png) no-repeat ;background-size: cover;top:0}
+.layer12{background:url(../img/paralax12.png) no-repeat ;background-size: cover;top:0 }
+.layer13{background:url(../img/paralax13.png) no-repeat ;background-size: cover;top:0 }
+.layer14{background:url(../img/paralax14.png) no-repeat ;background-size: cover;top:0 }
+.layer15{background:url(../img/paralax15.png) no-repeat ;background-size: cover;top:0 }
+.layer16{background:url(../img/paralax16.png) no-repeat ;background-size: cover;top:0 }
+.layer17{background:url(../img/paralax17.png) no-repeat ;background-size: cover;top:0}
+
+
+.layer18{background:url(../img/paralax18.png) no-repeat ;background-size: cover;top:0}
+.layer19{background:url(../img/paralax19.png) no-repeat ;background-size: cover;top:0}
+.layer20{background:url(../img/paralax20.png) no-repeat ;background-size: cover;top:0}
+.layer21{background:url(../img/paralax21.png) no-repeat ;background-size: cover;top:0}
+.layer22{background:url(../img/paralax22.png) no-repeat ;background-size: cover;top:0}
+.layer23{background:url(../img/paralax23.png) no-repeat ;background-size: cover;top:0}
+.layer24{background:url(../img/paralax24.png) no-repeat ;background-size: cover;top:0}
+.layer25{background:url(../img/paralax25.png) no-repeat ;background-size: cover;top:0}
+.layer26{background:url(../img/paralax26.png) no-repeat ;background-size: cover;top:0}
+
+
+.layer27{background:url(../img/paralax27.png) no-repeat ;background-size: cover; top:0}
+.layer28{background:url(../img/paralax28.png) no-repeat ;background-size: cover; top:0}
+.layer29{background:url(../img/paralax29.png) no-repeat ;background-size: cover; top:0}
+.layer30{background:url(../img/paralax30.png) no-repeat ;background-size: cover; top:0}
+.layer31{background:url(../img/paralax31.png) no-repeat ;background-size: cover; top:0}
+
+
+.layer32{background:url(../img/paralax32.png) no-repeat ;background-size: cover;top:0}
+.layer33{background:url(../img/paralax33.png) no-repeat ;background-size: cover;top:0}
+.layer34{background:url(../img/paralax34.png) no-repeat ;background-size: cover;top:0}
+.layer35{background:url(../img/paralax35.png) no-repeat ;background-size: cover;top:0}
+.layer36{background:url(../img/paralax36.png) no-repeat ;background-size: cover;top:0}
+.layer37{background:url(../img/paralax37.png) no-repeat ;background-size: cover;top:0}
+.layer38{background:url(../img/paralax38.png) no-repeat ;background-size: cover;top:0}
+.layer39{background:url(../img/paralax39.png) no-repeat ;background-size: cover;top:0}
+.layer40{background:url(../img/paralax40.png) no-repeat ;background-size: cover;top:0}
 
 .container{
   @include wrapper();
@@ -937,13 +1000,13 @@ html,body{
       flex-direction: column;
       align-items: center;
       background: rgba(250, 247, 247, 0.8);
-      @include size-sm(22)
+      @include size-sm(22);
     }
   }
   .mar{
     padding: 15px 0;
     @include size(16);
-    @include sm(min-width, calc(100% - 5px));
+    @include sm(min-width, calc(90% - 5px));
     background: rgba(250, 247, 247, 0.8);
     border-radius: 15px;
     max-height: 430px;
@@ -1234,8 +1297,8 @@ html,body{
       @include size(8);
       //@include size-sm(12);
       height: 200px;
-      @include sm(height, 35vw);
-      @include sm(width, 35vw);
+      @include sm(height, 32vw);
+      @include sm(width, 32vw);
       border-radius: 15px;
       margin-bottom: 10px;
       position: relative;
@@ -1298,7 +1361,7 @@ html,body{
     border-radius: 15px;
     padding: 20px;
     @include size(7);
-    @include md(min-width, calc(100% - 5px));
+    @include md(min-width, calc(90% - 5px));
     @include md(margin, 0 20px);
     color: #555555;
     box-sizing: border-box;

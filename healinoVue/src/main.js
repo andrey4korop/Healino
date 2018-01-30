@@ -30,6 +30,12 @@ import indicatorCVD10  from './components/indicator-CVD10.vue'
 import questionType0  from './components/questionType0.vue'
 import questionType1  from './components/questionType1.vue'
 import questionType2  from './components/questionType2.vue'
+import background  from './components/background.vue'
+import bg1  from './components/bg1.vue'
+import bg2  from './components/bg2.vue'
+import bg3  from './components/bg3.vue'
+import bg4  from './components/bg4.vue'
+import bg5  from './components/bg5.vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios);
@@ -63,6 +69,12 @@ Vue.component('indicator-CVD10', indicatorCVD10);
 Vue.component('questionType0', questionType0);
 Vue.component('questionType1', questionType1);
 Vue.component('questionType2', questionType2);
+Vue.component('background', background);
+Vue.component('bg1', bg1);
+Vue.component('bg2', bg2);
+Vue.component('bg3', bg3);
+Vue.component('bg4', bg4);
+Vue.component('bg5', bg5);
 
 new Vue({
   el: '#app',

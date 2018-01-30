@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <background :backgr="backgr"></background>
     <!--<div class="p layer1"></div>
     <div class="p layer2"></div>
     <div class="p layer3"></div>
@@ -49,6 +50,7 @@ export default {
   name: 'app',
    data () {
     return {
+        backgr:1,
         List:[],
         rezultData:{},
         userData:{},
@@ -89,7 +91,20 @@ export default {
             }
         },
     },
+    watch: {
+        state:function () {
+            this.backgr = this.newBackground(this.backgr);
+        },
+    },
     methods:{
+      newBackground:function (val) {
+          let v = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
+          if(v != val){
+              return v;
+          }else{
+              return this.newBackground(val);
+          }
+      },
         changeLang: function (newLang) {
             this.lang = newLang;
             setCookie('lang', this.lang, {
