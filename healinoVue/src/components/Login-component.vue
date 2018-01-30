@@ -39,10 +39,15 @@
             <i class="fa fa-check" aria-hidden="true"></i>
           </span>
           <span>Remember me</span></label>
-        <div class="firstPage">
+        <div class="firstPage  pc">
           <button v-on:click.prevent="send">LOGIN</button>
         </div>
       </form>
+      <div class="row sm">
+        <div class="firstPage">
+          <button v-on:click.prevent="send">LOGIN</button>
+        </div>
+      </div>
     </div>
   </div>
 

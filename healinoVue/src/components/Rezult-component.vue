@@ -1,6 +1,6 @@
 <template>
-
-    <div class="container">
+<div>
+    <div class="container pc">
       <div class="row">
         <div class="avatar">
           <img src="static/img/userAvatar.png" alt="">
@@ -86,6 +86,90 @@
         <img src="static/img/active 150x45.png" alt="">
       </div>
     </div>
+
+
+  <div class="containerMob sm">
+    <div class="pos1">
+      <indicator2 :DaylyCallorie="DaylyCallorie" :CallorieScale="CallorieScale"></indicator2>
+    </div>
+    <div class="pos2">
+      <div class="indicators">
+        <div class="title_indicator">
+          <p>BMI</p>
+          <p>(body mass index)</p>
+        </div>
+        <div class="indicator">
+          <div class="progress_bar4">
+            <div class="cursor"></div>
+            <div class="text_indicator">
+              <p class="big">{{BMI}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pos3">
+      <div class="avatar">
+        <img src="static/img/userAvatar.png" alt="">
+      </div>
+    </div>
+
+    <div class="pos4">
+      <div class="indicators">
+        <div class="title_indicator">
+          <p class="age">Real Age</p>
+        </div>
+        <div class="indicator">
+          <div class="row_indicator">
+            <indicator-real-age :BioMentalAge="BioMentalAge"></indicator-real-age>
+          </div>
+          <div class="row_indicator">
+            <indicator-Chronologi-age :BioMentalAge="BioMentalAge"></indicator-Chronologi-age>
+            <indicator-Mental-age :BioMentalAge="BioMentalAge"></indicator-Mental-age>
+          </div>
+        </div>
+        <div class="info_indicator">
+          <p>({{BioMentalAge.BiologicalAge}}) biological (body) age</p>
+          <p>({{BioMentalAge.ChronologicalAge}}) chronological age</p>
+          <p>({{BioMentalAge.MentalAge}}) mental age</p>
+        </div>
+      </div>
+    </div>
+    <div class="pos5">
+      <div class="indicators">
+        <div class="title_indicator">
+          <p class="cvd">CVD</p>
+        </div>
+        <div class="indicator">
+          <div class="row_indicator">
+            <indicator-CVD10 :RASCVD="RASCVD"></indicator-CVD10>
+          </div>
+          <div class="row_indicator">
+            <indicator-CVD5 :TenYearsASCVD="TenYearsASCVD"></indicator-CVD5>
+            <indicator-CVD15 :TenYearsASCVD="TenYearsASCVD"></indicator-CVD15>
+          </div>
+        </div>
+        <div class="info_indicator_top">
+          <p class="cvd">82%</p>
+          <p>RISK</p>
+        </div>
+      </div>
+    </div>
+    <div class="pos6">
+
+
+      <indicatorBF :BFP="BFP"></indicatorBF>
+      <indicatorBMR :BMR="BMR"></indicatorBMR>
+      <indicator1 :FM="FM"></indicator1>
+    </div>
+    <div class="pos7">
+      <indicatorLMP :LMP="LMP" :LMPCategoryScale="LMPCategoryScale"></indicatorLMP>
+    </div>
+    <div class="pos8">
+      <indicatorWHR :WHRatio="WHRatio"></indicatorWHR>
+    </div>
+  </div>
+</div>
 
 </template>
 

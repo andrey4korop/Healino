@@ -29,7 +29,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="firstPage">
+      <div class="firstPage pc_sm">
         <button  v-on:click.prevent="$emit('onRegister')"
                  v-if="!SessionData">SING IN</button>
         <button  v-on:click.prevent="$emit('onLogin')"

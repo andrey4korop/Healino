@@ -1,6 +1,25 @@
 <template>
 
   <div class="container themesPageContainer">
+    <div class="header">
+      <div class="headerContainer">
+        <a href="/" class="logo_head"><img src="static/img/logoHeader.png" alt="" class=""></a>
+        <a href="/" class="logo_head m"><img src="static/img/logoM.png" alt="" class=""></a>
+        <a href="/">Home</a>
+        <a href="/">Forum</a>
+        <h3>77%</h3>
+        <div class="lang">
+          <img src="static/img/langUA.png" alt="" class="">
+          <ul>
+            <li><img src="static/img/langPL.png" alt=""></li>
+            <li><img src="static/img/langUSA.png" alt=""></li>
+            <li><img src="static/img/langUA.png" alt=""></li>
+          </ul>
+        </div>
+
+        <img src="static/img/userAvatar.png" alt="" class="user_Avatar">
+      </div>
+    </div>
     <div class="row">
       <div class="content col">
         <div class="progressBarTheme">

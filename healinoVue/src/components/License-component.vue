@@ -31,7 +31,9 @@
           <button v-on:click="next()">ACCEPT</button>
         </div>
       </div>
-
+      <div class="licensePage sm">
+        <button v-on:click="next()">ACCEPT</button>
+      </div>
     </div>
   </div>
 
@@ -45,7 +47,6 @@
                 check1:false,
                 check2:false,
                 check3:false
-
             }
         },
         computed: {

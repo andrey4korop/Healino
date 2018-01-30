@@ -3,8 +3,10 @@
     <div class="progress_bar2">
       <div class="cursor"
            v-bind:style="{ transform: 'rotate(' + TenYearsASCVD.Optimal *3.6 + 'deg)' }"></div>
+      <div class="text_indicatition">
       <p class="big">{{TenYearsASCVD.Optimal}}%</p>
       <p>15 years</p>
+      </div>
     </div>
   </div>
   </div>
@@ -83,7 +85,7 @@ export default {
        }
     },
   created: function() {
-      setTimeout(this.start, 10);
+      this.start();
 
     }
 }

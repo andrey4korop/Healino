@@ -88,7 +88,7 @@ export default {
        }
     },
   created: function() {
-      setTimeout(this.start, 1000);
+      this.start();
 
     }
 }

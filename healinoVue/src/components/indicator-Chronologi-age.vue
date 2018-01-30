@@ -2,8 +2,10 @@
   <div class="mini_indicator mini_indicator2">
     <div class="progress_bar2">
       <div class="cursor" v-bind:style="{ transform: 'rotate(' + BioMentalAge.ChronologicalAge *3.6 + 'deg)' }"></div>
+      <div class="text_indicatition">
       <p class="big">{{BioMentalAge.ChronologicalAge}}</p>
       <p>years</p>
+      </div>
     </div>
   </div>
 </template>
@@ -81,7 +83,7 @@ export default {
        }
     },
   created: function() {
-      setTimeout(this.start, 10);
+      this.start();
 
     }
 }

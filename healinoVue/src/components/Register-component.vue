@@ -38,10 +38,15 @@
 
           <input type="checkbox">
           <span class="checkbox"><i class="fa fa-check" aria-hidden="true"></i></span><span>Remember me</span></label>
-        <div class="firstPage">
+        <div class="firstPage pc">
           <button v-on:click.prevent="send">SING UP</button>
         </div>
       </form>
+    </div>
+    <div class="row sm">
+      <div class="firstPage">
+        <button v-on:click.prevent="send">SING UP</button>
+      </div>
     </div>
   </div>
 

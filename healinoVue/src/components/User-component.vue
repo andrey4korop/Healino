@@ -6,7 +6,7 @@
         <img src="static/img/userAvatar.png" alt="">
       </div>
     </div>
-    <form class="row">
+    <form class="roww">
       <div class="formBlock login">
         <label>
           <p><span>*</span>Name</p>

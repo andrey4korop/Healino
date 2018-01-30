@@ -4,13 +4,13 @@
 @include reset();
 
 html,body{
-  background: url("../img/bg.png") no-repeat;
+  background: url("../img/bg.png") repeat;
   background-size: cover;
   font-family: 'Open Sans', sans-serif;
   font-size: 12px;
   color: #fff;
   //height:100%;
-  //min-height:100%;
+  //min-height:100vh;
   //overflow:hidden;
   z-index: 0;
 }
@@ -34,17 +34,125 @@ html,body{
   position: relative;
   min-height: 100vh;
 }
+.header{
+  width: 100%;
+  background: rgba(109, 207, 77, 0.95);
+  height: 70px;
+  @include sm(height, 55px);
+  position: fixed;
+  top:0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  &Container{
+    @include wrapper();
+    display: flex;
+    justify-content: flex-start;
+    height: 100%;
+    align-items: center;
+    .logo_head{
+      height: 70%;
+      display: block;
+      margin-left: 0;
+      @include sm(display, none);
+      img{
+        height: 100%;
+      }
+      &.m{
+        width: 49px;
+        height: 49px;
+        display: none;
+        @include sm(display, block);
+      }
+    }
+    a{
+      color: #fff;
+      text-decoration: none;
+      margin-left: 40px;
+      @include sm(margin-left, 10px);
+      font-size: 16px;
+    }
+    .user_Avatar, .lang{
+      height: 70%;
+      border-radius: 200px;
+      border: 1px solid #fff;
+      box-sizing: border-box;
+      margin-left: 20px;
+      @include sm(margin, 0 5px);
+
+    }
+    .lang{
+      height: 55%;
+      width: 38px;
+      @include sm(width, 30px);
+      &:hover{
+        ul{
+          //display: block;
+          height: 150px;
+        }
+      }
+      img{
+        height: 100%;
+      }
+      ul{
+        //display: none;
+        height: 0;
+        overflow: hidden;
+        width: 100%;
+        transition: all 0.5s linear;
+        li{
+          width: 100%;
+          margin: 13px 0;
+          border: 1px solid #fff;
+          box-sizing: border-box;
+          border-radius: 100px;
+          height: 37px;
+          @include sm(height, 30px);
+          img{
+            cursor: pointer;
+            //border: 2px solid #fff;
+            //box-sizing: border-box;
+            width: 100%;
+          }
+        }
+      }
+    }
+    h3{
+      margin-left: auto;
+      font-size: 24px;
+      @include sm(font-size, 20px)
+    }
+  }
+}
 .row{
   @include row-flex();
   justify-content: center;
+}
+.roww{
+  display: flex;
+  margin-left: -2.5px;
+  margin-right: -2.5px;
+  justify-content: center;
+  width: 100%;
+  @include sm(overflow-x, scroll);
+  @include sm(justify-content, flex-start);
+  margin-top: 35px;
+}
+.rowww{
+  margin-top: 70px;
 }
 .firstPageContainer{
   display: flex;
   flex-direction: column;
   justify-content: center;
+  .row{
+    @include sm(margin, 20px 0)
+  }
 }
 .logo{
   @include size(8);
+  @include size-sm(14);
+  @include sm(margin-top, 20px);
   //margin-top: 225px;
 }
 .loading{
@@ -71,10 +179,12 @@ html,body{
 }
 .langs {
   @include size(6);
+  @include size-sm(14);
   @include row-flex();
   justify-content: space-around;
   align-items: center;
   height: 170px;
+  @include sm(height, 100px);
   .lang{
     width: 45px;
     box-sizing: border-box;
@@ -92,10 +202,13 @@ html,body{
 }
 .firstPage{
   @include size(8);
+  @include size-sm(19);
+  @include sm(margin-bottom, 20px);
   display: flex;
   justify-content: space-around;
   button{
     @include size(11);
+    //@include size-sm(14);
     height: 45px;
     border-radius: 25px;
     background: #ff8304;
@@ -117,45 +230,11 @@ html,body{
     }
   }
 }
-.fifthPage{
-  margin: 90px 0;
-}
-.formBlock{
-  margin: 10px;
-  .Metrics{
-    display: flex;
-    @include size(15);
-    background: #f3efef;
-    color: #555555;
-    justify-content: center;
-    text-align: center;
-    font-size: 15px;
-    margin-bottom: 50px;
-    margin-top: 25px;
-    .btn{
-      width: 50%;
-      border: 1px solid #a5a2a2;
-      box-sizing: border-box;
-      padding: 13px 0;
-      &.active{
-        background: #60b23d;
-        color: #fff;
-        border: 1px solid #599939;
-      }
-      &:nth-child(1){
-        border-top-left-radius: 4px;
-        border-bottom-left-radius: 4px;
-      }
-      &:nth-child(2){
-        border-top-right-radius: 4px;
-        border-bottom-right-radius: 4px;
-      }
 
-    }
-  }
-}
+
 .login{
   @include size(10);
+  @include size-sm(21);
   background: rgba(250,247,247, 0.95);
   display: flex;
   flex-direction: column;
@@ -168,6 +247,7 @@ html,body{
     justify-content: flex-start;
     align-items: center;
     @include size(15);
+    @include size-sm(18);
     height: 35px;
     color: #fff;
     border-radius: 3px;
@@ -194,17 +274,20 @@ html,body{
   }
   label{
     @include size(15);
+    @include size-sm(18);
     color: #000;
     position: relative;
     &.pointer, &.pointer2{
       cursor: pointer;
       color: #555555;
       font-size: 16px;
+      @include sm(text-align, center);
       &:hover .checkbox{
         border: 3px solid #d9d9d9;
       }
       span{
         margin: 30px 0;
+        @include sm(margin, 30px 0 0 0);
       }
     }
     &.pointer2 span{
@@ -243,8 +326,8 @@ html,body{
       background: #70cf47;
       position: absolute;
       top: 30px;
-      left: calc(100% + 20px)
-
+      left: calc(100% + 20px);
+      @include sm(left, calc(100% + 5px))
     }
     input[type="text"], input[type="date"], input[type="email"],
     input[type="password"], input[type="tel"], input[type="number"],
@@ -331,6 +414,7 @@ html,body{
       color: #c2c2c2;
       font-size: 14px;
       margin-left: -7px;
+      text-align: left;
       span{
         color: #6fcf46;
       }
@@ -338,13 +422,89 @@ html,body{
   }
   .firstPage{
     @include size(24);
+
   }
+}
+.formBlock{
+  margin: 10px;
+  @include sm(padding, 15px 0 15px 0);
+  @include sm(min-width, calc(83.33333% - 5px));
+  .Metrics{
+    display: flex;
+    @include size(15);
+    background: #f3efef;
+    color: #555555;
+    justify-content: center;
+    text-align: center;
+    font-size: 15px;
+    margin-bottom: 50px;
+    @include sm(margin-bottom, 10px);
+    margin-top: 25px;
+    @include sm(margin-top, 0);
+    .btn{
+      width: 50%;
+      border: 1px solid #a5a2a2;
+      box-sizing: border-box;
+      padding: 13px 0;
+      &.active{
+        background: #60b23d;
+        color: #fff;
+        border: 1px solid #599939;
+      }
+      &:nth-child(1){
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+      }
+      &:nth-child(2){
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+      }
+
+    }
+  }
+  label {
+    input[type="text"], input[type="date"], input[type="email"],
+    input[type="password"], input[type="tel"], input[type="number"],
+    select, option {
+
+      padding: 0 15px;
+
+      @include sm(margin-bottom, 5px);
+      margin-top: 7px;
+      &:focus, &:hover {
+        outline: none;
+      }
+      &.number {
+        @include size(7);
+      }
+    }
+    &.pointer{
+      @include sm(text-align, left);
+    }
+  }
+}
+/*.firstPage{
+  @include size(24);
+  @include sm(display, none);
+  &.sm{
+    display: none;
+    @include sm(display, block);
+    @include sm(margin, 30px auto);
+    @include sm(text-align, center);
+  }
+}*/
+.fifthPage{
+  @include size(8);
+  @include size-sm(24);
+  margin: 90px 0;
+  @include sm( margin, 15px 0)
 }
 .license{
   @include size(24);
   background: rgba(250,247,247, 0.95);
   min-height: 60vh;
   padding: 40px 0 30px 0;
+  @include sm(padding, 15px 0 0px 0);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -366,10 +526,12 @@ html,body{
     padding-right: 10px;
     h1{
       font-size: 24px;
+      @include sm(font-size, 34px);
       color: #000;
     }
     p{
       margin: 20px 0;
+      @include sm(font-size, 16px);
     }
     &::-webkit-scrollbar {
       width: 5px;
@@ -394,8 +556,12 @@ html,body{
     justify-content: space-between;
     @include size(20);
     font-size: 16px;
-    .pointer:hover .checkbox{
+    @include sm(font-size, 18px);
+    .pointer{
+      @include sm(margin, 5px);
+      .checkbox {
       border: 3px solid #d9d9d9;
+    }
     }
     input[type="checkbox"]{
       display: none;
@@ -408,7 +574,7 @@ html,body{
         font-size: 14px;
         color: transparent;
         border-radius: 13px;
-        border: 3px solid transparent;
+        border: 3px solid #d9d9d9;
         margin-right: 15px;
       }
       &:checked+.checkbox{
@@ -421,6 +587,7 @@ html,body{
   }
   .licensePage{
     @include size(8);
+    @include sm(display, none);
     display: flex;
     justify-content: space-around;
     button{
@@ -448,10 +615,51 @@ html,body{
   }
 
 }
+.licensePage {
+  @include size(24);
+  display: flex;
+  justify-content: space-around;
+  &.sm {
+    display: none;
+    @include sm(display, block);
+    @include sm(margin, 30px auto);
+    @include sm(text-align, center);
+  }
+  button {
+    @include size(11);
+    height: 45px;
+    border-radius: 25px;
+    background: #c40e59;
+    padding: 0;
+    border: none;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 18px;
+    box-shadow: 0 3px 20px 1px rgba(0, 0, 0, 0.3);
+    &:focus, &:hover {
+      outline: none;
+      color: #fff;
+      box-shadow: 0 3px 20px 1px rgba(0, 0, 0, 0.5);
+    }
+    &:active {
+      outline: none;
+      color: #fff;
+      background: #d90f63;
+      box-shadow: 0 3px 20px 1px rgba(0, 0, 0, 0.5);
+    }
+
+  }
+}
 .avatar{
   @include size(4);
+  @include size-sm(9);
   margin-top: 40px;
+  @include sm(margin-top, 5px);
   margin-bottom: 35px;
+  @include sm(margin-bottom, 10px);
+  img {
+    border-radius: 500px;
+    border: 1px solid #fff;
+  }
 }
 .left, .right{
   display: flex;
@@ -714,25 +922,38 @@ html,body{
   .content{
     width: 100%;
     background: rgba(250, 247, 247, 0.8);
+    @include sm(background, none);
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     padding: 25px calc(100% /24);
+    @include sm(padding, calc(80vw /24) );
     display: flex;
+    box-sizing: border-box;
     justify-content: space-between;
+    @include sm(justify-content, flex-start);
+    @include sm( border-radius, 15px);
+    overflow-x: auto;
     &.col{
       flex-direction: column;
       align-items: center;
+      background: rgba(250, 247, 247, 0.8);
+      @include size-sm(22)
     }
   }
   .mar{
     padding: 15px 0;
     @include size(16);
+    @include sm(min-width, calc(100% - 5px));
     background: rgba(250, 247, 247, 0.8);
     border-radius: 15px;
     max-height: 430px;
+    @include sm(max-height, 67vh);
+    //@include sm(margin-top, 5vh);
   }
   .progressBarTheme{
     @include size(18);
+    @include size-sm(24);
+    @include sm(display, none);
     height: 60px;
     background: url("../img/topScale.png") no-repeat;
     background-size: 100%;
@@ -746,17 +967,24 @@ html,body{
     &.type1, &.type3{
       .row {
         justify-content: center;
+        @include flex-direction-sm(column);
+        @include align-items-sm(center);
         width: 100%;
         margin-bottom: 10vh;
+        @include sm(margin-bottom, 0);
       }
     }
     &.type2 .row, &.type4 .row{
       justify-content: space-between;
       width: 100%;
       margin-bottom: 20px;
+      @include sm(margin-bottom, 0);
+      @include sm(margin-top, 0);
       margin-top: 35px;
+      @include flex-direction-sm(column);
       .imgQ{
         @include size(15);
+        @include size-sm(24);
         padding-top: 10px;
         img{
           border-radius: 15px;
@@ -764,13 +992,18 @@ html,body{
       }
       .right{
         @include size(8);
+        @include size-sm(24);
         flex-direction: column;
         align-items: flex-start;
+        @include align-items-sm(center);
         h1{
           @include size(19);
+          @include size-sm(20);
           margin-top: 0;
           text-align: left;
+          @include sm(text-align, center);
           margin-bottom: 20px;
+          @include sm(margin-bottom, 5px);
         }
         label{
           @include size(21);
@@ -782,15 +1015,19 @@ html,body{
       .row{
         justify-content: space-between;
         margin-bottom: 5vh;
+        @include flex-direction-sm(row);
       }
       h1{
         @include size(24);
         font-size: 40px;
+        @include sm(font-size, 36px);
       }
       .imgAnswer{
         border-radius: 15px;
         @include size(6);
+        @include size-sm(12);
         height: 220px;
+        @include sm(height, 40vw);
         box-sizing: border-box;
         &.check{
           border: 3px solid #65d53a;
@@ -798,7 +1035,15 @@ html,body{
       }
     }
     &.type4 .row{
+      @include sm(display, flex);
+      @include sm(flex-direction, row);
+      @include sm(flex-wrap, nowrap);
+      @include sm(overflow, scroll);
+      @include sm(justify-content, flex-start);
+      @include sm(width, 100%);
       .imgQ{
+        @include sm(min-width, 100%);
+        @include sm(margin, 0 3px);
         font-size: 36px;
         background: rgba(250, 247, 247, 0.8);
         border-radius: 15px;
@@ -811,14 +1056,18 @@ html,body{
         }
       }
       .right{
+        @include sm(min-width, 100%);
+        @include sm(margin, 0 3px);
         background: rgba(250, 247, 247, 0.8);
         border-radius: 15px;
         box-sizing: border-box;
         padding: 20px;
         @include size(9);
+        @include size-sm(24);
         h1{
           font-size: 24px;
           margin-bottom: 45px;
+          @include sm(margin-bottom, 5px);
           margin-top: 5px;
         }
         .answer{
@@ -843,10 +1092,14 @@ html,body{
     }
     h1{
       font-size: 36px;
+      @include sm(font-size, 30px);
       text-align: center;
       color: #555555;
       @include size(9);
+      @include size-sm(24);
       margin-top: 10vh;
+      @include sm(margin-top, 0);
+      @include sm(margin-bottom, 7%);
       margin-bottom: 40px;
     }
     .select{
@@ -889,6 +1142,7 @@ html,body{
     label{
       position: relative;
       @include size(6);
+      @include size-sm(16);
       margin: 0 calc(100% / 24);
       .check{
         display: inline-block;
@@ -903,7 +1157,8 @@ html,body{
         background: #70cf47;
         position: absolute;
         top: 10px;
-        left: calc(100% + 10px)
+        left: calc(100% + 10px);
+        @include sm(left, calc(100% + 5px));
 
       }
     }
@@ -977,7 +1232,10 @@ html,body{
     scrollbar-shadow-color: rgb(196,14,89);
     .theme{
       @include size(8);
+      //@include size-sm(12);
       height: 200px;
+      @include sm(height, 35vw);
+      @include sm(width, 35vw);
       border-radius: 15px;
       margin-bottom: 10px;
       position: relative;
@@ -1009,18 +1267,23 @@ html,body{
           border-radius: 15px;
           img{
             margin: auto;
+            @include sm(width, 44%);
           }
           button{
             position: absolute;
             bottom: 7px;
+            @include sm(bottom, 0);
             left: calc(50% - 130px / 2);
+            @include sm(left, calc(50% - 100% / 2));
             width: 130px;
+            @include sm(width, 100%);
             border-radius: 15px;
             background: #6dcf4d;
             font-size: 14px;
             color: #fff;
             border: none;
             padding: 7px 0;
+            @include sm(padding, 3px 0);
             cursor: pointer;
             &:active, &:focus, &:hover{
               outline: none;
@@ -1035,6 +1298,8 @@ html,body{
     border-radius: 15px;
     padding: 20px;
     @include size(7);
+    @include md(min-width, calc(100% - 5px));
+    @include md(margin, 0 20px);
     color: #555555;
     box-sizing: border-box;
     h1{
@@ -1052,6 +1317,7 @@ html,body{
   }
   .green{
     background: #6dcf4d;
+    @include sm(background, transparent);
     width: 100%;
     text-align: center;
     border-bottom-left-radius: 15px;
@@ -1060,9 +1326,11 @@ html,body{
     justify-content: space-around;
     button{
       @include size(4);
+      @include size-sm(10);
       height: 45px;
       border-radius: 25px;
       margin: 20px;
+      @include sm(margin, 20px 0 0 0);
       background: #ff8304;
       padding: 0;
       border: none;
@@ -1082,4 +1350,420 @@ html,body{
       }
     }
   }
+}
+.containerMob {
+  display: none;
+}
+@media screen and (max-width: 780px) {
+  .containerMob {
+    width: 100%;
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    .pos1 {
+      position: absolute;
+      top: 9vw;
+      left: 16vw;
+      width: 26vw;
+      height: 26vw;
+      .indicators {
+        width: 100%;
+        height: 100%;
+        .title_indicator {
+          text-align: center;
+          font-size: 2vw;
+        }
+        .indicator {
+          width: 100%;
+          height: 100%;
+
+        }
+      }
+    }
+    .pos2 {
+      position: absolute;
+      top: 9vw;
+      right: 16vw;
+      width: 26vw;
+      height: 26vw;
+      .indicators {
+        width: 100%;
+        height: 100%;
+        .title_indicator {
+          text-align: center;
+          font-size: 2vw;
+        }
+        .indicator {
+          width: 100%;
+          height: 100%;
+
+        }
+      }
+    }
+    .pos3 {
+      position: absolute;
+      top: 45vw;
+      left: 37vw;
+      width: 26vw;
+      height: 26vw;
+
+    }
+    .pos4 {
+      position: absolute;
+      top: 66vw;
+      left: 14vw;
+      width: 32vw;
+      height: 29vw;
+      .indicators {
+        width: 100%;
+        height: 100%;
+        .title_indicator {
+          text-align: center;
+        }
+        .indicator {
+          width: 100%;
+          height: 100%;
+          .row_indicator {
+            display: flex;
+            justify-content: space-around;
+          }
+        }
+      }
+      .info_indicator {
+        font-size: 2vw;
+      }
+    }
+    .pos5 {
+      position: absolute;
+      top: 66vw;
+      right: 14vw;
+      width: 32vw;
+      height: 29vw;
+      .indicators {
+        width: 100%;
+        height: 100%;
+        .title_indicator {
+          text-align: center;
+
+        }
+        .indicator {
+          width: 100%;
+          height: 100%;
+          .row_indicator {
+            display: flex;
+            justify-content: space-around;
+          }
+        }
+      }
+      .info_indicator_top {
+        font-size: 2vw;
+        text-align: center;
+        .cvd {
+          font-size: 4vw;
+        }
+      }
+    }
+    .pos6 {
+      position: absolute;
+      top: 112vw;
+      left: 8vw;
+      width: 86vw;
+      height: 29vw;
+      .indicators {
+        width: 100%;
+        height: 16vw;
+        .title_indicator {
+          text-align: center;
+          font-size: 2vw;
+        }
+        .indicator {
+          width: 100%;
+          height: 10vw;
+          .row_indicator {
+            display: flex;
+            justify-content: space-around;
+          }
+        }
+      }
+    }
+    .pos7 {
+      position: absolute;
+      top: 35vw;
+      left: 3.5vw;
+      width: 15vw;
+      height: 29vw;
+      .indicators {
+        width: 100%;
+        height: 100%;
+        .title_indicator {
+          text-align: center;
+          font-size: 2vw;
+        }
+        .indicator {
+          width: 100%;
+          height: 100%;
+          .row_indicator {
+            display: flex;
+            justify-content: space-around;
+          }
+        }
+      }
+    }
+    .pos8 {
+      position: absolute;
+      top: 35vw;
+      right: 3.5vw;
+      width: 15vw;
+      height: 29vw;
+      .indicators {
+        width: 100%;
+        height: 100%;
+        .title_indicator {
+          text-align: center;
+          font-size: 2vw;
+        }
+        .indicator {
+          width: 100%;
+          height: 100%;
+          .row_indicator {
+            display: flex;
+            justify-content: space-around;
+          }
+        }
+      }
+    }
+
+    .progress_bar3 {
+      background: url(../img/indicator_1.png) no-repeat center center;
+      background-size: cover;
+      width: 100%;
+      height: 100%;
+      .cursor {
+        background: url(../img/cursor_3.png) no-repeat center center;
+        position: relative;
+        background-size: cover;
+        width: 71%;
+        height: 71%;
+        left: 14.5%;
+        top: 14.5%;
+        transform: rotate(0deg);
+      }
+      .text_indicator {
+        position: relative;
+        top: -71%;
+        font-size: 12px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+      }
+    }
+    .progress_bar4 {
+      background: url(../img/indicator_2.png) no-repeat center center;
+      background-size: cover;
+      width: 100%;
+      height: 100%;
+      .cursor {
+        background: url(../img/cursor_3.png) no-repeat center center;
+        position: relative;
+        background-size: cover;
+        width: 71%;
+        height: 71%;
+        left: 14.5%;
+        top: 14.5%;
+        transform: rotate(0deg);
+      }
+      .text_indicator {
+        position: relative;
+        top: -71%;
+        font-size: 12px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+      }
+    }
+    .avatar {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      img {
+        border-radius: 500px;
+        border: 1px solid #fff;
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .progress_bar2 {
+      background: url("../img/indicator_3.png") no-repeat center center;
+      background-size: cover;
+      width: 14vw;
+      height: 14vw;
+      //display: flex;
+      //flex-direction: column;
+      //justify-content: center;
+      position: relative;
+      .cursor {
+        background: url(../img/cursor_2.png) no-repeat center center;
+        position: relative;
+        background-size: cover;
+        width: 16vw;
+        height: 16vw;
+        left: -1vw;
+        top: -1vw;
+        transform: rotate(0deg);
+      }
+      .text_indicatition {
+        //margin: auto;
+        position: relative;
+        bottom: 12vw;
+      }
+      p {
+        position: relative;
+        bottom: unset;
+        top: unset;
+        //margin: auto;
+        font-size: 2vw;
+        text-align: center;
+        &.big {
+          //top: 2vw;
+          //bottom: unset;
+          font-size: 3.8vw;
+          line-height: 20px;
+        }
+      }
+    }
+    .progress_bar1 {
+      background: url("../img/indicator_6.png") no-repeat center center;
+      background-size: 100%;
+      width: 86vw;
+      height: 8vw;
+      text-align: left;
+      margin: 0 auto;
+      .cursor {
+        position: relative;
+        left: 0;
+        margin-left: -7px;
+        height: 8vw;
+      }
+      .percent {
+        position: relative;
+        left: 0;
+        top: -6vw;
+        font-size: 10px;
+      }
+      .shkala-1, .shkala-2, .shkala-3 {
+        position: relative;
+        bottom: -10px;
+        font-size: 10px;
+      }
+      .shkala-1 {
+        left: 20vw;
+        margin-left: calc(-3vw - 20px);
+      }
+      .shkala-2 {
+        left: 38vw;
+        margin-left: calc(-3vw - 20px);
+      }
+      .shkala-3 {
+        left: 52vw;
+        margin-left: calc(-3vw - 20px);
+      }
+    }
+    .progress_bar5, .progress_bar6 {
+      width: 14vw;
+      height: 40vw;
+      background: url("../img/indicator_5.png") no-repeat center center;
+      background-size: cover;
+      .opacity {
+        background: url("../img/opasity.png") no-repeat top center;
+        width: 100%;
+        height: 50%;
+        background-size: 100%;
+      }
+      .cursor {
+        display: flex;
+        justify-content: flex-start;
+        position: relative;
+        left: 14vw;
+        top: -6px;
+        align-items: flex-start;
+        line-height: 12px;
+        img {
+          height: 10px;
+          margin-top: 2px;
+        }
+        .big {
+          font-size: 16px;
+        }
+        div {
+          margin-left: 5px;
+          font-size: 14px;
+        }
+      }
+    }
+    .progress_bar6 {
+      background: url("../img/indicator_4.png") no-repeat center center;
+      background-size: cover;
+      .opacity {
+        background: url("../img/opasity2.png") no-repeat top center;
+        background-size: 100%;
+      }
+      .cursor {
+        display: flex;
+        justify-content: flex-start;
+        position: relative;
+        left: -14vw;
+        top: -6px;
+        align-items: flex-start;
+        line-height: 12px;
+        transform: scale(-1, 1);
+        img {
+          height: 10px;
+          margin-top: 2px;
+        }
+        .big {
+          font-size: 16px;
+          transform: scale(-1, 1);
+        }
+        div {
+          margin-left: 5px;
+          font-size: 14px;
+        }
+      }
+      .sometext {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 14vw;
+        height: 40vw;
+        align-items: center;
+        position: absolute;
+        font-size: 1.8vw;
+        text-align: center;
+        .txt {
+          //margin: 5px 0;
+          line-height: 3vw;
+        }
+        .big {
+          font-size: 2vw;
+        }
+      }
+    }
+
+  }
+}
+.pc_sm{
+  display: flex;
+}
+.pc{
+  @include sm(display, none);
+}
+.sm{
+  display: none;
+  @include sm(display, flex);
+  width: 100%;
 }
