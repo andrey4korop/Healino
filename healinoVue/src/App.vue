@@ -206,8 +206,9 @@ export default {
             console.log("isFirst" );
             $.post( 'http://healino-api.azurewebsites.net/api/Account/GetUserProfile',  this.bodyGet  )
                 .done(function( data ){
+                    t.userData = data;
                     console.log("done" );
-                    if(data.Name==null){
+                    if(!data.Name){
                         t.state = "license"
                     }else{
                         t.state = "user";

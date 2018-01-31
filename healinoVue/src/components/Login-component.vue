@@ -106,6 +106,7 @@ if (!r.test(document.forma.email.value) {
                             $.post( 'http://healino-api.azurewebsites.net/api/Account/FacebookOAuthResponse',  tempthis.bodyToken(accessToken)  )
                                 .done(function( data ){
                                     console.log("done Facebook" );
+                                    console.log(data);
                                     if(data.ErrorCode==1){
                                         //t.toQuestion(this.themeActive);
                                         tempthis.SessionData = data.SessionString;
