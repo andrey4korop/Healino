@@ -1,14 +1,6 @@
 <template>
   <div id="app">
     <background :backgr="backgr"></background>
-    <!--<div class="p layer1"></div>
-    <div class="p layer2"></div>
-    <div class="p layer3"></div>
-    <div class="p layer4"></div>
-    <div class="p layer5"></div>
-    <div class="p layer6"></div>
-    <div class="p layer7"></div>
-    <div class="p layer8"></div>-->
     <start-component v-if="state == 'start'"
                      @changeLang="changeLang"
                      @onRegister="register"
@@ -33,6 +25,7 @@
     <theme-component v-if="state == 'theme'"
                      :SessionData="SessionData"
                      :List="List"
+                     :userData="userData"
                      @toQuestion="toQuestion"
                      @chAc="chAc"></theme-component>
     <question-component v-if="state == 'question'"

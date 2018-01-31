@@ -7,7 +7,7 @@
         <a href="/" class="logo_head m"><img src="static/img/logoM.png" alt="" class=""></a>
         <a href="/">Home</a>
         <a href="/">Forum</a>
-        <h3>77%</h3>
+        <h3>{{questionData.QuestionsProgress}}%</h3>
         <div class="lang">
           <img src="static/img/langUA.png" alt="" class="">
           <ul>
@@ -20,10 +20,17 @@
         <img src="static/img/userAvatar.png" alt="" class="user_Avatar">
       </div>
     </div>
+    <div class="row sm" style="position: absolute; top: 100px;">
+      <div id="grad1" class="progressBarTheme">
+        <img src="static/img/curcor.png" class="cursor" alt="">
+        <div class="white" v-bind:style="{width: per + '%'}"></div>
+      </div>
+    </div>
     <div class="row">
       <div class="content col">
-        <div class="progressBarTheme">
-
+        <div id="grad1" class="progressBarTheme pc">
+          <img src="static/img/curcor.png" class="cursor" alt="">
+          <div class="white" v-bind:style="{width: per + '%'}"></div>
         </div>
         <questionType0 v-if="getType()==0"
                        :questionData="questionData" @changeVal="changeVal"></questionType0>
@@ -69,6 +76,11 @@
                     AnswersId: this.AnswersId,
                     AnswerValue: this.AnswerValue,
                 }
+            },
+            per: function(){
+                return  100 - (this.questionData.QuestionNum - 1) / this.questionData.TotalQuestions * 100 ;
+
+
             }
         },
         created: function() {

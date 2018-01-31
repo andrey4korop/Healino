@@ -7,7 +7,7 @@
         <a href="/" class="logo_head m"><img src="static/img/logoM.png" alt="" class=""></a>
         <a href="/">Home</a>
         <a href="/">Forum</a>
-        <h3>77%</h3>
+        <h3>{{userData.QuestionsProgress}}%</h3>
         <div class="lang">
           <img src="static/img/langUA.png" alt="" class="">
           <ul>
@@ -57,7 +57,7 @@
 
 <script>
     export default {
-        props: ['SessionData', 'List'],
+        props: ['SessionData', 'List', 'userData'],
         data () {
             return {
                 activeId:0,
