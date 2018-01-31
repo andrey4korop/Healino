@@ -219,9 +219,58 @@ export default {
         },
         chAc(id){
             this.themeActive=id;
+        },
+        bodyToken(token){
+            return {
+                Token: token,
+            }
         }
     },
   created: function() {
+      let t = this;
+      window.fbAsyncInit = function() {
+          FB.init({
+              appId      : '1317336621781298',
+              cookie     : true,
+              xfbml      : true,
+              version    : 'v2.11'
+          });
+
+          //FB.AppEvents.logPageView();
+          FB.getLoginStatus(function(response) {
+              console.log(response);
+              if (response.status === 'connected') {
+                  var accessToken = response.authResponse.accessToken;
+
+                  $.post( 'http://healino-api.azurewebsites.net/api/Account/FacebookOAuthResponse',  t.bodyToken(accessToken)  )
+                      .done(function( data ){
+                          console.log("done Facebook" );
+                          if(data.ErrorCode==1){
+                              //t.toQuestion(this.themeActive);
+                              t.SessionData = data.SessionString;
+                              setCookie('SessionData', data.SessionString, {
+                                  expires: 10000*10000,
+                                  path: '/'
+                              })
+                          }else{
+                              console.log("error from server" );
+                          }
+                      })
+                      .fail(function() {
+                          console.log("error" );
+                      });
+
+              }
+          } );
+      };
+
+      (function(d, s, id){
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) {return;}
+          js = d.createElement(s); js.id = id;
+          js.src = "https://connect.facebook.net/en_US/sdk.js";
+          fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
       if(getCookie('lang')){
           this.lang = getCookie('lang')
       }
@@ -232,6 +281,30 @@ export default {
           this.SessionData = getCookie('SessionData')
       }
 
+      /*FB.getLoginStatus(function(response) {
+          if (response.status === 'connected') {
+              var accessToken = response.authResponse.accessToken;
+
+              $.post( 'http://healino-api.azurewebsites.net/api/Account/FacebookOAuthResponse',  this.bodyToken(accessToken)  )
+                  .done(function( data ){
+                      console.log("done Facebook" );
+                      if(data.ErrorCode==1){
+                          //t.toQuestion(this.themeActive);
+                          t.SessionData = data.SessionString;
+                          setCookie('SessionData', data.SessionString, {
+                              expires: 10000*10000,
+                              path: '/'
+                          })
+                      }else{
+                          console.log("error from server" );
+                      }
+                  })
+                  .fail(function() {
+                      console.log("error" );
+                  });
+
+          }
+      } );*/
     }
 }
 </script>

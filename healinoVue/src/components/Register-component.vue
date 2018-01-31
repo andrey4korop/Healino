@@ -90,6 +90,49 @@
           }
         },
         methods:{
+            bodyToken(token){
+                return {
+                    Token: token,
+                }
+            },
+            FacebookLogin(){
+                var t = this;
+                FB.login(
+                    function(response) {
+                        if (response.status === 'connected') {
+                            var accessToken = response.authResponse.accessToken;
+                            var tempthis = t;
+                            $.post( 'http://healino-api.azurewebsites.net/api/Account/FacebookOAuthResponse',  tempthis.bodyToken(accessToken)  )
+                                .done(function( data ){
+                                    console.log("done Facebook" );
+                                    if(data.ErrorCode==1){
+                                        //t.toQuestion(this.themeActive);
+                                        tempthis.SessionData = data.SessionString;
+                                        setCookie('SessionData', data.SessionString, {
+                                            expires: 10000*10000,
+                                            path: '/'
+                                        });
+                                        let temp = {
+                                            UserId: data.UserId,
+                                            SessionString: data.SessionString,
+                                            remember:tempthis.remember
+                                        };
+                                        tempthis.$emit('logined', temp);
+                                    }else{
+                                        console.log("error from server" );
+                                    }
+                                })
+                                .fail(function() {
+                                    console.log("error" );
+                                });
+
+                        }
+                    },
+                    {
+                        scope: 'public_profile',
+                    }
+                );
+            },
             send(){
                 let t = this;
                 $.post( 'http://healino-api.azurewebsites.net/api/Account/Register',  this.body  )
