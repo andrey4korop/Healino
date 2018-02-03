@@ -3,6 +3,8 @@ import App from './App.vue'
 /**
  * загрузка главных страниц
  */
+import es6Promise from 'es6-promise'
+
 import rezultComponent  from './components/Rezult-component.vue'
 import startComponent  from './components/Start-component.vue'
 import loginComponent  from './components/Login-component.vue'
@@ -27,6 +29,20 @@ import indicatorMentalAge  from './components/indicator-Mental-age.vue'
 import indicatorCVD5  from './components/indicator-CVD5.vue'
 import indicatorCVD15  from './components/indicator-CVD15.vue'
 import indicatorCVD10  from './components/indicator-CVD10.vue'
+
+import indicatorBFsm  from './components/indicatorBFsm.vue'
+import indicatorBMRsm  from './components/indicatorBMRsm.vue'
+import indicatorLMPsm  from './components/indicatorLMPsm.vue'
+import indicatorWHRsm  from './components/indicatorWHRsm.vue'
+import indicator1sm  from './components/indicator1sm.vue'
+import indicator2sm  from './components/indicator2sm.vue'
+import indicatorRealAgesm  from './components/indicator-real-agesm.vue'
+import indicatorCronologiAgesm  from './components/indicator-Chronologi-agesm.vue'
+import indicatorMentalAgesm  from './components/indicator-Mental-agesm.vue'
+import indicatorCVD5sm  from './components/indicator-CVD5sm.vue'
+import indicatorCVD15sm  from './components/indicator-CVD15sm.vue'
+import indicatorCVD10sm  from './components/indicator-CVD10sm.vue'
+
 import questionType0  from './components/questionType0.vue'
 import questionType1  from './components/questionType1.vue'
 import questionType2  from './components/questionType2.vue'
@@ -38,10 +54,17 @@ import bg4  from './components/bg4.vue'
 import bg5  from './components/bg5.vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+
+
 Vue.use(VueAxios, axios);
+
+
+import GSignInButton from 'vue-google-signin-button'
+Vue.use(GSignInButton)
 /**
  * загрузка главных страниц
  */
+es6Promise.polyfill()
 Vue.component('rezult-component', rezultComponent);
 Vue.component('start-component', startComponent);
 Vue.component('login-component', loginComponent);
@@ -66,6 +89,20 @@ Vue.component('indicator-Mental-age', indicatorMentalAge);
 Vue.component('indicator-CVD5', indicatorCVD5);
 Vue.component('indicator-CVD15', indicatorCVD15);
 Vue.component('indicator-CVD10', indicatorCVD10);
+
+Vue.component('indicator1sm', indicator1sm);
+Vue.component('indicatorBFsm', indicatorBFsm);
+Vue.component('indicatorBMRsm', indicatorBMRsm);
+Vue.component('indicatorLMPsm', indicatorLMPsm);
+Vue.component('indicatorWHRsm', indicatorWHRsm);
+Vue.component('indicator2sm', indicator2sm);
+Vue.component('indicator-real-agesm', indicatorRealAgesm);
+Vue.component('indicator-Chronologi-agesm', indicatorCronologiAgesm);
+Vue.component('indicator-Mental-agesm', indicatorMentalAgesm);
+Vue.component('indicator-CVD5sm', indicatorCVD5sm);
+Vue.component('indicator-CVD15sm', indicatorCVD15sm);
+Vue.component('indicator-CVD10sm', indicatorCVD10sm);
+
 Vue.component('questionType0', questionType0);
 Vue.component('questionType1', questionType1);
 Vue.component('questionType2', questionType2);

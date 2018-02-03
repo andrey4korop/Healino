@@ -1,9 +1,9 @@
 <template>
-  <div class="mini_indicator mini_indicator2">
+  <div class="mini_indicator mini_indicator1">
     <div class="progress_bar2">
-      <div class="cursor" v-bind:style="{ transform: 'rotate(' + BioMentalAge.ChronologicalAge *3.6 + 'deg)' }"></div>
+      <div class="cursor" v-bind:style="{ transform: 'rotate(' + BioMentalAge.BiologicalAge *3.6 + 'deg)' }"></div>
       <div class="text_indicatition">
-      <p class="big">{{BioMentalAge.ChronologicalAge}}</p>
+      <p class="big">{{BioMentalAge.BiologicalAge}}</p>
       <p>years</p>
       </div>
     </div>
@@ -50,7 +50,7 @@ export default {
                });
            };
 
-           var cursor = document.querySelector('.mini_indicator2 .progress_bar2 .cursor');
+           var cursor = document.querySelector('.sm .mini_indicator1 .progress_bar2 .cursor');
            //var percent = document.querySelector('.indicator1 .progress_bar1 .percent');
            //console.log('start');
            var handler2 = function(){
@@ -95,7 +95,7 @@ export default {
   }
   .fa-enter-active{
     transition: all 1s;
-    transition-delay: 0.3s;
+    transition-delay: 0.2s;
   }
   .fa-enter-active2{
     transition: all 2s cubic-bezier(0.5, 2, 0.6, 0.6);

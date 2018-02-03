@@ -6,9 +6,15 @@
         <button class="btn_social facebook" v-on:click.prevent="FacebookLogin">
           <img src="static/img/facebook.png" alt=""> Login with Facebook
         </button>
-        <button class="btn_social google">
+        <!--<button class="btn_social google" v-on:click.prevent="google">
           <img src="static/img/google-plus.png" alt="">Login with Google
-        </button>
+        </button>-->
+        <g-signin-button
+                :params="googleSignInParams"
+                @success="onSignInSuccess"
+                @error="onSignInError">
+          <img src="static/img/google-plus.png" alt="">Login with Google
+        </g-signin-button>
         <h5>or</h5>
         <label>
           <p><span>*</span>Email</p>
@@ -52,16 +58,15 @@
   </div>
 
 </template>
-if (!r.test(document.forma.email.value) {
-//Код, если неверный e-mail
-}
+
 <script>
+    import Vue from 'vue'
     export default {
         props: ['lang', 'SessionData'],
         data () {
             return {
-                Email: "onisniko@gmail.com",
-                Password: "Asdfgh123",
+                Email: "",
+                Password: "",
                 IpAddress: "",
 
                 remember: true,
@@ -73,7 +78,11 @@ if (!r.test(document.forma.email.value) {
                 errorEmail: false,
                 showCheckPass: false,
                 showLoadPass: true,
-                errorPass: false
+                errorPass: false,
+
+                googleSignInParams: {
+                    client_id: '55026088655-3uc8o6t7gp4iu24seftuno6k3r6gi5qc.apps.googleusercontent.com'
+                }
             }
         },
         computed: {
@@ -96,6 +105,44 @@ if (!r.test(document.forma.email.value) {
                     Token: token,
                 }
             },
+            onSignInSuccess (googleUser) {
+                // `googleUser` is the GoogleUser object that represents the just-signed-in user.
+                // See https://developers.google.com/identity/sign-in/web/reference#users
+                //console.log(googleUser.Zi.access_token);
+                //console.log(googleUser.getBasicProfile());
+                let t = this;
+                if(googleUser.Zi.access_token){
+                    $.post( '/api/Account/GoogleOAuthResponse',  t.bodyToken(googleUser.Zi.access_token)  )
+                        .done(function( data ){
+                            //console.log("done Google" );
+                            //console.log(data);
+                            if(data.ErrorCode==1){
+                                //t.toQuestion(this.themeActive);
+                                t.SessionData = data.SessionString;
+                                setCookie('SessionData', data.SessionString, {
+                                    expires: 10000*10000,
+                                    path: '/'
+                                });
+                                let temp = {
+                                    UserId: data.UserId,
+                                    SessionString: data.SessionString,
+                                    remember:t.remember
+                                };
+                                t.$emit('logined', temp);
+                            }else{
+                                //console.log("error from server" );
+                            }
+                        })
+                        .fail(function() {
+                            //console.log("error" );
+                        });
+                }
+
+            },
+            onSignInError (error) {
+                // `error` contains any error occurred.
+                //console.log('OH NOES', error)
+            },
             FacebookLogin(){
                 var t = this;
                 FB.login(
@@ -103,10 +150,10 @@ if (!r.test(document.forma.email.value) {
                         if (response.status === 'connected') {
                             var accessToken = response.authResponse.accessToken;
                               var tempthis = t;
-                            $.post( 'http://healino-api.azurewebsites.net/api/Account/FacebookOAuthResponse',  tempthis.bodyToken(accessToken)  )
+                            $.post( '/api/Account/FacebookOAuthResponse',  tempthis.bodyToken(accessToken)  )
                                 .done(function( data ){
-                                    console.log("done Facebook" );
-                                    console.log(data);
+                                    //console.log("done Facebook" );
+                                    //console.log(data);
                                     if(data.ErrorCode==1){
                                         //t.toQuestion(this.themeActive);
                                         tempthis.SessionData = data.SessionString;
@@ -121,11 +168,11 @@ if (!r.test(document.forma.email.value) {
                                         };
                                         tempthis.$emit('logined', temp);
                                     }else{
-                                        console.log("error from server" );
+                                        //console.log("error from server" );
                                     }
                                 })
                                 .fail(function() {
-                                    console.log("error" );
+                                   // console.log("error" );
                                 });
 
                         }
@@ -135,16 +182,17 @@ if (!r.test(document.forma.email.value) {
                     }
                 );
             },
+
             send(){
                 let t = this;
-                console.log('LOGIN');
+                //console.log('LOGIN');
                 let p = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}/g.test(this.Password);
                 let e = /^\w+@\w+\.\w{2,4}$/i.test(this.Email);
                 if(p && e && true){
-                  $.post( 'http://healino-api.azurewebsites.net/api/Account/Login',  this.body  )
+                  $.post( '/api/Account/Login',  this.body  )
                   .done(function( data ){
-                      console.log('success');
-                      console.log(data);
+                      //console.log('success');
+                      //console.log(data);
                       if(data.ErrorCode==1 || data.UserId != 0){
                           let temp = {
                               UserId: data.UserId,
@@ -158,7 +206,7 @@ if (!r.test(document.forma.email.value) {
                       }
                   })
                   .fail(function() {
-                      console.log("error" );
+                      //console.log("error" );
                   });
                 }
             },
@@ -172,7 +220,7 @@ if (!r.test(document.forma.email.value) {
             },
             changeEmail(){
                 let t = this;
-                console.log(t);
+                //console.log(t);
                 this.showCheckEmail = true;
                 this.showLoadEmail =true;
                 setTimeout( function () {
@@ -185,7 +233,7 @@ if (!r.test(document.forma.email.value) {
             },
             changePass(){
                 let t = this;
-                console.log(t);
+                //console.log(t);
                 this.showCheckPass = true;
                 this.showLoadPass =true;
                 t.errorPass = false;

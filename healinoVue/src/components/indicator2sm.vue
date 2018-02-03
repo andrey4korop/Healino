@@ -1,10 +1,16 @@
 <template>
-  <div class="mini_indicator mini_indicator2">
-    <div class="progress_bar2">
-      <div class="cursor" v-bind:style="{ transform: 'rotate(' + BioMentalAge.ChronologicalAge *3.6 + 'deg)' }"></div>
-      <div class="text_indicatition">
-      <p class="big">{{BioMentalAge.ChronologicalAge}}</p>
-      <p>years</p>
+  <div class="indicators">
+    <div class="title_indicator">
+      <p>&nbsp;</p>
+      <p>Calories Burned</p>
+    </div>
+    <div class="indicator DaylyCallorie">
+      <div class="progress_bar3">
+        <div class="cursor" v-bind:style="{ transform: 'rotate(' + CallorieDeg + 'deg)' }"></div>
+        <div class="text_indicator">
+          <p class="big">{{CalloriePersent}}%</p>
+          <p>{{DaylyCallorie}} Kcal</p>
+        </div>
       </div>
     </div>
   </div>
@@ -13,8 +19,20 @@
 <script>
 export default {
   //name: 'app',
-   props: ['BioMentalAge'],
-    //indicator1.vue
+   props: ['DaylyCallorie', 'CallorieScale'],
+    data () {
+        return {
+
+        }},
+    computed:{
+        CallorieDeg:function () {
+            return 3.6 * (this.DaylyCallorie - this.CallorieScale[0].Callorie) * 100 / (this.CallorieScale[this.CallorieScale.length-1].Callorie - this.CallorieScale[0].Callorie);
+        },
+        CalloriePersent:function() {
+            return Math.round((180 - 70) * (this.DaylyCallorie - this.CallorieScale[0].Callorie) * 100 / (this.CallorieScale[this.CallorieScale.length - 1].Callorie - this.CallorieScale[0].Callorie) / 100 + 70);
+        }
+    },
+
     methods:{
        start(){
            (function() {
@@ -50,7 +68,7 @@ export default {
                });
            };
 
-           var cursor = document.querySelector('.mini_indicator2 .progress_bar2 .cursor');
+           var cursor = document.querySelector('.sm .DaylyCallorie .cursor');
            //var percent = document.querySelector('.indicator1 .progress_bar1 .percent');
            //console.log('start');
            var handler2 = function(){
@@ -95,7 +113,7 @@ export default {
   }
   .fa-enter-active{
     transition: all 1s;
-    transition-delay: 0.3s;
+    transition-delay: 0.1s;
   }
   .fa-enter-active2{
     transition: all 2s cubic-bezier(0.5, 2, 0.6, 0.6);

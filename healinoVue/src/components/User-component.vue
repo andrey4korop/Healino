@@ -2,8 +2,10 @@
 
   <div class="container firstPageContainer">
     <div class="row">
-      <div class="avatar">
-        <img src="static/img/userAvatar.png" alt="">
+      <div class="avatar"><label>
+        <input type="file" v-bind="img" v-on:change="uploadImage()" style="display: none">
+        <div v-bind:style="{background: 'url(' + userIMG + ') center center / cover' }" class="img" ></div>
+      </label>
       </div>
     </div>
     <form class="roww">
@@ -241,11 +243,20 @@
                     showLoad: true,
                     error:false
                 },
-
+                img:""
 
             }
         },
         computed: {
+            userIMG: function () {
+
+                if(this.img){
+                    return this.img;
+                }
+                else{
+                    return '../static/img/noIMG.png';
+                }
+            },
             bodyGet: function () {
                 return {
                     SessionData: this.SessionData,
@@ -293,6 +304,9 @@
                      }
                  }
             }
+            if(this.userData.PhotoUrl){
+                this.img = this.userData.PhotoUrl;
+            }
                       /*this.Name = this.userData.Name;
                       this.SurName = this.userData.SurName;
                       this.Birthday = this.birth(this.userData.Birthday);
@@ -314,6 +328,26 @@
               //  });
         },
         methods: {
+            uploadImage:function () {
+                let t = this;
+                let input = document.getElementsByTagName('input')[0].files
+                var file = input[input.length-1];
+                var reader = new FileReader();
+                reader.onloadend = function() {
+                    //console.log('RESULT', reader.result);
+                    t.img = reader.result;
+                    $.post( '/api/Image/UploadImage',  {
+                        SessionData: t.SessionData,
+                        ImageData: reader.result
+                    }  )
+                        .done(function( data ){
+                            //console.log(data)
+
+                        });
+                   // console.log(this.img);
+                }
+                reader.readAsDataURL(file);
+            },
             birth:function(strDate){
                 let date;
                 if(strDate){
@@ -330,17 +364,17 @@
             updateUser:function () {
                 let t = this;
                 if(!this.checkBody()){
-                  $.post( 'http://healino-api.azurewebsites.net/api/Account/UpdateUserInformation',  this.bodySet  )
+                  $.post( '/api/Account/UpdateUserInformation',  this.bodySet  )
                       .done(function( data ){
-                          console.log(data)
+                          //console.log(data)
                           t.$emit('toTheme');
                       });
                 }
             },
             change(obj, val){
                 let t = this;
-                console.log(t);
-                console.log(obj);
+                //console.log(t);
+                //console.log(obj);
                 obj.showCheck = true;
                 obj.showLoad = true;
                 obj.error = false;

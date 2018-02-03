@@ -59,9 +59,10 @@ export default {
 
         changeInput(){
             let t = this;
-            console.log(t);
+            //console.log(t);
             this.showCheckInput = true;
             this.showLoadInput =true;
+            this.changeVal();
             setTimeout( function () {
                 t.showLoadInput = false;
 
@@ -69,9 +70,10 @@ export default {
         },
         changeSelect(){
             let t = this;
-            console.log(t);
+            //console.log(t);
             this.showCheckSelect = true;
             this.showLoadSelect =true;
+            this.changeVal();
             setTimeout( function () {
                 t.showLoadSelect = false;
 
@@ -81,7 +83,7 @@ export default {
 
     },
   created: function() {
-      console.log('type2');
+      //console.log('type2');
 
     }
 }

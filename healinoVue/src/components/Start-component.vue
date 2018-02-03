@@ -37,6 +37,7 @@
         <button  v-on:click.prevent="$emit('onUser')"
                  v-if="SessionData">START</button>
 
+
       </div>
     </div>
 
@@ -60,9 +61,8 @@
 
         },
         methods: {
-            /*changeLang: function (newLang) {
-                this.$emit = newLang;
-            }*/
+
+
         }
     }
 </script>

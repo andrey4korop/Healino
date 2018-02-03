@@ -57,7 +57,7 @@ html,body{
 .layer11{background:url(../img/paralax11.png) no-repeat ;background-size: cover;top:0}
 .layer12{background:url(../img/paralax12.png) no-repeat ;background-size: cover;top:0 }
 .layer13{background:url(../img/paralax13.png) no-repeat ;background-size: cover;top:0 }
-.layer14{background:url(../img/paralax14.png) no-repeat ;background-size: cover;top:0 }
+.layer14{background:url(../img/paralax14.png) no-repeat ;background-size: cover;top: 200px; left: 200px }
 .layer15{background:url(../img/paralax15.png) no-repeat ;background-size: cover;top:0 }
 .layer16{background:url(../img/paralax16.png) no-repeat ;background-size: cover;top:0 }
 .layer17{background:url(../img/paralax17.png) no-repeat ;background-size: cover;top:0}
@@ -118,7 +118,7 @@ html,body{
   &Container{
     @include wrapper();
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-around;
     height: 100%;
     align-items: center;
     .logo_head{
@@ -144,7 +144,8 @@ html,body{
       font-size: 16px;
     }
     .user_Avatar, .lang{
-      height: 70%;
+      height: 50px;
+      width: 50px;
       border-radius: 200px;
       border: 1px solid #fff;
       box-sizing: border-box;
@@ -313,7 +314,7 @@ html,body{
   border-radius: 15px;
   padding: 45px 0 35px 0;
   box-shadow: 2px 2px 9px 1px rgba(0, 0, 0, 0.5);
-  .btn_social{
+  .btn_social, .g-signin-button{
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -326,6 +327,9 @@ html,body{
     text-align: left;
     font-size: 16px;
     margin-bottom: 15px;
+    box-sizing: border-box;
+    padding: 1px 6px;
+    cursor: pointer;
     img{
       height: 27px;
       border-right: 1px solid rgba(0,0,0,0.1);
@@ -337,6 +341,9 @@ html,body{
     &.google{
       background: #dc4a38;
     }
+  }
+  .g-signin-button{
+    background: #dc4a38;
   }
   h5{
     font-size: 24px;
@@ -721,15 +728,24 @@ html,body{
   }
 }
 .avatar{
-  @include size(4);
-  @include size-sm(9);
+  //@include size(4);
+  width: 16.6vw;
+  height: 16.6vw;
+  @include sm(width, 37.5vw);
+  @include sm(height, 37.5vw);
   margin-top: 40px;
   @include sm(margin-top, 5px);
   margin-bottom: 35px;
   @include sm(margin-bottom, 10px);
-  img {
+  border-radius: 500px;
+  .img {
     border-radius: 500px;
     border: 1px solid #fff;
+    width: 16.6vw;
+    height: 16.6vw;
+    cursor: pointer;
+    @include sm(width, 37.5vw);
+    @include sm(height, 37.5vw);
   }
 }
 .left, .right{
@@ -739,13 +755,17 @@ html,body{
   .theme{
     border-radius: 15px;
     background-color: rgba(255, 255, 255, 0.851);
-    width: 225px;
-    height: 275px;
+    //width: 225px;
+    width: 94%;
+    //height: 275px;
     color: #555555;
     font-size: 24px;
     text-align: center;
-    img{
+    .img{
       border-radius: 15px;
+      width: 90%;
+      height: 24vmin;
+      margin: 0 auto 10px;
     }
   }
   .right_indicator{
@@ -1501,7 +1521,12 @@ html,body{
       left: 37vw;
       width: 26vw;
       height: 26vw;
-
+      .avatar{
+        .img{
+          height: 100%;
+          width: 100%;
+        }
+      }
     }
     .pos4 {
       position: absolute;
@@ -1860,4 +1885,11 @@ html,body{
   display: none;
   @include sm(display, flex);
   width: 100%;
+}
+div.p{
+  position:fixed;
+  min-width: 100vw;
+  min-height: 100vh;
+  z-index: 0;
+  transition: all 1s;
 }

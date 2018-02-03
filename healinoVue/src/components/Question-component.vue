@@ -9,15 +9,17 @@
         <a href="/">Forum</a>
         <h3>{{questionData.QuestionsProgress}}%</h3>
         <div class="lang">
-          <img src="static/img/langUA.png" alt="" class="">
+          <img src="static/img/langPL.png" alt=""   v-if="lang=='pl'">
+          <img src="static/img/langUSA.png" alt=""  v-if="lang=='en'">
+          <img src="static/img/langUA.png" alt=""   v-if="lang=='ru'">
           <ul>
-            <li><img src="static/img/langPL.png" alt=""></li>
-            <li><img src="static/img/langUSA.png" alt=""></li>
-            <li><img src="static/img/langUA.png" alt=""></li>
+            <li v-on:click="$emit('changeLang', 'pl')" v-if="lang!='pl'"><img src="static/img/langPL.png" alt=""></li>
+            <li v-on:click="$emit('changeLang', 'en')" v-if="lang!='en'"><img src="static/img/langUSA.png" alt=""></li>
+            <li v-on:click="$emit('changeLang', 'ru')" v-if="lang!='ru'"><img src="static/img/langUA.png" alt=""></li>
           </ul>
         </div>
 
-        <img src="static/img/userAvatar.png" alt="" class="user_Avatar">
+        <div v-bind:style="{background: 'url(' + userIMG + ') center center / cover' }" class="user_Avatar" ></div>
       </div>
     </div>
     <div class="row sm" style="position: absolute; top: 100px;">
@@ -51,7 +53,7 @@
 
 <script>
     export default {
-        props: ['SessionData', 'questionData'],
+        props: ['SessionData', 'questionData', 'userData', 'lang'],
         data () {
             return {
 
@@ -81,7 +83,16 @@
                 return  100 - (this.questionData.QuestionNum - 1) / this.questionData.TotalQuestions * 100 ;
 
 
-            }
+            },
+            userIMG: function () {
+
+                if(this.userData.PhotoUrl){
+                    return this.userData.PhotoUrl;
+                }
+                else{
+                    return '../static/img/noIMG.png';
+                }
+            },
         },
         created: function() {
             this.QuestionId = this.questionData.QuestionId;

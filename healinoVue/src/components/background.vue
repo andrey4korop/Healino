@@ -1,7 +1,7 @@
 <template>
 <div class="background">
-  <bg1 v-if="num==1 || num2==1" :active="bg[1]"></bg1>
-  <bg2 v-if="num==2 || num2==2" :active="bg[2]"></bg2>
+  <bg1 v-if="num==2 || num2==2" :active="bg[1]"></bg1>
+  <bg2 v-if="num==1 || num2==1" :active="bg[2]"></bg2>
   <bg3 v-if="num==3 || num2==3" :active="bg[3]"></bg3>
   <bg4 v-if="num==4 || num2==4" :active="bg[4]"></bg4>
   <bg5 v-if="num==5 || num2==5" :active="bg[5]"></bg5>
@@ -27,10 +27,10 @@ export default {
         }
     },
     methods:{
-      on(old){
+      on(old, newS){
           let t=this
           return function () {
-              t.num2=t.num;
+              t.num2=newS;
               t.bg[old]=true;
           }
 
@@ -38,10 +38,15 @@ export default {
     },
     watch: {
         backgr: function (newS, old) {
-            this.num = newS;
-            console.log(old);
-            this.bg[old]=false;
-            setTimeout(this.on(old), 5000);
+            let t = this
+            setTimeout(function () {
+                t.num = newS;
+                t.bg[old]=false;
+            }, 100);
+            //this.num = newS;
+            //console.log(old);
+            //this.bg[old]=false;
+            setTimeout(this.on(old, newS), 5000);
         }
     },
   created: function() {

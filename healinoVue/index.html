@@ -6,81 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:600" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="static/css/a.css">
-    <link rel="stylesheet" href="static/css/jquery.parallax.css" />
+    <!--<script src="//cdn.polyfill.io/v2/polyfill.min.js"></script>-->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
-    <!--<script src="https://apis.google.com/js/api.js"></script>-->
     <script src="static/js/jquery.plaxmove.js"></script>
-    <style type="text/css" media="screen, projection">
-
-      div.p{
-        position:fixed;
-        min-width: 100vw;
-        min-height: 100vh;
-        z-index: 0;
-        transition: all 1s;
+    <script src="static/js/lib.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <style type="text/css">
+      @media all and (-ms-high-contrast:none)
+      {
+        .logo{
+          max-height: 45vw;
+        }
+        .firstPageContainer{
+          height: 100vh;
+        }
+        .header+.row{
+          margin-top: 20vh;
+        }
       }
 
-      .par {
-        overflow: hidden;
-        position: absolute;
-        /* height: 300px; */
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: -2;
-      }
     </style>
   </head>
   <body>
-  <script>
 
-      // возвращает cookie с именем name, если есть, если нет, то undefined
-      function getCookie(name) {
-          var matches = document.cookie.match(new RegExp(
-              "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-          ));
-          return matches ? decodeURIComponent(matches[1]) : undefined;
-      }
-
-      // устанавливает cookie с именем name и значением value
-      // options - объект с свойствами cookie (expires, path, domain, secure)
-      function setCookie(name, value, options) {
-          options = options || {};
-
-          var expires = options.expires;
-
-          if (typeof expires == "number" && expires) {
-              var d = new Date();
-              d.setTime(d.getTime() + expires * 1000);
-              expires = options.expires = d;
-          }
-          if (expires && expires.toUTCString) {
-              options.expires = expires.toUTCString();
-          }
-
-          value = encodeURIComponent(value);
-
-          var updatedCookie = name + "=" + value;
-
-          for (var propName in options) {
-              updatedCookie += "; " + propName;
-              var propValue = options[propName];
-              if (propValue !== true) {
-                  updatedCookie += "=" + propValue;
-              }
-          }
-
-          document.cookie = updatedCookie;
-      }
-
-      // удаляет cookie с именем name
-      function deleteCookie(name) {
-          setCookie(name, "", {
-              expires: -1
-          })
-      }
-  </script>
     <div id="app"></div>
     <script src="dist/build.js"></script>
   </body>

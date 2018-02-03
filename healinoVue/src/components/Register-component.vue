@@ -3,12 +3,15 @@
   <div class="container firstPageContainer">
     <div class="row">
       <form action="" class="login">
-        <button class="btn_social facebook">
+        <button class="btn_social facebook" v-on:click.prevent="FacebookLogin">
           <img src="static/img/facebook.png" alt="">Sign Up with Facebook
         </button>
-        <button class="btn_social google">
-          <img src="static/img/google-plus.png" alt="">Sign Up with Google
-        </button>
+        <g-signin-button
+                :params="googleSignInParams"
+                @success="onSignInSuccess"
+                @error="onSignInError">
+          <img src="static/img/google-plus.png" alt="">Login with Google
+        </g-signin-button>
         <h5>or</h5>
         <label>
           <p><span>*</span>Email</p>
@@ -36,7 +39,7 @@
         </label>
         <label class="pointer2">
 
-          <input type="checkbox">
+          <input type="checkbox" v-model="remember">
           <span class="checkbox"><i class="fa fa-check" aria-hidden="true"></i></span><span>Remember me</span></label>
         <div class="firstPage pc">
           <button v-on:click.prevent="send">SING UP</button>
@@ -59,10 +62,11 @@
         props: ['lang'],
         data () {
             return {
-                Email: "onisniko@gmail.com",
-                Password: "Asdfgh123",
-                VPassword: "Asdfgh123",
+                Email: "",
+                Password: "",
+                VPassword: "",
 
+                remember: true,
                 typeInputPass:"password",
                 typeInputVPass:"password",
                 putMouse:false,
@@ -75,14 +79,16 @@
                 showCheckVPass: false,
                 showLoadVPass: true,
 
-
+                googleSignInParams: {
+                    client_id: '55026088655-3uc8o6t7gp4iu24seftuno6k3r6gi5qc.apps.googleusercontent.com'
+                }
             }
         },
         computed: {
           body: function () {
               return{
-                  Email: this.email,
-                  Password: this.password,
+                  Email: this.Email,
+                  Password: this.Password,
                   //IpAddress: this.IpAddress,
                   //SessionData: this.SessionData,
                   Localization: this.lang
@@ -95,6 +101,44 @@
                     Token: token,
                 }
             },
+            onSignInSuccess (googleUser) {
+                // `googleUser` is the GoogleUser object that represents the just-signed-in user.
+                // See https://developers.google.com/identity/sign-in/web/reference#users
+                //console.log(googleUser.Zi.access_token);
+                //console.log(googleUser.getBasicProfile());
+                let t = this;
+                if(googleUser.Zi.access_token){
+                    $.post( '/api/Account/GoogleOAuthResponse',  t.bodyToken(googleUser.Zi.access_token)  )
+                        .done(function( data ){
+                            //console.log("done Google" );
+                            //console.log(data);
+                            if(data.ErrorCode==1){
+                                //t.toQuestion(this.themeActive);
+                                t.SessionData = data.SessionString;
+                                setCookie('SessionData', data.SessionString, {
+                                    expires: 10000*10000,
+                                    path: '/'
+                                });
+                                let temp = {
+                                    UserId: data.UserId,
+                                    SessionString: data.SessionString,
+                                    remember:tempthis.remember
+                                };
+                                t.$emit('logined', temp);
+                            }else{
+                                //console.log("error from server" );
+                            }
+                        })
+                        .fail(function() {
+                            //console.log("error" );
+                        });
+                }
+
+            },
+            onSignInError (error) {
+                // `error` contains any error occurred.
+                //console.log('OH NOES', error)
+            },
             FacebookLogin(){
                 var t = this;
                 FB.login(
@@ -102,9 +146,9 @@
                         if (response.status === 'connected') {
                             var accessToken = response.authResponse.accessToken;
                             var tempthis = t;
-                            $.post( 'http://healino-api.azurewebsites.net/api/Account/FacebookOAuthResponse',  tempthis.bodyToken(accessToken)  )
+                            $.post( '/api/Account/FacebookOAuthResponse',  tempthis.bodyToken(accessToken)  )
                                 .done(function( data ){
-                                    console.log("done Facebook" );
+                                    //console.log("done Facebook" );
                                     if(data.ErrorCode==1){
                                         //t.toQuestion(this.themeActive);
                                         tempthis.SessionData = data.SessionString;
@@ -115,15 +159,15 @@
                                         let temp = {
                                             UserId: data.UserId,
                                             SessionString: data.SessionString,
-                                            remember:tempthis.remember
+                                            remember:t.remember
                                         };
                                         tempthis.$emit('logined', temp);
                                     }else{
-                                        console.log("error from server" );
+                                       // console.log("error from server" );
                                     }
                                 })
                                 .fail(function() {
-                                    console.log("error" );
+                                    //console.log("error" );
                                 });
 
                         }
@@ -133,9 +177,9 @@
                     }
                 );
             },
-            send(){
+            /*send(){
                 let t = this;
-                $.post( 'http://healino-api.azurewebsites.net/api/Account/Register',  this.body  )
+                $.post( '/api/Account/Register',  this.body  )
                     .done(function( data ){
                         console.log(data);
                         if(data.ErrorCode==1 || data.UserId != null){
@@ -146,6 +190,23 @@
                             t.$emit('onLicense');
                         }
                     });
+            },*/
+            send(){
+                let t = this;
+                //console.log('LOGIN');
+                let p = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}/g.test(this.Password);
+                let e = /^\w+@\w+\.\w{2,4}$/i.test(this.Email);
+                if(p && e && true){
+                    $.post( '/api/Account/Register',  this.body  )
+                        .done(function( data ){
+                           // console.log('success');
+                            //console.log(data);
+
+                        })
+                        .fail(function() {
+                            //console.log("error" );
+                        });
+                }
             },
             toShowPass(){
                 this.typeInputPass = "text";
@@ -165,7 +226,7 @@
             },
             changeEmail(){
                 let t = this;
-                console.log(t);
+                //console.log(t);
                 this.showCheckEmail = true;
                 this.showLoadEmail =true;
                 setTimeout( function () {
@@ -178,7 +239,7 @@
             },
             changePass(){
                 let t = this;
-                console.log(t);
+                //console.log(t);
                 this.showCheckPass = true;
                 this.showLoadPass =true;
                 setTimeout( function () {
@@ -191,7 +252,7 @@
             },
             changeVPass(){
                 let t = this;
-                console.log(t);
+                //console.log(t);
                 this.showCheckVPass = true;
                 this.showLoadVPass =true;
                 setTimeout( function () {

@@ -62,13 +62,13 @@ export default {
            var handler2 = function(){
                //console.log(this);
                this.classList.remove('fa-enter-active2');
-               this.removeEventListener('animationend', handler2);
+               this.removeEventListener('transitionend', handler2);
            };
            var handler = function(){
                this.classList.remove('fa-enter-active');
                this.classList.add('fa-enter-active2');
                this.classList.remove('fa-enter-to');
-               this.removeEventListener('animationend', handler);
+               this.removeEventListener('transitionend', handler);
                this.addEventListener('transitionend', handler2);
            };
            //console.log(percent);
@@ -89,7 +89,7 @@ export default {
        }
     },
   created: function() {
-      this.start();
+      setTimeout(this.start, 10);
 
     }
 }

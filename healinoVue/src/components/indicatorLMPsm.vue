@@ -1,10 +1,19 @@
 <template>
-  <div class="mini_indicator mini_indicator2">
-    <div class="progress_bar2">
-      <div class="cursor" v-bind:style="{ transform: 'rotate(' + BioMentalAge.ChronologicalAge *3.6 + 'deg)' }"></div>
-      <div class="text_indicatition">
-      <p class="big">{{BioMentalAge.ChronologicalAge}}</p>
-      <p>years</p>
+  <div class="indicators">
+    <div class="title_indicator">
+      <p>Lean Body</p>
+      <p>Mass  </p>
+    </div>
+    <div class="indicator indicatorLMP">
+      <div class="progress_bar5">
+        <div class="opacity" v-bind:style="{ height: LMPPresent + '%' }"></div>
+        <div class="cursor">
+          <img src="static/img/cursor_4.png" alt="">
+          <div>
+            <p class="big">{{LMP}}</p>
+            <p>kg</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -12,10 +21,19 @@
 
 <script>
 export default {
-  //name: 'app',
-   props: ['BioMentalAge'],
-    //indicator1.vue
+   props: ['LMP', 'LMPCategoryScale'],
+    data () {
+        return {
+        LMPPresent: '0',
+    }},
+
+    watch: {
+        LMPCategoryScale: function () {
+            this.LMPPresent = 100 - (this.LMP - this.LMPCategoryScale[this.LMPCategoryScale.length -1].BF) * 100 / (this.LMPCategoryScale[0].BF - this.LMPCategoryScale[this.LMPCategoryScale.length -1].BF);
+        }
+    },
     methods:{
+
        start(){
            (function() {
                var lastTime = 0;
@@ -50,8 +68,8 @@ export default {
                });
            };
 
-           var cursor = document.querySelector('.mini_indicator2 .progress_bar2 .cursor');
-           //var percent = document.querySelector('.indicator1 .progress_bar1 .percent');
+           var cursor = document.querySelector('.sm .indicatorLMP .opacity');
+           //var percent = document.querySelector('.indicatorLMP .percent');
            //console.log('start');
            var handler2 = function(){
                //console.log(this);
@@ -73,7 +91,7 @@ export default {
                cursor.classList.add('fa-enter-active');
                //percent.classList.add('fa-enter-active');
                cursor.classList.add('fa-enter-to');
-               //percent.classList.add('fa-enter-to');
+              // percent.classList.add('fa-enter-to');
                cursor.classList.remove('fa-enter');
                //percent.classList.remove('fa-enter');
            });
@@ -91,17 +109,17 @@ export default {
 
 <style scoped>
   .fa-enter{
-    transform: rotate(0deg) !important;
+    height: 0% !important;
   }
   .fa-enter-active{
     transition: all 1s;
-    transition-delay: 0.3s;
+    transition-delay: 0.9s;
   }
   .fa-enter-active2{
     transition: all 2s cubic-bezier(0.5, 2, 0.6, 0.6);
   }
   .fa-enter-to{
-    transform: rotate(360deg) !important;
+    height: 100% !important;
   }
 
 </style>

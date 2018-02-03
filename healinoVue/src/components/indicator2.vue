@@ -22,16 +22,17 @@ export default {
    props: ['DaylyCallorie', 'CallorieScale'],
     data () {
         return {
-            CalloriePersent: '0',
-            CallorieDeg: '0'
+
         }},
-    watch: {
-        CallorieScale: function () {
-            this.CallorieDeg = 3.6 * (this.DaylyCallorie - this.CallorieScale[0].Callorie) * 100 / (this.CallorieScale[this.CallorieScale.length-1].Callorie - this.CallorieScale[0].Callorie);
-            this.CalloriePersent =
-                Math.round((180-70) * (this.DaylyCallorie - this.CallorieScale[0].Callorie) * 100 / (this.CallorieScale[this.CallorieScale.length-1].Callorie - this.CallorieScale[0].Callorie) / 100 + 70);
+    computed:{
+        CallorieDeg:function () {
+            return 3.6 * (this.DaylyCallorie - this.CallorieScale[0].Callorie) * 100 / (this.CallorieScale[this.CallorieScale.length-1].Callorie - this.CallorieScale[0].Callorie);
+        },
+        CalloriePersent:function() {
+            return Math.round((180 - 70) * (this.DaylyCallorie - this.CallorieScale[0].Callorie) * 100 / (this.CallorieScale[this.CallorieScale.length - 1].Callorie - this.CallorieScale[0].Callorie) / 100 + 70);
         }
     },
+
     methods:{
        start(){
            (function() {
@@ -73,13 +74,13 @@ export default {
            var handler2 = function(){
                //console.log(this);
                this.classList.remove('fa-enter-active2');
-               this.removeEventListener('animationend', handler2);
+               this.removeEventListener('transitionend', handler2);
            };
            var handler = function(){
                this.classList.remove('fa-enter-active');
                this.classList.add('fa-enter-active2');
                this.classList.remove('fa-enter-to');
-               this.removeEventListener('animationend', handler);
+               this.removeEventListener('transitionend', handler);
                this.addEventListener('transitionend', handler2);
            };
            //console.log(percent);
@@ -100,7 +101,7 @@ export default {
        }
     },
   created: function() {
-      this.start();
+      setTimeout(this.start, 10);
 
     }
 }

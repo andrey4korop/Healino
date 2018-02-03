@@ -1,10 +1,27 @@
 <template>
-  <div class="mini_indicator mini_indicator2">
-    <div class="progress_bar2">
-      <div class="cursor" v-bind:style="{ transform: 'rotate(' + BioMentalAge.ChronologicalAge *3.6 + 'deg)' }"></div>
-      <div class="text_indicatition">
-      <p class="big">{{BioMentalAge.ChronologicalAge}}</p>
-      <p>years</p>
+  <div class="indicators">
+    <div class="title_indicator">
+      <p>Waist to Hip</p><p> Ratio</p>
+    </div>
+    <div class="indicator indicatorWHR">
+      <div class="progress_bar6">
+        <div class="sometext">
+          <div class="txt">
+            <p class="big">>0.95</p>
+            <p>At Risk</p>
+          </div>
+          <div class="txt">
+            <p>Exelent</p>
+            <p class="big"><0.85</p>
+          </div>
+        </div>
+        <div class="opacity" v-bind:style="{ height: WHRPresent + '%' }"></div>
+        <div class="cursor">
+          <img src="static/img/cursor_4.png" alt="">
+          <div>
+            <p class="big">{{WHRatio}}</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -12,10 +29,20 @@
 
 <script>
 export default {
-  //name: 'app',
-   props: ['BioMentalAge'],
-    //indicator1.vue
+   props: ['WHRatio'],
+    data () {
+        return {
+            WHRPresent: '0',
+            //WHR:'0'
+    }},
+
+    watch: {
+        WHRatio: function () {
+            this.WHRPresent = 100 - (this.WHRatio - 0.85) * 100 / (0.95 - 0.85);
+        }
+    },
     methods:{
+
        start(){
            (function() {
                var lastTime = 0;
@@ -50,8 +77,8 @@ export default {
                });
            };
 
-           var cursor = document.querySelector('.mini_indicator2 .progress_bar2 .cursor');
-           //var percent = document.querySelector('.indicator1 .progress_bar1 .percent');
+           var cursor = document.querySelector('.sm .indicatorWHR .opacity');
+           //var percent = document.querySelector('.indicatorLMP .percent');
            //console.log('start');
            var handler2 = function(){
                //console.log(this);
@@ -73,7 +100,7 @@ export default {
                cursor.classList.add('fa-enter-active');
                //percent.classList.add('fa-enter-active');
                cursor.classList.add('fa-enter-to');
-               //percent.classList.add('fa-enter-to');
+              // percent.classList.add('fa-enter-to');
                cursor.classList.remove('fa-enter');
                //percent.classList.remove('fa-enter');
            });
@@ -91,17 +118,17 @@ export default {
 
 <style scoped>
   .fa-enter{
-    transform: rotate(0deg) !important;
+    height: 0% !important;
   }
   .fa-enter-active{
     transition: all 1s;
-    transition-delay: 0.3s;
+    transition-delay: 0.8s;
   }
   .fa-enter-active2{
     transition: all 2s cubic-bezier(0.5, 2, 0.6, 0.6);
   }
   .fa-enter-to{
-    transform: rotate(360deg) !important;
+    height: 100% !important;
   }
 
 </style>

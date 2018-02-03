@@ -1,10 +1,16 @@
 <template>
-  <div class="mini_indicator mini_indicator2">
-    <div class="progress_bar2">
-      <div class="cursor" v-bind:style="{ transform: 'rotate(' + BioMentalAge.ChronologicalAge *3.6 + 'deg)' }"></div>
-      <div class="text_indicatition">
-      <p class="big">{{BioMentalAge.ChronologicalAge}}</p>
-      <p>years</p>
+  <div class="indicators">
+    <div class="title_indicator">
+      <p>Body Fat Percentage</p>
+    </div>
+    <div class="indicator indicatorBF">
+      <div class="progress_bar1">
+        <img src="static/img/cursor_1.png" alt="" class="cursor"
+             v-bind:style="{ left: BFP/0.4 + '%' }">
+        <span class="percent" v-bind:style="{ left: BFP/0.4 + '%' }">{{BFP}}%</span>
+        <span class="shkala-1">10%</span>
+        <span class="shkala-2">18%</span>
+        <span class="shkala-3">24%</span>
       </div>
     </div>
   </div>
@@ -13,7 +19,7 @@
 <script>
 export default {
   //name: 'app',
-   props: ['BioMentalAge'],
+   props: ['BFP'],
     //indicator1.vue
     methods:{
        start(){
@@ -50,8 +56,8 @@ export default {
                });
            };
 
-           var cursor = document.querySelector('.mini_indicator2 .progress_bar2 .cursor');
-           //var percent = document.querySelector('.indicator1 .progress_bar1 .percent');
+           var cursor = document.querySelector('.sm .indicatorBF .progress_bar1 .cursor');
+           var percent = document.querySelector('.sm .indicatorBF .progress_bar1 .percent');
            //console.log('start');
            var handler2 = function(){
                //console.log(this);
@@ -65,21 +71,21 @@ export default {
                this.removeEventListener('transitionend', handler);
                this.addEventListener('transitionend', handler2);
            };
-           //console.log(percent);
+           ///console.log(percent);
            cursor.classList.add('fa-enter');
-           //percent.classList.add('fa-enter');
+           percent.classList.add('fa-enter');
 
            raf(function(){
                cursor.classList.add('fa-enter-active');
-               //percent.classList.add('fa-enter-active');
+               percent.classList.add('fa-enter-active');
                cursor.classList.add('fa-enter-to');
-               //percent.classList.add('fa-enter-to');
+               percent.classList.add('fa-enter-to');
                cursor.classList.remove('fa-enter');
-               //percent.classList.remove('fa-enter');
+               percent.classList.remove('fa-enter');
            });
 
            cursor.addEventListener('transitionend', handler);
-           //percent.addEventListener('transitionend', handler);
+           percent.addEventListener('transitionend', handler);
        }
     },
   created: function() {
@@ -91,17 +97,17 @@ export default {
 
 <style scoped>
   .fa-enter{
-    transform: rotate(0deg) !important;
+    left: 0 !important;
   }
   .fa-enter-active{
     transition: all 1s;
-    transition-delay: 0.3s;
+    transition-delay: 1s;
   }
   .fa-enter-active2{
     transition: all 2s cubic-bezier(0.5, 2, 0.6, 0.6);
   }
   .fa-enter-to{
-    transform: rotate(360deg) !important;
+    left: 100% !important;
   }
 
 </style>

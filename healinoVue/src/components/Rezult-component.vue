@@ -3,14 +3,15 @@
     <div class="container pc">
       <div class="row">
         <div class="avatar">
-          <img src="static/img/userAvatar.png" alt="">
+          <div v-bind:style="{background: 'url(' + img + ') center center / cover' }" class="img" ></div>
         </div>
       </div>
       <div class="row">
         <div class="left">
           <div class="theme">
-            <p>Theme name theme</p>
-            <img src="static/img/maxresdefault.png" alt="">
+            <p>{{themeActiveObj.Title}}</p>
+            <div class="img"
+                    v-bind:style="{background: 'url(' + themeActiveObj.ImageUrl + ') center center / cover' }" alt=""></div>
           </div>
         </div>
         <div class="center">
@@ -90,7 +91,7 @@
 
   <div class="containerMob sm">
     <div class="pos1">
-      <indicator2 :DaylyCallorie="DaylyCallorie" :CallorieScale="CallorieScale"></indicator2>
+      <indicator2sm :DaylyCallorie="DaylyCallorie" :CallorieScale="CallorieScale"></indicator2sm>
     </div>
     <div class="pos2">
       <div class="indicators">
@@ -110,7 +111,7 @@
     </div>
     <div class="pos3">
       <div class="avatar">
-        <img src="static/img/userAvatar.png" alt="">
+        <div v-bind:style="{background: 'url(' + img + ') center center / cover' }" class="img" ></div>
       </div>
     </div>
 
@@ -121,11 +122,11 @@
         </div>
         <div class="indicator">
           <div class="row_indicator">
-            <indicator-real-age :BioMentalAge="BioMentalAge"></indicator-real-age>
+            <indicator-real-agesm :BioMentalAge="BioMentalAge"></indicator-real-agesm>
           </div>
           <div class="row_indicator">
-            <indicator-Chronologi-age :BioMentalAge="BioMentalAge"></indicator-Chronologi-age>
-            <indicator-Mental-age :BioMentalAge="BioMentalAge"></indicator-Mental-age>
+            <indicator-Chronologi-agesm :BioMentalAge="BioMentalAge"></indicator-Chronologi-agesm>
+            <indicator-Mental-agesm :BioMentalAge="BioMentalAge"></indicator-Mental-agesm>
           </div>
         </div>
         <div class="info_indicator">
@@ -142,11 +143,11 @@
         </div>
         <div class="indicator">
           <div class="row_indicator">
-            <indicator-CVD10 :RASCVD="RASCVD"></indicator-CVD10>
+            <indicator-CVD10sm :RASCVD="RASCVD"></indicator-CVD10sm>
           </div>
           <div class="row_indicator">
-            <indicator-CVD5 :TenYearsASCVD="TenYearsASCVD"></indicator-CVD5>
-            <indicator-CVD15 :TenYearsASCVD="TenYearsASCVD"></indicator-CVD15>
+            <indicator-CVD5sm :TenYearsASCVD="TenYearsASCVD"></indicator-CVD5sm>
+            <indicator-CVD15sm :TenYearsASCVD="TenYearsASCVD"></indicator-CVD15sm>
           </div>
         </div>
         <div class="info_indicator_top">
@@ -158,15 +159,15 @@
     <div class="pos6">
 
 
-      <indicatorBF :BFP="BFP"></indicatorBF>
-      <indicatorBMR :BMR="BMR"></indicatorBMR>
-      <indicator1 :FM="FM"></indicator1>
+      <indicatorBFsm :BFP="BFP"></indicatorBFsm>
+      <indicatorBMRsm :BMR="BMR"></indicatorBMRsm>
+      <indicator1sm :FM="FM"></indicator1sm>
     </div>
     <div class="pos7">
-      <indicatorLMP :LMP="LMP" :LMPCategoryScale="LMPCategoryScale"></indicatorLMP>
+      <indicatorLMPsm :LMP="LMP" :LMPCategoryScale="LMPCategoryScale"></indicatorLMPsm>
     </div>
     <div class="pos8">
-      <indicatorWHR :WHRatio="WHRatio"></indicatorWHR>
+      <indicatorWHRsm :WHRatio="WHRatio"></indicatorWHRsm>
     </div>
   </div>
 </div>
@@ -175,7 +176,7 @@
 
 <script>
     export default {
-        props:['rezultData'],
+        props:['rezultData', 'userData', 'themeActiveObj'],
         data () {
             return {
                 temp:'',
@@ -205,15 +206,15 @@
                 BFP:0,
                 BMR:0,
                 FM:0,
-                WHRatio:0
-
+                WHRatio:0,
+                img:""
             }
         },
         computed: {
             getTemp: function () {
                 if(!this.temp){
 
-                        this.temp = rezultData;
+                        this.temp = this.rezultData;
 
                 }
                 return this.LMPCategoryScale;//this.temp;
@@ -227,24 +228,27 @@
         },
         created: function() {
 
-                //console.log(this.$data);
-                this.BMI = rezultData.BMI;
-                this.BioMentalAge = rezultData.BioMentalAge;
-                this.DaylyCallorie = rezultData.DaylyCallorie;
-                this.CallorieScale = rezultData.CallorieScale;
-                this.LMP = rezultData.LMP;
-                this.LMPCategoryScale = rezultData.LMPCategoryScale;
-                this.RASCVD = rezultData.RASCVD;
-                this.TenYearsASCVD = rezultData.TenYearsASCVD;
-                this.BFP = rezultData.BFP;
-                this.BMR = rezultData.BMR;
-                this.FM = rezultData.FM;
-                this.WHRatio = rezultData.WHRatio;
+            this.img = this.userData.PhotoUrl || '../static/img/noIMG.png';
+
+            this.BMI = this.rezultData.BMI;
+            this.BioMentalAge = this.rezultData.BioMentalAge;
+            this.DaylyCallorie = this.rezultData.DaylyCallorie;
+            this.CallorieScale = this.rezultData.CallorieScale;
+            this.LMP = this.rezultData.LMP;
+            this.LMPCategoryScale = this.rezultData.LMPCategoryScale;
+            this.RASCVD = this.rezultData.RASCVD;
+            this.TenYearsASCVD = this.rezultData.TenYearsASCVD;
+            this.BFP = this.rezultData.BFP;
+            this.BMR = this.rezultData.BMR;
+            this.FM = this.rezultData.FM;
+            this.WHRatio = this.rezultData.WHRatio;
 
         }
     }
 </script>
 
-<style>
-
+<style scoped>
+  .avatar .img{
+    cursor: default;
+  }
 </style>

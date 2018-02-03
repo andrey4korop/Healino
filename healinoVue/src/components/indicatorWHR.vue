@@ -110,7 +110,7 @@ export default {
        }
     },
   created: function() {
-      this.start();
+      setTimeout(this.start, 10);
 
     }
 }

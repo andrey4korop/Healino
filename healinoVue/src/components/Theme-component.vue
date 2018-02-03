@@ -9,15 +9,17 @@
         <a href="/">Forum</a>
         <h3>{{userData.QuestionsProgress}}%</h3>
         <div class="lang">
-          <img src="static/img/langUA.png" alt="" class="">
+          <img src="static/img/langPL.png" alt=""   v-if="lang=='pl'">
+          <img src="static/img/langUSA.png" alt=""  v-if="lang=='en'">
+          <img src="static/img/langUA.png" alt=""   v-if="lang=='ru'">
           <ul>
-            <li><img src="static/img/langPL.png" alt=""></li>
-            <li><img src="static/img/langUSA.png" alt=""></li>
-            <li><img src="static/img/langUA.png" alt=""></li>
+            <li v-on:click="$emit('changeLang', 'pl')" v-if="lang!='pl'"><img src="static/img/langPL.png" alt=""></li>
+            <li v-on:click="$emit('changeLang', 'en')" v-if="lang!='en'"><img src="static/img/langUSA.png" alt=""></li>
+            <li v-on:click="$emit('changeLang', 'ru')" v-if="lang!='ru'"><img src="static/img/langUA.png" alt=""></li>
           </ul>
         </div>
+        <div v-bind:style="{background: 'url(' + userIMG + ') center center / cover' }" class="user_Avatar" ></div>
 
-        <img src="static/img/userAvatar.png" alt="" class="user_Avatar">
       </div>
     </div>
     <div class="row">
@@ -28,7 +30,7 @@
             <div class="theme" v-for="list in List"
                  v-on:click.prevent="changeActive(list)"
                  v-bind:style="{background: 'url(' + list.ImageUrl + ') center center / cover' }"
-                 v-bind:class="[(list.ThemeStatus=='3') ? 'disable' : '', (list.ThemeStatus=='2') ? 'check' : '', (isActive(list.Id)) ? 'active' : '' ]" >
+                 v-bind:class="[(list.ThemeStatus=='3') ? 'disable' : '', (list.QuestionsTotal==list.QuestionsFinished) ? 'check' : '', (isActive(list.Id)) ? 'active' : '' ]" >
               <div class="filter" v-on:click="changeActive(list)">
                 <img src="static/img/mark.png" alt="">
                 <button v-on:click.prevent="getRezult(list)">VIEW RESULT</button>
@@ -57,7 +59,7 @@
 
 <script>
     export default {
-        props: ['SessionData', 'List', 'userData'],
+        props: ['SessionData', 'List', 'userData', 'lang'],
         data () {
             return {
                 activeId:0,
@@ -83,6 +85,15 @@
                     SessionData: this.SessionData,
                 }
             },
+            userIMG: function () {
+
+                if(this.userData.PhotoUrl){
+                    return this.userData.PhotoUrl;
+                }
+                else{
+                    return '../static/img/noIMG.png';
+                }
+            },
 
         },
         created: function() {
@@ -95,7 +106,8 @@
         },
         methods: {
             changeActive: function (list) {
-                console.log('changeActive');
+                //console.log('changeActive');
+                this.$emit('changeActiveTheme', list);
                 if(list.ThemeStatus == 0 || list.ThemeStatus == 1 || list.ThemeStatus == 2 ) {
                     this.activeId = list.Id;
                     this.Description = list.Description;
@@ -112,10 +124,11 @@
                 }
             },
             getRezult:function (list) {
-                $.post( 'http://healino-api.azurewebsites.net/api/Theme/GetThemeTestResult',  this.bodyForResult(list)  )
+                this.$emit('changeActiveTheme', list);
+                let t = this;
+                $.post( '/api/Theme/GetThemeTestResult',  this.bodyForResult(list)  )
                     .done(function( data ){
-                        //t.List = data.List;
-                        console.log(data)
+                        t.$emit('toRezult',data);
                     });
             },
             bodyForResult: function (list) {

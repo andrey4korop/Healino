@@ -50,7 +50,7 @@ export default {
                });
            };
 
-           var cursor = document.querySelector('.mini_indicator2 .progress_bar2 .cursor');
+           var cursor = document.querySelector('.sm .mini_indicator2 .progress_bar2 .cursor');
            //var percent = document.querySelector('.indicator1 .progress_bar1 .percent');
            //console.log('start');
            var handler2 = function(){
