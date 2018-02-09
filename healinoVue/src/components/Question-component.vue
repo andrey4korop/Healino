@@ -34,15 +34,20 @@
           <img src="static/img/curcor.png" class="cursor" alt="">
           <div class="white" v-bind:style="{width: per + '%'}"></div>
         </div>
-        <questionType0 v-if="getType()==0"
-                       :questionData="questionData" @changeVal="changeVal"></questionType0>
-        <questionType2 v-if="getType()==2"
-                :questionData="questionData" @changeVal="changeVal"></questionType2>
-        <questionType1 v-if="getType()==1"
-                       :questionData="questionData" @changeVal="changeVal"></questionType1>
+        <questionType0 v-if="Type==0"
+                       :questionData="questionData"
+                       :errorQuest="errorQuest"
+                       @changeVal="changeVal"></questionType0>
+        <questionType2 v-if="Type==2"
+                       :questionData="questionData"
+                       :errorQuest="errorQuest"
+                       @changeVal="changeVal"></questionType2>
+        <questionType1 v-if="Type==1"
+                       :questionData="questionData"
+                       @changeVal="changeVal"></questionType1>
       </div>
       <div class="green">
-        <button>BACK</button>
+        <button v-on:click="$emit('toTheme')">BACK</button>
         <button v-on:click="nextQuestion">NEXT</button>
       </div>
     </div>
@@ -53,15 +58,16 @@
 
 <script>
     export default {
-        props: ['SessionData', 'questionData', 'userData', 'lang'],
+        props: ['SessionData', 'questionData', 'userData', 'lang', 'errorQuest'],
         data () {
             return {
 
 
-                UserThemeTestId: 0,
-                QuestionId: 0,
-                AnswersId: 0,
-                AnswerValue: 0,
+                //UserThemeTestId: 0,
+                //QuestionId: 0,
+                AnswersId:"",
+                AnswerValue: "",
+                Type:-1,
                 //SessionData: "string",
                 //IpAddress: "string",
                 //Localization: "string"
@@ -74,7 +80,7 @@
                 return {
                     SessionData: this.SessionData,
                     UserThemeTestId: this.questionData.UserThemeTestId,
-                    QuestionId: this.QuestionId,
+                    QuestionId: this.questionData.QuestionId,
                     AnswersId: this.AnswersId,
                     AnswerValue: this.AnswerValue,
                 }
@@ -95,8 +101,24 @@
             },
         },
         created: function() {
-            this.QuestionId = this.questionData.QuestionId;
-            this.UserThemeTestId = this.questionData.UserThemeTestId;
+            /*this.QuestionId = this.questionData.QuestionId;
+            this.UserThemeTestId = this.questionData.UserThemeTestId;*/
+            this.Type = this.getType();
+
+        },
+        watch: {
+            questionData: function(newVal, oldVal) { // watch it
+                this.Type = -1;
+                console.log(this.Type);
+                let t = this;
+                setTimeout(function () {
+                    t.Type = newVal.QuestionTypeEnum;
+                    console.log(t.Type);
+                },5);
+
+                this.AnswersId = "";
+                this.AnswerValue = "";
+            }
         },
         methods: {
             getType() {
@@ -105,10 +127,21 @@
             changeVal(newVal){
                 this.AnswersId= newVal.AnswersId;
                 this.AnswerValue= newVal.AnswerValue;
+                this.$emit('clearnError');
             },
             nextQuestion(){
+                let error = false;
 
-              this.$emit('nextQuestion', this.body);
+              if(this.AnswersId == 0 && this.questionData.AnswerOptions.length > 0){
+                error=true;
+              }
+              if(!this.AnswerValue && this.questionData.QuestionTypeEnum==2){
+                  error=true;
+              }
+              if(!error){
+                  this.$emit('nextQuestion', this.body);
+              }
+
             }
         }
     }

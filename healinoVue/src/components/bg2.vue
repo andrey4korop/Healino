@@ -26,7 +26,7 @@ export default {
     methods:{
         on(){
             this.is= true;
-            jQuery(document).ready(function(){
+            /*jQuery(document).ready(function(){
                 $('.layer9').plaxmove({ratioH:0.05,ratioV:0.1});
                 $('.layer10').plaxmove({ratioH:0.12,ratioV:0.08});
                 $('.layer11').plaxmove({ratioH:0.1,ratioV:0.18});
@@ -36,7 +36,7 @@ export default {
                 $('.layer15').plaxmove({ratioH:0.011,ratioV:0.015});
                 $('.layer16').plaxmove({ratioH:0.011,ratioV:0.015});
                 // $('.layer17').plaxmove({ratioH:0.011,ratioV:0.015})
-            });
+            });*/
         }
     },
   created: function() {

@@ -38,9 +38,12 @@
                         :SessionData="SessionData"
                         :lang="lang"
                         :userData="userData"
+                        :errorQuest="errorQuest"
+                        @toTheme="toTheme"
                         @toRezult="toRezult"
                         @changeLang="changeLang"
-                        @nextQuestion="nextQuestion"></question-component>
+                        @nextQuestion="nextQuestion"
+                        @clearnError="clearnError"></question-component>
 
     <rezult-component v-else-if="state == 'rezult'"
                       :userData="userData"
@@ -50,11 +53,13 @@
 </template>
 
 <script>
-    import Vue from 'vue';
+
 export default {
   name: 'app',
    data () {
     return {
+        activeId:0,
+        errorQuest:false,
         backgr:1,
         List:[],
         themeActiveObj:{},
@@ -153,7 +158,8 @@ export default {
                         if (!data.Phone) {
                             t.state = "license"
                         } else {
-                            t.state = "user";
+                            //t.state = "user";
+                            t.toTheme();
                         }
                     }
                 })
@@ -182,6 +188,7 @@ export default {
 
         },
         toQuestion(id){
+            this.activeId = id;
             let body ={
                 Argument: id,
                 SessionData: this.SessionData,
@@ -220,13 +227,17 @@ export default {
                         //t.toQuestion(this.themeActive);
                         if(data.IsFinished){
                             //t.rezultData= data;
-                            console.log(data);
+                            //console.log(data);
                             t.toRezult(data);
                         }else {
                             t.questionData = data;
                             t.backgr = t.newBackground(t.backgr);
                         }
-                    }else{
+                    }else if(data.ErrorCode==1 && data.DebugMessage=="Question already answered"){
+                        t.toQuestion(t.activeId);
+                    }
+                    else{
+                        t.errorQuest = true;
                         //console.log("error from server" );
                     }
                 })
@@ -234,11 +245,16 @@ export default {
                    // console.log("error" );
                 });
         },
+        clearnError(){
+          this.errorQuest = false;
+        },
         toRezult(data){
             console.log('data to rezult');
             console.log(data);
-            this.rezultData = data;
-            this.state = "rezult"
+            if(data.ErrorCode==1) {
+                this.rezultData = data;
+                this.state = "rezult"
+            }
         },
         chAc(id){
             this.themeActive=id;

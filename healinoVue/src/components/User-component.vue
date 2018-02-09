@@ -32,7 +32,8 @@
         </label>
         <label>
           <p><span>*</span>Date of Birth</p>
-          <input type="date" v-model="Birthday" v-on:change="change(objBirthday, Birthday)">
+          <input id="date" type="date"
+                 v-model="Birthday" v-on:change="change(objBirthday, Birthday)">
           <span class="check" v-bind:class="(objBirthday.showLoad) ? 'loading': ''" v-if="objBirthday.showCheck">
             <i class="fa fa-check" aria-hidden="true"></i>
           </span>
@@ -66,7 +67,8 @@
         </label>
         <label>
           <p><span>*</span>Phone</p>
-          <input type="tel" v-model="Phone" v-on:change="change(objPhone, Phone)">
+          <input type="tel" pattern="^(?:0|\(?\+\)?\s?|00\s?)[1-79](?:[\.\-\s]?\d\d){4}$"
+                 v-model="Phone" v-on:change="change(objPhone, Phone)">
           <span class="check" v-bind:class="(objPhone.showLoad) ? 'loading': ''" v-if="objPhone.showCheck">
             <i class="fa fa-check" aria-hidden="true"></i>
           </span>
@@ -210,7 +212,8 @@
                 objBirthday:{
                     showCheck: false,
                     showLoad: true,
-                    error:false
+                    error:false,
+                    date: "date"
                 },
                 objLocation:{
                     showCheck: false,
@@ -284,12 +287,7 @@
 
         },
         created: function() {
-            //this.Birthday = this.birth();
-           // let t = this;
-           // console.log('getUser');
-           // $.post( 'http://healino-api.azurewebsites.net/api/Account/GetUserProfile',  this.bodyGet  )
-                //.done(function( data ){
-                    //if(data.ErrorCode==1 || data.UserId != null){
+
             for(var index in this.userData) {
 
                  if(this.userData[index] && index in this){
@@ -307,25 +305,7 @@
             if(this.userData.PhotoUrl){
                 this.img = this.userData.PhotoUrl;
             }
-                      /*this.Name = this.userData.Name;
-                      this.SurName = this.userData.SurName;
-                      this.Birthday = this.birth(this.userData.Birthday);
-                      this.Location = this.userData.Location;
-                      this.Race = this.userData.Race;
-                      this.Phone = this.userData.Phone;
-                      this.Height = this.userData.Height;
-                      this.HeightAdditional = this.userData.HeightAdditional;
-                      this.Weight = this.userData.Weight;
-                      this.WeightAdditional = this.userData.WeightAdditional;
-                      this.Activity = this.userData.Activity;
-                      this.Gender = this.userData.Gender;
-                      this.PersonMeasurementSystem = this.userData.PersonMeasurementSystem;*/
-                        // console.log(data);
-                  //  }
-               // })
-               // .fail(function() {
-               //     console.log("error" );
-              //  });
+
         },
         methods: {
             uploadImage:function () {
@@ -367,7 +347,13 @@
                   $.post( '/api/Account/UpdateUserInformation',  this.bodySet  )
                       .done(function( data ){
                           //console.log(data)
-                          t.$emit('toTheme');
+                          if(data.ErrorCode == 1) {
+                              t.$emit('toTheme');
+                          }
+                          if(data.ErrorCode == 5 && data.DebugMessage == "Incorect height or weight"){
+                            t.objHeight.error = true;
+                            t.objWeight.error = true;
+                          }
                       });
                 }
             },
@@ -380,6 +366,7 @@
                 obj.error = false;
                 setTimeout( function () {
                     obj.showLoad = false;
+
                     if(val == null || val==="" || val < 0 ){
                         obj.showCheck = false;
                     }
@@ -391,11 +378,13 @@
                 for(let index in this.bodySet){
                     //console.log(index + " : " + this.bodySet[index]);
                     //console.log(this.bodySet[index]);
-                    if(!(this.bodySet[index]=== "0"|| this.bodySet[index]=== 0 ||(this.bodySet[index]!=null && this.bodySet[index]!="" && this.bodySet[index]!=" "))){
+                    if(!(this.bodySet[index]=== "0"|| this.bodySet[index]=== 0 ||(this.bodySet[index]!==null && this.bodySet[index]!=="" && this.bodySet[index]!==" "))){
                         error=true;
                         this["obj"+index].error=true;
-                        //console.log(error);
-                        //break;
+                    }
+                    if(( index=="Height" || index=='Weight' ) && this.bodySet[index] < 1){
+                        error=true;
+                        this["obj"+index].error=true;
                     }
                 }
                 //console.log(error);

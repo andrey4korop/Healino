@@ -3,7 +3,7 @@ import App from './App.vue'
 /**
  * загрузка главных страниц
  */
-import es6Promise from 'es6-promise'
+//import es6Promise from 'es6-promise'
 
 import rezultComponent  from './components/Rezult-component.vue'
 import startComponent  from './components/Start-component.vue'
@@ -52,11 +52,11 @@ import bg2  from './components/bg2.vue'
 import bg3  from './components/bg3.vue'
 import bg4  from './components/bg4.vue'
 import bg5  from './components/bg5.vue'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
+//import axios from 'axios'
+//import VueAxios from 'vue-axios'
 
 
-Vue.use(VueAxios, axios);
+//Vue.use(VueAxios, axios);
 
 
 import GSignInButton from 'vue-google-signin-button'
@@ -64,7 +64,7 @@ Vue.use(GSignInButton)
 /**
  * загрузка главных страниц
  */
-es6Promise.polyfill()
+//es6Promise.polyfill()
 Vue.component('rezult-component', rezultComponent);
 Vue.component('start-component', startComponent);
 Vue.component('login-component', loginComponent);

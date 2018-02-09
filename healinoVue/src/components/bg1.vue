@@ -25,7 +25,7 @@ export default {
     methods:{
         on(){
             this.is= true;
-            jQuery(document).ready(function(){
+            /*jQuery(document).ready(function(){
 
                 $('.layer1').plaxmove({ratioH:0.05,ratioV:0.1});
                 $('.layer2').plaxmove({ratioH:0.12,ratioV:0.08});
@@ -35,7 +35,7 @@ export default {
                 $('.layer7').plaxmove({ratioH:0.011,ratioV:0.015});
 
 
-            });
+            });*/
         }
     },
   created: function() {

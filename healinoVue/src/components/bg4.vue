@@ -23,14 +23,14 @@ export default {
     methods:{
         on(){
             this.is= true;
-            jQuery(document).ready(function(){
+            /*jQuery(document).ready(function(){
                 $('.layer27').plaxmove({ratioH:0.05,ratioV:0.1});
                 $('.layer28').plaxmove({ratioH:0.12,ratioV:0.08});
                 $('.layer29').plaxmove({ratioH:0.1,ratioV:0.18});
                 //$('.layer30').plaxmove({ratioH:0.1,ratioV:0.18})
                 //$('.layer31').plaxmove({ratioH:0.2,ratioV:0.1})
 
-            });
+            });**/
         }
     },
   created: function() {

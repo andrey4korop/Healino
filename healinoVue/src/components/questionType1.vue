@@ -61,6 +61,13 @@ export default {
             this.changeVal();
         }
     },
+    watch: {
+        questionData: function(newVal, oldVal) { // watch it
+
+            this.AnswersId = "";
+            this.AnswerValue = "";
+        }
+    },
   created: function() {
 
     }

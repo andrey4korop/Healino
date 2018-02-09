@@ -8,16 +8,18 @@
                v-model="AnswerValue"
                v-on:input="changeVal"
                v-on:change="changeInput">
-        <span class="check"  v-bind:class="(showLoadInput) ? 'loading': ''" v-if="showCheckInput">
+        <span class="check"  v-bind:class="(showLoadInput) ? 'loading': ''" v-if="showCheckInput && !errorQuest">
           <i class="fa fa-check" aria-hidden="true"></i>
         </span>
+        <span class="check" v-bind:class="(errorQuest) ? 'error' : ''" v-if="errorQuest">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </span>
       </label>
-      <label>
+      <label v-if="questionData.AnswerOptions.length>0">
 
         <select v-model="AnswersId"
                 v-on:input="changeVal"
-                v-on:change="changeSelect"
-                v-if="questionData.AnswerOptions.length>0">
+                v-on:change="changeSelect">
           <option v-for="ans in questionData.AnswerOptions" v-bind:value="ans.Id" >{{ans.AnswerText}}</option>
 
         </select>
@@ -31,7 +33,7 @@
 
 <script>
 export default {
-    props: ['questionData'],
+    props: ['questionData', 'errorQuest'],
     data () {
         return {
             AnswersId:"",
@@ -81,6 +83,19 @@ export default {
             }, 1500);
         },
 
+    },
+    watch: {
+        questionData: function(newVal, oldVal) { // watch it
+            console.log(newVal);
+            this.AnswersId = "";
+            this.AnswerValue = "";
+
+
+            this.showCheckInput= false;
+            this.showLoadInput= true;
+            this.showCheckSelect= false;
+            this.showLoadSelect= true;
+        }
     },
   created: function() {
       //console.log('type2');
