@@ -4,17 +4,17 @@
     <div class="row">
       <form action="" class="login">
         <button class="btn_social facebook" v-on:click.prevent="FacebookLogin">
-          <img src="static/img/facebook.png" alt="">Sign Up with Facebook
+          <img src="static/img/facebook.png" alt="">{{langString('loginFB')}}
         </button>
         <g-signin-button
                 :params="googleSignInParams"
                 @success="onSignInSuccess"
                 @error="onSignInError">
-          <img src="static/img/google-plus.png" alt="">Login with Google
+          <img src="static/img/google-plus.png" alt="">{{langString('loginG')}}
         </g-signin-button>
-        <h5>or</h5>
+        <h5 v-lang.or></h5>
         <label>
-          <p><span>*</span>Email</p>
+          <p><span>*</span>{{langString('email')}}</p>
           <input type="email" v-model="Email" v-on:change="changeEmail">
 
           <span class="check" v-bind:class="(showLoadEmail) ? 'loading': ''" v-if="showCheckEmail">
@@ -22,7 +22,7 @@
           </span>
         </label>
         <label>
-          <p><span>*</span>Password</p>
+          <p><span>*</span>{{langString('password')}}</p>
           <input v-bind:type="typeInputPass" v-model="Password" v-on:change="changePass">
           <div  class="eye" v-bind:class="(putMouse) ? 'active' : '' " v-on:mousedown="toShowPass" v-on:mouseup="toHidePass"></div>
           <span class="check" v-bind:class="(showLoadPass) ? 'loading': ''" v-if="showCheckPass">
@@ -30,7 +30,7 @@
           </span>
         </label>
         <label>
-          <p><span>*</span>Verify Password</p>
+          <p><span>*</span>{{langString('verPass')}}</p>
           <input v-bind:type="typeInputVPass" v-model="VPassword" v-on:change="changeVPass">
           <div  class="eye" v-bind:class="(putVMouse) ? 'active' : '' " v-on:mousedown="toShowVPass" v-on:mouseup="toHideVPass"></div>
           <span class="check" v-bind:class="(showLoadVPass) ? 'loading': ''" v-if="showCheckVPass">
@@ -40,15 +40,18 @@
         <label class="pointer2">
 
           <input type="checkbox" v-model="remember">
-          <span class="checkbox"><i class="fa fa-check" aria-hidden="true"></i></span><span>Remember me</span></label>
+          <span class="checkbox">
+            <i class="fa fa-check" aria-hidden="true"></i>
+          </span>
+          <span v-lang.rememberMe></span></label>
         <div class="firstPage pc">
-          <button v-on:click.prevent="send">SING UP</button>
+          <button v-on:click.prevent="send" v-lang.login></button>
         </div>
       </form>
     </div>
     <div class="row sm">
       <div class="firstPage">
-        <button v-on:click.prevent="send">SING UP</button>
+        <button v-on:click.prevent="send" v-lang.login></button>>
       </div>
     </div>
   </div>
@@ -84,6 +87,44 @@
                 }
             }
         },
+        messages: {
+            en: {
+                loginFB:"Sign in with Facebook",
+                loginG:"Sign in with Google",
+                or:'- or -',
+                email:'E-mail',
+                password:'Password',
+                verPass:'Verify Password',
+                forgotPass:'Forgot your password?',
+                rememberMe:'Remember me',
+                login: 'SIGN IN',
+
+            },
+            ru: {
+                loginFB:"Регистрация через Facebook",
+                loginG:"Регистрация через Google",
+                or:'- или -',
+                email:'E-mail',
+                password:'Пароль',
+                verPass:'Подтвердите пароль',
+                forgotPass:'Забыл пароль?',
+                rememberMe:'Запомнить меня',
+                login: 'РЕГИСТРАЦИЯ',
+
+            },
+            pl: {
+                loginFB:"Zaloguj się przez Facebook",
+                loginG:"Zaloguj się przez Google",
+                or:'- lub -',
+                email:'E-mail',
+                password:'Hasło',
+                verPass:'Potwierdź hasło',
+                forgotPass:'Zapomniałeś hasła?',
+                rememberMe:'Zapamiętaj mnie',
+                login: 'REJESTRACJA',
+
+            }
+        },
         computed: {
           body: function () {
               return{
@@ -96,6 +137,9 @@
           }
         },
         methods:{
+            langString(string){
+                return this.translate(string);
+            },
             bodyToken(token){
                 return {
                     Token: token,

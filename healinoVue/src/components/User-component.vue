@@ -11,7 +11,7 @@
     <form class="roww">
       <div class="formBlock login">
         <label>
-          <p><span>*</span>Name</p>
+          <p><span>*</span>{{langString('name')}}</p>
           <input type="text" v-model="Name" v-on:change="change(objName, Name)" v-bind:disabled="objName.disable">
           <span class="check" v-bind:class="(objName.showLoad) ? 'loading': ''" v-if="objName.showCheck">
             <i class="fa fa-check" aria-hidden="true"></i>
@@ -21,7 +21,7 @@
           </span>
         </label>
         <label>
-          <p><span>*</span>Family Name</p>
+          <p><span>*</span>{{langString('surname')}}</p>
           <input type="text" v-model="SurName" v-on:change="change(objSurName, SurName)" v-bind:disabled="objSurName.disable">
           <span class="check" v-bind:class="(objSurName.showLoad) ? 'loading': ''" v-if="objSurName.showCheck">
             <i class="fa fa-check" aria-hidden="true"></i>
@@ -31,7 +31,7 @@
           </span>
         </label>
         <label>
-          <p><span>*</span>Date of Birth</p>
+          <p><span>*</span>{{langString('date')}}</p>
           <input id="date" type="date"
                  v-model="Birthday" v-on:change="change(objBirthday, Birthday)">
           <span class="check" v-bind:class="(objBirthday.showLoad) ? 'loading': ''" v-if="objBirthday.showCheck">
@@ -42,7 +42,7 @@
           </span>
         </label>
         <label>
-          <p><span>*</span>Location</p>
+          <p><span>*</span>{{langString('location')}}</p>
           <input type="text" v-model="Location" v-on:change="change(objLocation, Location)" v-bind:disabled="objLocation.disable">
           <span class="check" v-bind:class="(objLocation.showLoad) ? 'loading': ''" v-if="objLocation.showCheck">
             <i class="fa fa-check" aria-hidden="true"></i>
@@ -52,7 +52,7 @@
           </span>
         </label>
         <label>
-          <p><span>*</span>Race</p>
+          <p><span>*</span>{{langString('race')}}</p>
           <select v-model="Race" v-on:change="change(objRace, Race)">
             <option value="0">White</option>
             <option value="1">Asian</option>
@@ -66,7 +66,7 @@
           </span>
         </label>
         <label>
-          <p><span>*</span>Phone</p>
+          <p><span>*</span>{{langString('phone')}}</p>
           <input type="tel" pattern="^(?:0|\(?\+\)?\s?|00\s?)[1-79](?:[\.\-\s]?\d\d){4}$"
                  v-model="Phone" v-on:change="change(objPhone, Phone)">
           <span class="check" v-bind:class="(objPhone.showLoad) ? 'loading': ''" v-if="objPhone.showCheck">
@@ -81,14 +81,14 @@
       <div class="formBlock login">
         <div class="Metrics">
           <div class="btn" v-bind:class="[(PersonMeasurementSystem == '0') ? 'active': '']"
-                            v-on:click="changeMetrics('0')">Metrics</div>
+                            v-on:click="changeMetrics('0')">{{langString('metric')}}</div>
           <div class="btn" v-bind:class="[(PersonMeasurementSystem == '1') ? 'active': '']"
                             v-on:click="changeMetrics('1')">US</div>
         </div>
         <label v-if="PersonMeasurementSystem == '0'">
-          <p><span>*</span>Heigth</p>
+          <p><span>*</span>{{langString('height')}}</p>
           <input type="number" class="number" v-model="Height" v-on:change="change(objHeight, Height)">
-          <span class="razmer">cm</span>
+          <span class="razmer">{{langString('cm')}}</span>
           <span class="check" v-bind:class="(objHeight.showLoad) ? 'loading': ''" v-if="objHeight.showCheck">
             <i class="fa fa-check" aria-hidden="true"></i>
           </span>
@@ -97,9 +97,9 @@
           </span>
         </label>
         <label v-if="PersonMeasurementSystem == '0'">
-          <p><span>*</span>Weigth</p>
+          <p><span>*</span>{{langString('weight')}}</p>
           <input type="number" class="number" v-model="Weight" v-on:change="change(objWeight, Weight)">
-          <span class="razmer">kg</span>
+          <span class="razmer">{{langString('kg')}}</span>
           <span class="check" v-bind:class="(objWeight.showLoad) ? 'loading': ''" v-if="objWeight.showCheck">
             <i class="fa fa-check" aria-hidden="true"></i>
           </span>
@@ -108,11 +108,11 @@
           </span>
         </label>
         <label v-if="PersonMeasurementSystem == '1'">
-          <p><span>*</span>Heigth</p>
+          <p><span>*</span>{{langString('height')}}</p>
           <input type="number" class="number" v-model="Height" v-on:change="change(objHeight, Height)">
-          <span class="razmer">ft</span>
+          <span class="razmer">{{langString('ft')}}</span>
           <input type="number" class="number"  v-model="HeightAdditional" v-on:change="change(objHeight, Height)">
-          <span class="razmer">in</span>
+          <span class="razmer">{{langString('inn')}}</span>
           <span class="check" v-bind:class="(objHeight.showLoad) ? 'loading': ''" v-if="objHeight.showCheck">
             <i class="fa fa-check" aria-hidden="true"></i>
           </span>
@@ -121,11 +121,11 @@
           </span>
         </label>
         <label v-if="PersonMeasurementSystem == '1'">
-          <p><span>*</span>Weigth</p>
+          <p><span>*</span>{{langString('weight')}}</p>
           <input type="number" class="number" v-model="Weight" v-on:change="change(objWeight, Weight)">
-          <span class="razmer">lb</span>
+          <span class="razmer">{{langString('lb')}}</span>
           <input type="number" class="number"  v-model="WeightAdditional" v-on:change="change(objWeight, Weight)">
-          <span class="razmer">oz</span>
+          <span class="razmer">{{langString('oz')}}</span>
           <span class="check" v-bind:class="(objWeight.showLoad) ? 'loading': ''" v-if="objWeight.showCheck">
             <i class="fa fa-check" aria-hidden="true"></i>
           </span>
@@ -134,7 +134,7 @@
           </span>
         </label>
         <label>
-          <p><span>*</span>Activity</p>
+          <p><span>*</span>{{langString('activity')}}</p>
           <select v-model="Activity" v-on:change="change(objActivity, Activity)">
             <option value="0">NoActivity</option>
             <option value="1">Sedentary</option>
@@ -151,20 +151,20 @@
           </span>
         </label>
         <label>
-          <p><span>*</span>Gender</p>
+          <p><span>*</span>{{langString('gender')}}</p>
         </label>
         <label class="pointer radio">
 
           <input type="radio" name="raz" value="0" v-model="Gender" >
-          <span class="checkbox"><i class="fa fa-check" aria-hidden="true"></i></span><span>Male</span>
+          <span class="checkbox"><i class="fa fa-check" aria-hidden="true"></i></span><span v-lang.male></span>
         </label>
         <label class="pointer radio">
 
           <input type="radio" name="raz" value="1" v-model="Gender">
-          <span class="checkbox"><i class="fa fa-check" aria-hidden="true"></i></span><span>Female</span>
+          <span class="checkbox"><i class="fa fa-check" aria-hidden="true"></i></span><span v-lang.female></span>
         </label>
         <label class="bottom">
-          <p>Date Actualization: 24.09.2017</p>
+          <p>{{langString('someDate')}}: 24.09.2017</p>
         </label>
       </div>
 
@@ -172,7 +172,7 @@
     </form>
     <div class="row">
       <div class="firstPage fifthPage">
-        <button v-on:click.prevent="updateUser">SING UP</button>
+        <button v-on:click.prevent="updateUser" v-lang.button></button>
       </div>
     </div>
   </div>
@@ -250,6 +250,77 @@
 
             }
         },
+        messages: {
+            en: {
+                name: 'Name',
+                surname: 'Family Name',
+                date: 'Date of Birth',
+                location: 'Location',
+                race: 'Race',
+                phone: 'Phone',
+                metric: 'Metrics',
+                height: 'Height',
+                cm: 'cm',
+                ft: 'ft',
+                inn: 'in',
+                weight: 'Weight',
+                kg: 'kg',
+                lb: 'lb',
+                oz: 'oz',
+                activity: 'Activity',
+                gender: 'Gender',
+                male: 'Male',
+                female: 'Female',
+                someDate: 'Date Actualization',
+                button: 'SING IN',
+            },
+            ru: {
+                name: 'Имя',
+                surname: 'Фамилия',
+                date: 'Возраст',
+                location: 'Место нахождения',
+                race: 'Раса',
+                phone: 'Номер телефона',
+                metric: 'Метрика',
+                height: 'Рост',
+                cm: 'см',
+                ft: 'футов',
+                inn: 'дюймов',
+                weight: 'Вес',
+                kg: 'кг',
+                lb: 'фунтов',
+                oz: 'унций',
+                activity: 'Уровень активности',
+                gender: 'Пол',
+                male: 'Мужской',
+                female: 'Женский',
+                someDate: 'Дата актуализации',
+                button: 'РЕГИСТРАЦИЯ',
+            },
+            pl: {
+                name: 'Imię',
+                surname: 'Nazwisko',
+                date: 'Wiek',
+                location: 'Lokalizacja',
+                race: 'Rasa ',
+                phone: 'numer telefonu',
+                metric: 'Metryki',
+                height: 'Wzrost',
+                cm: 'cm',
+                ft: 'stóp',
+                inn: 'cali',
+                weight: 'Waga',
+                kg: 'kg',
+                lb: 'funt',
+                oz: 'uncje',
+                activity: 'Poziom aktywności ',
+                gender: 'płeć',
+                male: 'męska',
+                female: 'żeńska',
+                someDate: 'Data aktualizacji',
+                button: 'REJESTRACJA',
+            },
+        },
         computed: {
             userIMG: function () {
 
@@ -308,6 +379,9 @@
 
         },
         methods: {
+            langString(string){
+                return this.translate(string);
+            },
             uploadImage:function () {
                 let t = this;
                 let input = document.getElementsByTagName('input')[0].files

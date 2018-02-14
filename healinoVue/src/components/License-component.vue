@@ -17,22 +17,25 @@
           </div>
         </div>
         <div class="row checkb">
+          <div class="ck">
           <label class="pointer">
             <input type="checkbox" v-model="check1">
-            <span class="checkbox"><i class="fa fa-check" aria-hidden="true"></i></span><span>Accept our privacy policy</span></label>
+            <span class="checkbox"><i class="fa fa-check" aria-hidden="true"></i></span><span v-lang.accept1></span></label>
           <label class="pointer">
             <input type="checkbox" v-model="check2">
-            <span class="checkbox"><i class="fa fa-check" aria-hidden="true"></i></span><span>Accept our privacy policy</span></label>
+            <span class="checkbox"><i class="fa fa-check" aria-hidden="true"></i></span><span v-lang.accept2></span></label>
           <label class="pointer">
             <input type="checkbox" v-model="check3">
-            <span class="checkbox"><i class="fa fa-check" aria-hidden="true"></i></span><span>Accept our privacy policy</span></label>
+            <span class="checkbox"><i class="fa fa-check" aria-hidden="true"></i></span><span v-lang.accept3></span></label>
+          </div>
+          <div class="licensePage">
+            <button v-on:click="next()" v-lang.button>ACCEPT</button>
+          </div>
         </div>
-        <div class="licensePage">
-          <button v-on:click="next()">ACCEPT</button>
-        </div>
+
       </div>
       <div class="licensePage sm">
-        <button v-on:click="next()">ACCEPT</button>
+        <button v-on:click="next()" v-lang.button>ACCEPT</button>
       </div>
     </div>
   </div>
@@ -47,6 +50,26 @@
                 check1:false,
                 check2:false,
                 check3:false
+            }
+        },
+        messages: {
+            en: {
+                accept1: 'Accept our privacy policy',
+                accept2: 'Accept our terms of use',
+                accept3: 'Accept our cookie policy',
+                button: 'Accept',
+            },
+            ru: {
+                accept1: 'Принимаю политику конфиденциальности',
+                accept2: 'Принимаю правила использоваания',
+                accept3: 'Принимаю политику в отношении файлов cookie',
+                button: 'Подтверждаю',
+            },
+            pl: {
+                accept1: 'Akceptuję politykę prywatności',
+                accept2: 'Akceptuję warunki użytkowania',
+                accept3: 'Akceptuję politykę dotyczącą plików cookie',
+                button: 'Akceptuj',
             }
         },
         computed: {

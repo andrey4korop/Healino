@@ -1,5 +1,5 @@
 <template>
-  <div class="mini_indicator mini_indicator2">
+  <div class="mini_indicator mini_indicator2" v-on:click="start">
     <div class="progress_bar2">
       <div class="cursor" v-bind:style="{ transform: 'rotate(' + BioMentalAge.ChronologicalAge *3.6 + 'deg)' }"></div>
       <div class="text_indicatition">
@@ -56,6 +56,7 @@ export default {
            var handler2 = function(){
                //console.log(this);
                this.classList.remove('fa-enter-active2');
+               this.classList.add('fa-enter-active');
                this.removeEventListener('transitionend', handler2);
            };
            var handler = function(){

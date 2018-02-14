@@ -31,12 +31,17 @@
     <div class="row">
       <div class="firstPage pc_sm">
         <button  v-on:click.prevent="$emit('onRegister')"
-                 v-if="!SessionData">SING IN</button>
+                 v-if="!SessionData"
+                 v-lang.singIn></button>
         <button  v-on:click.prevent="$emit('onLogin')"
-                 v-if="!SessionData">LOGIN</button>
+                 v-if="!SessionData"
+                 v-lang.login></button>
         <button  v-on:click.prevent="$emit('onUser')"
-                 v-if="SessionData">START</button>
+                 v-if="SessionData"
+                 v-lang.start></button>
+        <button  v-on:click.prevent="$emit('nextBack')"
 
+                 >Next Background</button>
 
       </div>
     </div>
@@ -52,6 +57,23 @@
             return {
 
 
+            }
+        },
+        messages: {
+            en: {
+                start: 'START',
+                login: 'LOGIN',
+                singIn: 'SING IN'
+            },
+            ru: {
+                start: 'СТАРТ',
+                login: 'ВХОД',
+                singIn: 'РЕГИСТРАЦИЯ'
+            },
+            pl: {
+                start: 'START',
+                login: 'ZALOGUJ',
+                singIn: 'REJESTRACJA'
             }
         },
         computed: {

@@ -1,11 +1,13 @@
 <template>
   <div id="app">
-    <background :backgr="backgr"></background>
+    <background :backgr="backgr"
+                :bg="bg"></background>
     <start-component v-if="state == 'start'"
                      @changeLang="changeLang"
                      @onRegister="register"
                      @onLogin="login"
                      @onUser="isFirst"
+                     @nextBack="nextBack"
                      :lang="lang"
                      :SessionData="SessionData"></start-component>
     <login-component v-if="state == 'login'"
@@ -43,12 +45,15 @@
                         @toRezult="toRezult"
                         @changeLang="changeLang"
                         @nextQuestion="nextQuestion"
+                        @prevQuestion="prevQuestion"
                         @clearnError="clearnError"></question-component>
 
     <rezult-component v-else-if="state == 'rezult'"
                       :userData="userData"
                       :themeActiveObj="themeActiveObj"
                       :rezultData="rezultData"></rezult-component>
+    <rezultPublic-component v-else-if="state == 'rezultPublic'"
+                      :rezultData="rezultData"></rezultPublic-component>
   </div>
 </template>
 
@@ -61,6 +66,7 @@ export default {
         activeId:0,
         errorQuest:false,
         backgr:1,
+        bg:0,
         List:[],
         themeActiveObj:{},
         rezultData:{},
@@ -101,6 +107,15 @@ export default {
                 SessionData: this.SessionData,
             }
         },
+        prevBody: function () {
+
+            return {
+                SessionData: this.SessionData,
+                Argument: this.themeActiveObj.Id,
+                QuestionId: this.questionData.PreviusQuestionId,
+
+            }
+        },
     },
     watch: {
         state:function () {
@@ -108,6 +123,9 @@ export default {
         },
     },
     methods:{
+        nextBack:function () {
+          this.bg++;
+        },
       newBackground:function (val) {
           let v = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
           if(v != val){
@@ -118,10 +136,17 @@ export default {
       },
         changeLang: function (newLang) {
             this.lang = newLang;
+            this.language = newLang;
+
             setCookie('lang', this.lang, {
                 expires: 10000*10000,
                 path: '/'
-            })
+            });
+            $.post( '/api/Account/ChangeLanguage',
+                {
+                    Language:  this.lang,
+                    SessionData: this.SessionData
+                });
         },
         register(){
             this.state = "register"
@@ -185,7 +210,6 @@ export default {
                     //console.log(data);
                     t.state = "theme";
                 });
-
         },
         toQuestion(id){
             this.activeId = id;
@@ -207,27 +231,18 @@ export default {
                             t.questionData = data;
                             t.state = "question";
                         }
-
                     }else{
-                       // console.log("error from server" );
                     }
                 })
                 .fail(function() {
-                   // console.log("error" );
                 });
         },
         nextQuestion(body){
             let t = this;
-            //t.state = "question";
-
             $.post( '/api/Theme/AnswerTheQuestion',  body  )
                 .done(function( data ){
-                    //console.log("done" );
                     if(data.ErrorCode==1){
-                        //t.toQuestion(this.themeActive);
                         if(data.IsFinished){
-                            //t.rezultData= data;
-                            //console.log(data);
                             t.toRezult(data);
                         }else {
                             t.questionData = data;
@@ -238,22 +253,45 @@ export default {
                     }
                     else{
                         t.errorQuest = true;
-                        //console.log("error from server" );
                     }
                 })
                 .fail(function() {
-                   // console.log("error" );
+                });
+        },
+        prevQuestion(){
+            let t = this;
+            $.post( '/api/Theme/GetNextThemeQuestionWithAnswers',  this.prevBody  )
+                .done(function( data ){
+                    if(data.ErrorCode==1){
+                        if(data.IsFinished){
+                            t.toRezult(data);
+                        }else {
+                            t.questionData = data;
+                            t.backgr = t.newBackground(t.backgr);
+                        }
+                    }else if(data.ErrorCode==1 && data.DebugMessage=="Question already answered"){
+                        t.toQuestion(t.activeId);
+                    }
+                    else{
+                        t.errorQuest = true;
+                    }
+                })
+                .fail(function() {
                 });
         },
         clearnError(){
           this.errorQuest = false;
         },
         toRezult(data){
-            console.log('data to rezult');
-            console.log(data);
             if(data.ErrorCode==1) {
                 this.rezultData = data;
                 this.state = "rezult"
+            }
+        },
+        toPublicRezult(data){
+            if(data.ErrorCode==1) {
+                this.rezultData = data;
+                this.state = "rezultPublic"
             }
         },
         chAc(id){
@@ -269,17 +307,6 @@ export default {
         }
     },
   created: function() {
-
-
-// Just add in this line
-     /* Vue.googleAuth().directAccess();
-
-      Vue.googleAuth().signIn(function (googleUser) {
-          console.log(googleUser);
-      }, function (error) {
-          // things to do when sign-in fails
-      });*/
-
       if(window.location.search){
           var regexp = /sign=([^&]+)/i;
           var sign = '';
@@ -289,6 +316,10 @@ export default {
           var req = '';
           if (!!regexp.exec(document.location.search))
               req = regexp.exec(document.location.search)[1];
+          var regexp = /result=([^&]+)/i;
+          var result = '';
+          if (!!regexp.exec(document.location.search))
+              result = regexp.exec(document.location.search)[1];
           let t =this;
           var hhh = function () {
               return{
@@ -299,9 +330,7 @@ export default {
           if(sign && req){
               $.post( '/api/Account/ActivateUser',  hhh() )
                   .done(function( data ){
-                      //console.log("done activate" );
                       if(data.ErrorCode==1){
-                          //t.toQuestion(this.themeActive);
                           t.SessionData = data.SessionString;
                           t.isFirst();
                           setCookie('SessionData', data.SessionString, {
@@ -312,15 +341,25 @@ export default {
                               history.pushState(null, null, "/");
                               return;
                           } catch(e) {}
-                          //t.state = "license";
-
-
                       }else{
-                          //console.log("error from server" );
                       }
                   })
                   .fail(function() {
-                      //console.log("error" );
+                  });
+          }
+          if(result){
+              $.post( '/api/Theme/GetThemeTestResultForPublic',  {SessionData:result} )
+                  .done(function( data ){
+                      if(data.ErrorCode==1){
+                          t.toPublicRezult(data);
+                          try {
+                              history.pushState(null, null, "/");
+                              return;
+                          } catch(e) {}
+                      }else{
+                      }
+                  })
+                  .fail(function() {
                   });
           }
       }
@@ -333,28 +372,22 @@ export default {
               version    : 'v2.11'
           });
 
-          //FB.AppEvents.logPageView();
           FB.getLoginStatus(function(response) {
-              //console.log(response);
               if (response.status === 'connected') {
                   var accessToken = response.authResponse.accessToken;
 
                   $.post( '/api/Account/FacebookOAuthResponse',  t.bodyToken(accessToken)  )
                       .done(function( data ){
-                          //console.log("done Facebook" );
                           if(data.ErrorCode==1){
-                              //t.toQuestion(this.themeActive);
                               t.SessionData = data.SessionString;
                               setCookie('SessionData', data.SessionString, {
                                   expires: 10000,
                                   path: '/'
                               })
                           }else{
-                              //console.log("error from server" );
                           }
                       })
                       .fail(function() {
-                          //console.log("error" );
                       });
 
               }
@@ -377,48 +410,18 @@ export default {
       if(getCookie('SessionData')){
           let t = this;
           this.SessionData = getCookie('SessionData')
-          //console.log("Start" );
           $.post( '/api/Account/GetUserProfile',  this.bodyGet  )
               .done(function( data ){
                   t.userData = data;
-                  //console.log("done" );
                   if(!data.ErrorCode==1){
                       t.SessionData = '';
                       deleteCookie('SessionData');
                   }
               })
               .fail(function() {
-                  //console.log("error" );
               });
-
       }
-
-      /*FB.getLoginStatus(function(response) {
-          if (response.status === 'connected') {
-              var accessToken = response.authResponse.accessToken;
-
-              $.post( 'http://healino-api.azurewebsites.net/api/Account/FacebookOAuthResponse',  this.bodyToken(accessToken)  )
-                  .done(function( data ){
-                      console.log("done Facebook" );
-                      if(data.ErrorCode==1){
-                          //t.toQuestion(this.themeActive);
-                          t.SessionData = data.SessionString;
-                          setCookie('SessionData', data.SessionString, {
-                              expires: 10000*10000,
-                              path: '/'
-                          })
-                      }else{
-                          console.log("error from server" );
-                      }
-                  })
-                  .fail(function() {
-                      console.log("error" );
-                  });
-
-          }
-      } );*/
-      console.log(this.SessionData);
-
+      //console.log(this.SessionData);
     }
 }
 </script>

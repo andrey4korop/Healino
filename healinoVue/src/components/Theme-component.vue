@@ -5,8 +5,8 @@
       <div class="headerContainer">
         <a href="/" class="logo_head"><img src="static/img/logoHeader.png" alt="" class=""></a>
         <a href="/" class="logo_head m"><img src="static/img/logoM.png" alt="" class=""></a>
-        <a href="/">Home</a>
-        <a href="/">Forum</a>
+        <a href="/" v-lang.main></a>
+        <a v-bind:href="langString('forumUrl')" target="_blank" v-lang.forum></a>
         <h3>{{userData.QuestionsProgress}}%</h3>
         <div class="lang">
           <img src="static/img/langPL.png" alt=""   v-if="lang=='pl'">
@@ -19,7 +19,6 @@
           </ul>
         </div>
         <div v-bind:style="{background: 'url(' + userIMG + ') center center / cover' }" class="user_Avatar" ></div>
-
       </div>
     </div>
     <div class="row">
@@ -33,7 +32,7 @@
                  v-bind:class="[(list.ThemeStatus=='3') ? 'disable' : '', (list.QuestionsTotal==list.QuestionsFinished) ? 'check' : '', (isActive(list.Id)) ? 'active' : '' ]" >
               <div class="filter" v-on:click="changeActive(list)">
                 <img src="static/img/mark.png" alt="">
-                <button v-on:click.prevent="getRezult(list)">VIEW RESULT</button>
+                <button v-on:click.prevent="getRezult(list)"  v-lang.rezult></button>
               </div>
             </div>
 
@@ -49,7 +48,7 @@
         </div>
       </div>
       <div class="green">
-        <button v-on:click="$emit('toQuestion', activeId)">START</button>
+        <button v-on:click="$emit('toQuestion', activeId)" v-lang.start></button>
       </div>
     </div>
 
@@ -79,6 +78,29 @@
 
             }
         },
+        messages: {
+            en: {
+                main: 'Home',
+                forum: 'Forum',
+                rezult: 'VIEW RESULT',
+                start: 'START',
+                forumUrl: 'https://www.healino.com/blog-us'
+            },
+            ru: {
+                main: 'Главная страница',
+                forum: 'Форум',
+                rezult: 'СМОТРЕТЬ РЕЗУЛЬТАТ',
+                start: 'СТАРТ',
+                forumUrl: 'https://www.healino.com/blog-ru'
+            },
+            pl: {
+                main: 'Strona główna',
+                forum: 'Forum',
+                rezult: 'ZOBACZYĆ  REZULTAT',
+                start: 'START',
+                forumUrl: 'https://www.healino.com/blog-pl'
+            }
+        },
         computed: {
             body: function () {
                 return {
@@ -105,6 +127,9 @@
                 });*/
         },
         methods: {
+            langString(string){
+                return this.translate(string);
+            },
             changeActive: function (list) {
                 //console.log('changeActive');
                 this.$emit('changeActiveTheme', list);

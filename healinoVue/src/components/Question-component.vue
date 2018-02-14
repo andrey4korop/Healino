@@ -5,8 +5,8 @@
       <div class="headerContainer">
         <a href="/" class="logo_head"><img src="static/img/logoHeader.png" alt="" class=""></a>
         <a href="/" class="logo_head m"><img src="static/img/logoM.png" alt="" class=""></a>
-        <a href="/">Home</a>
-        <a href="/">Forum</a>
+        <a href="/" v-lang.main></a>
+        <a v-bind:href="langString('forumUrl')" target="_blank" v-lang.forum></a>
         <h3>{{questionData.QuestionsProgress}}%</h3>
         <div class="lang">
           <img src="static/img/langPL.png" alt=""   v-if="lang=='pl'">
@@ -18,7 +18,6 @@
             <li v-on:click="$emit('changeLang', 'ru')" v-if="lang!='ru'"><img src="static/img/langUA.png" alt=""></li>
           </ul>
         </div>
-
         <div v-bind:style="{background: 'url(' + userIMG + ') center center / cover' }" class="user_Avatar" ></div>
       </div>
     </div>
@@ -47,8 +46,14 @@
                        @changeVal="changeVal"></questionType1>
       </div>
       <div class="green">
-        <button v-on:click="$emit('toTheme')">BACK</button>
-        <button v-on:click="nextQuestion">NEXT</button>
+        <button v-if="(questionData.QuestionNum > 1)"
+                v-on:click="prevQuestion" v-lang.back></button>
+        <button v-on:click="nextQuestion"
+                v-if="(questionData.TotalQuestions!=this.questionData.QuestionNum)"
+                v-lang.next></button>
+        <button v-on:click="nextQuestion"
+                v-if="(questionData.TotalQuestions==this.questionData.QuestionNum)"
+                v-lang.finish></button>
       </div>
     </div>
 
@@ -74,6 +79,32 @@
 
             }
         },
+        messages: {
+            en: {
+                main: 'Home',
+                forum: 'Forum',
+                back: 'BACK',
+                next: 'NEXT',
+                finish: 'FINISH',
+                forumUrl: 'https://www.healino.com/blog-us'
+            },
+            ru: {
+                main: 'Главная страница',
+                forum: 'Форум',
+                back: 'НАЗАД',
+                next: 'СЛЕДУЮЩИЙ',
+                finish: 'ФИНИШ',
+                forumUrl: 'https://www.healino.com/blog-ru'
+            },
+            pl: {
+                main: 'Strona główna',
+                forum: 'Forum',
+                back: 'NAZAD',
+                next: 'NASTĘPNY',
+                finish: 'FINISZ',
+                forumUrl: 'https://www.healino.com/blog-pl'
+            }
+        },
         computed: {
             body: function () {
 
@@ -85,8 +116,17 @@
                     AnswerValue: this.AnswerValue,
                 }
             },
+            prevBody: function () {
+
+                return {
+                    SessionData: this.SessionData,
+                    Argument: this.questionData.UserThemeTestId,
+                    QuestionId: this.questionData.PreviusQuestionId,
+
+                }
+            },
             per: function(){
-                return  100 - (this.questionData.QuestionNum - 1) / this.questionData.TotalQuestions * 100 ;
+                return  100 - (this.questionData.QuestionNum) / this.questionData.TotalQuestions * 100 ;
 
 
             },
@@ -104,6 +144,8 @@
             /*this.QuestionId = this.questionData.QuestionId;
             this.UserThemeTestId = this.questionData.UserThemeTestId;*/
             this.Type = this.getType();
+            console.log(this.questionData.QuestionNum);
+            console.log(this.questionData.QuestionNum > 1);
 
         },
         watch: {
@@ -121,6 +163,9 @@
             }
         },
         methods: {
+            langString(string){
+                return this.translate(string);
+            },
             getType() {
                 return this.questionData.QuestionTypeEnum;
             },
@@ -141,6 +186,12 @@
               if(!error){
                   this.$emit('nextQuestion', this.body);
               }
+
+            },
+            prevQuestion(){
+                console.log('button prew');
+                this.$emit('prevQuestion');
+
 
             }
         }

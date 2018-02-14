@@ -15,15 +15,20 @@
             <i class="fa fa-times" aria-hidden="true"></i>
           </span>
       </label>
-      <label v-if="questionData.AnswerOptions.length>0">
+      <label  v-if="questionData.AnswerOptions.length>0" >
 
-        <select v-model="AnswersId"
-                v-on:input="changeVal"
-                v-on:change="changeSelect">
-          <option v-for="ans in questionData.AnswerOptions" v-bind:value="ans.Id" >{{ans.AnswerText}}</option>
-
-        </select>
-        <span class="check"  v-bind:class="(showLoadSelect) ? 'loading': ''" v-if="showCheckSelect">
+        <div class="selectBlock"
+             v-on:input="changeVal"
+             v-on:click="setShowSelectId"
+        >
+          {{AnswerText}}
+        </div>
+        <div class="select" v-if="showSelectId">
+          <p class="option" v-for="ans in questionData.AnswerOptions"
+             v-on:click="setValueId(ans.Id, ans.AnswerText, $event)"
+             v-bind:class="(ans.Id==AnswersId) ? 'active' : ''">{{ans.AnswerText}}</p>
+        </div>
+        <span class="check"  v-bind:class="(showLoadSelect==true) ? 'loading': ''" v-if="showCheckSelect">
           <i class="fa fa-check" aria-hidden="true"></i>
         </span>
       </label>
@@ -43,6 +48,9 @@ export default {
             showLoadInput: true,
             showCheckSelect: false,
             showLoadSelect: true,
+
+            showSelectId:false,
+            AnswerText:""
     }},
     computed:{
       newVal:function () {
@@ -82,6 +90,25 @@ export default {
 
             }, 1500);
         },
+        setShowSelectId(event){
+            //event.preventDefault();
+            //$('select option').hide();
+
+            if(event.target.className == "selectBlock") {
+                this.showSelectId = true;
+                setTimeout(function () {
+                    $('.select').scrollTop($('.active').position().top - 40);
+                },7)
+            }
+        },
+        setValueId(id, AnswerText, event){
+            //event.preventDefault();
+            event.stopPropagation();
+            this.showSelectId = false;
+            this.AnswersId = id;
+            this.AnswerText = AnswerText;
+            this.changeSelect();
+        }
 
     },
     watch: {

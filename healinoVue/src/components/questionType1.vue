@@ -1,13 +1,13 @@
 <template>
 
-  <div class="questionBlock type3" v-if="questionData.ImageUrl==''">
+  <div class="questionBlock type3" v-if="!questionData.ImageUrl">
     <h1>{{questionData.QText}}</h1>
     <div class="row">
 
       <div class="imgAnswer" v-for="ans in questionData.AnswerOptions"
            v-on:click.prevent="changeActive(ans)"
            v-bind:style="{background: 'url(' + ans.ImageUrl + ') center center / cover' }"
-           v-bind:class="(AnswersId==ans.AnswersId) ? 'check' : ''">
+           v-bind:class="(AnswersId == ans.Id) ? 'check' : ''">
       </div>
 
     </div>
@@ -26,7 +26,7 @@
           <div class="imgAnswer" v-for="ans in questionData.AnswerOptions"
                v-on:click.prevent="changeActive(ans)"
                v-bind:style="{background: 'url(' + ans.ImageUrl + ') center center / cover' }"
-               v-bind:class="(AnswersId==ans.AnswersId) ? 'check' : ''">
+               v-bind:class="(AnswersId==ans.Id) ? 'check' : ''">
           </div>
 
         </div>
@@ -57,7 +57,9 @@ export default {
             this.$emit('changeVal', this.newVal);
         },
         changeActive(ans){
-            this.AnswersId = ans.AnswersId;
+            console.log(ans);
+            this.AnswersId = ans.Id;
+            console.log(this.AnswersId);
             this.changeVal();
         }
     },

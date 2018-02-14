@@ -4,8 +4,10 @@ import App from './App.vue'
  * загрузка главных страниц
  */
 //import es6Promise from 'es6-promise'
+import MultiLanguage from 'vue-multilanguage'
 
 import rezultComponent  from './components/Rezult-component.vue'
+import rezultPublicComponent  from './components/RezultPublic-component.vue'
 import startComponent  from './components/Start-component.vue'
 import loginComponent  from './components/Login-component.vue'
 import registerComponent  from './components/Register-component.vue'
@@ -57,7 +59,18 @@ import bg5  from './components/bg5.vue'
 
 
 //Vue.use(VueAxios, axios);
-
+Vue.use(MultiLanguage, {
+    default: 'en',
+    en: {
+        start: 'START'
+    },
+    ru: {
+        start: 'СТАРТ'
+    },
+    pl: {
+        start: 'START'
+    }
+})
 
 import GSignInButton from 'vue-google-signin-button'
 Vue.use(GSignInButton)
@@ -66,6 +79,7 @@ Vue.use(GSignInButton)
  */
 //es6Promise.polyfill()
 Vue.component('rezult-component', rezultComponent);
+Vue.component('rezultPublic-component', rezultPublicComponent);
 Vue.component('start-component', startComponent);
 Vue.component('login-component', loginComponent);
 Vue.component('register-component', registerComponent);

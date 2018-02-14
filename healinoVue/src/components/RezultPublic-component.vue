@@ -9,9 +9,9 @@
       <div class="row">
         <div class="left">
           <div class="theme">
-            <p>{{themeActiveObj.Title}}</p>
+            <p>{{rezultData.TestName}}</p>
             <div class="img"
-                    v-bind:style="{background: 'url(' + themeActiveObj.ImageUrl + ') center center / cover' }" alt=""></div>
+                    v-bind:style="{background: 'url(' + rezultData.TestImageUrl + ') center center / cover' }" alt=""></div>
           </div>
         </div>
         <div class="center">
@@ -181,7 +181,7 @@
 
 <script>
     export default {
-        props:['rezultData', 'userData', 'themeActiveObj'],
+        props:['rezultData'],
         data () {
             return {
                 temp:'',
@@ -233,7 +233,7 @@
         },
         created: function() {
 
-            this.img = this.userData.PhotoUrl || '../static/img/noIMG.png';
+            this.img = this.rezultData.UserPhotoUrl || '../static/img/noIMG.png';
 
             this.BMI = this.rezultData.BMI;
             this.BioMentalAge = this.rezultData.BioMentalAge;

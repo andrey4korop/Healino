@@ -1,5 +1,5 @@
 <template>
-  <div class="indicators ">
+  <div class="indicators" v-on:click="start">
     <div class="title_indicator">
       <p>Body Fat (YMCA)</p>
     </div>
@@ -61,6 +61,7 @@ export default {
            var handler2 = function(){
                //console.log(this);
                this.classList.remove('fa-enter-active2');
+               this.classList.add('fa-enter-active');
                this.removeEventListener('transitionend', handler2);
            };
            var handler = function(){

@@ -1,5 +1,5 @@
 <template>
-  <div class="mini_indicator mini_indicator4">
+  <div class="mini_indicator mini_indicator4"  v-on:click="start">
     <div class="progress_bar2">
       <div class="cursor"
            v-bind:style="{ transform: 'rotate(' + TenYearsASCVD.Calculated *3.6 + 'deg)' }"></div>
@@ -57,6 +57,7 @@ export default {
            var handler2 = function(){
                //console.log(this);
                this.classList.remove('fa-enter-active2');
+               this.classList.add('fa-enter-active');
                this.removeEventListener('transitionend', handler2);
            };
            var handler = function(){
