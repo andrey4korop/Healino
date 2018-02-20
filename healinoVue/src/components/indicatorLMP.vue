@@ -5,12 +5,13 @@
       <p>Mass  </p>
     </div>
     <div class="indicator indicatorLMP">
+      <div class="plus"><img src="static/img/plus.png" alt=""></div>
       <div class="progress_bar5">
         <div class="opacity" v-bind:style="{ height: LMPPresent + '%' }"></div>
         <div class="cursor">
           <img src="static/img/cursor_4.png" alt="">
           <div>
-            <p class="big">{{LMP}}</p>
+            <p class="big">{{animateVal}}</p>
             <p>kg</p>
           </div>
         </div>
@@ -21,106 +22,89 @@
 
 <script>
 export default {
-   props: ['LMP', 'LMPCategoryScale'],
+    props: ['rezultData'],
     data () {
         return {
-        LMPPresent: '0',
-    }},
+            animateVal:0 ,
+            valArray:[],
+        }},
 
-    watch: {
-        LMPCategoryScale: function () {
-            this.LMPPresent = 100 - (this.LMP - this.LMPCategoryScale[this.LMPCategoryScale.length -1].BF) * 100 / (this.LMPCategoryScale[0].BF - this.LMPCategoryScale[this.LMPCategoryScale.length -1].BF);
+    computed:{
+        minValue:function () {
+            return Math.round(parseFloat(this.rezultData.LMPCategoryScale[0].BF - (this.rezultData.LMPCategoryScale[1].BF - this.rezultData.LMPCategoryScale[0].BF))*100)/100;
+        },
+        maxValue:function () {
+            return this.rezultData.LMPCategoryScale[this.rezultData.LMPCategoryScale.length-1].BF;
+        },
+        LMPPresent:function(){
+            return 100 - (this.animateVal - this.minValue) * 100 / (this.maxValue - this.minValue);
         }
     },
+
     methods:{
-
-       start(){
-           (function() {
-               var lastTime = 0;
-               var vendors = ['ms', 'moz', 'webkit', 'o'];
-               for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
-                   window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
-                   window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame']
-                       || window[vendors[x]+'CancelRequestAnimationFrame'];
-               }
-
-               if (!window.requestAnimationFrame)
-                   window.requestAnimationFrame = function(callback, element) {
-                       var currTime = new Date().getTime();
-                       var timeToCall = Math.max(0, 16 - (currTime - lastTime));
-                       var id = window.setTimeout(function() { callback(currTime + timeToCall); },
-                           timeToCall);
-                       lastTime = currTime + timeToCall;
-                       return id;
-                   };
-
-               if (!window.cancelAnimationFrame)
-                   window.cancelAnimationFrame = function(id) {
-                       clearTimeout(id);
-                   };
-           }());
-
-           function raf(fn) {
-               window.requestAnimationFrame(function () {
-                   window.requestAnimationFrame(function () {
-                       fn();
-                   });
-               });
-           };
-
-           var cursor = document.querySelector('.indicatorLMP .opacity');
-           //var percent = document.querySelector('.indicatorLMP .percent');
-           //console.log('start');
-           var handler2 = function(){
-               //console.log(this);
-               this.classList.remove('fa-enter-active2');
-               this.classList.add('fa-enter-active');
-               this.removeEventListener('transitionend', handler2);
-           };
-           var handler = function(){
-               this.classList.remove('fa-enter-active');
-               this.classList.add('fa-enter-active2');
-               this.classList.remove('fa-enter-to');
-               this.removeEventListener('transitionend', handler);
-               this.addEventListener('transitionend', handler2);
-           };
-           //console.log(percent);
-           cursor.classList.add('fa-enter');
-           //percent.classList.add('fa-enter');
-
-           raf(function(){
-               cursor.classList.add('fa-enter-active');
-               //percent.classList.add('fa-enter-active');
-               cursor.classList.add('fa-enter-to');
-              // percent.classList.add('fa-enter-to');
-               cursor.classList.remove('fa-enter');
-               //percent.classList.remove('fa-enter');
-           });
-
-           cursor.addEventListener('transitionend', handler);
-           //percent.addEventListener('transitionend', handler);
-       }
+        animate () {
+            if (TWEEN.update()) {
+                requestAnimationFrame(this.animate)
+            }
+        },
+        start(){
+            var t = this;
+            new TWEEN.Tween({ tweeningNumber: this.animateVal })
+                .easing(TWEEN.Easing.Quadratic.InOut)
+                .interpolation( TWEEN.Interpolation.Linear)
+                .to({ tweeningNumber: this.valArray }, 2000)
+                .onUpdate(function () {
+                    t.animateVal = Math.round(parseFloat(this.tweeningNumber)*100)/100;
+                })
+                .delay(200)
+                .start();
+            this.animate()
+        }
     },
-  created: function() {
-      setTimeout(this.start, 10);
-
-    }
+    created: function() {
+        this.animateVal = this.minValue;
+        this.valArray.push(this.minValue);
+        this.valArray.push(this.maxValue);
+        this.valArray.push(this.rezultData.LMP);
+        var t = this;
+        console.log(  this.valArray);
+        setTimeout(t.start, 100);
+    },
 }
 </script>
 
 <style scoped>
-  .fa-enter{
-    height: 0% !important;
+  .indicator{
+    position: relative;
   }
-  .fa-enter-active{
-    transition: all 1s;
-    transition-delay: 0.9s;
+  .plus{
+    width: 30%;
+    height: 10%;
+    position: absolute;
+    top: -7%;
+    right: -13%;
+    border-radius: 50%;
+    z-index: 1;
   }
-  .fa-enter-active2{
-    transition: all 2s cubic-bezier(0.5, 2, 0.6, 0.6);
-  }
-  .fa-enter-to{
-    height: 100% !important;
-  }
+  .plus:hover{
+    filter: blur(0.8px);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 1), inset 0 0 10px rgba(255, 255, 255, 1);
 
+  }
+  .progress_bar5{
+    border-radius: 23%;
+    transition: all 0.1s linear;
+  }
+  .progress_bar5:hover{
+    box-shadow: 0 0 20px rgba(255, 255, 255, 1), inset 0 0 40px rgba(255, 255, 255, 0.7)
+  }
+  @media screen and (max-width: 780px){
+    .plus {
+      width: 30%;
+      height: 16%;
+      bottom: -57%;
+      right: 38%;
+      top: unset;
+    }
+  }
 </style>

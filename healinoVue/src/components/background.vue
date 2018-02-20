@@ -20,13 +20,7 @@ export default {
         return {
             num: 1, //new
             num2: 1, //old
-            bg:{
-                1: true,
-                2: true,
-                3: true,
-                4: true,
-                5: true,
-            }
+
 
         }
     },
@@ -47,7 +41,7 @@ export default {
       }
     },
     watch: {
-        backgr: function (newS, old) {
+       /* backgr: function (newS, old) {
             let t = this
             setTimeout(function () {
                 t.num = newS;
@@ -57,7 +51,7 @@ export default {
             //console.log(old);
             //this.bg[old]=false;
             setTimeout(this.on(old, newS), 5000);
-        }
+        }*/
     },
   created: function() {
       //this.num=this.backgr;
@@ -68,7 +62,7 @@ export default {
 
 <style scoped>
   .bgMain{
-    background: url("/static/img/bg2.jpg");
+    background: url("/static/img/bg3.jpg");
     background-repeat: repeat-x;
     /*background-position-x: calc(6.64% + ( 0 * 15.53% ) );*/
     position: fixed;

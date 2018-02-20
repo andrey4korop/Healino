@@ -167,5 +167,8 @@
 </script>
 
 <style>
-
+  .filter img {
+    opacity: 0.7;
+    width: 40%;
+  }
 </style>

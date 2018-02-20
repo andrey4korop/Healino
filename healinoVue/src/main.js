@@ -23,6 +23,7 @@ import indicatorBF  from './components/indicatorBF.vue'
 import indicatorBMR  from './components/indicatorBMR.vue'
 import indicatorLMP  from './components/indicatorLMP.vue'
 import indicatorWHR  from './components/indicatorWHR.vue'
+import indicatorBMI  from './components/indicatorBMI.vue'
 import indicator1  from './components/indicator1.vue'
 import indicator2  from './components/indicator2.vue'
 import indicatorRealAge  from './components/indicator-real-age.vue'
@@ -31,8 +32,9 @@ import indicatorMentalAge  from './components/indicator-Mental-age.vue'
 import indicatorCVD5  from './components/indicator-CVD5.vue'
 import indicatorCVD15  from './components/indicator-CVD15.vue'
 import indicatorCVD10  from './components/indicator-CVD10.vue'
+import indicatorAvatar  from './components/indicatorAvatar.vue'
 
-import indicatorBFsm  from './components/indicatorBFsm.vue'
+/*import indicatorBFsm  from './components/indicatorBFsm.vue'
 import indicatorBMRsm  from './components/indicatorBMRsm.vue'
 import indicatorLMPsm  from './components/indicatorLMPsm.vue'
 import indicatorWHRsm  from './components/indicatorWHRsm.vue'
@@ -43,7 +45,7 @@ import indicatorCronologiAgesm  from './components/indicator-Chronologi-agesm.vu
 import indicatorMentalAgesm  from './components/indicator-Mental-agesm.vue'
 import indicatorCVD5sm  from './components/indicator-CVD5sm.vue'
 import indicatorCVD15sm  from './components/indicator-CVD15sm.vue'
-import indicatorCVD10sm  from './components/indicator-CVD10sm.vue'
+import indicatorCVD10sm  from './components/indicator-CVD10sm.vue'*/
 
 import questionType0  from './components/questionType0.vue'
 import questionType1  from './components/questionType1.vue'
@@ -96,6 +98,7 @@ Vue.component('indicatorBF', indicatorBF);
 Vue.component('indicatorBMR', indicatorBMR);
 Vue.component('indicatorLMP', indicatorLMP);
 Vue.component('indicatorWHR', indicatorWHR);
+Vue.component('indicatorBMI', indicatorBMI);
 Vue.component('indicator2', indicator2);
 Vue.component('indicator-real-age', indicatorRealAge);
 Vue.component('indicator-Chronologi-age', indicatorCronologiAge);
@@ -103,8 +106,9 @@ Vue.component('indicator-Mental-age', indicatorMentalAge);
 Vue.component('indicator-CVD5', indicatorCVD5);
 Vue.component('indicator-CVD15', indicatorCVD15);
 Vue.component('indicator-CVD10', indicatorCVD10);
+Vue.component('indicatorAvatar', indicatorAvatar);
 
-Vue.component('indicator1sm', indicator1sm);
+/*Vue.component('indicator1sm', indicator1sm);
 Vue.component('indicatorBFsm', indicatorBFsm);
 Vue.component('indicatorBMRsm', indicatorBMRsm);
 Vue.component('indicatorLMPsm', indicatorLMPsm);
@@ -115,7 +119,7 @@ Vue.component('indicator-Chronologi-agesm', indicatorCronologiAgesm);
 Vue.component('indicator-Mental-agesm', indicatorMentalAgesm);
 Vue.component('indicator-CVD5sm', indicatorCVD5sm);
 Vue.component('indicator-CVD15sm', indicatorCVD15sm);
-Vue.component('indicator-CVD10sm', indicatorCVD10sm);
+Vue.component('indicator-CVD10sm', indicatorCVD10sm);*/
 
 Vue.component('questionType0', questionType0);
 Vue.component('questionType1', questionType1);
