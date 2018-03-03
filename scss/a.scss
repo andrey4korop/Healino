@@ -13,91 +13,19 @@ html,body{
   //overflow:hidden;
   z-index: 0;
 }
-.layer1,.layer2,.layer3,.layer4,.layer5,.layer6,.layer7,.layer8{
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-}
-.main1{
-  background: url("../img/bg.png") no-repeat;
-  background-size: cover;
-}
-
-.main2{
-  background: url("../img/bg2.png") no-repeat;
-  background-size: cover;
-}
-
-.main3{
-  background: url("../img/bg3.png") no-repeat;
-  background-size: cover;
-}
-
-.main4{
-  background: url("../img/bg4.png") no-repeat;
-  background-size: cover;
-}
-
-.main5{
-  background: url("../img/bg5.png") no-repeat;
-  background-size: cover;
-}
-.layer1{background:url(../img/paralax1.png) no-repeat ;background-size: cover;}
-.layer2{background:url(../img/paralax2.png) no-repeat ;background-size: cover;left: -50px;}
-.layer3{background:url(../img/paralax3.png) no-repeat ;background-size: cover; top: -300px}
-.layer4{background:url(../img/paralax4.png) no-repeat ;background-size: cover; top: -350px}
-.layer5{background:url(../img/paralax5.png) no-repeat ;background-size: cover; bottom: 0}
-.layer8{background:url(../img/paralax8.png) no-repeat ;background-size: cover; bottom: 0}
-.layer6{background:url(../img/paralax6.png) no-repeat ;background-size: cover; top: 400px; left: 200px}
-.layer7{background:url(../img/paralax7.png) no-repeat ;background-size: cover; top: 400px; left: 50px}
-.layer8{background:url(../img/paralax8.png) no-repeat ;background-size: cover;}
-
-.layer9{background:url(../img/paralax9.png) no-repeat ;background-size: cover; top:0}
-.layer10{background:url(../img/paralax10.png) no-repeat ;background-size: cover;top:0}
-.layer11{background:url(../img/paralax11.png) no-repeat ;background-size: cover;top:0}
-.layer12{background:url(../img/paralax12.png) no-repeat ;background-size: cover;top:0 }
-.layer13{background:url(../img/paralax13.png) no-repeat ;background-size: cover;top:0 }
-.layer14{background:url(../img/paralax14.png) no-repeat ;background-size: cover;top: 200px; left: 200px }
-.layer15{background:url(../img/paralax15.png) no-repeat ;background-size: cover;top:0 }
-.layer16{background:url(../img/paralax16.png) no-repeat ;background-size: cover;top:0 }
-.layer17{background:url(../img/paralax17.png) no-repeat ;background-size: cover;top:0}
-
-
-.layer18{background:url(../img/paralax18.png) no-repeat ;background-size: cover;top:0}
-.layer19{background:url(../img/paralax19.png) no-repeat ;background-size: cover;top:0}
-.layer20{background:url(../img/paralax20.png) no-repeat ;background-size: cover;top:0}
-.layer21{background:url(../img/paralax21.png) no-repeat ;background-size: cover;top:0}
-.layer22{background:url(../img/paralax22.png) no-repeat ;background-size: cover;top:0}
-.layer23{background:url(../img/paralax23.png) no-repeat ;background-size: cover;top:0}
-.layer24{background:url(../img/paralax24.png) no-repeat ;background-size: cover;top:0}
-.layer25{background:url(../img/paralax25.png) no-repeat ;background-size: cover;top:0}
-.layer26{background:url(../img/paralax26.png) no-repeat ;background-size: cover;top:0}
-
-
-.layer27{background:url(../img/paralax27.png) no-repeat ;background-size: cover; top:0}
-.layer28{background:url(../img/paralax28.png) no-repeat ;background-size: cover; top:0}
-.layer29{background:url(../img/paralax29.png) no-repeat ;background-size: cover; top:0}
-.layer30{background:url(../img/paralax30.png) no-repeat ;background-size: cover; top:0}
-.layer31{background:url(../img/paralax31.png) no-repeat ;background-size: cover; top:0}
-
-
-.layer32{background:url(../img/paralax32.png) no-repeat ;background-size: cover;top:0}
-.layer33{background:url(../img/paralax33.png) no-repeat ;background-size: cover;top:0}
-.layer34{background:url(../img/paralax34.png) no-repeat ;background-size: cover;top:0}
-.layer35{background:url(../img/paralax35.png) no-repeat ;background-size: cover;top:0}
-.layer36{background:url(../img/paralax36.png) no-repeat ;background-size: cover;top:0}
-.layer37{background:url(../img/paralax37.png) no-repeat ;background-size: cover;top:0}
-.layer38{background:url(../img/paralax38.png) no-repeat ;background-size: cover;top:0}
-.layer39{background:url(../img/paralax39.png) no-repeat ;background-size: cover;top:0}
-.layer40{background:url(../img/paralax40.png) no-repeat ;background-size: cover;top:0}
-
 #grad1 {
   //height: 200px;
-  background: red; /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(left, red, orange , yellow, green, cyan, blue, violet); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(right, red, orange, yellow, green, cyan, blue, violet); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(right, red, orange, yellow, green, cyan, blue, violet); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to right red, orange , yellow, green, cyan, blue, violet); /* Standard syntax (must be last) */
+
+  background: url('../img/scale_web.png');
+  background-size: cover;
+  border: 3px solid #fff;
+}
+#hren{
+  height: 100%;
+  position: relative;
+  left: -22px;
+  top: -39px;
+  margin-left: -100%;
 }
 .container{
   @include wrapper();
@@ -107,7 +35,7 @@ html,body{
 }
 .header{
   width: 100%;
-  background: rgba(109, 207, 77, 0.95);
+  background: rgba(120, 205, 80, 0.95);
   height: 70px;
   @include sm(height, 55px);
   position: fixed;
@@ -154,6 +82,7 @@ html,body{
 
     }
     .lang{
+
       height: 55%;
       width: 38px;
       @include sm(width, 30px);
@@ -165,6 +94,7 @@ html,body{
       }
       img{
         height: 100%;
+        border-radius: 200px;
       }
       ul{
         //display: none;
@@ -208,7 +138,7 @@ html,body{
   width: 100%;
   @include sm(overflow-x, scroll);
   @include sm(justify-content, flex-start);
-  margin-top: 35px;
+  margin-top: 20px;
 }
 .rowww{
   margin-top: 70px;
@@ -263,11 +193,15 @@ html,body{
     text-align: center;
     font-size: 16px;
     line-height: 24px;
+    img{
+      border-radius: 25px;
+    }
+    border-radius: 25px;
     &.active{
       font-size: 24px;
       img{
         border:3px solid #00aeef;
-        border-radius: 25px;
+
       }
     }
   }
@@ -279,12 +213,14 @@ html,body{
   display: flex;
   justify-content: space-around;
   button{
-    @include size(11);
+    //@include size(11);
     //@include size-sm(14);
+    padding-right: 30px;
+    padding-left: 30px;
     height: 45px;
     border-radius: 25px;
     background: #ff8304;
-    padding: 0;
+    //padding: 0;
     border: none;
     color: rgba(0,0,0,0.5);
     font-size: 18px;
@@ -314,11 +250,22 @@ html,body{
   border-radius: 15px;
   padding: 45px 0 35px 0;
   box-shadow: 2px 2px 9px 1px rgba(0, 0, 0, 0.5);
+  h4{
+    color: #555555;
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+  h3{
+    color: #827d7e;
+    font-size: 14px;
+    text-align: center;
+    line-height: 25px;
+  }
   .btn_social, .g-signin-button{
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    @include size(15);
+    @include size(18);
     @include size-sm(18);
     height: 35px;
     color: #fff;
@@ -574,7 +521,7 @@ html,body{
 .fifthPage{
   @include size(8);
   @include size-sm(24);
-  margin: 45px 0;
+  margin-top: 30px;
   @include sm( margin, 15px 0)
 }
 .license{
@@ -613,21 +560,23 @@ html,body{
     }
     &::-webkit-scrollbar {
       width: 5px;
-      background: rgba(196,14,89,0.5);
+      background: rgba(109,207,77,0.5);
       border-radius: 3px;
+      height: 90%;
     }
 
     &::-webkit-scrollbar-thumb {
-      background: rgb(196,14,89);
+      background: rgb(109,207,77);
       border-radius: 3px;
       width: 5px;
+      height: 90%;
     }
-    scrollbar-base-color: rgb(196,14,89);
-    scrollbar-3dlight-color: rgb(196,14,89);
-    scrollbar-highlight-color: rgb(196,14,89);
-    scrollbar-track-color: #edb6cc;
-    scrollbar-arrow-color: #edb6cc;
-    scrollbar-shadow-color: rgb(196,14,89);
+    scrollbar-base-color: rgba(109,207,77,1);
+    scrollbar-3dlight-color:rgba(109,207,77,1);
+    scrollbar-highlight-color: rgba(109,207,77,1);
+    scrollbar-track-color: rgba(109,207,77,0.5);
+    scrollbar-arrow-color: rgba(109,207,77,0.5);
+    scrollbar-shadow-color: rgba(109,207,77,1);
   }
   .checkb{
     display: flex;
@@ -664,10 +613,10 @@ html,body{
         margin-right: 15px;
       }
       &:checked+.checkbox{
-        border: 3px solid #c40e59;
+        border: 3px solid rgb(109,207,77);
         text-align: center;
         font-size: 14px;
-        color: #c40e59;
+        color: rgb(109,207,77);
       }
     }
   }
@@ -676,16 +625,19 @@ html,body{
     @include sm(display, none);
     display: flex;
     justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
     button{
       @include size(18);
       height: 45px;
       border-radius: 25px;
-      background: #c40e59;
+      background: #ff8304;
       padding: 0;
       border: none;
       color: rgba(0,0,0,0.5);
       font-size: 18px;
       box-shadow:0 3px 20px 1px rgba(0, 0, 0, 0.3);
+      margin:3%;
       &:focus, &:hover{
         outline: none;
         color: #fff;
@@ -694,7 +646,7 @@ html,body{
       &:active{
         outline: none;
         color: #fff;
-        background: #d90f63;
+        background: #ff9021;
         box-shadow: 0 3px 20px 1px rgba(0, 0, 0, 0.5);
       }
     }
@@ -715,7 +667,7 @@ html,body{
     @include size(11);
     height: 45px;
     border-radius: 25px;
-    background: #c40e59;
+    background: #ff8304;
     padding: 0;
     border: none;
     color: rgba(0, 0, 0, 0.5);
@@ -729,7 +681,7 @@ html,body{
     &:active {
       outline: none;
       color: #fff;
-      background: #d90f63;
+      background: #ff9021;
       box-shadow: 0 3px 20px 1px rgba(0, 0, 0, 0.5);
     }
 
@@ -741,10 +693,10 @@ html,body{
   height: 10vw;
   @include sm(width, 37.5vw);
   @include sm(height, 37.5vw);
-  margin-top: 25px;
+  margin-top: 10px;
   @include sm(margin-top, 5px);
   //margin-bottom: 35px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   @include sm(margin-bottom, 10px);
   border-radius: 500px;
   .img {
@@ -819,13 +771,15 @@ html,body{
         line-height: 24px;
       }
       .cvd{
-        font-size: 24px;
+        font-size: 14px;
         line-height: 24px;
+        @include sm(width, 80%);
+        @include sm(margin, 0 auto);
       }
     }
     .info_indicator_top{
       .cvd{
-        font-size: 24px;
+        font-size: 14px;
         line-height: 24px;
       }
     }
@@ -863,6 +817,29 @@ html,body{
 }
 .button_share{
   text-align: center;
+  .share{
+    //@include size(11);
+    //@include size-sm(14);
+    height: 45px;
+    border-radius: 25px;
+    background: #7fcf77;
+    padding: 0 40px;
+    border: none;
+    color: rgba(0,0,0,0.5);
+    font-size: 18px;
+    box-shadow:0 3px 20px 1px rgba(0, 0, 0, 0.3);
+    &:focus, &:hover{
+      outline: none;
+      color: #fff;
+      box-shadow: 0 3px 20px 1px rgba(0, 0, 0, 0.5);
+    }
+    &:active{
+      outline: none;
+      color: #fff;
+      background: #95cf8e;
+      box-shadow: 0 3px 20px 1px rgba(0, 0, 0, 0.5);
+    }
+  }
 }
 .progress_bar1{
   background: url("../img/indicator_6.png") no-repeat center center;
@@ -976,6 +953,7 @@ html,body{
     line-height: 12px;
     img{
       height: 10px;
+      width: auto;
       margin-top: 2px;
     }
     .big{
@@ -1038,6 +1016,13 @@ html,body{
       align-items: center;
       background: rgba(250, 247, 247, 0.8);
       @include size-sm(22);
+      @include sm(height, 60vh);
+      @include sm(margin-top,  40%);
+      @include sm(margin-bottom,  10%);
+
+
+
+
     }
   }
   .mar{
@@ -1069,6 +1054,7 @@ html,body{
       position: relative;
       margin-left: -30px;
       transition: all 2s ease;
+      margin-right: -2px;
     }
     .cursor{
       height: 60px;
@@ -1083,6 +1069,7 @@ html,body{
   }
   .questionBlock{
     @include size(24);
+    @include sm(height, 100%);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1202,12 +1189,25 @@ html,body{
           @include size(24);
           max-height: 330px;
           overflow: scroll;
-          scrollbar-base-color: rgb(196,14,89);
-          scrollbar-3dlight-color: rgb(196,14,89);
-          scrollbar-highlight-color: rgb(196,14,89);
-          scrollbar-track-color: #edb6cc;
-          scrollbar-arrow-color: #edb6cc;
-          scrollbar-shadow-color: rgb(196,14,89);
+          &::-webkit-scrollbar {
+            width: 5px;
+            background: rgba(109,207,77,0.5);
+            border-radius: 3px;
+            height: 90%;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background: rgb(109,207,77);
+            border-radius: 3px;
+            width: 5px;
+            height: 90%;
+          }
+          scrollbar-base-color: rgba(109,207,77,1);
+          scrollbar-3dlight-color:rgba(109,207,77,1);
+          scrollbar-highlight-color: rgba(109,207,77,1);
+          scrollbar-track-color: rgba(109,207,77,0.5);
+          scrollbar-arrow-color: rgba(109,207,77,0.5);
+          scrollbar-shadow-color: rgba(109,207,77,1);
           .imgAnswer{
             @include size(12);
             height: 140px;
@@ -1223,7 +1223,7 @@ html,body{
     }
     h1{
       font-size: 36px;
-      @include sm(font-size, 30px);
+      @include sm(font-size, 27px);
       text-align: center;
       color: #555555;
       @include size(9);
@@ -1235,6 +1235,7 @@ html,body{
     }
     .select{
       font-size: 18px;
+      @include sm(font-size, 19px);
       color: #b8b8b8;
       border-radius: 15px;
       border: 2px solid #e1e1e1;
@@ -1249,20 +1250,24 @@ html,body{
       top:0px;
       &::-webkit-scrollbar {
         width: 5px;
-        background: rgba(196,14,89,0.5);
+        background: rgba(109,207,77,0.5);
         border-radius: 3px;
+        height: 90%;
       }
+
       &::-webkit-scrollbar-thumb {
-        background: rgb(196,14,89);
+        background: rgb(109,207,77);
         border-radius: 3px;
         width: 5px;
+        height: 90%;
       }
-      scrollbar-base-color: rgb(196,14,89);
-      scrollbar-3dlight-color: rgb(196,14,89);
-      scrollbar-highlight-color: rgb(196,14,89);
-      scrollbar-track-color: #edb6cc;
-      scrollbar-arrow-color: #edb6cc;
-      scrollbar-shadow-color: rgb(196,14,89);
+      scrollbar-base-color: rgba(109,207,77,1);
+      scrollbar-3dlight-color:rgba(109,207,77,1);
+      scrollbar-highlight-color: rgba(109,207,77,1);
+      scrollbar-track-color: rgba(109,207,77,0.5);
+      scrollbar-arrow-color: rgba(109,207,77,0.5);
+      scrollbar-shadow-color: rgba(109,207,77,1);
+    }
       .option{
         border-bottom: 1px solid #e1e1e1;
         //padding: 10px 0;
@@ -1335,7 +1340,7 @@ html,body{
     input{
       background: #fffffe;
     }
-  }
+  //}
 
   .themes{
 
@@ -1347,7 +1352,7 @@ html,body{
 
     padding: 0 15px;
     box-sizing: border-box;
-    overflow-y: scroll;
+    overflow-y: auto;
     &::-webkit-scrollbar {
       width: 5px;
       background: rgba(109,207,77,0.5);
@@ -1361,12 +1366,12 @@ html,body{
       width: 5px;
       height: 90%;
     }
-    scrollbar-base-color: rgb(196,14,89);
-    scrollbar-3dlight-color: rgb(196,14,89);
-    scrollbar-highlight-color: rgb(196,14,89);
-    scrollbar-track-color: #edb6cc;
-    scrollbar-arrow-color: #edb6cc;
-    scrollbar-shadow-color: rgb(196,14,89);
+    scrollbar-base-color: rgba(109,207,77,1);
+    scrollbar-3dlight-color:rgba(109,207,77,1);
+    scrollbar-highlight-color: rgba(109,207,77,1);
+    scrollbar-track-color: rgba(109,207,77,0.5);
+    scrollbar-arrow-color: rgba(109,207,77,0.5);
+    scrollbar-shadow-color: rgba(109,207,77,1);
     .theme{
       @include size(8);
       //@include size-sm(12);
@@ -1415,7 +1420,7 @@ html,body{
             width: 130px;
             @include sm(width, 100%);
             border-radius: 15px;
-            background: #6dcf4d;
+            background: #78cd76;
             font-size: 14px;
             color: #fff;
             border: none;
@@ -1435,10 +1440,31 @@ html,body{
     border-radius: 15px;
     padding: 20px;
     @include size(7);
-    @include md(min-width, calc(90% - 5px));
-    @include md(margin, 0 20px);
+    @include sm(min-width, calc(90% - 5px));
+    @include sm(margin, 0 20px);
     color: #555555;
     box-sizing: border-box;
+    max-height: 430px;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      width: 5px;
+      background: rgba(109,207,77,0.5);
+      border-radius: 3px;
+      height: 90%;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgb(109,207,77);
+      border-radius: 3px;
+      width: 5px;
+      height: 90%;
+    }
+    scrollbar-base-color: rgba(109,207,77,1);
+    scrollbar-3dlight-color:rgba(109,207,77,1);
+    scrollbar-highlight-color: rgba(109,207,77,1);
+    scrollbar-track-color: rgba(109,207,77,0.5);
+    scrollbar-arrow-color: rgba(109,207,77,0.5);
+    scrollbar-shadow-color: rgba(109,207,77,1);
     h1{
       font-size: 24px;
       text-align: center;
@@ -1453,7 +1479,7 @@ html,body{
     }
   }
   .green{
-    background: #6dcf4d;
+    background: #79cd77;
     @include sm(background, transparent);
     width: 100%;
     text-align: center;
@@ -1461,6 +1487,7 @@ html,body{
     border-bottom-right-radius: 15px;
     display: flex;
     justify-content: space-around;
+    @include sm(margin-bottom, 10%);
     button{
       @include size(4);
       @include size-sm(10);
@@ -1511,6 +1538,17 @@ html,body{
           text-align: center;
           font-size: 2vw;
         }
+        .description{
+          right: unset;
+          bottom: unset;
+          width: 55vw;
+          left: 3vw;
+          top: 2vw;
+          border-radius: 0 15px 15px 15px;
+          .text{
+            max-height: 20vw;
+          }
+        }
         .indicator {
           width: 100%;
           height: 100%;
@@ -1531,6 +1569,17 @@ html,body{
           text-align: center;
           font-size: 2vw;
         }
+        .description{
+          width: 55vw;
+          right: 3vw;
+          top: 2vw;
+          left: unset;
+          bottom: unset;
+          border-radius: 15px 0 15px 15px;
+          .text{
+            max-height: 20vw;
+          }
+        }
         .indicator {
           width: 100%;
           height: 100%;
@@ -1544,7 +1593,24 @@ html,body{
       left: 37vw;
       width: 26vw;
       height: 26vw;
+      .avatar_scale{
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+      .description{
+        right: 0;
+        top: 11%;
+        left: unset;
+        width: 40vw;
+        border-radius: 15px 0 15px 15px;
+      }
       .avatar{
+        width: 87%;
+        height: 87%;
+        margin: auto;
+        position: relative;
+        top: 5%;
         .img{
           height: 100%;
           width: 100%;
@@ -1570,6 +1636,45 @@ html,body{
             display: flex;
             justify-content: space-around;
           }
+          .plus {
+            width: 14%;
+            height: 16%;
+            bottom: -10%;
+            top: unset;
+            left: -17%;
+            position: absolute;
+            z-index: 11;
+            border-radius: 50%;
+            &:hover {
+              filter: blur(0.8px);
+              box-shadow: 0 0 10px rgba(255, 255, 255, 1), inset 0 0 10px rgba(255, 255, 255, 1);
+            }
+          }
+          .description{
+            background: rgba(255,255,255,0.5);
+            position: absolute;
+            left: 3%;
+            top: 100%;
+            width: 50vw;
+            text-align: left;
+            border-radius: 0px 15px 15px 15px;
+            padding: 15px;
+            z-index: -10;
+            opacity: 0;
+            transition: all 0.5s linear;
+          }
+          .description.on{
+            z-index: 10;
+            opacity: 1;
+          }
+          .description .text{
+            max-height: 109px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            padding: 3px;
+            background: rgba(255,255,255,1);
+            color: #585858;
+          }
         }
       }
       .info_indicator {
@@ -1578,8 +1683,8 @@ html,body{
     }
     .pos5 {
       position: absolute;
-      top: 66vw;
-      right: 14vw;
+      top: 70vw;
+      right: 15vw;
       width: 32vw;
       height: 29vw;
       .indicators {
@@ -1587,14 +1692,54 @@ html,body{
         height: 100%;
         .title_indicator {
           text-align: center;
-
+          width: 74%;
+          margin: 0 auto;
         }
         .indicator {
           width: 100%;
-          height: 100%;
+          //height: 100%;
           .row_indicator {
             display: flex;
             justify-content: space-around;
+          }
+          .plus {
+            width: 14%;
+            height: 32%;
+            bottom: -5%;
+            top: unset;
+            right: -17%;
+            position: absolute;
+            z-index: 11;
+            border-radius: 50%;
+            &:hover {
+              filter: blur(0.8px);
+              box-shadow: 0 0 10px rgba(255, 255, 255, 1), inset 0 0 10px rgba(255, 255, 255, 1);
+            }
+          }
+          .description{
+            background: rgba(255,255,255,0.5);
+            position: absolute;
+            right: 0%;
+            top: 114%;
+            width: 50vw;
+            text-align: left;
+            border-radius: 15px 0 15px 15px;
+            padding: 15px;
+            z-index: -10;
+            opacity: 0;
+            transition: all 0.5s linear;
+          }
+          .description.on{
+            z-index: 10;
+            opacity: 1;
+          }
+          .description .text{
+            max-height: 109px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            padding: 3px;
+            background: rgba(255,255,255,1);
+            color: #585858;
           }
         }
       }
@@ -1616,15 +1761,40 @@ html,body{
         width: 100%;
         height: 16vw;
         .title_indicator {
-          text-align: center;
+          text-align: left;
+          margin-left: 5%;
           font-size: 2vw;
         }
         .indicator {
           width: 100%;
           height: 10vw;
+          top: -10%;
           .row_indicator {
             display: flex;
             justify-content: space-around;
+          }
+          .plus{
+            height: 44%;
+            top: -50%;
+          }
+          .description{
+            right: 10%;
+            bottom: 162%;
+            width: 50vw;
+            left: unset;
+            .text{
+              max-height: 20vw;
+            }
+          }
+          .progress_bar1{
+            height: 62%;
+            background-position-y: 130%;
+          }
+          .cursor{
+            top: -38%
+          }
+          .percent{
+            top: -8.5vw;
           }
         }
       }
@@ -1649,6 +1819,13 @@ html,body{
             display: flex;
             justify-content: space-around;
           }
+          .description{
+            left: 65%;
+            bottom: -49%;
+            width: 50vw;
+            right: unset;
+            border-radius: 15px 15px 15px 0;
+          }
         }
       }
     }
@@ -1671,6 +1848,11 @@ html,body{
           .row_indicator {
             display: flex;
             justify-content: space-around;
+          }
+          .description{
+            right: 75%;
+            bottom: -49%;
+            width: 50vw;
           }
         }
       }
@@ -1734,6 +1916,7 @@ html,body{
       margin: 0;
       img {
         border-radius: 500px;
+        box-sizing: border-box;
         border: 1px solid #fff;
         width: 100%;
         height: 100%;

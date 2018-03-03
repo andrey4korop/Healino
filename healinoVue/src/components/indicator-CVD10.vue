@@ -3,6 +3,7 @@
     <div class="progress_bar2">
       <div class="cursor"
            v-bind:style="{ transform: 'rotate(' + TenYearsASCVDDeg + 'deg)' }"></div>
+      <div class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + TenYearsASCVDDegOp + 'deg)' }"></div>
       <div class="text_indicatition">
       <p class="big">{{animateVal}}%</p>
       <p>10 years</p>
@@ -29,7 +30,33 @@ export default {
             return this.rezultData.TenYearsASCVDScale[this.rezultData.TenYearsASCVDScale.length-1].Value;
         },
         TenYearsASCVDDeg:function(){
-            return 3.6 * (this.animateVal - this.minValue) * 100 / (this.maxValue - this.minValue);
+            if(this.animateVal<=this.minValue){
+                return 360 - 3.6 *0 -37;
+            }
+            if(this.animateVal>=this.maxValue){
+                return 360 - 3.6 *100 -35;
+            }
+            //return 360 - 3.6 * (this.animateVal - this.minValue) * 100 / (this.maxValue - this.minValue) -36;
+            for(var w=0; w<this.rezultData.TenYearsASCVDScale.length; w++ ){
+                if(this.animateVal < this.rezultData.TenYearsASCVDScale[w].Value){
+                    break;
+                }
+            }
+            var howManyDegForScale = 360 / this.rezultData.TenYearsASCVDScale.length;
+            var per;
+            if(w>0) {
+                per = (this.animateVal - this.rezultData.TenYearsASCVDScale[w-1].Value) / (this.rezultData.TenYearsASCVDScale[w].Value - this.rezultData.TenYearsASCVDScale[w - 1].Value) * howManyDegForScale + howManyDegForScale * (w);
+            }else{
+                per = (this.animateVal - this.minValue) / (this.rezultData.TenYearsASCVDScale[w].Value - this.minValue) * howManyDegForScale;
+            }
+            return 360 - per-36;
+        },
+        TenYearsASCVDDegOp:function(){
+            let t = (this.TenYearsASCVDDeg +36 - (this.TenYearsASCVDDeg+36) % (360/5));
+            //if(this.TenYearsASCVDDeg>=0){
+            t += (360/5);
+            //}
+            return t-(360-t)/100;
         }
     },
 
@@ -59,7 +86,7 @@ export default {
         this.valArray.push(this.maxValue);
         this.valArray.push(this.rezultData.TenYearsASCVD.Optimal);
         var t = this;
-        setTimeout(t.start, 100);
+        setTimeout(t.start, 4000);
     }
 }
 </script>
@@ -68,8 +95,33 @@ export default {
   .progress_bar2{
     border-radius: 50%;
     transition: all 0.1s linear;
+    background: url(/static/img/indicator_red.png) center center/cover no-repeat;
+    position: relative;
   }
   .progress_bar2:hover{
     box-shadow: 0 0 35px rgba(255, 255, 255, 1), inset 0 0 60px rgba(255, 255, 255, 0.5);
+  }
+  .opacity_cursor{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    background: url("/static/img/indicator_greenCur.png") no-repeat;
+    background-size: cover;
+  }
+  .description .text::-webkit-scrollbar {
+    width: 5px;
+    background: rgba(109,207,77,0.5);
+    border-radius: 3px;
+    height: 90%;
+  }
+
+  .description .text::-webkit-scrollbar-thumb {
+    background: rgb(109,207,77);
+    border-radius: 3px;
+    width: 5px;
+    height: 90%;
   }
 </style>

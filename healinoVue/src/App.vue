@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+      <audio autoplay volume="0.1"  loop id="audio">
+      <source src="static/music.wav" >
+      </audio>
     <background :backgr="backgr"
                 :bg="bg"></background>
     <start-component v-if="state == 'start'"
@@ -8,28 +11,54 @@
                      @onLogin="login"
                      @onUser="isFirst"
                      @nextBack="nextBack"
+                     @audio="audio"
+                     :audio_p="audio_p"
                      :lang="lang"
                      :SessionData="SessionData"></start-component>
     <login-component v-if="state == 'login'"
                      :lang="lang"
                      :SessionData="SessionData"
+                     @audio="audio"
+                     :audio_p="audio_p"
                      @logined="logined"
+                     @onForgot="onForgot"
                      @onLicense="license"></login-component>
+    <recoveryPassComponent  v-if="state == 'forgot'"
+                            @audio="audio"
+                            :audio_p="audio_p"
+                            @onForgotMessage="onForgotMessage"></recoveryPassComponent>
+    <recoveryPassMessageComponent  v-if="state == 'forgotMessage'"></recoveryPassMessageComponent>
+    <recPassComponent  v-if="state == 'recPass'"
+                       @audio="audio"
+                       @onLogin="login"
+                       :audio_p="audio_p"
+                       :UniqId="UniqId"></recPassComponent>
     <register-component v-if="state == 'register'"
                         :lang="lang"
+                        @audio="audio"
+                        :audio_p="audio_p"
                         @logined="logined"
+                        @toShowMessageReg="toShowMessageReg"
                      @onLicense="license"></register-component>
+    <registrationMessageComponent v-if="state == 'RegMessage'"></registrationMessageComponent>
     <license-component v-if="state == 'license'"
+                       @audio="audio"
+                       @onToStart="onToStart"
+                       :audio_p="audio_p"
                        @onToUser="ToUser"></license-component>
     <user-component v-if="state == 'user'"
                     :SessionData="SessionData"
                     :userData="userData"
+                    @audio="audio"
+                    :audio_p="audio_p"
                     @toTheme="toTheme"></user-component>
     <theme-component v-if="state == 'theme'"
                      :SessionData="SessionData"
                      :List="List"
                      :userData="userData"
                      :lang="lang"
+                     @audio="audio"
+                     :audio_p="audio_p"
                      @toRezult="toRezult"
                      @changeLang="changeLang"
                      @changeActiveTheme="changeActiveTheme"
@@ -41,6 +70,8 @@
                         :lang="lang"
                         :userData="userData"
                         :errorQuest="errorQuest"
+                        @audio="audio"
+                        :audio_p="audio_p"
                         @toTheme="toTheme"
                         @toRezult="toRezult"
                         @changeLang="changeLang"
@@ -49,11 +80,16 @@
                         @clearnError="clearnError"></question-component>
 
     <rezult-component v-else-if="state == 'rezult'"
+                      @audio="audio"
+                      :audio_p="audio_p"
                       :userData="userData"
                       :themeActiveObj="themeActiveObj"
                       :rezultData="rezultData"></rezult-component>
     <rezultPublic-component v-else-if="state == 'rezultPublic'"
+                            @audio="audio"
+                            :audio_p="audio_p"
                       :rezultData="rezultData"></rezultPublic-component>
+
   </div>
 </template>
 
@@ -63,6 +99,8 @@ export default {
   name: 'app',
    data () {
     return {
+        audio_p:true,
+        UniqId:'',
         activeId:0,
         errorQuest:false,
         backgr:1,
@@ -72,7 +110,7 @@ export default {
         rezultData:{},
         userData:{},
         themeActive:0,
-        lang:'ru',
+        lang:'en',
         state: 'start',
         SessionData: '',
         UserId: '',
@@ -108,12 +146,10 @@ export default {
             }
         },
         prevBody: function () {
-
             return {
                 SessionData: this.SessionData,
                 Argument: this.themeActiveObj.Id,
                 QuestionId: this.questionData.PreviusQuestionId,
-
             }
         },
     },
@@ -123,16 +159,21 @@ export default {
         },
     },
     methods:{
+        audio:function () {
+          let a = $('audio')[0];
+          if(a.paused){
+              a.play();
+              this.audio_p = true;
+          }else{
+              a.pause();
+              this.audio_p = false;
+          }
+        },
         nextBack:function () {
           this.bg++;
         },
       newBackground:function (val) {
-          let v = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
-          if(v != val){
-              return v;
-          }else{
-              return this.newBackground(val);
-          }
+          this.bg++;
       },
         changeLang: function (newLang) {
             this.lang = newLang;
@@ -151,6 +192,12 @@ export default {
         register(){
             this.state = "register"
         },
+        onForgot(){
+            this.state = "forgot"
+        },
+        onForgotMessage(){
+          this.state = "forgotMessage"
+        },
         login(){
             this.state = "login"
         },
@@ -164,24 +211,23 @@ export default {
                     if(data.ErrorCode==1 || data.UserId != null){
                         t.userData = data;
                         t.state = "user";
-                        //console.log(data);
                     }
                 })
                 .fail(function() {
-                    //console.log("error" );
                 });
 
         },
+        toShowMessageReg(){
+            this.state = "RegMessage";
+        },
         isFirst(){
             let t = this;
-            ///console.log("isFirst" );
             $.post( '/api/Account/GetUserProfile',  this.bodyGet  )
                 .done(function( data ){
                     if(data.ErrorCode==1 || data.UserId != null) {
                         t.userData = data;
-                        //console.log("done" + data.Phone);
                         if (!data.Phone) {
-                            t.state = "license"
+                            t.license();
                         } else {
                             //t.state = "user";
                             t.toTheme();
@@ -189,7 +235,6 @@ export default {
                     }
                 })
                 .fail(function() {
-                    //console.log("error" );
                 });
         },
         logined: function (odj){
@@ -207,9 +252,12 @@ export default {
             $.post( '/api/Theme/GetAllThemes',  this.bodyGet  )
                 .done(function( data ){
                     t.List = data.List;
-                    //console.log(data);
                     t.state = "theme";
                 });
+        },
+        onToStart(){
+            this.state="start";
+            this.bg-=2;
         },
         toQuestion(id){
             this.activeId = id;
@@ -220,12 +268,8 @@ export default {
             let t = this;
             $.post( '/api/Theme/GetNextThemeQuestionWithAnswers',  body)
                 .done(function( data ){
-                    //console.log("done" );
-                    //console.log(data);
                     if(data.ErrorCode==1){
                         if(data.IsFinished){
-                           // t.rezultData= data;
-                            console.log(data);
                             t.toRezult(data);
                         }else {
                             t.questionData = data;
@@ -246,7 +290,7 @@ export default {
                             t.toRezult(data);
                         }else {
                             t.questionData = data;
-                            t.backgr = t.newBackground(t.backgr);
+                            t.bg++;
                         }
                     }else if(data.ErrorCode==1 && data.DebugMessage=="Question already answered"){
                         t.toQuestion(t.activeId);
@@ -267,7 +311,7 @@ export default {
                             t.toRezult(data);
                         }else {
                             t.questionData = data;
-                            t.backgr = t.newBackground(t.backgr);
+                            t.bg--;
                         }
                     }else if(data.ErrorCode==1 && data.DebugMessage=="Question already answered"){
                         t.toQuestion(t.activeId);
@@ -307,19 +351,30 @@ export default {
         }
     },
   created: function() {
+      setTimeout(function () {
+          $('audio')[0].volume=0.6;
+      }, 1000);
       if(window.location.search){
-          var regexp = /sign=([^&]+)/i;
+          var regexp = /UniqId=([^&]+)/i;
+          var UniqId = '';
+          if (!!regexp.exec(document.location.search)) {
+              UniqId = regexp.exec(document.location.search)[1];
+          }
+          var regexp1 = /sign=([^&]+)/i;
           var sign = '';
-          if (!!regexp.exec(document.location.search))
-              sign = regexp.exec(document.location.search)[1];
-          var regexp = /req=([^&]+)/i;
+          if (!!regexp1.exec(document.location.search)) {
+              sign = regexp1.exec(document.location.search)[1];
+          }
+          var regexp2 = /req=([^&]+)/i;
           var req = '';
-          if (!!regexp.exec(document.location.search))
-              req = regexp.exec(document.location.search)[1];
-          var regexp = /result=([^&]+)/i;
+          if (!!regexp2.exec(document.location.search)) {
+              req = regexp2.exec(document.location.search)[1];
+          }
+          var regexp3 = /result=([^&]+)/i;
           var result = '';
-          if (!!regexp.exec(document.location.search))
-              result = regexp.exec(document.location.search)[1];
+          if (!!regexp3.exec(document.location.search)) {
+              result = regexp3.exec(document.location.search)[1];
+          }
           let t =this;
           var hhh = function () {
               return{
@@ -327,6 +382,7 @@ export default {
                   Signature:sign
               }
           };
+
           if(sign && req){
               $.post( '/api/Account/ActivateUser',  hhh() )
                   .done(function( data ){
@@ -361,6 +417,14 @@ export default {
                   })
                   .fail(function() {
                   });
+          }
+          if(UniqId){
+              this.UniqId=UniqId;
+              this.state='recPass';
+              try {
+                  history.pushState(null, null, "/");
+                  return;
+              } catch(e) {}
           }
       }
       let t = this;
@@ -421,7 +485,6 @@ export default {
               .fail(function() {
               });
       }
-      //console.log(this.SessionData);
     }
 }
 </script>

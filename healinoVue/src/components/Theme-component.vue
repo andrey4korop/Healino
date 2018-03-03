@@ -8,6 +8,9 @@
         <a href="/" v-lang.main></a>
         <a v-bind:href="langString('forumUrl')" target="_blank" v-lang.forum></a>
         <h3>{{userData.QuestionsProgress}}%</h3>
+        <div class="music_btn1" v-on:click="$emit('audio')">
+          <img v-bind:src="(audio_p)?'static/img/noMusic.png':'static/img/music.png'" >
+        </div>
         <div class="lang">
           <img src="static/img/langPL.png" alt=""   v-if="lang=='pl'">
           <img src="static/img/langUSA.png" alt=""  v-if="lang=='en'">
@@ -58,7 +61,7 @@
 
 <script>
     export default {
-        props: ['SessionData', 'List', 'userData', 'lang'],
+        props: ['SessionData', 'List', 'userData', 'lang', 'audio_p'],
         data () {
             return {
                 activeId:0,
@@ -87,7 +90,7 @@
                 forumUrl: 'https://www.healino.com/blog-us'
             },
             ru: {
-                main: 'Главная страница',
+                main: 'Главная',
                 forum: 'Форум',
                 rezult: 'СМОТРЕТЬ РЕЗУЛЬТАТ',
                 start: 'СТАРТ',
@@ -119,12 +122,7 @@
 
         },
         created: function() {
-           /* let t = this;
-            $.post( 'http://healino-api.azurewebsites.net/api/Theme/GetAllThemes',  this.body  )
-                .done(function( data ){
-                    t.List = data.List;
-                    console.log(data)
-                });*/
+            this.changeActive(this.List[0]);
         },
         methods: {
             langString(string){
@@ -170,5 +168,10 @@
   .filter img {
     opacity: 0.7;
     width: 40%;
+  }
+  .music_btn1{
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
   }
 </style>

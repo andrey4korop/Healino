@@ -97,8 +97,12 @@ export default {
             if(event.target.className == "selectBlock") {
                 this.showSelectId = true;
                 setTimeout(function () {
-                    $('.select').scrollTop($('.active').position().top - 40);
-                },7)
+                    if($('.active').length>0) {
+                        $('.select').scrollTop($('.active').position().top - 40);
+                    }else{
+                        $('.select').scrollTop(0);
+                    }
+                },50)
             }
         },
         setValueId(id, AnswerText, event){

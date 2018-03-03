@@ -29,14 +29,20 @@
             <span class="checkbox"><i class="fa fa-check" aria-hidden="true"></i></span><span v-lang.accept3></span></label>
           </div>
           <div class="licensePage">
-            <button v-on:click="next()" v-lang.button>ACCEPT</button>
+            <button v-on:click="next()" v-lang.button></button>
+            <button v-on:click="prev()" v-lang.buttonPrev></button>
           </div>
         </div>
 
       </div>
       <div class="licensePage sm">
-        <button v-on:click="next()" v-lang.button>ACCEPT</button>
+        <button v-on:click="prev()" v-lang.buttonPrev></button>
+        <button v-on:click="next()" v-lang.button></button>
       </div>
+    </div>
+    <div class="music_btn" v-on:click="$emit('audio')">
+      <img v-bind:src="(audio_p)?'static/img/noMusic.png':'static/img/music.png'" >
+
     </div>
   </div>
 
@@ -44,7 +50,7 @@
 
 <script>
     export default {
-        //name: 'app',
+        props: ['audio_p'],
         data () {
             return {
                 check1:false,
@@ -58,18 +64,21 @@
                 accept2: 'Accept our terms of use',
                 accept3: 'Accept our cookie policy',
                 button: 'Accept',
+                buttonPrev:'Back'
             },
             ru: {
                 accept1: 'Принимаю политику конфиденциальности',
                 accept2: 'Принимаю правила использоваания',
                 accept3: 'Принимаю политику в отношении файлов cookie',
                 button: 'Подтверждаю',
+                buttonPrev:'Назад'
             },
             pl: {
                 accept1: 'Akceptuję politykę prywatności',
                 accept2: 'Akceptuję warunki użytkowania',
                 accept3: 'Akceptuję politykę dotyczącą plików cookie',
                 button: 'Akceptuj',
+                buttonPrev:'Nazad'
             }
         },
         computed: {
@@ -80,6 +89,9 @@
                 if(this.check1 && this.check2 && this.check3 && true){
                     this.$emit('onToUser')
                 }
+            },
+            prev:function () {
+                this.$emit('onToStart')
             }
         },
         created: function() {
@@ -89,5 +101,11 @@
 </script>
 
 <style>
-
+  .music_btn{
+    width: 30px;
+    height: 30px;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+  }
 </style>

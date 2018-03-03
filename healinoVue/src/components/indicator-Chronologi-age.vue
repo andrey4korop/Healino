@@ -2,6 +2,7 @@
   <div class="mini_indicator mini_indicator2"  v-on:click="start">
     <div class="progress_bar2">
       <div class="cursor" v-bind:style="{ transform: 'rotate(' + BiologicalAgeDeg + 'deg)' }"></div>
+      <div class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + BiologicalAgeDegOp + 'deg)' }"></div>
       <div class="text_indicatition">
       <p class="big">{{animateVal.digits}}</p>
       <p>years</p>
@@ -30,8 +31,34 @@ export default {
             return this.rezultData.BioAgeScale[this.rezultData.BioAgeScale.length-1].AgePercent;
         },
         BiologicalAgeDeg:function(){
-            return 3.6 * (this.animateVal.deg - this.minValue) * 100 / (this.maxValue - this.minValue);
+            if(this.animateVal.deg<=this.minValue){
+                return 3.6 *0 + 1 -30;
+            }
+            if(this.animateVal.deg>=this.maxValue){
+                return 3.6 *100 -1 -30;
+            }
+            //return 3.6 * (this.animateVal.deg - this.minValue) * 100 / (this.maxValue - this.minValue) -30;
+            for(var w=0; w<this.rezultData.BioAgeScale.length; w++ ){
+                if(this.animateVal.deg < this.rezultData.BioAgeScale[w].AgePercent){
+                    break;
+                }
+            }
+            var howManyDegForScale = 360 / this.rezultData.BioAgeScale.length;
+            var per;
+            if(w>0) {
+                per = (this.animateVal.deg - this.rezultData.BioAgeScale[w-1].AgePercent) / (this.rezultData.BioAgeScale[w].AgePercent - this.rezultData.BioAgeScale[w - 1].AgePercent) * howManyDegForScale + howManyDegForScale * (w);
+            }else{
+                per = (this.animateVal.deg - this.minValue) / (this.rezultData.BioAgeScale[w].AgePercent - this.minValue) * howManyDegForScale;
+            }
+            return per-30;
         },
+        BiologicalAgeDegOp:function(){
+            let t = (this.BiologicalAgeDeg-20- (this.BiologicalAgeDeg-20) % (360/9));
+            if(this.BiologicalAgeDeg-20>=0){
+                t += (360/9);
+            }
+            return t;
+        }
     },
     methods:{
         animate () {
@@ -63,7 +90,7 @@ export default {
         this.valArray.deg.push(this.rezultData.BioMentalAge.BiologicalAgeDiffPercentage);
         this.valArray.digits.push(this.rezultData.BioMentalAge.BiologicalAge);
         var t = this;
-        setTimeout(t.start, 100);
+        setTimeout(t.start, 3000);
     },
 
 }
@@ -72,10 +99,33 @@ export default {
 <style scoped>
   .progress_bar2{
     border-radius: 50%;
-    transition: all 0.1s linear;
+
+    position: relative;
   }
   .progress_bar2:hover{
     box-shadow: 0 0 35px rgba(255, 255, 255, 1), inset 0 0 60px rgba(255, 255, 255, 0.5);
   }
+  .opacity_cursor{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    background: url("/static/img/indicator_3Cur.png") no-repeat;
+    background-size: cover;
+  }
+  .description .text::-webkit-scrollbar {
+    width: 5px;
+    background: rgba(109,207,77,0.5);
+    border-radius: 3px;
+    height: 90%;
+  }
 
+  .description .text::-webkit-scrollbar-thumb {
+    background: rgb(109,207,77);
+    border-radius: 3px;
+    width: 5px;
+    height: 90%;
+  }
 </style>

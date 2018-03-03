@@ -1,261 +1,360 @@
 <template>
-<div>
+  <div>
     <div class="container pc">
       <div class="row">
-        <div class="avatar">
-          <div v-bind:style="{background: 'url(' + img + ') center center / cover' }" class="img" ></div>
-        </div>
+        <indicatorAvatar :rezultData="rezultData"
+                         :img="img"
+                         :showDescription="showDescription"
+                         @onDescription="onDescription"></indicatorAvatar>
       </div>
       <div class="row">
         <div class="left">
           <div class="theme">
             <p>{{rezultData.TestName}}</p>
             <div class="img"
-                    v-bind:style="{background: 'url(' + rezultData.TestImageUrl + ') center center / cover' }" alt=""></div>
+                 v-bind:style="{background: 'url(' + rezultData.TestImageUrl + ') center center / cover' }" alt=""></div>
           </div>
         </div>
         <div class="center">
-          <indicator2 :DaylyCallorie="DaylyCallorie" :CallorieScale="CallorieScale"></indicator2>
-          <div class="indicators">
-            <div class="title_indicator">
-              <p>BMI</p>
-              <p>(body mass index)</p>
-            </div>
-            <div class="indicator">
-              <div class="progress_bar4">
-                <div class="cursor"></div>
-                <div class="text_indicator">
-                  <p class="big">{{BMI}}</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          <indicator2 :rezultData="rezultData"
+                      :showDescription="showDescription"
+                      @onDescription="onDescription"></indicator2>
+          <indicatorBMI :rezultData="rezultData"
+                        :showDescription="showDescription"
+                        @onDescription="onDescription"></indicatorBMI>
+
           <div class="indicators">
             <div class="title_indicator">
               <p class="age">Real Age</p>
             </div>
             <div class="indicator">
-              <div class="row_indicator">
-                <indicator-real-age :BioMentalAge="BioMentalAge"></indicator-real-age>
+              <div class="plus" v-on:click="onDescription(4)"><img src="static/img/plus.png" alt=""></div>
+              <div class="description" v-bind:class="(showDescription==4)?'on':''">
+                <div class="text"
+                     v-lang.AgeDescriptionText="{ChronologicalAge: rezultData.BioMentalAge.ChronologicalAge, MentalAge: rezultData.BioMentalAge.MentalAge, BiologicalAge: rezultData.BioMentalAge.BiologicalAge, txtMental:txtMental, txtBiological:txtBiological}">
+                </div>
               </div>
               <div class="row_indicator">
-                <indicator-Chronologi-age :BioMentalAge="BioMentalAge"></indicator-Chronologi-age>
-                <indicator-Mental-age :BioMentalAge="BioMentalAge"></indicator-Mental-age>
+                <indicator-real-age :rezultData="rezultData"></indicator-real-age>
+              </div>
+              <div class="row_indicator">
+                <indicator-Chronologi-age :rezultData="rezultData"></indicator-Chronologi-age>
+                <indicator-Mental-age :rezultData="rezultData"></indicator-Mental-age>
 
               </div>
             </div>
             <div class="info_indicator">
-              <p>({{BioMentalAge.BiologicalAge}}) biological (body) age</p>
-              <p>({{BioMentalAge.ChronologicalAge}}) chronological age</p>
-              <p>({{BioMentalAge.MentalAge}}) mental age</p>
+              <p>({{rezultData.BioMentalAge.BiologicalAge}}) biological (body) age</p>
+              <p>({{rezultData.BioMentalAge.ChronologicalAge}}) chronological age</p>
+              <p>({{rezultData.BioMentalAge.MentalAge}}) mental age</p>
             </div>
           </div>
           <div class="indicators">
             <div class="title_indicator">
-              <p class="cvd">CVD</p>
+              <p class="cvd">Risks of atherosclerotic cardiovascular disease (RACVD)</p>
             </div>
             <div class="indicator">
-              <div class="row_indicator">
-                <indicator-CVD15 :TenYearsASCVD="TenYearsASCVD" style="visibility: hidden"></indicator-CVD15>
+              <div class="plus" v-on:click="onDescription(5)"><img src="static/img/plus.png" alt=""></div>
+              <div class="description" v-bind:class="(showDescription==5)?'on':''">
+                <div class="text" v-lang.CVDdescriptionText="{RASCVD: rezultData.RASCVD}"></div>
               </div>
-              <div class="row_indicator">
-                <indicator-CVD5 :TenYearsASCVD="TenYearsASCVD"></indicator-CVD5>
 
-                <indicator-CVD10 :RASCVD="RASCVD"></indicator-CVD10>
+              <div class="row_indicator">
+                <indicator-CVD5 :rezultData="rezultData"></indicator-CVD5>
+
+                <indicator-CVD10 :rezultData="rezultData"></indicator-CVD10>
               </div>
             </div>
-            <div class="info_indicator_top">
+            <!--<div class="info_indicator_top">
               <p class="cvd">82%</p>
               <p>RISK</p>
-            </div>
+            </div>-->
           </div>
         </div>
         <div class="right">
           <div class="right_indicator">
-            <indicatorWHR :WHRatio="WHRatio"></indicatorWHR>
-            <indicatorLMP :LMP="LMP" :LMPCategoryScale="LMPCategoryScale"></indicatorLMP>
+            <indicatorWHR :rezultData="rezultData"
+                          :showDescription="showDescription"
+                          @onDescription="onDescription"></indicatorWHR>
+            <indicatorLMP :rezultData="rezultData"
+                          :showDescription="showDescription"
+                          @onDescription="onDescription"></indicatorLMP>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="bottom">
-          <indicatorBF :BFP="BFP"></indicatorBF>
+          <indicatorBF :rezultData="rezultData"
+                       :showDescription="showDescription"
+                       @onDescription="onDescription"></indicatorBF>
 
-          <indicator1 :FM="FM"></indicator1>
-          <indicatorBMR :BMR="BMR" style="visibility: hidden"></indicatorBMR>
+          <indicator1 :rezultData="rezultData"
+                      :showDescription="showDescription"
+                      @onDescription="onDescription"></indicator1>
+          <indicatorBMR :BMR="BMR" style="visibility: hidden; display: none;"></indicatorBMR>
         </div>
       </div>
-      <div class="button_share" v-on:click.prevent="share">
-        <img src="static/img/active 150x45.png" alt="">
+      <div class="button_share">
+        <button class="share" v-on:click.prevent="share" v-lang.share></button>
       </div>
     </div>
 
 
-  <div class="containerMob sm">
-    <div class="pos1">
-      <indicator2sm :DaylyCallorie="DaylyCallorie" :CallorieScale="CallorieScale"></indicator2sm>
-    </div>
-    <div class="pos2">
-      <div class="indicators">
-        <div class="title_indicator">
-          <p>BMI</p>
-          <p>(body mass index)</p>
-        </div>
-        <div class="indicator">
-          <div class="progress_bar4">
-            <div class="cursor"></div>
-            <div class="text_indicator">
-              <p class="big">{{BMI}}</p>
+    <div class="containerMob sm">
+      <div class="pos1">
+        <indicator2 :rezultData="rezultData"
+                    :showDescription="showDescription"
+                    @onDescription="onDescription"></indicator2>
+      </div>
+      <div class="pos2">
+        <indicatorBMI :rezultData="rezultData"
+                      :showDescription="showDescription"
+                      @onDescription="onDescription"></indicatorBMI>
+      </div>
+      <div class="pos3">
+        <indicatorAvatar :rezultData="rezultData"
+                         :img="img"
+                         :showDescription="showDescription"
+                         @onDescription="onDescription"></indicatorAvatar>
+      </div>
+
+      <div class="pos4">
+        <div class="indicators">
+          <div class="title_indicator">
+            <p class="age">Real Age</p>
+          </div>
+          <div class="indicator">
+            <div class="plus" v-on:click="onDescription(4)"><img src="static/img/plus.png" alt=""></div>
+            <div class="description" v-bind:class="(showDescription==4)?'on':''">
+              <div class="text"
+                   v-lang.AgeDescriptionText="{ChronologicalAge: rezultData.BioMentalAge.ChronologicalAge, MentalAge: rezultData.BioMentalAge.MentalAge, BiologicalAge: rezultData.BioMentalAge.BiologicalAge, txtMental:txtMental, txtBiological:txtBiological}">
+              </div>
+            </div>
+            <div class="row_indicator">
+              <indicator-real-age :rezultData="rezultData"></indicator-real-age>
+            </div>
+            <div class="row_indicator">
+              <indicator-Chronologi-age :rezultData="rezultData"></indicator-Chronologi-age>
+              <indicator-Mental-age :rezultData="rezultData"></indicator-Mental-age>
             </div>
           </div>
+          <div class="info_indicator">
+            <p>({{rezultData.BioMentalAge.BiologicalAge}}) biological (body) age</p>
+            <p>({{rezultData.BioMentalAge.ChronologicalAge}}) chronological age</p>
+            <p>({{rezultData.BioMentalAge.MentalAge}}) mental age</p>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="pos3">
-      <div class="avatar">
-        <div v-bind:style="{background: 'url(' + img + ') center center / cover' }" class="img" ></div>
-      </div>
-    </div>
+      <div class="pos5">
+        <div class="indicators">
+          <div class="title_indicator">
+            <p class="cvd">Risks of atherosclerotic cardiovascular disease (RACVD)</p>
+          </div>
+          <div class="indicator">
+            <div class="plus" v-on:click="onDescription(5)"><img src="static/img/plus.png" alt=""></div>
+            <div class="description" v-bind:class="(showDescription==5)?'on':''">
+              <div class="text" v-lang.CVDdescriptionText="{RASCVD: rezultData.RASCVD}"></div>
+            </div>
 
-    <div class="pos4">
-      <div class="indicators">
-        <div class="title_indicator">
-          <p class="age">Real Age</p>
-        </div>
-        <div class="indicator">
-          <div class="row_indicator">
-            <indicator-real-agesm :BioMentalAge="BioMentalAge"></indicator-real-agesm>
+            <div class="row_indicator">
+              <indicator-CVD5 :rezultData="rezultData"></indicator-CVD5>
+              <indicator-CVD10 :rezultData="rezultData"></indicator-CVD10>
+            </div>
           </div>
-          <div class="row_indicator">
-            <indicator-Chronologi-agesm :BioMentalAge="BioMentalAge"></indicator-Chronologi-agesm>
-            <indicator-Mental-agesm :BioMentalAge="BioMentalAge"></indicator-Mental-agesm>
-          </div>
-        </div>
-        <div class="info_indicator">
-          <p>({{BioMentalAge.BiologicalAge}}) biological (body) age</p>
-          <p>({{BioMentalAge.ChronologicalAge}}) chronological age</p>
-          <p>({{BioMentalAge.MentalAge}}) mental age</p>
+          <!--<div class="info_indicator_top">
+            <p class="cvd">82%</p>
+            <p>RISK</p>
+          </div>-->
         </div>
       </div>
-    </div>
-    <div class="pos5">
-      <div class="indicators">
-        <div class="title_indicator">
-          <p class="cvd">CVD</p>
-        </div>
-        <div class="indicator">
-          <div class="row_indicator">
-            <indicator-CVD15sm :TenYearsASCVD="TenYearsASCVD" style="visibility: hidden"></indicator-CVD15sm>
-          </div>
-          <div class="row_indicator">
-            <indicator-CVD5sm :TenYearsASCVD="TenYearsASCVD"></indicator-CVD5sm>
-            <indicator-CVD10sm :RASCVD="RASCVD"></indicator-CVD10sm>
-          </div>
-        </div>
-        <div class="info_indicator_top">
-          <p class="cvd">82%</p>
-          <p>RISK</p>
-        </div>
-      </div>
-    </div>
-    <div class="pos6">
+      <div class="pos6">
 
 
-      <indicatorBFsm :BFP="BFP"></indicatorBFsm>
-      <indicator1sm :FM="FM"></indicator1sm>
-      <indicatorBMRsm :BMR="BMR" style="visibility: hidden" ></indicatorBMRsm>
-      <div class="button_share" v-on:click.prevent="share">
-        <img src="static/img/active 150x45.png" alt="">
+        <indicatorBF :rezultData="rezultData"
+                     :showDescription="showDescription"
+                     @onDescription="onDescription"></indicatorBF>
+
+        <indicator1 :rezultData="rezultData"
+                    :showDescription="showDescription"
+                    @onDescription="onDescription"></indicator1>
+        <!--<indicatorBMR :BMR="BMR" style="visibility: hidden; display: none" ></indicatorBMR>-->
+        <div class="button_share">
+          <button class="share" v-on:click.prevent="share" v-lang.share></button>
+        </div>
+      </div>
+      <div class="pos7">
+        <indicatorLMP :rezultData="rezultData"
+                      :showDescription="showDescription"
+                      @onDescription="onDescription"></indicatorLMP>
+      </div>
+      <div class="pos8">
+        <indicatorWHR :rezultData="rezultData"
+                      :showDescription="showDescription"
+                      @onDescription="onDescription"></indicatorWHR>
       </div>
     </div>
-    <div class="pos7">
-      <indicatorLMPsm :LMP="LMP" :LMPCategoryScale="LMPCategoryScale"></indicatorLMPsm>
-    </div>
-    <div class="pos8">
-      <indicatorWHRsm :WHRatio="WHRatio"></indicatorWHRsm>
+    <div class="music_btn" v-on:click="$emit('audio')">
+      <img v-bind:src="(audio_p)?'static/img/noMusic.png':'static/img/music.png'" >
+
     </div>
   </div>
-</div>
 
 </template>
 
 <script>
     export default {
-        props:['rezultData'],
+        props:['rezultData','audio_p'],
         data () {
             return {
-                temp:'',
-                BMI: '0',
-                BioMentalAge:{
-                    BiologicalAge: 0,
-                    ChronologicalAge: 0,
-                    MentalAge: 0
-                },
-                DaylyCallorie: 0,
-                CallorieScale:[
-                    {
-                        Callorie:0,
-                    }
-                ],
-                LMP: 0,
-                LMPCategoryScale:[
-                    {
-                        BF:0,
-                    }
-                ],
-                RASCVD: 0,
-                TenYearsASCVD: {
-                    Calculated:0,
-                    Optimal:0
-                },
-                BFP:0,
-                BMR:0,
-                FM:0,
-                WHRatio:0,
+                showDescription:"none",
                 img:""
             }
         },
-        computed: {
-            getTemp: function () {
-                if(!this.temp){
+        messages: {
+            en: {
+                share: 'SHARE',
+                AgeDescriptionText:
+                "<p>Your age:</p>"+
+                "<p>Mental  {MentalAge} years. {txtMental}</p>"+
+                "<p>Biological  {BiologicalAge} years. {txtBiological}</p>"+
+                "<p>Chronological {ChronologicalAge} years. </p>",
 
-                        this.temp = this.rezultData;
+                AgeBCom0: "It is necessary to see a doctor",
+                AgeBCom1: "Your body is in great shape and younger",
+                AgeBCom2: "Your body in great shape",
+                AgeBCom3: "Your body is younger",
+                AgeBCom4: "Your body corresponds to the norm",
+                AgeBCom5: "You need to take care of yourself",
+                AgeBCom6: "It is necessary to see a doctor",
+                AgeBCom7: "It is necessary to see a doctor",
+                AgeBCom8: "Urgent need to see a doctor",
 
-                }
-                return this.LMPCategoryScale;//this.temp;
+                AgeMCom0: "You are in a state of detachment",
+                AgeMCom1: "Consultation with a psychologist is necessary",
+                AgeMCom2: "You need to communicate more",
+                AgeMCom3: "Everything is fine",
+                AgeMCom4: "Normal condition",
+                AgeMCom5: "It is necessary to be surrounded by relatives / friends",
+                AgeMCom6: "Consultation with a psychologist is necessary",
+                AgeMCom7: "Psychological problems are possible",
+                AgeMCom8: "High probability of psychological problems",
+
+                CVDdescriptionText: '<p>Your risk of atherosclerotic cardiovascular disease is {RASCVD}%.</p>',
             },
-            getFirstLMP: function () {
-                return this.getTemp.LMPCategoryScale;
+            ru: {
+                share: 'ПОДЕЛИТЬСЯ',
+                AgeDescriptionText:
+                "<p>Ваш возраст:</p>"+
+                "<p>Ментальный  {MentalAge} лет.   {txtMental}</p>"+
+                "<p>Биологический  {BiologicalAge} лет.   {txtBiological}</p>"+
+                "<p>Хронологический {ChronologicalAge} лет.</p>",
+                AgeBCom0: "Необходим осмотр врача",
+                AgeBCom1: "Ваше тело в отличной форме и моложе",
+                AgeBCom2: "Ваше тело в отличной форме",
+                AgeBCom3: "Ваше тело моложе",
+                AgeBCom4: "Ваше тело соответсвует норме",
+                AgeBCom5: "Вам необходимо заняться собой",
+                AgeBCom6: "Необходим осмотр врача",
+                AgeBCom7: "Необходим осмотр врача",
+                AgeBCom8: "Срочно необходим осмотр врача",
+
+                AgeMCom0: "Вы в состоянии отрященности",
+                AgeMCom1: "Необходима консультация с психологом",
+                AgeMCom2: "Необходимо больше общаться",
+                AgeMCom3: "Все в порядке.",
+                AgeMCom4: "соответсвует норме",
+                AgeMCom5: "Необходимо находится в окружении близких / друзей",
+                AgeMCom6: "Необходима консультация с психологом",
+                AgeMCom7: "Возможны  психологические проблемы",
+                AgeMCom8: "Большая вероятность психологических проблем",
+
+                CVDdescriptionText: '<p>В течение всей Вашей жизни Ваш риск атеросклеротических сердечно-сосудистых заболеваний составляет {RASCVD} %. </p>',
             },
-            getLastLMP: function () {
-                return this.getTemp.LMPCategoryScale;//[this.getTemp.LMPCategoryScale.length - 1].BF;
+            pl: {
+                share: 'DZIELIĆ SIĘ',
+
+                AgeDescriptionText:
+                "<p>Twój wiek:</p>"+
+                "<p>Mentalne {MentalAge}. {txtMental}</p>"+
+                "<p>Biologiczne {BiologicalAge} lat. {txtBiological}</p>"+
+                "<p>Chronologicznie {ChronologicalAge} lat.</p>",
+                AgeBCom0: "Potrzebuje badanie lekarskie",
+                AgeBCom1: "Twoje ciało jest w świetnej formie i młodsze",
+                AgeBCom2: "Twoje ciało w świetnej formie",
+                AgeBCom3: "Twoje ciało jest młodsze",
+                AgeBCom4: "Twoje ciało odpowiada normie",
+                AgeBCom5: "Musisz zadbać o siebie",
+                AgeBCom6: "Potrzebuje badanie lekarskie",
+                AgeBCom7: "Potrzebuje badanie lekarskie",
+                AgeBCom8: "Pilnie potrzebne badanie lekarskie",
+
+                AgeMCom0: "Jesteś w stanie oderwania",
+                AgeMCom1: "Konieczna jest konsultacja z psychologiem",
+                AgeMCom2: "Musisz komunikować się więcej",
+                AgeMCom3: "Wszystko w porządku.",
+                AgeMCom4: "Оdpowiada normie",
+                AgeMCom5: "Trzeba być otoczonym przez krewnych / przyjaciół",
+                AgeMCom6: "Konieczna jest konsultacja z psychologiem",
+                AgeMCom7: "Problemy psychologiczne są możliwe",
+                AgeMCom8: "Wysokie prawdopodobieństwo problemów psychologicznych",
+
+                CVDdescriptionText: '<p>Przez całe życie ryzyko wystąpienia miażdżycowej choroby sercowo-naczyniowej wynosi {RASCVD}%</p>',
             }
+        },
+        computed: {
+          /*langString(string){
+           return this.translate(string);
+           },*/
+            txtMental:function () {
+                console.log('txtMental');
+                if(this.rezultData.BioMentalAge.MentalAgeDiffPercentage > this.rezultData.MentalAgeScale[this.rezultData.MentalAgeScale.length-1].AgePercent){
+                    return this.translate( 'AgeMCom'+(this.rezultData.MentalAgeScale.length-1));
+                }
+                let ret = this.translate( 'AgeMCom0');
+                for( let i = 0; i < this.rezultData.MentalAgeScale.length; i++){
+                    if(this.rezultData.BioMentalAge.MentalAgeDiffPercentage > this.rezultData.MentalAgeScale[i].AgePercent){
+                        ret = this.translate( 'AgeMCom'+(i+1));
+                        console.log(ret);
+                    }else{
+                        return ret;
+                    }
+                }
+            },
+            txtBiological:function () {
+                console.log('txtBiological');
+                if(this.rezultData.BioMentalAge.BiologicalAge > this.rezultData.BioAgeScale[this.rezultData.BioAgeScale.length-1].AgePercent){
+                    return this.translate( 'AgeBCom'+(this.rezultData.BioAgeScale.length-1));
+                }
+                let ret = this.translate( 'AgeBCom0');
+                for( let i = 0; i < this.rezultData.BioAgeScale.length; i++){
+                    if(this.rezultData.BioMentalAge.BiologicalAgeDiffPercentage > this.rezultData.BioAgeScale[i].AgePercent){
+                        ret = this.translate( 'AgeBCom'+(i+1));
+                        console.log(ret);
+                    }else{
+                        return ret;
+                    }
+                }
+            },
+
         },
         created: function() {
 
             this.img = this.rezultData.UserPhotoUrl || '../static/img/noIMG.png';
-
-            this.BMI = this.rezultData.BMI;
-            this.BioMentalAge = this.rezultData.BioMentalAge;
-            this.DaylyCallorie = this.rezultData.DaylyCallorie;
-            this.CallorieScale = this.rezultData.CallorieScale;
-            this.LMP = this.rezultData.LMP;
-            this.LMPCategoryScale = this.rezultData.LMPCategoryScale;
-            this.RASCVD = this.rezultData.RASCVD;
-            this.TenYearsASCVD = this.rezultData.TenYearsASCVD;
-            this.BFP = this.rezultData.BFP;
-            this.BMR = this.rezultData.BMR;
-            this.FM = this.rezultData.FM;
-            this.WHRatio = this.rezultData.WHRatio;
-
         },
         methods:{
             share(){
                 FB.ui({
                     method: 'share',
                     mobile_iframe: true,
-                    href: 'http://healino-api.azurewebsites.net/?result='+this.rezultData.PublicHash,
+                    href: 'https://healino.azurewebsites.net/?result='+this.rezultData.PublicHash,
                 }, function(response){});
+            },
+            onDescription(val){
+                if(this.showDescription == val){
+                    this.showDescription = "none";
+                }else{
+                    this.showDescription = val;
+                }
             }
         }
     }
@@ -264,5 +363,95 @@
 <style scoped>
   .avatar .img{
     cursor: default;
+  }
+  div.center > div:nth-child(3) > div.indicator > div.plus{
+    width: 15%;
+    height: 15%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    z-index: 1;
+  }
+  @media screen and (max-width: 780px){
+    .plus {
+      width: 30%;
+      height: 16%;
+      bottom: -57%;
+      top: unset;
+    }
+  }
+  div.center > div:nth-child(3) > div.indicator > div.plus:hover{
+    filter: blur(0.8px);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 1), inset 0 0 10px rgba(255, 255, 255, 1);
+  }
+  div.indicator{
+    position: relative;
+  }
+  div.center > div:nth-child(3) .description{
+    background: rgba(255,255,255,0.5);
+    position: absolute;
+    right: 100%;
+    bottom: 100%;
+    width: 22vw;
+    text-align: left;
+    border-radius: 15px 15px 0 15px;
+    padding: 15px;
+    z-index: -10;
+    opacity: 0;
+    transition: all 0.5s linear;
+  }
+  div.center > div:nth-child(3) .description.on{
+    z-index: 10;
+    opacity: 1;
+  }
+  div.center > div:nth-child(4) > div.indicator > div.plus{
+    width: 15%;
+    height: 34%;
+    position: absolute;
+    bottom: 105%;
+    right: 0;
+    border-radius: 50%;
+    z-index: 1;
+  }
+  div.center > div:nth-child(4) > div.indicator > div.plus:hover{
+    filter: blur(0.8px);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 1), inset 0 0 10px rgba(255, 255, 255, 1);
+  }
+  div.center > div:nth-child(4) .description{
+    background: rgba(255,255,255,0.5);
+    position: absolute;
+    left: 105%;
+    bottom: 120%;
+
+    width: 22vw;
+    text-align: left;
+    border-radius: 15px 15px 15px 0;
+    padding: 15px;
+    z-index: -10;
+    opacity: 0;
+    transition: all 0.5s linear;
+  }
+  div.center > div:nth-child(4) .description.on{
+    z-index: 10;
+    opacity: 1;
+  }
+  .description .text{
+    max-height: 109px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 3px;
+    background: rgba(255,255,255,1);
+    color: #585858;
+  }
+  .bottom {
+    margin-bottom: 15px;
+  }
+  .music_btn{
+    width: 30px;
+    height: 30px;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
   }
 </style>

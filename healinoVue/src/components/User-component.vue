@@ -32,8 +32,15 @@
         </label>
         <label>
           <p><span>*</span>{{langString('date')}}</p>
-          <input id="date" type="date"
-                 v-model="Birthday" v-on:change="change(objBirthday, Birthday)">
+          <!--<input id="date" type="date"
+                 v-model="Birthday" v-on:change="change(objBirthday, Birthday)">-->
+          <masked-input
+                  id="date"
+                  v-on:change="change(objBirthday, Birthday)"
+                  v-model="Birthday"
+                  mask="11/11/1111"
+                  placeholder="dd/mm/yyyy"
+                  type="tel" />
           <span class="check" v-bind:class="(objBirthday.showLoad) ? 'loading': ''" v-if="objBirthday.showCheck">
             <i class="fa fa-check" aria-hidden="true"></i>
           </span>
@@ -54,7 +61,7 @@
         <label>
           <p><span>*</span>{{langString('race')}}</p>
           <select v-model="Race" v-on:change="change(objRace, Race)">
-            <option value="0">White</option>
+            <option value="0">Caucasian</option>
             <option value="1">Asian</option>
             <option value="2">African </option>
           </select>
@@ -67,8 +74,20 @@
         </label>
         <label>
           <p><span>*</span>{{langString('phone')}}</p>
-          <input type="tel" pattern="^(?:0|\(?\+\)?\s?|00\s?)[1-79](?:[\.\-\s]?\d\d){4}$"
-                 v-model="Phone" v-on:change="change(objPhone, Phone)">
+          <!--<input type="tel" pattern="^(?:0|\(?\+\)?\s?|00\s?)[1-79](?:[\.\-\s]?\d\d){4}$"
+                 v-model="Phone" v-on:change="change(objPhone, Phone)">-->
+          <!--<the-mask
+                    v-model="Phone"
+                    v-on:change="change(objPhone, Phone)"
+                    type="tel"
+                    placeholder="(111)111-11-11"></the-mask>-->
+          <masked-input
+                  v-on:change="change(objPhone, Phone)"
+                  v-model="Phone"
+                  mask="\+111111111111"
+                  placeholder="+xxxxxxxxxxxx"
+                  type="tel" />
+
           <span class="check" v-bind:class="(objPhone.showLoad) ? 'loading': ''" v-if="objPhone.showCheck">
             <i class="fa fa-check" aria-hidden="true"></i>
           </span>
@@ -164,7 +183,7 @@
           <span class="checkbox"><i class="fa fa-check" aria-hidden="true"></i></span><span v-lang.female></span>
         </label>
         <label class="bottom">
-          <p>{{langString('someDate')}}: 24.09.2017</p>
+          <p>{{langString('someDate')}}: {{(userData.LastTestFinishedDate)?userData.LastTestFinishedDate:''}}</p>
         </label>
       </div>
 
@@ -175,13 +194,19 @@
         <button v-on:click.prevent="updateUser" v-lang.button></button>
       </div>
     </div>
+    <div class="music_btn" v-on:click="$emit('audio')">
+      <img v-bind:src="(audio_p)?'static/img/noMusic.png':'static/img/music.png'" >
+
+    </div>
   </div>
 
 </template>
 
 <script>
+    import {TheMask} from 'vue-the-mask'
+    import MaskedInput from 'vue-masked-input'
     export default {
-        props: ['SessionData', 'userData'],
+        props: ['SessionData', 'userData', 'audio_p'],
         data () {
             return {
                 Name:"",
@@ -250,6 +275,7 @@
 
             }
         },
+        components: {MaskedInput },
         messages: {
             en: {
                 name: 'Name',
@@ -277,7 +303,7 @@
             ru: {
                 name: 'Имя',
                 surname: 'Фамилия',
-                date: 'Возраст',
+                date: 'Дата рождения',
                 location: 'Место нахождения',
                 race: 'Раса',
                 phone: 'Номер телефона',
@@ -300,7 +326,7 @@
             pl: {
                 name: 'Imię',
                 surname: 'Nazwisko',
-                date: 'Wiek',
+                date: 'Data urodzenia',
                 location: 'Lokalizacja',
                 race: 'Rasa ',
                 phone: 'numer telefonu',
@@ -354,8 +380,6 @@
                     PersonMeasurementSystem:this.PersonMeasurementSystem,
                 }
             },
-
-
         },
         created: function() {
 
@@ -377,6 +401,42 @@
                 this.img = this.userData.PhotoUrl;
             }
 
+        },
+        watch:{
+            Phone:function (newVal,oldVal) {
+                this.change(this.objPhone, newVal);
+            },
+            Birthday:function (newVal,oldVal) {
+                console.log('new');
+                console.log(newVal);
+                this.objBirthday.showCheck = true;
+                this.objBirthday.showLoad = true;
+                this.objBirthday.error = false;
+                let t = this;
+                if(newVal.indexOf('_')<0) {
+                    setTimeout(function () {
+                        console.log('time');
+                        console.log(newVal);
+                        t.objBirthday.showLoad = false;
+                        if (new Date(newVal) == 'Invalid Date') {
+                            t.objBirthday.showCheck = false;
+                            t.objBirthday.error = true;
+                        }else{
+                            t.objBirthday.showCheck = true;
+                        }
+                    }, 1600);
+                }else{
+                    setTimeout(function () {
+                        console.log('time0');
+                        console.log(newVal);
+
+                        t.objBirthday.showLoad = false;
+                        t.objBirthday.showCheck = false;
+                        t.objBirthday.error = false;
+                    }, 1500);
+                }
+
+            }
         },
         methods: {
             langString(string){
@@ -433,7 +493,7 @@
             },
             change(obj, val){
                 let t = this;
-                //console.log(t);
+                console.log('change');
                 //console.log(obj);
                 obj.showCheck = true;
                 obj.showLoad = true;
@@ -448,10 +508,7 @@
             },
             checkBody(){
                 let error = false;
-                //console.log(this.bodySet);
                 for(let index in this.bodySet){
-                    //console.log(index + " : " + this.bodySet[index]);
-                    //console.log(this.bodySet[index]);
                     if(!(this.bodySet[index]=== "0"|| this.bodySet[index]=== 0 ||(this.bodySet[index]!==null && this.bodySet[index]!=="" && this.bodySet[index]!==" "))){
                         error=true;
                         this["obj"+index].error=true;
@@ -461,7 +518,6 @@
                         this["obj"+index].error=true;
                     }
                 }
-                //console.log(error);
                 return error;
             }
         }

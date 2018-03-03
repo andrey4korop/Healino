@@ -14,7 +14,9 @@
     "es6-promise": "^4.2.4",
     "vue": "^2.5.11",
     "vue-axios": "^2.0.2",
-    "vue-multilanguage": "^3.0.5"
+    "vue-masked-input": "^0.5.2",
+    "vue-multilanguage": "^3.0.5",
+    "vue-the-mask": "^0.11.1"
   },
   "browserslist": [
     "> 1%",

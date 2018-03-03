@@ -8,6 +8,9 @@
         <a href="/" v-lang.main></a>
         <a v-bind:href="langString('forumUrl')" target="_blank" v-lang.forum></a>
         <h3>{{questionData.QuestionsProgress}}%</h3>
+        <div class="music_btn1" v-on:click="$emit('audio')">
+          <img v-bind:src="(audio_p)?'static/img/noMusic.png':'static/img/music.png'" >
+        </div>
         <div class="lang">
           <img src="static/img/langPL.png" alt=""   v-if="lang=='pl'">
           <img src="static/img/langUSA.png" alt=""  v-if="lang=='en'">
@@ -21,8 +24,10 @@
         <div v-bind:style="{background: 'url(' + userIMG + ') center center / cover' }" class="user_Avatar" ></div>
       </div>
     </div>
-    <div class="row sm" style="position: absolute; top: 100px;">
+    <div class="row sm" style="position: fixed; top: 100px;">
       <div id="grad1" class="progressBarTheme">
+
+        <img src="static/img/kl.png" alt="" id="hren">
         <img src="static/img/curcor.png" class="cursor" alt="">
         <div class="white" v-bind:style="{width: per + '%'}"></div>
       </div>
@@ -30,6 +35,7 @@
     <div class="row">
       <div class="content col">
         <div id="grad1" class="progressBarTheme pc">
+          <img src="static/img/kl.png" alt="" id="hren">
           <img src="static/img/curcor.png" class="cursor" alt="">
           <div class="white" v-bind:style="{width: per + '%'}"></div>
         </div>
@@ -63,7 +69,7 @@
 
 <script>
     export default {
-        props: ['SessionData', 'questionData', 'userData', 'lang', 'errorQuest'],
+        props: ['SessionData', 'questionData', 'userData', 'lang', 'errorQuest', 'audio_p'],
         data () {
             return {
 
@@ -89,7 +95,7 @@
                 forumUrl: 'https://www.healino.com/blog-us'
             },
             ru: {
-                main: 'Главная страница',
+                main: 'Главная',
                 forum: 'Форум',
                 back: 'НАЗАД',
                 next: 'СЛЕДУЮЩИЙ',
@@ -144,18 +150,13 @@
             /*this.QuestionId = this.questionData.QuestionId;
             this.UserThemeTestId = this.questionData.UserThemeTestId;*/
             this.Type = this.getType();
-            console.log(this.questionData.QuestionNum);
-            console.log(this.questionData.QuestionNum > 1);
-
         },
         watch: {
             questionData: function(newVal, oldVal) { // watch it
                 this.Type = -1;
-                console.log(this.Type);
                 let t = this;
                 setTimeout(function () {
                     t.Type = newVal.QuestionTypeEnum;
-                    console.log(t.Type);
                 },5);
 
                 this.AnswersId = "";
@@ -189,7 +190,6 @@
 
             },
             prevQuestion(){
-                console.log('button prew');
                 this.$emit('prevQuestion');
 
 
@@ -199,5 +199,9 @@
 </script>
 
 <style>
-
+  .music_btn1{
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+  }
 </style>
