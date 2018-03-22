@@ -396,10 +396,10 @@ export default {
 
           if (ns4) {document.captureEvents(Event.MOUSEMOVE);}
           document.onmousemove=t.mousemove;
-          t.random={x:t.randomInteger(-25,25),y:t.randomInteger(-25,25)};
+          t.random={x:t.randomInteger(-50,50),y:t.randomInteger(-50,50)};
           t.posX=t.posMouse.x;
           t.posMouse=t.posMouseTemp;
-              $('.bg:nth-child(5)').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',
+              $('.bg:nth-child(2)').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',
                   function(e) {
                       t.random={x:t.randomInteger(-25,25),y:t.randomInteger(-25,25)};
                       t.posX=t.posMouse.x;
@@ -418,7 +418,7 @@ export default {
     position: fixed;
     width: 100%;
     height: 100%;
-   transition: all 4s cubic-bezier(.76,0,.5,1);
+   transition: all 2s cubic-bezier(.76,0,.5,1);
     transition-delay: 0s;
     /*-webkit-background-size: 100%;
     -moz-background-size: 100%;

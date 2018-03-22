@@ -180,8 +180,6 @@
                 if(googleUser.Zi.access_token){
                     $.post( '/api/Account/GoogleOAuthResponse',  t.bodyToken(googleUser.Zi.access_token)  )
                         .done(function( data ){
-                            //console.log("done Google" );
-                            //console.log(data);
                             if(data.ErrorCode==1){
                                 //t.toQuestion(this.themeActive);
                                 t.SessionData = data.SessionString;
@@ -196,18 +194,14 @@
                                 };
                                 t.$emit('logined', temp);
                             }else{
-                                //console.log("error from server" );
                             }
                         })
                         .fail(function() {
-                            //console.log("error" );
                         });
                 }
 
             },
             onSignInError (error) {
-                // `error` contains any error occurred.
-                //console.log('OH NOES', error)
             },
             FacebookLogin(){
                 var t = this;
@@ -232,11 +226,9 @@
                                         };
                                         tempthis.$emit('logined', temp);
                                     }else{
-                                        //console.log("error from server" );
                                     }
                                 })
                                 .fail(function() {
-                                   // console.log("error" );
                                 });
                         }
                     },
@@ -267,7 +259,6 @@
                       }
                   })
                   .fail(function() {
-                      //console.log("error" );
                   });
                 }
             },
@@ -281,7 +272,6 @@
             },
             changeEmail(){
                 let t = this;
-                //console.log(t);
                 this.showCheckEmail = true;
                 this.showLoadEmail =true;
                 this.showErrorEmail =false;
@@ -297,7 +287,6 @@
             },
             changePass(){
                 let t = this;
-                //console.log(t);
                 this.showCheckPass = true;
                 this.showLoadPass =true;
                 this.showErrorPass =false;

@@ -95,14 +95,11 @@
             send(){
 
                 let t = this;
-                //console.log('LOGIN');
                 let e = /^\w+@\w+\.\w{2,4}$/i.test(this.Email);
 
                 if(e && true){
                   $.post( '/api/Account/RecoverPassword',  this.body  )
                   .done(function( data ){
-                      //console.log('success');
-                      //console.log(data);
                       if(data.ErrorCode==1){
 
                           t.$emit('onForgotMessage');
@@ -112,14 +109,12 @@
                       }
                   })
                   .fail(function() {
-                      //console.log("error" );
                   });
                 }
             },
 
             changeEmail(){
                 let t = this;
-                //console.log(t);
                 this.showCheckEmail = true;
                 this.showLoadEmail =true;
                 setTimeout( function () {

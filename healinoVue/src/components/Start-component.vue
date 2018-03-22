@@ -65,7 +65,7 @@
             en: {
                 start: 'START',
                 login: 'LOGIN',
-                singIn: 'SING IN',
+                singIn: 'SIGN IN',
                 en: 'US',
                 ru: 'RU',
                 pl: 'PL'
@@ -88,7 +88,13 @@
             }
         },
         computed: {
-
+          hasSesionData: function () {
+              if(this.SessionData){
+                  return true;
+              }else{
+                  return false;
+              }
+          }
         },
         created: function() {
 

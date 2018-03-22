@@ -104,7 +104,7 @@ export default {
             return 90+per;
         },
         CallorieDegOp:function () {
-          return (this.CallorieDeg - (this.CallorieDeg) % 45)-90;
+          return (this.CallorieDeg - (this.CallorieDeg) % 45)-90 +0.5;
         },
         getComent:function () {
             if(this.rezultData.BMI > this.maxValue){

@@ -155,12 +155,12 @@
         <label>
           <p><span>*</span>{{langString('activity')}}</p>
           <select v-model="Activity" v-on:change="change(objActivity, Activity)">
-            <option value="0">NoActivity</option>
+            <option value="0">No Activity</option>
             <option value="1">Sedentary</option>
-            <option value="2">LowActive</option>
-            <option value="3">ModeratelyActive</option>
-            <option value="4">VeryActive</option>
-            <option value="5">ExtraActive</option>
+            <option value="2">Low Active</option>
+            <option value="3">Moderately Active</option>
+            <option value="4">Very Active</option>
+            <option value="5">Extra Active</option>
           </select>
           <span class="check" v-bind:class="(objActivity.showLoad) ? 'loading': ''" v-if="objActivity.showCheck">
             <i class="fa fa-check" aria-hidden="true"></i>
@@ -298,7 +298,7 @@
                 male: 'Male',
                 female: 'Female',
                 someDate: 'Date Actualization',
-                button: 'SING IN',
+                button: 'SIGN IN',
             },
             ru: {
                 name: 'Имя',
@@ -367,10 +367,10 @@
                     SessionData: this.SessionData,
                     Name:this.Name,
                     SurName:this.SurName,
-                    Birthday:this.Birthday,
+                    Birthday:this.Birthday.substr(6,4) +'-'+ this.Birthday.substr(3,2) +'-'+ this.Birthday.substr(0,2),
                     Location:this.Location,
                     Race:this.Race,
-                    Phone:this.Phone,
+                    Phone:this.Phone.replace(/_/g,''),
                     Height:this.Height,
                     HeightAdditional:this.HeightAdditional,
                     Weight:this.Weight,
@@ -404,21 +404,33 @@
         },
         watch:{
             Phone:function (newVal,oldVal) {
-                this.change(this.objPhone, newVal);
+                this.objPhone.showCheck = true;
+                this.objPhone.showLoad = true;
+                this.objPhone.error = false;
+                let t = this;
+                if(newVal.replace(/_/g,'').length>11) {
+                    setTimeout(function () {
+                        t.objPhone.showLoad = false;
+                        t.objPhone.showCheck = true;
+                        t.objPhone.error = false;
+                    }, 1600);
+                }else{
+                    setTimeout(function () {
+                        t.objPhone.showLoad = false;
+                        t.objPhone.showCheck = false;
+                        t.objPhone.error = true;
+                    }, 1500);
+                }
             },
             Birthday:function (newVal,oldVal) {
-                console.log('new');
-                console.log(newVal);
                 this.objBirthday.showCheck = true;
                 this.objBirthday.showLoad = true;
                 this.objBirthday.error = false;
                 let t = this;
                 if(newVal.indexOf('_')<0) {
                     setTimeout(function () {
-                        console.log('time');
-                        console.log(newVal);
                         t.objBirthday.showLoad = false;
-                        if (new Date(newVal) == 'Invalid Date') {
+                        if ((new Date(newVal.substr(6,4), newVal.substr(3,2)-1, newVal.substr(0,2)) == 'Invalid Date') || (newVal.substr(3,2)>12) ||  (newVal.substr(0,2)>31)) {
                             t.objBirthday.showCheck = false;
                             t.objBirthday.error = true;
                         }else{
@@ -427,9 +439,6 @@
                     }, 1600);
                 }else{
                     setTimeout(function () {
-                        console.log('time0');
-                        console.log(newVal);
-
                         t.objBirthday.showLoad = false;
                         t.objBirthday.showCheck = false;
                         t.objBirthday.error = false;
@@ -448,17 +457,14 @@
                 var file = input[input.length-1];
                 var reader = new FileReader();
                 reader.onloadend = function() {
-                    //console.log('RESULT', reader.result);
                     t.img = reader.result;
                     $.post( '/api/Image/UploadImage',  {
                         SessionData: t.SessionData,
                         ImageData: reader.result
                     }  )
                         .done(function( data ){
-                            //console.log(data)
 
                         });
-                   // console.log(this.img);
                 }
                 reader.readAsDataURL(file);
             },
@@ -480,7 +486,6 @@
                 if(!this.checkBody()){
                   $.post( '/api/Account/UpdateUserInformation',  this.bodySet  )
                       .done(function( data ){
-                          //console.log(data)
                           if(data.ErrorCode == 1) {
                               t.$emit('toTheme');
                           }
@@ -493,28 +498,29 @@
             },
             change(obj, val){
                 let t = this;
-                console.log('change');
-                //console.log(obj);
                 obj.showCheck = true;
                 obj.showLoad = true;
                 obj.error = false;
                 setTimeout( function () {
                     obj.showLoad = false;
-
                     if(val == null || val==="" || val < 0 ){
                         obj.showCheck = false;
                     }
                 }, 1500);
             },
             checkBody(){
-                let error = false;
+                var error = false;
                 for(let index in this.bodySet){
                     if(!(this.bodySet[index]=== "0"|| this.bodySet[index]=== 0 ||(this.bodySet[index]!==null && this.bodySet[index]!=="" && this.bodySet[index]!==" "))){
-                        error=true;
+                        error = true;
                         this["obj"+index].error=true;
                     }
                     if(( index=="Height" || index=='Weight' ) && this.bodySet[index] < 1){
-                        error=true;
+                        error = true;
+                        this["obj"+index].error=true;
+                    }
+                    if(index=="Phone" && this.bodySet[index].replace(/_/g,'').length<10) {
+                        error = true;
                         this["obj"+index].error=true;
                     }
                 }

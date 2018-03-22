@@ -4,7 +4,7 @@
     <div class="row">
       <label  v-if="questionData.QuestionTypeEnum==2">
 
-        <input type="text"
+        <input type="number"
                v-model="AnswerValue"
                v-on:input="changeVal"
                v-on:change="changeInput">
@@ -99,7 +99,6 @@ export default {
 
         changeInput(){
             let t = this;
-            //console.log(t);
             this.showCheckInput = true;
             this.showLoadInput =true;
             this.changeVal();
@@ -110,14 +109,11 @@ export default {
         },
         changeSelect(){
             let t = this;
-            //console.log(t);
             this.showCheckSelect = true;
             this.showLoadSelect =true;
             this.changeVal();
             setTimeout( function () {
                 t.showLoadSelect = false;
-
-
             }, 1500);
         },
         setShowSelectId(event){
@@ -147,7 +143,6 @@ export default {
     },
     watch: {
         questionData: function(newVal, oldVal) { // watch it
-            console.log(newVal);
             this.AnswersId = "";
             this.AnswerValue = "";
 
@@ -158,7 +153,6 @@ export default {
         }
     },
   created: function() {
-        //console.log('type0');
 
     }
 }

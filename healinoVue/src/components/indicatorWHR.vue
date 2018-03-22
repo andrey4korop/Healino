@@ -11,7 +11,7 @@
       <div class="progress_bar6">
         <div class="sometext">
           <div class="txt">
-            <p>Exelent</p>
+            <p>Excellent</p>
             <p class="big"><{{rezultData.WHRatioScale[0].Value}}</p>
           </div>
           <div class="txt">

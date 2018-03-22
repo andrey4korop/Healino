@@ -12,10 +12,10 @@
         <img src="static/img/cursor_1.png" alt="" class="cursor"
              v-bind:style="{ left: BFPDeg + '%' }">
         <div class="opacity_cursor" v-bind:style="{ width: BFPDegOp + '%' }">
-          <img src="/static/img/indicator_6Cur.png" alt="">
+
         </div>
         <div class="opacity_cursor2" v-bind:style="{ width: BFPDegOp2 + '%' }">
-          <img src="/static/img/indicator_6Cur.png" alt="">
+
         </div>
         <span class="percent" v-bind:style="{ left: BFPDeg + '%' }">{{animateVal}}%</span>
         <!--<span class="shkala-1">10%</span>
@@ -209,8 +209,8 @@ export default {
     margin-top: 16px;
     border-radius: 15%;
     transition: all 0.1s linear;
-    height: 30px;
-    background-position-y: -12px;
+    height: 31px;
+
     position: relative;
   }
   .progress_bar1:hover{
@@ -258,27 +258,33 @@ export default {
   }
   .opacity_cursor{
     position: absolute;
-    top:0;
+    top:0%;
     left: 0;
     width: 100%;
     height: 100%;
     opacity: 0.5;
-    /*background: url("/static/img/indicator_6Cur.png") no-repeat;
-    background-size: contain;*/
+    background: url("/static/img/indicator_6Cur.png") no-repeat;
+    background-size: cover;
   }
   .opacity_cursor img{
     height: 100%;
   }
   .opacity_cursor2{
     position: absolute;
-    top:0;
-    right: 0;
+    top:0%;
+    right: -1px;
     width: 100%;
     height: 100%;
     opacity: 0.5;
     transform: rotate(180deg);
-    /*background: url("/static/img/indicator_6Cur.png") no-repeat;
-    background-size: contain;*/
+    background: url("/static/img/indicator_6Cur.png") no-repeat;
+    background-size: cover;
+  }
+  @media screen and (max-width: 780px){
+    .opacity_cursor2, .opacity_cursor{
+      top:5%;
+      height: 91%;
+    }
   }
   .opacity_cursor2 img{
     height: 100%;

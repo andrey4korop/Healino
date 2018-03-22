@@ -202,15 +202,13 @@
                                 let temp = {
                                     UserId: data.UserId,
                                     SessionString: data.SessionString,
-                                    remember:tempthis.remember
+                                    remember:t.remember
                                 };
                                 t.$emit('logined', temp);
                             }else{
-                                //console.log("error from server" );
                             }
                         })
                         .fail(function() {
-                            //console.log("error" );
                         });
                 }
 
@@ -227,7 +225,6 @@
                             var tempthis = t;
                             $.post( '/api/Account/FacebookOAuthResponse',  tempthis.bodyToken(accessToken)  )
                                 .done(function( data ){
-                                    //console.log("done Facebook" );
                                     if(data.ErrorCode==1){
                                         //t.toQuestion(this.themeActive);
                                         tempthis.SessionData = data.SessionString;
@@ -242,11 +239,9 @@
                                         };
                                         tempthis.$emit('logined', temp);
                                     }else{
-                                       // console.log("error from server" );
                                     }
                                 })
                                 .fail(function() {
-                                    //console.log("error" );
                                 });
 
                         }
@@ -277,7 +272,6 @@
                             }
                         })
                         .fail(function() {
-                            //console.log("error" );
                         });
                 }
             },
@@ -299,7 +293,6 @@
             },
             changeEmail(){
                 let t = this;
-                //console.log(t);
                 this.showCheckEmail = true;
                 this.showLoadEmail =true;
                 this.showErrorEmail =false;
@@ -315,7 +308,6 @@
             },
             changePass(){
                 let t = this;
-                //console.log(t);
                 this.showCheckPass = true;
                 this.showLoadPass =true;
                 this.showErrorPass =false;
@@ -330,7 +322,6 @@
             },
             changeVPass(){
                 let t = this;
-                //console.log(t);
                 this.showCheckVPass = true;
                 this.showLoadVPass =true;
                 this.showErrorVPass =false;

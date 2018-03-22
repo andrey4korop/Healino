@@ -1,6 +1,6 @@
 <template>
 
-  <div class="container themesPageContainer">
+  <div class="container themesPageContainer ">
     <div class="header">
       <div class="headerContainer">
         <a href="/" class="logo_head"><img src="static/img/logoHeader.png" alt="" class=""></a>
@@ -24,7 +24,7 @@
         <div v-bind:style="{background: 'url(' + userIMG + ') center center / cover' }" class="user_Avatar" ></div>
       </div>
     </div>
-    <div class="row">
+    <div class="row sm-margin">
       <div class="content">
         <div class="mar">
           <div class="themes">
@@ -129,7 +129,6 @@
                 return this.translate(string);
             },
             changeActive: function (list) {
-                //console.log('changeActive');
                 this.$emit('changeActiveTheme', list);
                 if(list.ThemeStatus == 0 || list.ThemeStatus == 1 || list.ThemeStatus == 2 ) {
                     this.activeId = list.Id;
@@ -139,7 +138,6 @@
                 }
             },
             isActive: function (id) {
-                //console.log(id);
                 if(this.activeId == id){
                     return true;
                 }else {

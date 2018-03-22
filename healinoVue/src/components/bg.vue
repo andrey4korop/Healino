@@ -87,7 +87,7 @@ export default {
   }
   .bg{
       position: fixed;
-      transition: all 4s cubic-bezier(.76,0,.5,1);
+      transition: all 2s cubic-bezier(.76,0,.5,1);
   }
 .hide{
     display: none;

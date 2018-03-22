@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-      <audio autoplay volume="0.1"  loop id="audio">
-      <source src="static/music.wav" >
+      <audio loop id="audio">
+      <source src="static/music.mp3" type="audio/mpeg">
+      <source src="static/music.ogg" type="audio/ogg; codecs=vorbis">
       </audio>
     <background :backgr="backgr"
                 :bg="bg"></background>
@@ -351,9 +352,14 @@ export default {
         }
     },
   created: function() {
+      let t = this;
       setTimeout(function () {
-          $('audio')[0].volume=0.6;
-      }, 1000);
+          let a = $('audio')[0];
+          a.play();
+          t.audio_p = true;
+          a.volume=0.6;
+      }, 1500);
+
       if(window.location.search){
           var regexp = /UniqId=([^&]+)/i;
           var UniqId = '';
@@ -398,6 +404,8 @@ export default {
                               return;
                           } catch(e) {}
                       }else{
+                          t.SessionData = '';
+                          deleteCookie('SessionData');
                       }
                   })
                   .fail(function() {
@@ -427,7 +435,6 @@ export default {
               } catch(e) {}
           }
       }
-      let t = this;
       window.fbAsyncInit = function() {
           FB.init({
               appId      : '1317336621781298',
@@ -449,6 +456,8 @@ export default {
                                   path: '/'
                               })
                           }else{
+                              t.SessionData = '';
+                              deleteCookie('SessionData');
                           }
                       })
                       .fail(function() {
@@ -466,18 +475,19 @@ export default {
           fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
       if(getCookie('lang')){
-          this.lang = getCookie('lang')
+          this.lang = getCookie('lang');
+          this.changeLang(this.lang);
       }
       else{
           this.changeLang(this.lang)
       }
       if(getCookie('SessionData')){
           let t = this;
-          this.SessionData = getCookie('SessionData')
+          this.SessionData = getCookie('SessionData');
           $.post( '/api/Account/GetUserProfile',  this.bodyGet  )
               .done(function( data ){
                   t.userData = data;
-                  if(!data.ErrorCode==1){
+                  if(data.ErrorCode!=1){
                       t.SessionData = '';
                       deleteCookie('SessionData');
                   }

@@ -13,7 +13,9 @@
     <div class="avatar">
       <div v-bind:style="{background: 'url(' + img + ') center center / cover' }" class="img" ></div>
     </div>
+    <h1>Total Health Ratio</h1>
   </div>
+
 </template>
 
 <script>
@@ -66,15 +68,15 @@ export default {
         },
         HealthRateDeg:function(){
             if(this.animateVal<this.minValue){
-                return 3.6 *(this.minValue - this.minValue) * 100 / (this.maxValue - this.minValue) +69;
+                return 3.6 *(this.minValue - this.minValue) * 100 / (this.maxValue - this.minValue) +78;
             }
             if(this.animateVal>this.maxValue){
-                return 3.6 *(this.maxValue - this.minValue) * 100 / (this.maxValue - this.minValue) +69;
+                return 3.6 *(this.maxValue - this.minValue) * 100 / (this.maxValue - this.minValue) +78;
             }
-            return 3.6 * (this.animateVal - this.minValue) * 100 / (this.maxValue - this.minValue) +69;
+            return 3.6 * (this.animateVal - this.minValue) * 100 / (this.maxValue - this.minValue) +78;
         },
         HealthRateDegOp:function(){
-            let t = (this.HealthRateDeg -69 - (this.HealthRateDeg-69) % (360/7));
+            let t = (this.HealthRateDeg -78 - (this.HealthRateDeg-78) % (360/7));
 
             return t;
         },
@@ -228,5 +230,18 @@ export default {
     border-radius: 3px;
     width: 5px;
     height: 90%;
+  }
+  h1{
+    position: absolute;
+    top: -1.5vw;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+  }
+  @media screen and (max-width: 780px){
+    h1 {
+      top: -4vw;
+      font-size: 2.5vw;
+    }
   }
 </style>

@@ -15,7 +15,7 @@
                  v-bind:style="{background: 'url(' + rezultData.TestImageUrl + ') center center / cover' }" alt=""></div>
           </div>
         </div>
-        <div class="center">
+        <div class="center" v-bind:style="{background: 'url(/static/img/'+gender+') top center no-repeat'}">
           <indicator2 :rezultData="rezultData"
                       :showDescription="showDescription"
                       @onDescription="onDescription"></indicator2>
@@ -38,6 +38,14 @@
                 <indicator-real-age :rezultData="rezultData"></indicator-real-age>
               </div>
               <div class="row_indicator">
+                <div class="title_indicator">
+                  <p class="age">Biological age</p>
+                </div>
+                <div class="title_indicator">
+                  <p class="age">Mental age</p>
+                </div>
+              </div>
+              <div class="row_indicator">
                 <indicator-Chronologi-age :rezultData="rezultData"></indicator-Chronologi-age>
                 <indicator-Mental-age :rezultData="rezultData"></indicator-Mental-age>
 
@@ -56,7 +64,7 @@
             <div class="indicator">
               <div class="plus" v-on:click="onDescription(5)"><img src="static/img/plus.png" alt=""></div>
               <div class="description" v-bind:class="(showDescription==5)?'on':''">
-                <div class="text" v-lang.CVDdescriptionText="{RASCVD: rezultData.RASCVD}"></div>
+                <div class="text" v-lang.CVDdescriptionText="{RASCVD: rezultData.RASCVD, TenYearsASCVDCalculated: rezultData.TenYearsASCVD.Calculated, TenYearsASCVDOptimal: rezultData.TenYearsASCVD.Optimal}"></div>
               </div>
 
               <div class="row_indicator">
@@ -134,6 +142,14 @@
               <indicator-real-age :rezultData="rezultData"></indicator-real-age>
             </div>
             <div class="row_indicator">
+              <div class="title_indicator">
+                <p class="age">Biological age</p>
+              </div>
+              <div class="title_indicator">
+                <p class="age">Mental age</p>
+              </div>
+            </div>
+            <div class="row_indicator">
               <indicator-Chronologi-age :rezultData="rezultData"></indicator-Chronologi-age>
               <indicator-Mental-age :rezultData="rezultData"></indicator-Mental-age>
             </div>
@@ -153,7 +169,7 @@
           <div class="indicator">
             <div class="plus" v-on:click="onDescription(5)"><img src="static/img/plus.png" alt=""></div>
             <div class="description" v-bind:class="(showDescription==5)?'on':''">
-              <div class="text" v-lang.CVDdescriptionText="{RASCVD: rezultData.RASCVD}"></div>
+              <div class="text" v-lang.CVDdescriptionText="{RASCVD: rezultData.RASCVD, TenYearsASCVDCalculated: rezultData.TenYearsASCVD.Calculated, TenYearsASCVDOptimal: rezultData.TenYearsASCVD.Optimal}"></div>
             </div>
 
             <div class="row_indicator">
@@ -207,6 +223,7 @@
         data () {
             return {
                 showDescription:"none",
+				gender:"body0.png",
                 img:""
             }
         },
@@ -239,7 +256,9 @@
                 AgeMCom7: "Psychological problems are possible",
                 AgeMCom8: "High probability of psychological problems",
 
-                CVDdescriptionText: '<p>Your risk of atherosclerotic cardiovascular disease is {RASCVD}%.</p>',
+                CVDdescriptionText: '<p>Your risk of atherosclerotic cardiovascular disease is {RASCVD}%.</p>'+
+                '<p>Over the next 10 years, your risk of atherosclerotic cardiovascular disease is {TenYearsASCVDCalculated}%.</p>'+
+                '<p>You can reduce the risk of atherosclerotic cardiovascular disease to {TenYearsASCVDOptimal}%.</p>',
             },
             ru: {
                 share: 'ПОДЕЛИТЬСЯ',
@@ -268,7 +287,9 @@
                 AgeMCom7: "Возможны  психологические проблемы",
                 AgeMCom8: "Большая вероятность психологических проблем",
 
-                CVDdescriptionText: '<p>В течение всей Вашей жизни Ваш риск атеросклеротических сердечно-сосудистых заболеваний составляет {RASCVD} %. </p>',
+                CVDdescriptionText: '<p>В течение всей Вашей жизни Ваш риск атеросклеротических сердечно-сосудистых заболеваний составляет {RASCVD} %. </p>'+
+                '<p>В течение 10 ближайших лет Ваш риск атеросклеротических сердечно-сосудистых заболеваний составляет {TenYearsASCVDCalculated}%.</p>'+
+                '<p>Вы можете снизить риск  атеросклеротических сердечно-сосудистых заболеваний до {TenYearsASCVDOptimal}%.</p>',
             },
             pl: {
                 share: 'DZIELIĆ SIĘ',
@@ -298,7 +319,9 @@
                 AgeMCom7: "Problemy psychologiczne są możliwe",
                 AgeMCom8: "Wysokie prawdopodobieństwo problemów psychologicznych",
 
-                CVDdescriptionText: '<p>Przez całe życie ryzyko wystąpienia miażdżycowej choroby sercowo-naczyniowej wynosi {RASCVD}%</p>',
+                CVDdescriptionText: '<p>Przez całe życie ryzyko wystąpienia miażdżycowej choroby sercowo-naczyniowej wynosi {RASCVD}%</p>'+
+                '<p>OW ciągu najbliższych 10 lat ryzyko wystąpienia miażdżycowej choroby sercowo-naczyniowej wynosi  {TenYearsASCVDCalculated}%.</p>'+
+                '<p>Możesz zmniejszyć ryzyko wystąpienia miażdżycowej choroby sercowo-naczyniowej do {TenYearsASCVDOptimal}%.</p>',
             }
         },
         computed: {
@@ -306,7 +329,6 @@
            return this.translate(string);
            },*/
             txtMental:function () {
-                console.log('txtMental');
                 if(this.rezultData.BioMentalAge.MentalAgeDiffPercentage > this.rezultData.MentalAgeScale[this.rezultData.MentalAgeScale.length-1].AgePercent){
                     return this.translate( 'AgeMCom'+(this.rezultData.MentalAgeScale.length-1));
                 }
@@ -314,14 +336,12 @@
                 for( let i = 0; i < this.rezultData.MentalAgeScale.length; i++){
                     if(this.rezultData.BioMentalAge.MentalAgeDiffPercentage > this.rezultData.MentalAgeScale[i].AgePercent){
                         ret = this.translate( 'AgeMCom'+(i+1));
-                        console.log(ret);
                     }else{
                         return ret;
                     }
                 }
             },
             txtBiological:function () {
-                console.log('txtBiological');
                 if(this.rezultData.BioMentalAge.BiologicalAge > this.rezultData.BioAgeScale[this.rezultData.BioAgeScale.length-1].AgePercent){
                     return this.translate( 'AgeBCom'+(this.rezultData.BioAgeScale.length-1));
                 }
@@ -329,7 +349,6 @@
                 for( let i = 0; i < this.rezultData.BioAgeScale.length; i++){
                     if(this.rezultData.BioMentalAge.BiologicalAgeDiffPercentage > this.rezultData.BioAgeScale[i].AgePercent){
                         ret = this.translate( 'AgeBCom'+(i+1));
-                        console.log(ret);
                     }else{
                         return ret;
                     }
@@ -340,13 +359,14 @@
         created: function() {
 
             this.img = this.rezultData.UserPhotoUrl || '../static/img/noIMG.png';
+			this.gender = "body"+this.rezultData.BMIScale[0].Gender+".png";
         },
         methods:{
             share(){
                 FB.ui({
                     method: 'share',
                     mobile_iframe: true,
-                    href: 'https://healino.azurewebsites.net/?result='+this.rezultData.PublicHash,
+                    href: window.location.origin+'//?result='+this.rezultData.PublicHash,
                 }, function(response){});
             },
             onDescription(val){

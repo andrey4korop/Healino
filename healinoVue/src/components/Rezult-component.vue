@@ -15,7 +15,7 @@
                     v-bind:style="{background: 'url(' + themeActiveObj.ImageUrl + ') center center / cover' }" alt=""></div>
           </div>
         </div>
-        <div class="center">
+        <div class="center" v-bind:style="{background: 'url(/static/img/'+gender+') top center no-repeat'}">
           <indicator2 :rezultData="rezultData"
                       :showDescription="showDescription"
                       @onDescription="onDescription"></indicator2>
@@ -25,7 +25,7 @@
 
           <div class="indicators">
             <div class="title_indicator">
-              <p class="age">Real Age</p>
+              <p class="age">Chronological age</p>
             </div>
             <div class="indicator">
               <div class="plus" v-on:click="onDescription(4)"><img src="static/img/plus.png" alt=""></div>
@@ -38,16 +38,24 @@
                 <indicator-real-age :rezultData="rezultData"></indicator-real-age>
               </div>
               <div class="row_indicator">
+                <div class="title_indicator">
+                  <p class="age">Biological age</p>
+                </div>
+                <div class="title_indicator">
+                  <p class="age">Mental age</p>
+                </div>
+              </div>
+              <div class="row_indicator">
                 <indicator-Chronologi-age :rezultData="rezultData"></indicator-Chronologi-age>
                 <indicator-Mental-age :rezultData="rezultData"></indicator-Mental-age>
 
               </div>
             </div>
-            <div class="info_indicator">
+            <!--<div class="info_indicator">
               <p>({{rezultData.BioMentalAge.BiologicalAge}}) biological (body) age</p>
               <p>({{rezultData.BioMentalAge.ChronologicalAge}}) chronological age</p>
               <p>({{rezultData.BioMentalAge.MentalAge}}) mental age</p>
-            </div>
+            </div>-->
           </div>
           <div class="indicators">
             <div class="title_indicator">
@@ -56,7 +64,7 @@
             <div class="indicator">
               <div class="plus" v-on:click="onDescription(5)"><img src="static/img/plus.png" alt=""></div>
               <div class="description" v-bind:class="(showDescription==5)?'on':''">
-                <div class="text" v-lang.CVDdescriptionText="{RASCVD: rezultData.RASCVD}"></div>
+                <div class="text" v-lang.CVDdescriptionText="{RASCVD: rezultData.RASCVD, TenYearsASCVDCalculated: rezultData.TenYearsASCVD.Calculated, TenYearsASCVDOptimal: rezultData.TenYearsASCVD.Optimal}"></div>
               </div>
 
               <div class="row_indicator">
@@ -134,15 +142,23 @@
             <indicator-real-age :rezultData="rezultData"></indicator-real-age>
           </div>
           <div class="row_indicator">
+            <div class="title_indicator">
+              <p class="age">Biological age</p>
+            </div>
+            <div class="title_indicator">
+              <p class="age">Mental age</p>
+            </div>
+          </div>
+          <div class="row_indicator">
             <indicator-Chronologi-age :rezultData="rezultData"></indicator-Chronologi-age>
             <indicator-Mental-age :rezultData="rezultData"></indicator-Mental-age>
           </div>
         </div>
-        <div class="info_indicator">
+        <!--<div class="info_indicator">
           <p>({{rezultData.BioMentalAge.BiologicalAge}}) biological (body) age</p>
           <p>({{rezultData.BioMentalAge.ChronologicalAge}}) chronological age</p>
           <p>({{rezultData.BioMentalAge.MentalAge}}) mental age</p>
-        </div>
+        </div>-->
       </div>
     </div>
     <div class="pos5">
@@ -153,7 +169,7 @@
         <div class="indicator">
           <div class="plus" v-on:click="onDescription(5)"><img src="static/img/plus.png" alt=""></div>
           <div class="description" v-bind:class="(showDescription==5)?'on':''">
-            <div class="text" v-lang.CVDdescriptionText="{RASCVD: rezultData.RASCVD}"></div>
+            <div class="text" v-lang.CVDdescriptionText="{RASCVD: rezultData.RASCVD, TenYearsASCVDCalculated: rezultData.TenYearsASCVD.Calculated, TenYearsASCVDOptimal: rezultData.TenYearsASCVD.Optimal}"></div>
           </div>
 
           <div class="row_indicator">
@@ -208,7 +224,7 @@
             return {
                 showDescription:"none",
                 //rezultData:{"BMI":17.99,"BMR":1472.5,"BFP":-90.56,"FM":-47.09,"LMP":190.56,"RASCVD":69,"WHRatio":1,"TenYearsASCVD":{"Calculated":0,"Optimal":0.03},"DaylyCallorie":1767,"HealthRate":40,"BioMentalAge":{"MentalAge":23,"BiologicalAge":26,"ChronologicalAge":23,"MentalAgeDiffPercentage":0,"BiologicalAgeDiffPercentage":13},"BMIScale":[{"Gender":0,"BMIScale":0,"BMI":16},{"Gender":0,"BMIScale":1,"BMI":17},{"Gender":0,"BMIScale":2,"BMI":18.5},{"Gender":0,"BMIScale":3,"BMI":25},{"Gender":0,"BMIScale":4,"BMI":30},{"Gender":0,"BMIScale":5,"BMI":35},{"Gender":0,"BMIScale":6,"BMI":40},{"Gender":0,"BMIScale":7,"BMI":45}],"BFCategoryScale":[{"Gender":0,"BFScale":0,"BF":2.5},{"Gender":0,"BFScale":1,"BF":4.9},{"Gender":0,"BFScale":2,"BF":7.3},{"Gender":0,"BFScale":3,"BF":9.5},{"Gender":0,"BFScale":4,"BF":13.6},{"Gender":0,"BFScale":5,"BF":17},{"Gender":0,"BFScale":6,"BF":21.2},{"Gender":0,"BFScale":7,"BF":24.4},{"Gender":0,"BFScale":8,"BF":25.8}],"FMCategoryScale":[{"Gender":0,"BFScale":0,"BF":1.7},{"Gender":0,"BFScale":1,"BF":3.3},{"Gender":0,"BFScale":2,"BF":5},{"Gender":0,"BFScale":3,"BF":6.5},{"Gender":0,"BFScale":4,"BF":9.2},{"Gender":0,"BFScale":5,"BF":11.6},{"Gender":0,"BFScale":6,"BF":14.4},{"Gender":0,"BFScale":7,"BF":16.6},{"Gender":0,"BFScale":8,"BF":17.5}],"LMPCategoryScale":[{"Gender":0,"BFScale":0,"BF":97.5},{"Gender":0,"BFScale":1,"BF":95.1},{"Gender":0,"BFScale":2,"BF":92.7},{"Gender":0,"BFScale":3,"BF":90.5},{"Gender":0,"BFScale":4,"BF":86.4},{"Gender":0,"BFScale":5,"BF":83},{"Gender":0,"BFScale":6,"BF":78.8},{"Gender":0,"BFScale":7,"BF":75.6},{"Gender":0,"BFScale":8,"BF":74.2}],"RASCVDScale":[{"RASCVDScale":0,"Value":5},{"RASCVDScale":1,"Value":36},{"RASCVDScale":2,"Value":46},{"RASCVDScale":3,"Value":50},{"RASCVDScale":4,"Value":69}],"TenYearsASCVDScale":[{"RASCVDScale":0,"Value":5},{"RASCVDScale":1,"Value":11},{"RASCVDScale":2,"Value":17},{"RASCVDScale":3,"Value":23},{"RASCVDScale":4,"Value":30}],"CallorieScale":[{"Gender":0,"Activity":0,"Callorie":1687},{"Gender":0,"Activity":1,"Callorie":2025},{"Gender":0,"Activity":2,"Callorie":2320},{"Gender":0,"Activity":3,"Callorie":2615},{"Gender":0,"Activity":4,"Callorie":2911},{"Gender":0,"Activity":5,"Callorie":3206}],"BioAgeScale":[{"Gender":0,"AgeScale":4,"AgePercent":-31},{"Gender":0,"AgeScale":4,"AgePercent":-20},{"Gender":0,"AgeScale":3,"AgePercent":-10},{"Gender":0,"AgeScale":3,"AgePercent":-4},{"Gender":0,"AgeScale":3,"AgePercent":3},{"Gender":0,"AgeScale":2,"AgePercent":9},{"Gender":0,"AgeScale":1,"AgePercent":19},{"Gender":0,"AgeScale":0,"AgePercent":30},{"Gender":0,"AgeScale":0,"AgePercent":40}],"MentalAgeScale":[{"Gender":0,"AgeScale":0,"AgePercent":-31},{"Gender":0,"AgeScale":1,"AgePercent":-20},{"Gender":0,"AgeScale":2,"AgePercent":-10},{"Gender":0,"AgeScale":3,"AgePercent":-4},{"Gender":0,"AgeScale":4,"AgePercent":3},{"Gender":0,"AgeScale":3,"AgePercent":9},{"Gender":0,"AgeScale":2,"AgePercent":19},{"Gender":0,"AgeScale":1,"AgePercent":30},{"Gender":0,"AgeScale":0,"AgePercent":40}],"CronologicalAgeScale":[{"Gender":0,"AgeScale":4,"AgePercent":24},{"Gender":0,"AgeScale":3,"AgePercent":48},{"Gender":0,"AgeScale":2,"AgePercent":72},{"Gender":0,"AgeScale":1,"AgePercent":96},{"Gender":0,"AgeScale":0,"AgePercent":120}],"HealthRatioScale":[{"IllnessScale":0,"Value":5},{"IllnessScale":1,"Value":10},{"IllnessScale":2,"Value":20},{"IllnessScale":3,"Value":30},{"IllnessScale":4,"Value":40},{"IllnessScale":5,"Value":50},{"IllnessScale":6,"Value":70}],"WHRatioScale":[{"WHRScale":0,"Value":0.7},{"WHRScale":1,"Value":0.75},{"WHRScale":2,"Value":0.8},{"WHRScale":3,"Value":0.85},{"WHRScale":4,"Value":0.9},{"WHRScale":5,"Value":0.99},{"WHRScale":6,"Value":1.1},{"WHRScale":7,"Value":1.15}],"IsFinished":true,"PublicHash":"fde3c96c21015369d4df912317362d97","PreviusQuestionId":0,"QuestionId":0,"QuestionNum":0,"TotalQuestions":0,"QuestionTypeEnum":0,"UserThemeTestId":0,"IsAnswered":false,"QText":null,"ImageUrl":null,"QuestionsProgress":0,"AnswerOptions":null,"NextQuestionId":0,"ErrorCode":1,"DebugMessage":null,"UIMessage":null},
-
+                gender:"body0.png",
                 img:""
             }
         },
@@ -241,7 +257,9 @@
                 AgeMCom7: "Psychological problems are possible",
                 AgeMCom8: "High probability of psychological problems",
 
-                CVDdescriptionText: '<p>Your risk of atherosclerotic cardiovascular disease is {RASCVD}%.</p>',
+                CVDdescriptionText: '<p>Your risk of atherosclerotic cardiovascular disease is {RASCVD}%.</p>'+
+                '<p>Over the next 10 years, your risk of atherosclerotic cardiovascular disease is {TenYearsASCVDCalculated}%.</p>'+
+                '<p>You can reduce the risk of atherosclerotic cardiovascular disease to {TenYearsASCVDOptimal}%.</p>',
             },
             ru: {
                 share: 'ПОДЕЛИТЬСЯ',
@@ -270,7 +288,9 @@
                 AgeMCom7: "Возможны  психологические проблемы",
                 AgeMCom8: "Большая вероятность психологических проблем",
 
-                CVDdescriptionText: '<p>В течение всей Вашей жизни Ваш риск атеросклеротических сердечно-сосудистых заболеваний составляет {RASCVD} %. </p>',
+                CVDdescriptionText: '<p>В течение всей Вашей жизни Ваш риск атеросклеротических сердечно-сосудистых заболеваний составляет {RASCVD} %. </p>'+
+                '<p>В течение 10 ближайших лет Ваш риск атеросклеротических сердечно-сосудистых заболеваний составляет {TenYearsASCVDCalculated}%.</p>'+
+                '<p>Вы можете снизить риск  атеросклеротических сердечно-сосудистых заболеваний до {TenYearsASCVDOptimal}%.</p>',
             },
             pl: {
                 share: 'DZIELIĆ SIĘ',
@@ -300,7 +320,9 @@
                 AgeMCom7: "Problemy psychologiczne są możliwe",
                 AgeMCom8: "Wysokie prawdopodobieństwo problemów psychologicznych",
 
-                CVDdescriptionText: '<p>Przez całe życie ryzyko wystąpienia miażdżycowej choroby sercowo-naczyniowej wynosi {RASCVD}%</p>',
+                CVDdescriptionText: '<p>Przez całe życie ryzyko wystąpienia miażdżycowej choroby sercowo-naczyniowej wynosi {RASCVD}%</p>'+
+                '<p>OW ciągu najbliższych 10 lat ryzyko wystąpienia miażdżycowej choroby sercowo-naczyniowej wynosi  {TenYearsASCVDCalculated}%.</p>'+
+                '<p>Możesz zmniejszyć ryzyko wystąpienia miażdżycowej choroby sercowo-naczyniowej do {TenYearsASCVDOptimal}%.</p>',
             }
         },
         computed: {
@@ -337,13 +359,14 @@
         },
         created: function() {
             this.img = this.userData.PhotoUrl || '../static/img/noIMG.png';
+            this.gender = "body"+this.rezultData.BMIScale[0].Gender+".png";
         },
         methods:{
             share(){
                 FB.ui({
                     method: 'share',
                     mobile_iframe: true,
-                    href: 'https://healino.azurewebsites.net/?result='+this.rezultData.PublicHash,
+                    href: window.location.origin+'//?result='+this.rezultData.PublicHash,
                 }, function(response){});
             },
             onDescription(val){

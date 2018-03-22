@@ -57,9 +57,7 @@ export default {
             this.$emit('changeVal', this.newVal);
         },
         changeActive(ans){
-            console.log(ans);
             this.AnswersId = ans.Id;
-            console.log(this.AnswersId);
             this.changeVal();
         }
     },

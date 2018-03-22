@@ -108,7 +108,6 @@
 
             send(){
                 let t = this;
-                //console.log('LOGIN');
                 let p = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}/g.test(this.Password);
                 let p2 = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}/g.test(this.VPassword);
                 if((this.VPassword == this.Password) && p && p2 && true){
@@ -117,11 +116,9 @@
                            if(data.ErrorCode == 1){
                                t.$emit('onLogin');
                            }
-                            //console.log(data);
 
                         })
                         .fail(function() {
-                            //console.log("error" );
                         });
                 }
             },
@@ -144,7 +141,6 @@
 
             changePass(){
                 let t = this;
-                //console.log(t);
                 this.showCheckPass = true;
                 this.showLoadPass =true;
                 setTimeout( function () {
@@ -157,7 +153,6 @@
             },
             changeVPass(){
                 let t = this;
-                //console.log(t);
                 this.showCheckVPass = true;
                 this.showLoadVPass =true;
                 setTimeout( function () {
