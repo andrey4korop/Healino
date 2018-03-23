@@ -69,7 +69,19 @@ export default {
         }
     },
   created: function() {
-
+      if (this.questionData.IsAnswered) {
+          if (this.questionData.AnsValue) {
+              this.AnswerValue = this.questionData.AnsValue;
+              this.changeVal();
+          }
+          if(this.questionData.AnswerOptions.length>0){
+              for(var opt in this.questionData.AnswerOptions){
+                  if(this.questionData.AnswerOptions[opt].IsUserAnswered){
+                      this.changeActive(this.questionData.AnswerOptions[opt]);
+                  }
+              }
+          }
+      }
     }
 }
 </script>

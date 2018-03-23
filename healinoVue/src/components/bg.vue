@@ -44,7 +44,7 @@ export default {
             return this.posBG.y + ( this.posMouse.y / document.body.clientHeight * Math.abs(this.Kof.y) *100)+ (Math.abs(this.Kof.y) * this.random.y);
         },
         rotDeg: function () {
-            return (this.posMouse.y + this.posMouse.x) * this.constKof - this.random.x*this.Kof.x;
+            return (this.posMouse.y + this.posMouse.x) * this.constKof - this.random.x*this.constKof*3;
         },
         constKof:function () {
             if(this.Kof.x>0) {

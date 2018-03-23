@@ -396,12 +396,12 @@ export default {
 
           if (ns4) {document.captureEvents(Event.MOUSEMOVE);}
           document.onmousemove=t.mousemove;
-          t.random={x:t.randomInteger(-50,50),y:t.randomInteger(-50,50)};
+          t.random={x:t.randomInteger(-150,150),y:t.randomInteger(-150,150)};
           t.posX=t.posMouse.x;
           t.posMouse=t.posMouseTemp;
-              $('.bg:nth-child(2)').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',
+              $('.bg:nth-child(4n)').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',
                   function(e) {
-                      t.random={x:t.randomInteger(-25,25),y:t.randomInteger(-25,25)};
+                      t.random={x:t.randomInteger(-150,150),y:t.randomInteger(-150,150)};
                       t.posX=t.posMouse.x;
                       t.posMouse=t.posMouseTemp;
                   })

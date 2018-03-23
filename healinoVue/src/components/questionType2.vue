@@ -103,7 +103,9 @@ export default {
         },
         setValueId(id, AnswerText, event){
             //event.preventDefault();
-            event.stopPropagation();
+            if(event) {
+                event.stopPropagation();
+            }
             this.showSelectId = false;
             this.AnswersId = id;
             this.AnswerText = AnswerText;
@@ -124,6 +126,22 @@ export default {
         }
     },
   created: function() {
+      if (this.questionData.IsAnswered) {
+          if (this.questionData.AnsValue) {
+              this.AnswerValue = this.questionData.AnsValue;
+              this.changeInput();
+          }
+          if(this.questionData.AnswerOptions.length>0){
+              for(var opt in this.questionData.AnswerOptions){
+                  if(this.questionData.AnswerOptions[opt].IsUserAnswered){
+                      let t = this;
+                      setTimeout(function () {
+                          t.setValueId(t.questionData.AnswerOptions[opt].Id, t.questionData.AnswerOptions[opt].AnswerText, t.$event);
+                      },100);
+                  }
+              }
+          }
+      }
     }
 }
 </script>
