@@ -240,9 +240,9 @@
 
             send(){
                 let t = this;
-                let p = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}/g.test(this.Password);
+                //let p = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}/g.test(this.Password);
                 let e = /^[a-zA-Z0-9_.-]+@\w+\.\w{2,4}$/i.test(this.Email);
-                if(p && e && true){
+                if(e && true){
                   $.post( '/api/Account/Login',  this.body  )
                   .done(function( data ){
                       if(data.ErrorCode==1 || data.UserId != 0){
@@ -292,12 +292,12 @@
                 this.showErrorPass =false;
                 setTimeout( function () {
                     t.showLoadPass = false;
-                    var r = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}/g;
+                    /*var r = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}/g;
                     if (!r.test(t.Password)){
                         t.showCheckPass = false;
                         t.showErrorPass = true;
                         t.ErrorPassMassage = t.langString('errorTextPass')
-                    }
+                    }*/
                 }, 1500);
             },
         }

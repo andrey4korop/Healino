@@ -1811,12 +1811,13 @@ html,body{
             bottom: 162%;
             width: 50vw;
             left: unset;
+            border-radius: 15px 15px 0 15px;
             .text{
               max-height: 20vw;
             }
           }
           .progress_bar1{
-            height: 60%;
+            height: 5.7vw;
             //background-position-y: 130%;
           }
           .cursor{
@@ -1883,8 +1884,10 @@ html,body{
           }
           .description{
             right: 75%;
-            bottom: -49%;
+            top: 150%;
             width: 50vw;
+            height: 10vh;
+            overflow-y: auto;
           }
         }
       }
@@ -1994,10 +1997,10 @@ html,body{
       }
     }
     .progress_bar1 {
-      background: url("../img/indicator_6.png") no-repeat center center;
+      background: url("../img/indicator_6.png") no-repeat top center;
       background-size: 100%;
       width: 86vw;
-      height: 8vw;
+      height: 5.7vw;
       text-align: left;
       margin: 0 auto;
       .cursor {

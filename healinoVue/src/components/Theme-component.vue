@@ -67,18 +67,12 @@
                 activeId:0,
                 Description:"",
                 Title:"",
-                /*List: [
-                    {
-                        Description: "",
-                        Id: 0,
-                        ImageUrl:"",
-                        QuestionsFinished: 0,
-                        QuestionsTotal: 0,
-                        ThemeStatus: 0,
-                        Title: "",
-                    }
-                ]*/
 
+            }
+        },
+        watch:{
+            List:function (newVal, OldVal) {
+                this.changeActive(newVal[this.activeId]);
             }
         },
         messages: {

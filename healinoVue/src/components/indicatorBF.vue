@@ -282,8 +282,8 @@ export default {
   }
   @media screen and (max-width: 780px){
     .opacity_cursor2, .opacity_cursor{
-      top:5%;
-      height: 91%;
+      top:0;
+      height: 5.7vw;
     }
   }
   .opacity_cursor2 img{

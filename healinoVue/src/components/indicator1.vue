@@ -17,7 +17,7 @@
         <div class="opacity_cursor2" v-bind:style="{ width: FMPDegOp2 + '%' }">
           <!--<img src="/static/img/indicator_6Cur.png" alt="">-->
         </div>
-        <span class="percent" v-bind:style="{ left: FMPDeg + '%' }">{{animateVal}}%</span>
+        <span class="percent" v-bind:style="{ left: FMPDeg + '%' }"> {{animateVal}}kg</span>
         <!--<span class="shkala-1">10%</span>
         <span class="shkala-2">18%</span>
         <span class="shkala-3">24%</span>-->
@@ -282,8 +282,8 @@ export default {
   }
   @media screen and (max-width: 780px){
     .opacity_cursor2, .opacity_cursor{
-      top:5%;
-      height: 91%;
+      top:0;
+      height: 5.7vw;
     }
   }
   .opacity_cursor2 img{

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-      <audio loop id="audio">
+      <audio loop id="audio" autoplay>
       <source src="static/music.mp3" type="audio/mpeg">
       <source src="static/music.ogg" type="audio/ogg; codecs=vorbis">
       </audio>
@@ -100,7 +100,7 @@ export default {
   name: 'app',
    data () {
     return {
-        audio_p:true,
+        audio_p:false,
         UniqId:'',
         activeId:0,
         errorQuest:false,
@@ -179,7 +179,7 @@ export default {
         changeLang: function (newLang) {
             this.lang = newLang;
             this.language = newLang;
-
+            let t = this;
             setCookie('lang', this.lang, {
                 expires: 10000*10000,
                 path: '/'
@@ -188,7 +188,14 @@ export default {
                 {
                     Language:  this.lang,
                     SessionData: this.SessionData
-                });
+                }).done(function () {
+                if(t.state=="theme"){
+                    t.toTheme();
+                }
+                if(t.state=="question"){
+                    t.toQuestion(t.activeId);
+                }
+            });
         },
         register(){
             this.state = "register"
@@ -265,6 +272,7 @@ export default {
             let body ={
                 Argument: id,
                 SessionData: this.SessionData,
+                QuestionId: (this.questionData) ? this.questionData.QuestionId : null,
             };
             let t = this;
             $.post( '/api/Theme/GetNextThemeQuestionWithAnswers',  body)
@@ -355,9 +363,16 @@ export default {
       let t = this;
       setTimeout(function () {
           let a = $('audio')[0];
-          a.play();
-          t.audio_p = true;
-          a.volume=0.6;
+          try {
+              a.play();
+              t.audio_p = true;
+              a.volume = 0.6;
+              if(a.paused){
+                  t.audio_p = false;
+              }
+          }catch(e){
+              t.audio_p = false;
+          }
       }, 1500);
 
       if(window.location.search){

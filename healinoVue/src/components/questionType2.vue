@@ -138,6 +138,7 @@ export default {
                       setTimeout(function () {
                           t.setValueId(t.questionData.AnswerOptions[opt].Id, t.questionData.AnswerOptions[opt].AnswerText, t.$event);
                       },100);
+                      return;
                   }
               }
           }
