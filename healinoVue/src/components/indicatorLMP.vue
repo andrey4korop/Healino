@@ -53,8 +53,8 @@ export default {
         ru: {
             descriptionText:
             "<p>Ваш процент мышечной массы в организме составляет {LMP} %.</p>"+
-            "<p>Вы относитесь к категории  {coment}</p>"+
-            "<p>Ваша идеальный процент мышечной массы должен быть {ideal} %</p>"+
+            "<p>Вы относитесь к категории {coment}</p>"+
+            "<p>Ваш идеальный процент мышечной массы должен быть {ideal} %</p>"+
             "<p>Оговорка: Результаты этих расчетов являются лишь приблизительной оценкой. Для более точных измерений необходимо использовать биоэлектрический импедансный анализ.</p>",
             com0: "Недостаток жира",
             com1: "Спортсмен",
@@ -70,7 +70,7 @@ export default {
             descriptionText:
             "<p>Twój procent masy mięśniowej w ciele wynosi {LMP} %.</p>"+
             "<p>Należysz do kategorii {coment}</p>"+
-            "<p>Twój idealny procent masy mięśniowej powinien być{ideal} %</p>"+
+            "<p>Twój idealny procent masy mięśniowej powinien być {ideal} %</p>"+
             "<p>Zastrzeżenie: wyniki tych obliczeń są jedynie przybliżonym szacunkiem. W celu dokładniejszego pomiaru należy zastosować analizę impedancji bioelektrycznej.</p>",
             com0: "Brak tłuszczu",
             com1: "Sportowiec",

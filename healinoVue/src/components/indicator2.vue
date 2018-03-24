@@ -36,7 +36,7 @@ export default {
         en: {
             descriptionText:
             "<p>The daily requirement for calories is based on the weight, height and age of a person.</p>"+
-            "<p>Your daily Calorie requirement is  {Calorie_Counting} calories a day.</p>"+
+            "<p>Your daily Calorie requirement is {Calorie_Counting} calories a day.</p>"+
             "<p>If you consume {Calorie_CountingM} calories a day, then your weight will go down by 0.45 kg per week.</p>"+
             "<p>If you consume {Calorie_CountingP} calories a day, then your weight will increase by 0.45 kg per week.</p>"
 

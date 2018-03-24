@@ -2,19 +2,6 @@
   <div class="questionBlock type1">
     <h1>{{questionData.QText}}</h1>
     <div class="row">
-      <label>
-
-        <input type="number"
-               v-model="AnswerValue"
-               v-on:input="changeVal"
-               v-on:change="changeInput">
-        <span class="check"  v-bind:class="(showLoadInput) ? 'loading': ''" v-if="showCheckInput && !errorQuest">
-          <i class="fa fa-check" aria-hidden="true"></i>
-        </span>
-        <span class="check" v-bind:class="(errorQuest) ? 'error' : ''" v-if="errorQuest">
-            <i class="fa fa-times" aria-hidden="true"></i>
-          </span>
-      </label>
       <label  v-if="questionData.AnswerOptions.length>0" >
 
         <div class="selectBlock"
@@ -31,6 +18,19 @@
         <span class="check"  v-bind:class="(showLoadSelect==true) ? 'loading': ''" v-if="showCheckSelect">
           <i class="fa fa-check" aria-hidden="true"></i>
         </span>
+      </label>
+      <label>
+
+        <input type="number"
+               v-model="AnswerValue"
+               v-on:input="changeVal"
+               v-on:change="changeInput">
+        <span class="check"  v-bind:class="(showLoadInput) ? 'loading': ''" v-if="showCheckInput && !errorQuest">
+          <i class="fa fa-check" aria-hidden="true"></i>
+        </span>
+        <span class="check" v-bind:class="(errorQuest) ? 'error' : ''" v-if="errorQuest">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </span>
       </label>
     </div>
   </div>

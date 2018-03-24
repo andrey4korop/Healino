@@ -55,7 +55,7 @@ export default {
         ru: {
             descriptionText:
             "<p>Ваш процент жира в организме составляет {BFP}%. </p>"+
-            "<p>Вы относитесь к категории  {coment} </p>"+
+            "<p>Вы относитесь к категории {coment} </p>"+
             "<p>Ваш идеальный процент жира {ideal}%</p>"+
             "<p>Оговорка: Результаты этих расчетов являются лишь приблизительной оценкой. Для более точных измерений жировых отложений необходимо использовать биоэлектрический импедансный анализ.</p>",
             com0: "Недостаток жира",
@@ -70,7 +70,7 @@ export default {
         },
         pl: {
             descriptionText:
-            "<p>Procent tkanki tłuszczowej wynosi  {BFP}%. </p>"+
+            "<p>Procent tkanki tłuszczowej wynosi {BFP}%. </p>"+
             "<p>Należysz do kategorii {coment} </p>"+
             "<p>Twój idealny procent tłuszczu {ideal}%</p>"+
             "<p>Zastrzeżenie: wyniki tych obliczeń są jedynie przybliżonym szacunkiem. W celu dokładniejszego pomiaru tkanki tłuszczowej należy zastosować analizę impedancji bioelektrycznej.</p>",

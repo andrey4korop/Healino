@@ -2,6 +2,23 @@
   <div class="questionBlock type1" v-if="!questionData.ImageUrl">
     <h1>{{questionData.QText}}</h1>
     <div class="row">
+      <label  v-if="questionData.AnswerOptions.length>0" >
+
+        <div class="selectBlock"
+             v-on:input="changeVal"
+             v-on:click="setShowSelectId"
+        >
+          {{AnswerText}}
+        </div>
+        <div class="select" v-if="showSelectId">
+          <p class="option" v-for="ans in questionData.AnswerOptions"
+             v-on:click="setValueId(ans.Id, ans.AnswerText, $event)"
+             v-bind:class="(ans.Id==AnswersId) ? 'active' : ''">{{ans.AnswerText}}</p>
+        </div>
+        <span class="check"  v-bind:class="(showLoadSelect==true) ? 'loading': ''" v-if="showCheckSelect">
+          <i class="fa fa-check" aria-hidden="true"></i>
+        </span>
+      </label>
       <label  v-if="questionData.QuestionTypeEnum==2">
 
         <input type="number"
@@ -14,23 +31,6 @@
         <span class="check" v-bind:class="(errorQuest) ? 'error' : ''" v-if="errorQuest">
             <i class="fa fa-times" aria-hidden="true"></i>
           </span>
-      </label>
-      <label  v-if="questionData.AnswerOptions.length>0" >
-
-        <div class="selectBlock"
-                v-on:input="changeVal"
-                v-on:click="setShowSelectId"
-               >
-          {{AnswerText}}
-        </div>
-        <div class="select" v-if="showSelectId">
-          <p class="option" v-for="ans in questionData.AnswerOptions"
-             v-on:click="setValueId(ans.Id, ans.AnswerText, $event)"
-              v-bind:class="(ans.Id==AnswersId) ? 'active' : ''">{{ans.AnswerText}}</p>
-        </div>
-        <span class="check"  v-bind:class="(showLoadSelect==true) ? 'loading': ''" v-if="showCheckSelect">
-          <i class="fa fa-check" aria-hidden="true"></i>
-        </span>
       </label>
     </div>
   </div>

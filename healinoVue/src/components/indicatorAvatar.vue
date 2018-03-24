@@ -29,7 +29,7 @@ export default {
     },
     messages: {
         en: {
-            descriptionText: '<p>Your integrated deviation index is {THR}%.</p><p>Which corresponds to the possible {THR_Comment}</p>',
+            descriptionText: '<p>YYour integrated deviation index is {THR}%.</p><p>Which corresponds to the possible {THR_Comment}</p>',
             com0: "very good health",
             com1: "good health",
             com2: "average health",
@@ -43,7 +43,7 @@ export default {
             com0: "очень хорошему здоровью",
             com1: "хорошему здоровью",
             com2: "среднему здоровью",
-            com3: "плохому здоровье",
+            com3: "слабому здоровью",
             com4: "вероятной болезни",
             com5: "болезни",
             com6: "серьезной болезни",
