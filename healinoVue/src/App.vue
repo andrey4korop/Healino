@@ -414,6 +414,13 @@ export default {
                               expires: 10000,
                               path: '/'
                           });
+                          if(getCookie('lang')){
+                              t.lang = getCookie('lang');
+                              t.changeLang(t.lang);
+                          }
+                          else{
+                              t.changeLang(t.lang)
+                          }
                           try {
                               history.pushState(null, null, "/");
                               return;

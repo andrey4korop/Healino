@@ -232,8 +232,8 @@
                 share: 'SHARE',
                 AgeDescriptionText:
                 "<p>Your age:</p>"+
-                "<p>Mental  {MentalAge} years. {txtMental}</p>"+
-                "<p>Biological  {BiologicalAge} years. {txtBiological}</p>"+
+                "<p>Mental {MentalAge} years. {txtMental}</p>"+
+                "<p>Biological {BiologicalAge} years. {txtBiological}</p>"+
                 "<p>Chronological {ChronologicalAge} years. </p>",
 
                 AgeBCom0: "It is necessary to see a doctor",
@@ -264,8 +264,8 @@
                 share: 'ПОДЕЛИТЬСЯ',
                 AgeDescriptionText:
                 "<p>Ваш возраст:</p>"+
-                "<p>Ментальный  {MentalAge} лет.   {txtMental}</p>"+
-                "<p>Биологический  {BiologicalAge} лет.   {txtBiological}</p>"+
+                "<p>Ментальный {MentalAge} лет. {txtMental}</p>"+
+                "<p>Биологический {BiologicalAge} лет. {txtBiological}</p>"+
                 "<p>Хронологический {ChronologicalAge} лет.</p>",
                 AgeBCom0: "Необходим осмотр врача",
                 AgeBCom1: "Ваше тело в отличной форме и моложе",
@@ -320,7 +320,7 @@
                 AgeMCom8: "Wysokie prawdopodobieństwo problemów psychologicznych",
 
                 CVDdescriptionText: '<p>Przez całe życie ryzyko wystąpienia miażdżycowej choroby sercowo-naczyniowej wynosi {RASCVD}%</p>'+
-                '<p>OW ciągu najbliższych 10 lat ryzyko wystąpienia miażdżycowej choroby sercowo-naczyniowej wynosi  {TenYearsASCVDCalculated}%.</p>'+
+                '<p>W ciągu najbliższych 10 lat ryzyko wystąpienia miażdżycowej choroby sercowo-naczyniowej wynosi {TenYearsASCVDCalculated}%.</p>'+
                 '<p>Możesz zmniejszyć ryzyko wystąpienia miażdżycowej choroby sercowo-naczyniowej do {TenYearsASCVDOptimal}%.</p>',
             }
         },

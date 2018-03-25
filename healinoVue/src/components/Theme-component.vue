@@ -72,7 +72,7 @@
         },
         watch:{
             List:function (newVal, OldVal) {
-                this.changeActive(newVal[this.activeId]);
+                this.changeActive(newVal[0]);
             }
         },
         messages: {

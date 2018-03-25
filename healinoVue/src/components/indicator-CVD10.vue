@@ -1,6 +1,7 @@
 <template>
   <div class="mini_indicator mini_indicator6" v-on:click="start">
     <div class="progress_bar2">
+      <div class="color" v-bind:style="{background:color[colorId]}"></div>
       <div class="cursor"
            v-bind:style="{ transform: 'rotate(' + TenYearsASCVDDeg + 'deg)' }"></div>
       <div class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + TenYearsASCVDDegOp + 'deg)' }"></div>
@@ -18,7 +19,9 @@ export default {
     data () {
         return {
             animateVal:0 ,
-            valArray:[]
+            valArray:[],
+            color:['#2FAA52', '#79BA48', '#FEE79A', '#FAC342', '#DB4641'],
+            colorId:0
         }
     },
 
@@ -31,13 +34,16 @@ export default {
         },
         TenYearsASCVDDeg:function(){
             if(this.animateVal<=this.minValue){
+                this.colorId = 0;
                 return 360 - 3.6 *0 -37;
             }
             if(this.animateVal>=this.maxValue){
+                this.colorId = 4;
                 return 360 - 3.6 *100 -35;
             }
             //return 360 - 3.6 * (this.animateVal - this.minValue) * 100 / (this.maxValue - this.minValue) -36;
             for(var w=0; w<this.rezultData.TenYearsASCVDScale.length; w++ ){
+                this.colorId = w;
                 if(this.animateVal < this.rezultData.TenYearsASCVDScale[w].Value){
                     break;
                 }
@@ -123,5 +129,13 @@ export default {
     border-radius: 3px;
     width: 5px;
     height: 90%;
+  }
+  .color{
+    width: 86.5%;
+    position: absolute;
+    height: 86.5%;
+    border-radius: 50%;
+    top: 6.5%;
+    left: 6.5%;
   }
 </style>
