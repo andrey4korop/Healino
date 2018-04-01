@@ -3,9 +3,7 @@
   <div class="container firstPageContainer">
     <div class="row">
       <form action="" class="login">
-
-
-        <h4> Password recovery</h4>
+        <h4 v-lang.title></h4>
         <label>
           <p><span>*</span>{{langString('password')}}</p>
           <input v-bind:type="typeInputPass" v-model="Password" v-on:change="changePass">
@@ -70,21 +68,21 @@
                 verPass:'Verify Password',
                 forgotPass:'Forgot your password?',
                 login: 'SET NEW PASSWORD',
-
+                title:'Password recovery',
             },
             ru: {
                 password:'Пароль',
                 verPass:'Подтвердите пароль',
                 forgotPass:'Забыл пароль?',
-                login: 'SET NEW PASSWORD',
-
+                login: 'УСТАНОВИТЬ НОВЫЙ ПАРОЛЬ',
+                title:'Восстановление пароля',
             },
             pl: {
                 password:'Hasło',
                 verPass:'Potwierdź hasło',
                 forgotPass:'Zapomniałeś hasła?',
-                login: 'SET NEW PASSWORD',
-
+                login: 'USTAW NOWE HASŁO',
+                title:'Odzyskiwanie hasła',
             }
         },
         computed: {
@@ -184,5 +182,18 @@
     position: fixed;
     bottom: 10px;
     right: 10px;
+  }
+  .login .firstPage{
+    width: 90%;
+  }
+  @media screen and (max-width: 960px){
+    .firstPage button {
+      font-size: 14px;
+    }
+  }
+  @media screen and (max-width: 760px){
+    .firstPage button {
+      font-size: 16px;
+    }
   }
 </style>

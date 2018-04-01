@@ -5,12 +5,13 @@
       <p>Mass  </p>
     </div>
     <div class="indicator indicatorLMP">
-      <div class="plus" v-on:click="$emit('onDescription','7')"><img src="static/img/plus.png" alt=""></div>
+
       <div class="description" v-bind:class="(showDescription==7)?'on':''">
         <div class="text" v-lang.descriptionText="{LMP: rezultData.LMP, coment: getComent, ideal:getIdeal}">
         </div>
       </div>
       <div class="progress_bar5">
+        <div class="plus" v-on:click="$emit('onDescription','7')"><img src="static/img/plus.png" alt=""></div>
         <div class="opacity" v-bind:style="{ height: LMPPresent + '%' }"></div>
         <div class="cursor">
           <img src="static/img/cursor_4.png" alt="">

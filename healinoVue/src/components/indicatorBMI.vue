@@ -5,11 +5,12 @@
       <p>(body mass index)</p>
     </div>
     <div class="indicator">
-      <div class="plus"v-on:click="$emit('onDescription','3')"><img src="static/img/plus.png" alt=""></div>
+
       <div class="description" v-bind:class="(showDescription==3)?'on':''">
         <div class="text" v-lang.descriptionText="{BMI: rezultData.BMI, coment: getComent}"></div>
       </div>
       <div class="progress_bar4" v-on:click="start">
+        <div class="plus"v-on:click="$emit('onDescription','3')"><img src="static/img/plus.png" alt=""></div>
         <div class="cursor" v-bind:style="{ transform: 'rotate(' + CallorieDeg + 'deg)' }"></div>
         <div class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + CallorieDegOp + 'deg)' }">
 

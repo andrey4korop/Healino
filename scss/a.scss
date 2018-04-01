@@ -69,6 +69,7 @@ html,body{
       text-decoration: none;
       margin-left: 40px;
       @include sm(margin-left, 10px);
+      @include sm(font-size, 15px);
       font-size: 16px;
     }
     .user_Avatar, .lang{
@@ -78,7 +79,9 @@ html,body{
       border: 1px solid #fff;
       box-sizing: border-box;
       margin-left: 20px;
-      @include sm(margin, 0 5px);
+      @include sm(margin, 5px);
+      @include sm(height, 45px);
+      @include sm(width, 45px);
 
     }
     .lang{
@@ -86,6 +89,7 @@ html,body{
       height: 55%;
       width: 38px;
       @include sm(width, 30px);
+      @include sm(height, 30px);
       &:hover{
         ul{
           //display: block;
@@ -122,7 +126,7 @@ html,body{
     h3{
       margin-left: auto;
       font-size: 24px;
-      @include sm(font-size, 20px)
+      @include sm(font-size, 18px)
     }
   }
 }
@@ -209,7 +213,8 @@ html,body{
 }
 .firstPage{
   @include size(8);
-  @include size-sm(19);
+  @include size-sm(24);
+  @include size-md(12);
   @include sm(margin-bottom, 20px);
   display: flex;
   justify-content: space-around;
@@ -415,6 +420,7 @@ html,body{
         color: transparent;
         border-radius: 13px;
         margin-right: 15px;
+        margin-top: 10px;
       }
       &:checked+.checkbox{
         border: 3px solid #70cf47;
@@ -463,9 +469,9 @@ html,body{
     justify-content: center;
     text-align: center;
     font-size: 15px;
-    margin-bottom: 50px;
+    margin-bottom: 33px;
     @include sm(margin-bottom, 10px);
-    margin-top: 25px;
+    //margin-top: 25px;
     @include sm(margin-top, 0);
     .btn{
       width: 50%;
@@ -523,11 +529,14 @@ html,body{
 .fifthPage{
   @include size(8);
   @include size-sm(24);
-  margin-top: 30px;
+  margin-top: 20px;
+  margin-bottom: 15px;
   @include sm( margin, 0px 0)
 }
 .license{
   @include size(24);
+  @include size-md(21);
+  @include size-sm(22);
   background: rgba(250,247,247, 0.95);
   min-height: 60vh;
   padding: 40px 0 30px 0;
@@ -544,6 +553,7 @@ html,body{
     border-radius: 5px;
     box-sizing: border-box;
     padding: 20px 0px 20px 15px;
+    @include sm(padding, 0 0 0 15px);
     @include size(22);
   }
   .text{
@@ -585,9 +595,10 @@ html,body{
     display: flex;
     justify-content: space-between;
     @include size(20);
+    @include size-sm(21);
     font-size: 16px;
     align-items: center;
-    @include sm(font-size, 16px);
+    @include sm(font-size, 15px);
     .ck{
       display:flex;
       flex-direction: column;
@@ -615,6 +626,8 @@ html,body{
         border-radius: 13px;
         border: 3px solid #d9d9d9;
         margin-right: 15px;
+        @include xs(float, left);
+        @include xs(margin, 9px 13px 11px 0);
       }
       &:checked+.checkbox{
         border: 3px solid rgb(109,207,77);
@@ -626,17 +639,18 @@ html,body{
   }
   .licensePage{
     @include size(8);
-    @include sm(display, none);
+    @include md(display, none);
     display: flex;
     justify-content: space-around;
     flex-direction: column;
     align-items: center;
     button{
-      @include size(18);
+      width: 80%;
+      padding-right: 30px;
+      padding-left: 30px;
       height: 45px;
       border-radius: 25px;
       background: #ff8304;
-      padding: 0;
       border: none;
       color: rgba(0,0,0,0.5);
       font-size: 18px;
@@ -665,19 +679,19 @@ html,body{
 .licensePage {
   @include size(24);
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   &.sm {
     display: none;
-    @include sm(display, block);
-    @include sm(margin, 15px auto);
-    @include sm(text-align, center);
+    @include md(display, flex);
+    @include md(margin, 15px auto);
+    @include md(text-align, center);
   }
   button {
-    @include size(11);
     height: 45px;
+    padding-right: 30px;
+    padding-left: 30px;
     border-radius: 25px;
     background: #ff8304;
-    padding: 0;
     border: none;
     color: rgba(0, 0, 0, 0.5);
     font-size: 18px;
@@ -703,8 +717,13 @@ html,body{
 }
 .avatar{
   //@include size(4);
+ /* width: 85%;
+  height: 85%;
+  margin: auto;*/
   width: 10vw;
   height: 10vw;
+  @include md(width, 20vw);
+  @include md(height, 20vw);
   @include sm(width, 25vw);
   @include sm(height, 25vw);
   margin-top: 10px;
@@ -712,15 +731,17 @@ html,body{
   //margin-bottom: 35px;
   margin-bottom: 10px;
   @include sm(margin-bottom, 0px);
+
   border-radius: 500px;
+  z-index: 10;
+  box-sizing: border-box;
   .img {
     border-radius: 500px;
     border: 1px solid #fff;
-    width: 10vw;
-    height: 10vw;
+    width: 100%;
+    height: 100%;
     cursor: pointer;
-    @include sm(width, 100%);
-    @include sm(height, 100%);
+    box-sizing: border-box;
   }
 }
 .left, .right{
@@ -1057,6 +1078,7 @@ html,body{
     max-height: 430px;
     @include sm(max-height, 67vh);
     //@include sm(margin-top, 5vh);
+    box-sizing: border-box;
   }
   .progressBarTheme{
     @include size(18);
@@ -1369,8 +1391,8 @@ html,body{
 
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
-    align-content: space-between;
+    justify-content: space-between;
+    align-content: flex-start;
     height: 99%;
 
     padding: 0 15px;
@@ -1400,12 +1422,18 @@ html,body{
       //@include size-sm(12);
       height: 200px;
       @include sm(height, 32vw);
-      @include sm(width, 32vw);
+      @include md(height, 150px);
+      @include size-sm(11.5);
+      box-sizing: border-box;
       border-radius: 15px;
       margin-bottom: 10px;
       position: relative;
       background-size: cover;
       cursor: pointer;
+      &:after {
+        content: "";
+        flex: auto;
+      }
       &.active{
         border: 3px solid #6dcf4d;
       }
@@ -1470,6 +1498,7 @@ html,body{
     box-sizing: border-box;
     max-height: 430px;
     overflow-y: auto;
+    box-sizing: border-box;
     &::-webkit-scrollbar {
       width: 5px;
       background: rgba(109,207,77,0.5);
@@ -1518,7 +1547,7 @@ html,body{
       height: 45px;
       border-radius: 25px;
       margin: 20px;
-      @include sm(margin, 20px 0 0 0);
+      @include sm(margin, 20px 0);
       background: #ff8304;
       padding: 0;
       border: none;
@@ -1621,6 +1650,7 @@ html,body{
       width: 26vw;
       height: 26vw;
       .avatar_scale{
+        display: flex;
         width: 100%;
         height: 100%;
         margin: 0;
@@ -1633,14 +1663,14 @@ html,body{
         border-radius: 15px 0 15px 15px;
       }
       .avatar{
-        width: 87%;
-        height: 87%;
+        width: 85%;
+        height: 85%;
         margin: auto;
         position: relative;
-        top: 5%;
         .img{
           height: 100%;
           width: 100%;
+          box-sizing: border-box;
         }
       }
     }
@@ -1949,6 +1979,7 @@ html,body{
       width: 100%;
       height: 100%;
       margin: 0;
+      z-index: 10;
       img {
         border-radius: 500px;
         box-sizing: border-box;

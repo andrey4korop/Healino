@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div class="container pc">
+    <div class="container pc" v-if="width>760">
       <div class="row">
         <indicatorAvatar :rezultData="rezultData"
                          :img="img"
@@ -108,7 +108,7 @@
     </div>
 
 
-  <div class="containerMob sm">
+  <div class="containerMob sm" v-if="width<=760">
     <div class="pos1">
       <indicator2 :rezultData="rezultData"
                   :showDescription="showDescription"
@@ -219,11 +219,12 @@
 
 <script>
     export default {
-        props:['rezultData','userData', 'themeActiveObj', 'audio_p'],
+        props:[/*'rezultData',*/'userData', 'themeActiveObj', 'audio_p'],
         data () {
             return {
+                width:0,
                 showDescription:"none",
-                //rezultData:{"BMI":17.99,"BMR":1472.5,"BFP":-90.56,"FM":-47.09,"LMP":190.56,"RASCVD":69,"WHRatio":1,"TenYearsASCVD":{"Calculated":0,"Optimal":0.03},"DaylyCallorie":1767,"HealthRate":40,"BioMentalAge":{"MentalAge":23,"BiologicalAge":26,"ChronologicalAge":23,"MentalAgeDiffPercentage":0,"BiologicalAgeDiffPercentage":13},"BMIScale":[{"Gender":0,"BMIScale":0,"BMI":16},{"Gender":0,"BMIScale":1,"BMI":17},{"Gender":0,"BMIScale":2,"BMI":18.5},{"Gender":0,"BMIScale":3,"BMI":25},{"Gender":0,"BMIScale":4,"BMI":30},{"Gender":0,"BMIScale":5,"BMI":35},{"Gender":0,"BMIScale":6,"BMI":40},{"Gender":0,"BMIScale":7,"BMI":45}],"BFCategoryScale":[{"Gender":0,"BFScale":0,"BF":2.5},{"Gender":0,"BFScale":1,"BF":4.9},{"Gender":0,"BFScale":2,"BF":7.3},{"Gender":0,"BFScale":3,"BF":9.5},{"Gender":0,"BFScale":4,"BF":13.6},{"Gender":0,"BFScale":5,"BF":17},{"Gender":0,"BFScale":6,"BF":21.2},{"Gender":0,"BFScale":7,"BF":24.4},{"Gender":0,"BFScale":8,"BF":25.8}],"FMCategoryScale":[{"Gender":0,"BFScale":0,"BF":1.7},{"Gender":0,"BFScale":1,"BF":3.3},{"Gender":0,"BFScale":2,"BF":5},{"Gender":0,"BFScale":3,"BF":6.5},{"Gender":0,"BFScale":4,"BF":9.2},{"Gender":0,"BFScale":5,"BF":11.6},{"Gender":0,"BFScale":6,"BF":14.4},{"Gender":0,"BFScale":7,"BF":16.6},{"Gender":0,"BFScale":8,"BF":17.5}],"LMPCategoryScale":[{"Gender":0,"BFScale":0,"BF":97.5},{"Gender":0,"BFScale":1,"BF":95.1},{"Gender":0,"BFScale":2,"BF":92.7},{"Gender":0,"BFScale":3,"BF":90.5},{"Gender":0,"BFScale":4,"BF":86.4},{"Gender":0,"BFScale":5,"BF":83},{"Gender":0,"BFScale":6,"BF":78.8},{"Gender":0,"BFScale":7,"BF":75.6},{"Gender":0,"BFScale":8,"BF":74.2}],"RASCVDScale":[{"RASCVDScale":0,"Value":5},{"RASCVDScale":1,"Value":36},{"RASCVDScale":2,"Value":46},{"RASCVDScale":3,"Value":50},{"RASCVDScale":4,"Value":69}],"TenYearsASCVDScale":[{"RASCVDScale":0,"Value":5},{"RASCVDScale":1,"Value":11},{"RASCVDScale":2,"Value":17},{"RASCVDScale":3,"Value":23},{"RASCVDScale":4,"Value":30}],"CallorieScale":[{"Gender":0,"Activity":0,"Callorie":1687},{"Gender":0,"Activity":1,"Callorie":2025},{"Gender":0,"Activity":2,"Callorie":2320},{"Gender":0,"Activity":3,"Callorie":2615},{"Gender":0,"Activity":4,"Callorie":2911},{"Gender":0,"Activity":5,"Callorie":3206}],"BioAgeScale":[{"Gender":0,"AgeScale":4,"AgePercent":-31},{"Gender":0,"AgeScale":4,"AgePercent":-20},{"Gender":0,"AgeScale":3,"AgePercent":-10},{"Gender":0,"AgeScale":3,"AgePercent":-4},{"Gender":0,"AgeScale":3,"AgePercent":3},{"Gender":0,"AgeScale":2,"AgePercent":9},{"Gender":0,"AgeScale":1,"AgePercent":19},{"Gender":0,"AgeScale":0,"AgePercent":30},{"Gender":0,"AgeScale":0,"AgePercent":40}],"MentalAgeScale":[{"Gender":0,"AgeScale":0,"AgePercent":-31},{"Gender":0,"AgeScale":1,"AgePercent":-20},{"Gender":0,"AgeScale":2,"AgePercent":-10},{"Gender":0,"AgeScale":3,"AgePercent":-4},{"Gender":0,"AgeScale":4,"AgePercent":3},{"Gender":0,"AgeScale":3,"AgePercent":9},{"Gender":0,"AgeScale":2,"AgePercent":19},{"Gender":0,"AgeScale":1,"AgePercent":30},{"Gender":0,"AgeScale":0,"AgePercent":40}],"CronologicalAgeScale":[{"Gender":0,"AgeScale":4,"AgePercent":24},{"Gender":0,"AgeScale":3,"AgePercent":48},{"Gender":0,"AgeScale":2,"AgePercent":72},{"Gender":0,"AgeScale":1,"AgePercent":96},{"Gender":0,"AgeScale":0,"AgePercent":120}],"HealthRatioScale":[{"IllnessScale":0,"Value":5},{"IllnessScale":1,"Value":10},{"IllnessScale":2,"Value":20},{"IllnessScale":3,"Value":30},{"IllnessScale":4,"Value":40},{"IllnessScale":5,"Value":50},{"IllnessScale":6,"Value":70}],"WHRatioScale":[{"WHRScale":0,"Value":0.7},{"WHRScale":1,"Value":0.75},{"WHRScale":2,"Value":0.8},{"WHRScale":3,"Value":0.85},{"WHRScale":4,"Value":0.9},{"WHRScale":5,"Value":0.99},{"WHRScale":6,"Value":1.1},{"WHRScale":7,"Value":1.15}],"IsFinished":true,"PublicHash":"fde3c96c21015369d4df912317362d97","PreviusQuestionId":0,"QuestionId":0,"QuestionNum":0,"TotalQuestions":0,"QuestionTypeEnum":0,"UserThemeTestId":0,"IsAnswered":false,"QText":null,"ImageUrl":null,"QuestionsProgress":0,"AnswerOptions":null,"NextQuestionId":0,"ErrorCode":1,"DebugMessage":null,"UIMessage":null},
+                rezultData:{"BMI":17.99,"BMR":1472.5,"BFP":-90.56,"FM":-47.09,"LMP":190.56,"RASCVD":69,"WHRatio":1,"TenYearsASCVD":{"Calculated":0,"Optimal":0.03},"DaylyCallorie":1767,"HealthRate":40,"BioMentalAge":{"MentalAge":23,"BiologicalAge":26,"ChronologicalAge":23,"MentalAgeDiffPercentage":0,"BiologicalAgeDiffPercentage":13},"BMIScale":[{"Gender":0,"BMIScale":0,"BMI":16},{"Gender":0,"BMIScale":1,"BMI":17},{"Gender":0,"BMIScale":2,"BMI":18.5},{"Gender":0,"BMIScale":3,"BMI":25},{"Gender":0,"BMIScale":4,"BMI":30},{"Gender":0,"BMIScale":5,"BMI":35},{"Gender":0,"BMIScale":6,"BMI":40},{"Gender":0,"BMIScale":7,"BMI":45}],"BFCategoryScale":[{"Gender":0,"BFScale":0,"BF":2.5},{"Gender":0,"BFScale":1,"BF":4.9},{"Gender":0,"BFScale":2,"BF":7.3},{"Gender":0,"BFScale":3,"BF":9.5},{"Gender":0,"BFScale":4,"BF":13.6},{"Gender":0,"BFScale":5,"BF":17},{"Gender":0,"BFScale":6,"BF":21.2},{"Gender":0,"BFScale":7,"BF":24.4},{"Gender":0,"BFScale":8,"BF":25.8}],"FMCategoryScale":[{"Gender":0,"BFScale":0,"BF":1.7},{"Gender":0,"BFScale":1,"BF":3.3},{"Gender":0,"BFScale":2,"BF":5},{"Gender":0,"BFScale":3,"BF":6.5},{"Gender":0,"BFScale":4,"BF":9.2},{"Gender":0,"BFScale":5,"BF":11.6},{"Gender":0,"BFScale":6,"BF":14.4},{"Gender":0,"BFScale":7,"BF":16.6},{"Gender":0,"BFScale":8,"BF":17.5}],"LMPCategoryScale":[{"Gender":0,"BFScale":0,"BF":97.5},{"Gender":0,"BFScale":1,"BF":95.1},{"Gender":0,"BFScale":2,"BF":92.7},{"Gender":0,"BFScale":3,"BF":90.5},{"Gender":0,"BFScale":4,"BF":86.4},{"Gender":0,"BFScale":5,"BF":83},{"Gender":0,"BFScale":6,"BF":78.8},{"Gender":0,"BFScale":7,"BF":75.6},{"Gender":0,"BFScale":8,"BF":74.2}],"RASCVDScale":[{"RASCVDScale":0,"Value":5},{"RASCVDScale":1,"Value":36},{"RASCVDScale":2,"Value":46},{"RASCVDScale":3,"Value":50},{"RASCVDScale":4,"Value":69}],"TenYearsASCVDScale":[{"RASCVDScale":0,"Value":5},{"RASCVDScale":1,"Value":11},{"RASCVDScale":2,"Value":17},{"RASCVDScale":3,"Value":23},{"RASCVDScale":4,"Value":30}],"CallorieScale":[{"Gender":0,"Activity":0,"Callorie":1687},{"Gender":0,"Activity":1,"Callorie":2025},{"Gender":0,"Activity":2,"Callorie":2320},{"Gender":0,"Activity":3,"Callorie":2615},{"Gender":0,"Activity":4,"Callorie":2911},{"Gender":0,"Activity":5,"Callorie":3206}],"BioAgeScale":[{"Gender":0,"AgeScale":4,"AgePercent":-31},{"Gender":0,"AgeScale":4,"AgePercent":-20},{"Gender":0,"AgeScale":3,"AgePercent":-10},{"Gender":0,"AgeScale":3,"AgePercent":-4},{"Gender":0,"AgeScale":3,"AgePercent":3},{"Gender":0,"AgeScale":2,"AgePercent":9},{"Gender":0,"AgeScale":1,"AgePercent":19},{"Gender":0,"AgeScale":0,"AgePercent":30},{"Gender":0,"AgeScale":0,"AgePercent":40}],"MentalAgeScale":[{"Gender":0,"AgeScale":0,"AgePercent":-31},{"Gender":0,"AgeScale":1,"AgePercent":-20},{"Gender":0,"AgeScale":2,"AgePercent":-10},{"Gender":0,"AgeScale":3,"AgePercent":-4},{"Gender":0,"AgeScale":4,"AgePercent":3},{"Gender":0,"AgeScale":3,"AgePercent":9},{"Gender":0,"AgeScale":2,"AgePercent":19},{"Gender":0,"AgeScale":1,"AgePercent":30},{"Gender":0,"AgeScale":0,"AgePercent":40}],"CronologicalAgeScale":[{"Gender":0,"AgeScale":4,"AgePercent":24},{"Gender":0,"AgeScale":3,"AgePercent":48},{"Gender":0,"AgeScale":2,"AgePercent":72},{"Gender":0,"AgeScale":1,"AgePercent":96},{"Gender":0,"AgeScale":0,"AgePercent":120}],"HealthRatioScale":[{"IllnessScale":0,"Value":5},{"IllnessScale":1,"Value":10},{"IllnessScale":2,"Value":20},{"IllnessScale":3,"Value":30},{"IllnessScale":4,"Value":40},{"IllnessScale":5,"Value":50},{"IllnessScale":6,"Value":70}],"WHRatioScale":[{"WHRScale":0,"Value":0.7},{"WHRScale":1,"Value":0.75},{"WHRScale":2,"Value":0.8},{"WHRScale":3,"Value":0.85},{"WHRScale":4,"Value":0.9},{"WHRScale":5,"Value":0.99},{"WHRScale":6,"Value":1.1},{"WHRScale":7,"Value":1.15}],"IsFinished":true,"PublicHash":"fde3c96c21015369d4df912317362d97","PreviusQuestionId":0,"QuestionId":0,"QuestionNum":0,"TotalQuestions":0,"QuestionTypeEnum":0,"UserThemeTestId":0,"IsAnswered":false,"QText":null,"ImageUrl":null,"QuestionsProgress":0,"AnswerOptions":null,"NextQuestionId":0,"ErrorCode":1,"DebugMessage":null,"UIMessage":null},
                 gender:"body0.png",
                 img:""
             }
@@ -361,7 +362,22 @@
             this.img = this.userData.PhotoUrl || '../static/img/noIMG.png';
             this.gender = "body"+this.rezultData.BMIScale[0].Gender+".png";
         },
+        mounted() {
+            this.$nextTick(function() {
+                window.addEventListener('resize', this.getWindowWidth);
+                window.addEventListener('resize', this.getWindowHeight);
+
+                //Init
+                this.getWindowWidth()
+            })
+        },
+        beforeDestroy() {
+            window.removeEventListener('resize', this.getWindowWidth);
+        },
         methods:{
+            getWindowWidth(event) {
+                this.width = document.documentElement.clientWidth;
+            },
             share(){
                 FB.ui({
                     method: 'share',
@@ -385,8 +401,8 @@
     cursor: default;
   }
   div.center > div:nth-child(3) > div.indicator > div.plus{
-    width: 15%;
-    height: 15%;
+    width:20px;
+    height: 20px;
     position: absolute;
     top: 0;
     left: 0;
@@ -426,8 +442,8 @@
     opacity: 1;
   }
   div.center > div:nth-child(4) > div.indicator > div.plus{
-    width: 15%;
-    height: 34%;
+    width:20px;
+    height: 20px;
     position: absolute;
     bottom: 105%;
     right: 0;
@@ -493,5 +509,12 @@
      width: 5px;
      height: 90%;
    }
-
+  .indicator:hover .plus{
+    animation: anima 2s infinite ease-in-out;
+  }
+  @keyframes anima {
+    from {box-shadow: unset;}
+    50% { box-shadow: 0 0px 20px rgba(255, 255, 255, 1), inset 0 0 80px rgba(255, 255, 255, 0.5)}
+    to {box-shadow: unset;}
+  }
 </style>

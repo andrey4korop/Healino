@@ -4,11 +4,11 @@
       <p>Body Fat Percentage</p>
     </div>
     <div class="indicator indicatorBF">
-      <div class="plus" v-on:click="$emit('onDescription','8')"><img src="static/img/plus.png" alt=""></div>
       <div class="description" v-bind:class="(showDescription==8)?'on':''">
         <div class="text" v-lang.descriptionText="{BFP: rezultData.BFP, coment: getComent, ideal: getIdeal}"></div>
       </div>
       <div class="progress_bar1" v-on:click="start">
+        <div class="plus" v-on:click="$emit('onDescription','8')"><img src="static/img/plus.png" alt=""></div>
         <img src="static/img/cursor_1.png" alt="" class="cursor"
              v-bind:style="{ left: BFPDeg + '%' }">
         <div class="opacity_cursor" v-bind:style="{ width: BFPDegOp + '%' }">

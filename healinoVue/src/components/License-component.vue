@@ -646,4 +646,9 @@
     bottom: 10px;
     right: 10px;
   }
+  @media screen and (max-width: 760px) {
+    .firstPageContainer .row {
+      margin: 5px 0;
+    }
+  }
 </style>

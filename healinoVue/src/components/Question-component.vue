@@ -201,7 +201,7 @@
 <style>
   .music_btn1{
     width: 30px;
-    height: 30px;
+    height: 27px;
     margin-left: 10px;
   }
 </style>

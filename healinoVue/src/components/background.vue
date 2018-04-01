@@ -5,7 +5,7 @@
        v-bind:style="{ backgroundPositionX: 'calc('+bgpersent +'%)' }">
 
   </div>
-  <bg class="big"
+  <!--<bg class="big"
       :urlImg="'/static/img/symbols/bSymbols/10Lg.png'"
       :posBG="{x:-20,y:-30}"
       :posMouse="posMouse"
@@ -328,7 +328,7 @@
      :posMouse="posMouse"
      :Kof="{x:-0.012,y:-0.012}"
      :bgCurrent="animatebg"
-     :random="animateVal"></bg>
+     :random="animateVal"></bg>-->
 </div>
 </template>
 

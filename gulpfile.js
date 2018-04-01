@@ -23,7 +23,7 @@ var settings = {
             'fields': '5px'
         },
         sm: {
-            'width': '780px',
+            'width': '760px',
             'fields': '5px'
         },
         xs: {

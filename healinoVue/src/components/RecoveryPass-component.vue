@@ -4,7 +4,7 @@
     <div class="row">
       <form action="" class="login">
 
-        <h4> Password recovery</h4>
+        <h4 v-lang.title></h4>
         <label>
           <p><span>*</span>{{langString('email')}}</p>
           <input type="email" v-model="Email" v-on:change="changeEmail">
@@ -39,7 +39,6 @@
 </template>
 
 <script>
-    import Vue from 'vue'
     export default {
         props: ['lang', 'SessionData', 'audio_p'],
         data () {
@@ -56,19 +55,20 @@
         messages: {
             en: {
                 email:'E-mail',
-
+                title:'Password recovery',
                 login: 'RESTORE',
 
             },
             ru: {
 
                 email:'E-mail',
-
+                title:'Восстановление пароля',
                 login: 'ВОССТАНОВИТЬ',
 
             },
             pl: {
                 email:'E-mail',
+                title:'Odzyskiwanie hasła',
                 login: 'PRZYWRACAĆ',
 
             }

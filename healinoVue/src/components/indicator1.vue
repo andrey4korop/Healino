@@ -4,11 +4,12 @@
       <p>Body Fat (US Navy)</p>
     </div>
     <div class="indicator indicator1">
-      <div class="plus" v-on:click="$emit('onDescription','9')"><img src="static/img/plus.png" alt=""></div>
+
       <div class="description" v-bind:class="(showDescription==9)?'on':''">
         <div class="text" v-lang.descriptionText="{FM: rezultData.FM, coment: getComent, ideal: getIdeal}"></div>
       </div>
       <div class="progress_bar1" v-on:click="start">
+        <div class="plus" v-on:click="$emit('onDescription','9')"><img src="static/img/plus.png" alt=""></div>
         <img src="static/img/cursor_1.png" alt="" class="cursor"
              v-bind:style="{ left: FMPDeg + '%' }">
         <div class="opacity_cursor" v-bind:style="{ width: FMPDegOp + '%' }">

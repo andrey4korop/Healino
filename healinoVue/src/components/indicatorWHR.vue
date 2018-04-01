@@ -4,11 +4,12 @@
       <p>Waist to Hip</p><p> Ratio</p>
     </div>
     <div class="indicator indicatorWHR">
-      <div class="plus" v-on:click="$emit('onDescription','6')"><img src="static/img/plus.png" alt=""></div>
+
       <div class="description" v-bind:class="(showDescription==6)?'on':''">
         <div class="text" v-lang.descriptionText="{WHR: rezultData.WHRatio, coment: getComent}"></div>
       </div>
       <div class="progress_bar6">
+        <div class="plus" v-on:click="$emit('onDescription','6')"><img src="static/img/plus.png" alt=""></div>
         <div class="sometext">
           <div class="txt">
             <p>Excellent</p>

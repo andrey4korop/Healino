@@ -476,7 +476,7 @@
                 else {
                     date = new Date();
                 }
-                return date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2)
+                return ('0' + date.getDate()).slice(-2) +'/'+ ('0' + (date.getMonth() + 1)).slice(-2) +'/'+  date.getFullYear();
             },
             changeMetrics:function (metrics) {
                 this.PersonMeasurementSystem = metrics;
@@ -531,5 +531,17 @@
 </script>
 
 <style>
+  .music_btn{
+    width: 30px;
+    height: 30px;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+  }
+  @media screen and (max-width: 760px) {
+    .firstPageContainer .row, .roww {
+      margin: 5px 0;
+    }
 
+  }
 </style>

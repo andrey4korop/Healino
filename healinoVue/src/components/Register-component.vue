@@ -69,7 +69,7 @@
     </div>
     <div class="row sm">
       <div class="firstPage">
-        <button v-on:click.prevent="send" v-lang.login></button>>
+        <button v-on:click.prevent="send" v-lang.login></button>
       </div>
     </div>
     <div class="music_btn" v-on:click="$emit('audio')">
@@ -383,5 +383,18 @@
     position: fixed;
     bottom: 10px;
     right: 10px;
+  }
+  @media screen and (max-width: 960px) {
+    .login {
+      width: calc(51.66667% - 5px);
+    }
+  }
+  @media screen and (max-width: 760px) {
+    .login {
+      width: calc(87.5% - 5px);
+    }
+    .login .btn_social, .login .g-signin-button{
+      font-size: 13px;
+    }
   }
 </style>

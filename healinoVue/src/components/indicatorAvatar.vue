@@ -161,9 +161,10 @@ export default {
     width: 11.5vw;
     height: 11.5vw;
     background: url(/static/img/indiator_7.png) center center / cover;
-    margin: 2vw;
+    margin: 3vw 0 1.5vw 0;
     border-radius: 50%;
     transition: all 0.1s linear;
+    display: flex;
   }
   .avatar_scale .cursor{
     position: absolute;
@@ -182,10 +183,9 @@ export default {
     background-size: cover;
   }
   .avatar {
-    width: 10vw;
-    height: 10vw;
-    margin: 0.7vw;
-    border-radius: 500px;
+    margin: auto;
+    width: 85%;
+    height: 85%;
   }
   .description{
     background: rgba(255,255,255,0.5);
@@ -233,15 +233,15 @@ export default {
   }
   h1{
     position: absolute;
-    top: -1.5vw;
-    width: 100%;
+    bottom: 105%;
+    left: -10vw;
+    right: -10vw;
     text-align: center;
     font-size: 14px;
   }
-  @media screen and (max-width: 780px){
+  @media screen and (max-width: 760px){
     h1 {
-      top: -4vw;
-      font-size: 2.5vw;
+      font-size: 2vw;
     }
   }
 </style>

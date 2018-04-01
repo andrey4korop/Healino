@@ -104,7 +104,7 @@ export default {
     background: url(/static/img/indicator_red.png) center center/cover no-repeat;
     position: relative;
   }
-  .progress_bar2:hover{
+  .progress_bar2:hover, .plus:hover~.row_indicator .progress_bar2{
     box-shadow: 0 0 35px rgba(255, 255, 255, 1), inset 0 0 60px rgba(255, 255, 255, 0.5);
   }
   .opacity_cursor{

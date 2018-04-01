@@ -5,12 +5,12 @@
       <p>Calories Burned</p>
     </div>
     <div class="indicator DaylyCallorie">
-      <div class="plus" v-on:click="$emit('onDescription','2')"><img src="static/img/plus.png" alt=""></div>
       <div class="description" v-bind:class="(showDescription==2)?'on':''">
         <div class="text"v-lang.descriptionText="{Calorie_Counting: rezultData.DaylyCallorie, Calorie_CountingM: rezultData.DaylyCallorie-500, Calorie_CountingP: rezultData.DaylyCallorie+500,}">
         </div>
       </div>
       <div class="progress_bar3" v-on:click="start">
+        <div class="plus" v-on:click="$emit('onDescription','2')"><img src="static/img/plus.png" alt=""></div>
         <div class="cursor" v-bind:style="{ transform: 'rotate(' + CallorieDeg + 'deg)' }"></div>
         <div class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + CallorieDegOp + 'deg)' }"></div>
         <div class="text_indicator">
