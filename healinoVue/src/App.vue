@@ -52,6 +52,7 @@
                     :userData="userData"
                     @audio="audio"
                     :audio_p="audio_p"
+                    @changeAva="changeAvatar"
                     @toTheme="toTheme"></user-component>
     <theme-component v-if="state == 'theme'"
                      :SessionData="SessionData"
@@ -352,6 +353,9 @@ export default {
         },
         changeActiveTheme(obj){
           this.themeActiveObj = obj;
+        },
+        changeAvatar(img){
+            this.userData.PhotoUrl = img;
         },
         bodyToken(token){
             return {

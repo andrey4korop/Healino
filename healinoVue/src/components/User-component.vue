@@ -310,12 +310,12 @@
                 metric: 'Метрика',
                 height: 'Рост',
                 cm: 'см',
-                ft: 'футов',
-                inn: 'дюймов',
+                ft: 'фу',
+                inn: 'дю',
                 weight: 'Вес',
                 kg: 'кг',
-                lb: 'фунтов',
-                oz: 'унций',
+                lb: 'фу',
+                oz: 'ун',
                 activity: 'Уровень активности',
                 gender: 'Пол',
                 male: 'Мужской',
@@ -333,12 +333,12 @@
                 metric: 'Metryki',
                 height: 'Wzrost',
                 cm: 'cm',
-                ft: 'stóp',
-                inn: 'cali',
+                ft: 'st',
+                inn: 'ca',
                 weight: 'Waga',
                 kg: 'kg',
-                lb: 'funt',
-                oz: 'uncje',
+                lb: 'fu',
+                oz: 'un',
                 activity: 'Poziom aktywności ',
                 gender: 'płeć',
                 male: 'męska',
@@ -458,6 +458,7 @@
                 var reader = new FileReader();
                 reader.onloadend = function() {
                     t.img = reader.result;
+                    t.$emit('changeAva', t.img);
                     $.post( '/api/Image/UploadImage',  {
                         SessionData: t.SessionData,
                         ImageData: reader.result
