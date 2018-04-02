@@ -1,11 +1,12 @@
 <template>
   <div class="mini_indicator mini_indicator4"  v-on:click="start">
     <div class="progress_bar2">
+      <img src="/static/img/indicator_green.png" alt="">
       <div class="color" v-bind:style="{background:color[colorId]}"></div>
       <div class="cursor"
            v-bind:style="{ transform: 'rotate(' + RASCVDDeg + 'deg)' }"></div>
       <div class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + RASCVDDegOp + 'deg)' }"></div>
-      <div class="text_indicatition">
+      <div class="text_indicator">
       <p class="big">{{animateVal}}%</p>
       <p>whole life</p>
       </div>
@@ -101,7 +102,7 @@ export default {
   .progress_bar2{
     border-radius: 50%;
     transition: all 0.1s linear;
-    background: url(/static/img/indicator_green.png) center center/cover no-repeat;
+    /*background: url(/static/img/indicator_green.png) center center/cover no-repeat;*/
     position: relative;
   }
   .progress_bar2:hover, .plus:hover~.row_indicator .progress_bar2{

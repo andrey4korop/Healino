@@ -1,7 +1,7 @@
 <template>
     <div class="bg"
+        v-if="!toHide"
 
-         v-bind:class="(toHide)?'hide':''"
          v-bind:style="{background: 'url('+ urlImg +') center center / cover', left: Xbg + '%', top: Ybg + '%', transform: 'rotate(' + rotDeg + 'deg)' }">
 
     </div>
@@ -17,8 +17,14 @@ export default {
             toHide:false,
         }},
 
-    methods:{
-
+    watch:{
+        bgCurrent:function () {
+            if(this.Xbg<-100 || this.Xbg>200 ){
+                this.toHide = true;
+            }else{
+                this.toHide = false;
+            }
+        }
     },
   created: function() {
 
@@ -67,6 +73,7 @@ export default {
       height: 50vmax;
       width: 50vmax;
       /*filter: blur(10px);*/
+      transition: all 1.4s linear;
   }
   .medium{
       height: 390px;
@@ -76,6 +83,7 @@ export default {
       height: 30vmax;
       width: 30vmax;
      /* filter: blur(4px);*/
+      transition: all 2s linear;
   }
   .small{
       height: 200px;
@@ -84,10 +92,11 @@ export default {
       width: 15vw;
       height: 15vmax;
       width: 15vmax;
+      transition: all 2.6s linear;
   }
   .bg{
       position: fixed;
-      transition: all 2s cubic-bezier(.76,0,.5,1);
+      /*transition: all 2s cubic-bezier(.76,0,.5,1);*/
   }
 .hide{
     display: none;

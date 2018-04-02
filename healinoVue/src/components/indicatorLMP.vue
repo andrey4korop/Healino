@@ -11,9 +11,10 @@
         </div>
       </div>
       <div class="progress_bar5">
+        <img src="/static/img/indicator_5.png" alt="">
         <div class="plus" v-on:click="$emit('onDescription','7')"><img src="static/img/plus.png" alt=""></div>
         <div class="opacity" v-bind:style="{ height: LMPPresent + '%' }"></div>
-        <div class="cursor">
+        <div class="cursor" v-bind:style="{ top: 'calc(' + LMPPresent + '% - 6px' }">
           <img src="static/img/cursor_4.png" alt="">
           <div>
             <p class="big">{{animateVal}}%</p>
@@ -132,7 +133,7 @@ export default {
                 .interpolation( TWEEN.Interpolation.Linear)
                 .to({ tweeningNumber: this.valArray }, 2000)
                 .onUpdate(function () {
-                    t.animateVal = Math.round(parseFloat(this.tweeningNumber)*100)/100;
+                    t.animateVal = Math.round(parseFloat(this.tweeningNumber)*10)/10;
                 })
                 .delay(200)
                 .start();
@@ -183,15 +184,6 @@ export default {
   .progress_bar5:hover{
     box-shadow: 0 0 20px rgba(255, 255, 255, 1), inset 0 0 40px rgba(255, 255, 255, 0.7)
   }
-  @media screen and (max-width: 780px){
-    .plus {
-      width: 30%;
-      height: 16%;
-      bottom: -57%;
-      right: 38%;
-      top: unset;
-    }
-  }
   .description{
     background: rgba(255,255,255,0.5);
     position: absolute;
@@ -210,31 +202,8 @@ export default {
     opacity: 1;
   }
   .description .text{
-    max-height: 150px;
-    overflow-x: hidden;
-    overflow-y: auto;
     padding: 3px;
     background: rgba(255,255,255,1);
     color: #585858;
-    scrollbar-base-color: rgba(109,207,77,1);
-    scrollbar-3dlight-color:rgba(109,207,77,1);
-    scrollbar-highlight-color: rgba(109,207,77,1);
-    scrollbar-track-color: rgba(109,207,77,0.5);
-    scrollbar-arrow-color: rgba(109,207,77,0.5);
-    scrollbar-shadow-color: rgba(109,207,77,1);
   }
-  .description .text::-webkit-scrollbar {
-    width: 5px;
-    background: rgba(109,207,77,0.5);
-    border-radius: 3px;
-    height: 90%;
-  }
-
-  .description .text::-webkit-scrollbar-thumb {
-    background: rgb(109,207,77);
-    border-radius: 3px;
-    width: 5px;
-    height: 90%;
-  }
-
 </style>

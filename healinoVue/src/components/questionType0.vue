@@ -1,7 +1,7 @@
 <template>
   <div class="questionBlock type1" v-if="!questionData.ImageUrl">
     <h1>{{questionData.QText}}</h1>
-    <div class="row">
+    <div class="row" v-bind:class="(needMargin)? 'varyNeedMar':''">
       <label  v-if="questionData.AnswerOptions.length>0" >
 
         <div class="selectBlock"
@@ -82,6 +82,9 @@ export default {
             AnswerText:""
     }},
     computed:{
+        needMargin:function () {
+            return this.showSelectId && this.questionData.QuestionTypeEnum!=2
+        },
       newVal:function () {
           
           return {
@@ -182,5 +185,10 @@ option{
   opacity: 0;
   border: none;
   outline: none;
+}
+@media screen and (max-width: 760px) {
+  .varyNeedMar {
+    margin-bottom: 70px !important;
+  }
 }
 </style>

@@ -1,9 +1,10 @@
 <template>
   <div class="mini_indicator mini_indicator1" v-on:click="start">
     <div class="progress_bar2">
+      <img src="/static/img/indicator_3.png" alt="">
       <div class="cursor" v-bind:style="{ transform: 'rotate(' + ChronologicalAgeDeg + 'deg)' }"></div>
       <div class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + ChronologicalAgeDegOp + 'deg)' }"></div>
-      <div class="text_indicatition">
+      <div class="text_indicator">
       <p class="big">{{animateVal}}</p>
       <p>years</p>
       </div>

@@ -10,6 +10,7 @@
         </div>
       </div>
       <div class="progress_bar3" v-on:click="start">
+        <img src="/static/img/indicator_1.png" alt="">
         <div class="plus" v-on:click="$emit('onDescription','2')"><img src="static/img/plus.png" alt=""></div>
         <div class="cursor" v-bind:style="{ transform: 'rotate(' + CallorieDeg + 'deg)' }"></div>
         <div class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + CallorieDegOp + 'deg)' }"></div>
@@ -175,9 +176,6 @@ export default {
   .progress_bar3:hover{
     box-shadow: 0 0 35px rgba(255, 255, 255, 1), inset 0 0 200px rgba(255, 255, 255, 0.5);
   }
-  .text_indicator{
-    font-size: 16px;
-  }
   .description{
     background: rgba(255,255,255,0.5);
     position: absolute;
@@ -192,22 +190,15 @@ export default {
     transition: all 0.5s linear;
   }
   .description.on{
-    z-index: 10;
+    z-index: 15;
     opacity: 1;
   }
   .description .text{
-    max-height: 109px;
     overflow-x: hidden;
     overflow-y: auto;
     padding: 3px;
     background: rgba(255,255,255,1);
     color: #585858;
-    scrollbar-base-color: rgba(109,207,77,1);
-    scrollbar-3dlight-color:rgba(109,207,77,1);
-    scrollbar-highlight-color: rgba(109,207,77,1);
-    scrollbar-track-color: rgba(109,207,77,0.5);
-    scrollbar-arrow-color: rgba(109,207,77,0.5);
-    scrollbar-shadow-color: rgba(109,207,77,1);
   }
   .opacity_cursor{
     position: absolute;
@@ -218,18 +209,5 @@ export default {
     opacity: 0.5;
     background: url("/static/img/indicator_1Cur.png") no-repeat;
     background-size: cover;
-  }
-  .description .text::-webkit-scrollbar {
-    width: 5px;
-    background: rgba(109,207,77,0.5);
-    border-radius: 3px;
-    height: 90%;
-  }
-
-  .description .text::-webkit-scrollbar-thumb {
-    background: rgb(109,207,77);
-    border-radius: 3px;
-    width: 5px;
-    height: 90%;
   }
 </style>

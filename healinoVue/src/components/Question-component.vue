@@ -24,7 +24,7 @@
         <div v-bind:style="{background: 'url(' + userIMG + ') center center / cover' }" class="user_Avatar" ></div>
       </div>
     </div>
-    <div class="row sm" style="position: fixed; top: 100px;">
+    <div class="row sm">
       <div id="grad1" class="progressBarTheme">
 
         <img src="static/img/kl.png" alt="" id="hren">
@@ -32,7 +32,7 @@
         <div class="white" v-bind:style="{width: per + '%'}"></div>
       </div>
     </div>
-    <div class="row">
+    <div class="row ques">
       <div class="content col">
         <div id="grad1" class="progressBarTheme pc">
           <img src="static/img/kl.png" alt="" id="hren">
@@ -72,17 +72,9 @@
         props: ['SessionData', 'questionData', 'userData', 'lang', 'errorQuest', 'audio_p'],
         data () {
             return {
-
-
-                //UserThemeTestId: 0,
-                //QuestionId: 0,
                 AnswersId:"",
                 AnswerValue: "",
                 Type:-1,
-                //SessionData: "string",
-                //IpAddress: "string",
-                //Localization: "string"
-
             }
         },
         messages: {
@@ -137,7 +129,6 @@
 
             },
             userIMG: function () {
-
                 if(this.userData.PhotoUrl){
                     return this.userData.PhotoUrl;
                 }
@@ -187,12 +178,9 @@
               if(!error){
                   this.$emit('nextQuestion', this.body);
               }
-
             },
             prevQuestion(){
                 this.$emit('prevQuestion');
-
-
             }
         }
     }
@@ -203,5 +191,17 @@
     width: 30px;
     height: 27px;
     margin-left: 10px;
+  }
+  .row.sm{
+    position: unset;
+    top: 100px;
+    margin-bottom: 20px;
+    margin-top: 80px;
+  }
+  .themesPageContainer{
+    justify-content: flex-start;
+  }
+  .ques{
+    margin: auto;
   }
 </style>

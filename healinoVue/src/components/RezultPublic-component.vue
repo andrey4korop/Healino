@@ -15,7 +15,7 @@
                  v-bind:style="{background: 'url(' + rezultData.TestImageUrl + ') center center / cover' }" alt=""></div>
           </div>
         </div>
-        <div class="center" v-bind:style="{background: 'url(/static/img/'+gender+') top center no-repeat'}">
+        <div class="center" v-bind:style="{background: 'url(/static/img/'+gender+') top center / contain no-repeat'}">
           <indicator2 :rezultData="rezultData"
                       :showDescription="showDescription"
                       @onDescription="onDescription"></indicator2>
@@ -37,7 +37,7 @@
               <div class="row_indicator">
                 <indicator-real-age :rezultData="rezultData"></indicator-real-age>
               </div>
-              <div class="row_indicator">
+              <div class="row_indicator rowt">
                 <div class="title_indicator">
                   <p class="age">Biological age</p>
                 </div>
@@ -58,7 +58,7 @@
             </div>
           </div>
           <div class="indicators">
-            <div class="title_indicator">
+            <div class="title_indicator title_indicatorCVD">
               <p class="cvd">Risks of atherosclerotic cardiovascular disease (RACVD)</p>
             </div>
             <div class="indicator">
@@ -361,7 +361,22 @@
             this.img = this.rezultData.UserPhotoUrl || '../static/img/noIMG.png';
 			this.gender = "body"+this.rezultData.BMIScale[0].Gender+".png";
         },
+        mounted() {
+            this.$nextTick(function() {
+                window.addEventListener('resize', this.getWindowWidth);
+                window.addEventListener('resize', this.getWindowHeight);
+
+                //Init
+                this.getWindowWidth()
+            })
+        },
+        beforeDestroy() {
+            window.removeEventListener('resize', this.getWindowWidth);
+        },
         methods:{
+            getWindowWidth(event) {
+                this.width = document.documentElement.clientWidth;
+            },
             share(){
                 FB.ui({
                     method: 'share',
@@ -385,8 +400,8 @@
     cursor: default;
   }
   div.center > div:nth-child(3) > div.indicator > div.plus{
-    width: 15%;
-    height: 15%;
+    width:20px;
+    height: 20px;
     position: absolute;
     top: 0;
     left: 0;
@@ -402,7 +417,7 @@
     }
   }
   div.center > div:nth-child(3) > div.indicator > div.plus:hover{
-    filter: blur(0.8px);
+
     box-shadow: 0 0 10px rgba(255, 255, 255, 1), inset 0 0 10px rgba(255, 255, 255, 1);
   }
   div.indicator{
@@ -422,12 +437,12 @@
     transition: all 0.5s linear;
   }
   div.center > div:nth-child(3) .description.on{
-    z-index: 10;
+    z-index: 15;
     opacity: 1;
   }
   div.center > div:nth-child(4) > div.indicator > div.plus{
-    width: 15%;
-    height: 34%;
+    width:20px;
+    height: 20px;
     position: absolute;
     bottom: 105%;
     right: 0;
@@ -435,7 +450,7 @@
     z-index: 1;
   }
   div.center > div:nth-child(4) > div.indicator > div.plus:hover{
-    filter: blur(0.8px);
+
     box-shadow: 0 0 10px rgba(255, 255, 255, 1), inset 0 0 10px rgba(255, 255, 255, 1);
   }
   div.center > div:nth-child(4) .description{
@@ -453,11 +468,10 @@
     transition: all 0.5s linear;
   }
   div.center > div:nth-child(4) .description.on{
-    z-index: 10;
+    z-index: 15;
     opacity: 1;
   }
   .description .text{
-    max-height: 109px;
     overflow-x: hidden;
     overflow-y: auto;
     padding: 3px;
@@ -473,5 +487,29 @@
     position: fixed;
     bottom: 10px;
     right: 10px;
+  }
+  .indicator:hover .plus{
+    animation: anima 2s infinite ease-in-out;
+  }
+  @keyframes anima {
+    from {box-shadow: unset;}
+    50% { box-shadow: 0 0px 20px rgba(255, 255, 255, 1), inset 0 0 80px rgba(255, 255, 255, 0.5)}
+    to {box-shadow: unset;}
+  }
+  .rowt .title_indicator{
+    left: 0;
+    width: 45%;
+  }
+  .rowt{
+    position: relative;
+    left: -15%;
+    right: -15%;
+    width: 130%;
+    justify-content: space-evenly!important;
+  }
+  .container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 </style>

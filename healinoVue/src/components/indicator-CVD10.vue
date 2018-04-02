@@ -1,11 +1,12 @@
 <template>
   <div class="mini_indicator mini_indicator6" v-on:click="start">
     <div class="progress_bar2">
+      <img src="/static/img/indicator_green.png" alt="">
       <div class="color" v-bind:style="{background:color[colorId]}"></div>
       <div class="cursor"
            v-bind:style="{ transform: 'rotate(' + TenYearsASCVDDeg + 'deg)' }"></div>
       <div class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + TenYearsASCVDDegOp + 'deg)' }"></div>
-      <div class="text_indicatition">
+      <div class="text_indicator">
       <p class="big">{{animateVal}}%</p>
       <p>10 years</p>
       </div>

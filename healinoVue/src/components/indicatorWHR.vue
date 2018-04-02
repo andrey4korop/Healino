@@ -9,6 +9,7 @@
         <div class="text" v-lang.descriptionText="{WHR: rezultData.WHRatio, coment: getComent}"></div>
       </div>
       <div class="progress_bar6">
+        <img src="/static/img/indicator_4.png" alt="">
         <div class="plus" v-on:click="$emit('onDescription','6')"><img src="static/img/plus.png" alt=""></div>
         <div class="sometext">
           <div class="txt">
@@ -21,7 +22,7 @@
           </div>
         </div>
         <div class="opacity" v-bind:style="{ height: WHRPresent + '%' }"></div>
-        <div class="cursor">
+        <div class="cursor" v-bind:style="{ top: 'calc(' + WHRPresent + '% - 6px' }">
           <img src="static/img/cursor_4.png" alt="">
           <div>
             <p class="big">{{animateVal}}</p>
@@ -160,7 +161,7 @@ export default {
     width: 30%;
     height: 10%;
     position: absolute;
-    bottom: -12%;
+    top: 102%;
     right: 32%;
     border-radius: 50%;
     z-index: 1;
@@ -178,15 +179,7 @@ export default {
   .progress_bar6:hover{
     box-shadow: 0 0 20px rgba(255, 255, 255, 1), inset 0 0 40px rgba(255, 255, 255, 0.7)
   }
-  @media screen and (max-width: 780px){
-    .plus {
-      width: 30%;
-      height: 16%;
-      bottom: -57%;
-      right: 38%;
-      top: unset;
-    }
-  }
+
   .description{
     background: rgba(255,255,255,0.5);
     position: absolute;

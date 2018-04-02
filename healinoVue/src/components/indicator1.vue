@@ -230,7 +230,7 @@ export default {
     background: rgba(255,255,255,0.5);
     position: absolute;
     left: 100%;
-    bottom: 104%;
+    bottom: 140%;
     width: 22vw;
     text-align: left;
     border-radius: 15px 15px 15px 0;
@@ -244,7 +244,6 @@ export default {
     opacity: 1;
   }
   .description .text{
-    max-height: 109px;
     overflow-x: hidden;
     overflow-y: auto;
     padding: 3px;
@@ -281,7 +280,7 @@ export default {
     background: url("/static/img/indicator_6Cur.png") no-repeat;
     background-size: cover;
   }
-  @media screen and (max-width: 780px){
+  @media screen and (max-width: 760px){
     .opacity_cursor2, .opacity_cursor{
       top:0;
       height: 5.7vw;
