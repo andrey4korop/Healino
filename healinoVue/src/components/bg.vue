@@ -2,7 +2,7 @@
     <div class="bg"
         v-if="!toHide"
 
-         v-bind:style="{background: 'url('+ urlImg +') center center / cover', left: Xbg + '%', top: Ybg + '%', transform: 'rotate(' + rotDeg + 'deg)' }">
+         v-bind:style="{background: 'url('+ urlImg +') center center / cover', left: Xbg + '%', top: Ybg + '%' }">
 
     </div>
 </template>
@@ -33,7 +33,7 @@ export default {
     computed: {
 
         Xbg: function () {
-            let h = this.posBG.x + ( this.posMouse.x / document.body.clientWidth * Math.abs(this.Kof.x) *200) + (Math.abs(this.Kof.x) * this.random.x)+ ( Math.abs(this.Kof.x) * 2000 * -this.bgCurrent);
+            let h = this.posBG.x + ( this.posMouse.x / document.body.clientWidth * Math.abs(this.Kof.x) *200) + ( Math.abs(this.Kof.x) * 2000 * -this.bgCurrent);
 
             h = h % 700;
             if(h<-200){
@@ -47,10 +47,10 @@ export default {
             return h;
         },
         Ybg: function () {
-            return this.posBG.y + ( this.posMouse.y / document.body.clientHeight * Math.abs(this.Kof.y) *100)+ (Math.abs(this.Kof.y) * this.random.y);
+            return this.posBG.y + ( this.posMouse.y / document.body.clientHeight * Math.abs(this.Kof.y) *100);
         },
         rotDeg: function () {
-            return (this.posMouse.y + this.posMouse.x) * this.constKof - this.random.x*this.constKof*3;
+            return (this.posMouse.y + this.posMouse.x) * this.constKof;
         },
         constKof:function () {
             if(this.Kof.x>0) {
@@ -73,7 +73,8 @@ export default {
       height: 50vmax;
       width: 50vmax;
       /*filter: blur(10px);*/
-      transition: all 1.4s linear;
+      transition: all 3s linear;
+      animation: animationBGBig 30s linear infinite normal;
   }
   .medium{
       height: 390px;
@@ -83,7 +84,8 @@ export default {
       height: 30vmax;
       width: 30vmax;
      /* filter: blur(4px);*/
-      transition: all 2s linear;
+      transition: all 5s linear;
+      animation: animationBGMedium 15s linear infinite normal;
   }
   .small{
       height: 200px;
@@ -92,7 +94,8 @@ export default {
       width: 15vw;
       height: 15vmax;
       width: 15vmax;
-      transition: all 2.6s linear;
+      transition: all 8s linear;
+      animation: animationBGSmall 10s linear infinite normal;
   }
   .bg{
       position: fixed;

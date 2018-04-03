@@ -413,14 +413,25 @@ export default {
     background: url("/static/img/bg3.jpg");
     background-repeat: repeat-x;
     position: fixed;
-    width: 100%;
-    height: 100%;
+    width: 150%;
+    height: 150%;
    transition: all 2s cubic-bezier(.76,0,.5,1);
     transition-delay: 0s;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    animation: animationBGSmall 5s ease-out infinite normal;
   }
-
+@keyframes animationBGSmall {  
+    from {
+        background-position-y: -2.8vw;
+    }
+    50%{
+        background-position-y: 0vw;
+    }
+    to {
+        background-position-y: -2.8vw;
+    }
+}
 </style>
