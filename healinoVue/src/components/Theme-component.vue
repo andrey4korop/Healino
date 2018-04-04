@@ -28,14 +28,17 @@
       <div class="content">
         <div class="mar">
           <div class="themes">
-
+            <!--v-bind:style="{background: 'url(' + list.ImageUrl + ') center center / cover' }"-->
             <div class="theme" v-for="list in List"
                  v-on:click.prevent="changeActive(list)"
-                 v-bind:style="{background: 'url(' + list.ImageUrl + ') center center / cover' }"
+
                  v-bind:class="[(list.ThemeStatus=='3') ? 'disable' : '', (list.QuestionsTotal==list.QuestionsFinished) ? 'check' : '', (isActive(list.Id)) ? 'active' : '' ]" >
+              <img src="static/img/theme.png" alt="">
+
               <div class="filter" v-on:click="changeActive(list)">
-                <img src="static/img/mark.png" alt="">
-                <button v-on:click.prevent="getRezult(list)"  v-lang.rezult></button>
+
+                <img src="static/img/theme_finish.png" alt="">
+               <!-- <button v-on:click.prevent="getRezult(list)"  v-lang.rezult></button>-->
               </div>
             </div>
 
@@ -61,13 +64,13 @@
 
 <script>
     export default {
-        props: ['SessionData', 'List', 'userData', 'lang', 'audio_p'],
+        props: ['SessionData', /*'List', */'userData', 'lang', 'audio_p'],
         data () {
             return {
                 activeId:0,
                 Description:"",
                 Title:"",
-
+                List:[{"Id":3,"QuestionsFinished":3,"QuestionsTotal":3,"Title":"Общее состояния здоровья\r\n","ImageUrl":"http://img2.ntv.ru/home/schedule/2016/20160305/ed.jpg","Description":"\"Тест предназначен для самооценки состояния здоровья, напоминания о необходимости правильного образа жизни, снижения устранимых факторов риска или незамедлительного обращения к врачу. \nНаш организм самоисцеляется, и степень самоисцеления связана с характером питания и особенностями образа жизни, которые играют большую роль на протяжении всей его жизни. \nКаждый из нас в состоянии полностью контролировать устранимые факторы риска самостоятельно и управлять ими. К ним относят физическую нагрузку и упражнения, правильное питание, контроль за весом тела, отказ от курения и потребления алкоголя, стресс, повышенное давление, уровень холестерина и триглицеридов, диабет.\"\t\t\t\t\t\t\t\t\t\r\n","ThemeStatus":0},{"Id":2,"QuestionsFinished":0,"QuestionsTotal":23,"Title":"Реальный возраст\r\n","ImageUrl":"http://img2.ntv.ru/home/schedule/2016/20160305/ed.jpg","Description":"\"Тест предназначен для определения ментального и биологического  возраста.\nСравнените возрасты  с хронологическим возрастом\"\t\t\t\t\t\t\t\t\t\r\n","ThemeStatus":0},{"Id":1,"QuestionsFinished":0,"QuestionsTotal":6,"Title":"Риск возникновения атеросклеротического сердечно-сосудистого заболевания\r\n","ImageUrl":"http://img2.ntv.ru/home/schedule/2016/20160305/ed.jpg","Description":"\"Тест предназначен для оценки риска возникновения сердечно-сосудистого заболевания.\nПри этом горизонт риска - вся жизнь и ближайшие 10 лет\"\t\t\t\t\t\t\t\t\t\r\n","ThemeStatus":3}],
             }
         },
         watch:{
