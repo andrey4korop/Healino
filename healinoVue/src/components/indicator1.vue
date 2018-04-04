@@ -9,6 +9,7 @@
         <div class="text" v-lang.descriptionText="{FM: rezultData.FM, coment: getComent, ideal: getIdeal}"></div>
       </div>
       <div class="progress_bar1" v-on:click="start">
+        <img src="static/img/indicator_6.png" alt="">
         <div class="plus" v-on:click="$emit('onDescription','9')"><img src="static/img/plus.png" alt=""></div>
         <img src="static/img/cursor_1.png" alt="" class="cursor"
              v-bind:style="{ left: FMPDeg + '%' }">
@@ -210,7 +211,6 @@ export default {
     margin-top: 16px;
     border-radius: 10%;
     transition: all 0.1s linear;
-    height: 31px;
     /*background-position-y: -12px;*/
     position: relative;
   }
@@ -221,7 +221,7 @@ export default {
     top: -11px
   }
   .percent{
-    top: -42px
+    top: -17px
   }
   .progress_bar1 .shkala-1, .progress_bar1 .shkala-2, .progress_bar1 .shkala-3 {
     bottom: 0;

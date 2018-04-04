@@ -180,10 +180,10 @@ export default {
     background: rgba(255,255,255,0.5);
     position: absolute;
     right: 112%;
-    bottom: 104%;
+    top: 0%;
     width: 22vw;
     text-align: left;
-    border-radius: 15px 15px 0 15px;
+    border-radius: 15px 0 15px 15px;
     padding: 15px;
     z-index: -10;
     opacity: 0;

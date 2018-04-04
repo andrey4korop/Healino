@@ -225,4 +225,11 @@ export default {
       font-size: 2vw;
     }
   }
+  @media screen and (max-height: 768px), (orientation: landscape){
+    .avatar_scale{
+      width: 6.5vw;
+      height: 6.5vw;
+      margin: 2vw 0 0.5vw 0;
+    }
+  }
 </style>

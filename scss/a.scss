@@ -474,7 +474,7 @@ html,body{
   .Metrics{
     display: flex;
     @include size(15);
-    background: #f3efef;
+
     color: #555555;
     justify-content: center;
     text-align: center;
@@ -488,17 +488,18 @@ html,body{
       border: 1px solid #a5a2a2;
       box-sizing: border-box;
       padding: 13px 0;
+      background: #f3efef;
       @include sm(padding, 9px 0);
       &.active{
         background: #60b23d;
         color: #fff;
         border: 1px solid #599939;
       }
-      &:nth-child(1){
+      &:first-child{
         border-top-left-radius: 4px;
         border-bottom-left-radius: 4px;
       }
-      &:nth-child(2){
+      &:last-child{
         border-top-right-radius: 4px;
         border-bottom-right-radius: 4px;
       }
@@ -511,8 +512,9 @@ html,body{
     select, option {
 
       padding: 0 15px;
-      @include sm(padding, 2px 15px);
+      @include sm(padding, 3px 15px);
       @include sm(margin-bottom, 5px);
+      @include sm(height,unset);
       margin-top: 7px;
       &:focus, &:hover {
         outline: none;
@@ -758,6 +760,7 @@ html,body{
   display: flex;
   align-items: center;
   @include size(6);
+  justify-content: center;
   .theme{
     border-radius: 15px;
     background-color: rgba(255, 255, 255, 0.851);
@@ -784,6 +787,9 @@ html,body{
     @include size(10);
     .title_indicator{
       text-align: center;
+      width: 150%;
+      left: -25%;
+      position: relative;
     }
   }
 }
@@ -867,7 +873,7 @@ html,body{
   }
 }
 .bottom{
-  width: 477px;
+  @include size(12);
   .indicators{
     margin: 20px 0;
     //@include md(margin,0 0 20px);
@@ -884,15 +890,15 @@ html,body{
   .share{
     //@include size(11);
     //@include size-sm(14);
-    height: 45px;
+    //height: 45px;
     border-radius: 25px;
     background: #7fcf77;
-    padding: 0 40px;
+    padding: 8px 40px;
     border: none;
     color: rgba(0,0,0,0.5);
     font-size: 18px;
     box-shadow:0 3px 20px 1px rgba(0, 0, 0, 0.3);
-    margin-bottom: 10%;
+    margin-bottom: 1%;
     &:focus, &:hover{
       outline: none;
       color: #fff;
@@ -907,22 +913,26 @@ html,body{
   }
 }
 .progress_bar1{
-  background: url("../img/indicator_6.png") no-repeat center center;
-  background-size: 100%;
+ // background: url("../img/indicator_6.png") no-repeat center center;
+  //background-size: 100%;
   width: 100%;
-  height: 40px;
+  //height: 40px;
   text-align: left;
   margin: 0 auto;
+  img{
+    display: block;
+  }
   .cursor{
-    position: relative;
+    position: absolute;
     left: 0;
     margin-left: -7px;
   }
   .percent{
-    position: relative;
+    position: absolute;
     left: 0;
-    top: -31px;
+    top: -17px;
     font-size: 10px;
+    margin-left: 10px;
   }
   .shkala-1,.shkala-2,.shkala-3{
     position: relative;
@@ -1081,6 +1091,7 @@ html,body{
   .content{
     width: 100%;
     background: rgba(250, 247, 247, 0.8);
+    @include size-md(22);
     @include sm(background, none);
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
@@ -1583,6 +1594,7 @@ html,body{
     justify-content: space-around;
     @include sm(margin-bottom, 0%);
     button{
+      outline: none;
       height: 45px;
       border-radius: 25px;
       margin: 20px;
@@ -1655,7 +1667,6 @@ html,body{
       top: 9vw;
       right: 16vw;
       width: 26vw;
-      height: 26vw;
       .indicators {
         width: 100%;
         height: 100%;
@@ -1779,7 +1790,7 @@ html,body{
       top: 70vw;
       right: 15vw;
       width: 32vw;
-      height: 29vw;
+      //height: 29vw;
       .indicators {
         width: 100%;
         height: 100%;
@@ -1848,7 +1859,7 @@ html,body{
       top: 112vw;
       left: 8vw;
       width: 86vw;
-      height: 29vw;
+      //height: 29vw;
       .indicators {
         width: 100%;
         height: 10vw;
@@ -1887,7 +1898,7 @@ html,body{
             top: -38%
           }
           .percent{
-            top: -8.5vw;
+            top: -3.5vw;
           }
         }
       }
@@ -2065,16 +2076,17 @@ html,body{
       text-align: left;
       margin: 0 auto;
       .cursor {
-        position: relative;
+        position: absolute;
         left: 0;
         margin-left: -7px;
+        transform: translateX(-7px);
         height: 8vw;
       }
       .percent {
-        position: relative;
+        position: absolute;
         left: 0;
-        top: -6vw;
-        font-size: 2.8vw;
+        top: -3.5vw;
+        font-size: 2.5vw;
       }
       .shkala-1, .shkala-2, .shkala-3 {
         position: relative;
@@ -2207,16 +2219,16 @@ div.p{
     25%{
       margin-top: -7%;
       margin-left: 5%;
-      transform: rotate(-10deg);
+      transform: rotate(-15deg);
     }
     50%{
-    transform: rotate(-20deg);
+    transform: rotate(-40deg);
       margin-top: 0%;
       margin-left: 0%;
       
     }
     75%{
-      transform: rotate(-10deg);
+      transform: rotate(-15deg);
       margin-top: -7%;
       margin-left: -5%;
     }
@@ -2237,15 +2249,15 @@ div.p{
     25%{
       margin-top: -3%;
       margin-left: 3%;
-  transform: rotate(10deg);
+  transform: rotate(15deg);
     }
     50%{
-      transform: rotate(20deg);
+      transform: rotate(40deg);
       margin-top: 0%;
       margin-left: 0%;
     }
     75%{
-      transform: rotate(10deg);
+      transform: rotate(15deg);
       margin-top: -3%;
       margin-left: -3%;
     }
@@ -2267,10 +2279,10 @@ div.p{
     25%{
       margin-top: -2%;
       margin-left: 2%;
-      transform: rotate(-10deg);
+      transform: rotate(-15deg);
     }
     50%{
-      transform: rotate(-20deg);
+      transform: rotate(-40deg);
       margin-top:0%;
       margin-left: 0%;
       
@@ -2278,7 +2290,7 @@ div.p{
     75%{
       margin-top: -2%;
       margin-left: -2%;
-      transform: rotate(-10deg);
+      transform: rotate(-15deg);
     }
     to {
       transform: rotate(0deg);
@@ -2287,3 +2299,23 @@ div.p{
       
     }
   }
+@media screen and (max-height: 768px) and (orientation: landscape){
+  .progress_bar2 p {
+    font-size: 8px;
+  }
+  .progress_bar2 p.big {
+    font-size: 17px;
+    line-height: 17px;
+  }
+  .center .indicators .title_indicator .age{
+    font-size: 10px;
+  }
+  .title_indicator .cvd {
+    font-size: 12px;
+    line-height: 21px;
+  }
+  .center .indicators .info_indicator_top .cvd, .center .indicators .title_indicator .cvd {
+    font-size: 13px;
+    line-height: 21px;
+  }
+}

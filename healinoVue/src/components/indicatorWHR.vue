@@ -92,12 +92,12 @@ export default {
         },
         WHRPresent:function(){
             if(this.animateVal<this.minValue){
-                return  7;
+                return  17;
             }
             if(this.animateVal>this.maxValue){
-                return  93;
+                return  83;
             }
-            return (this.animateVal - this.minValue) * 86 / (this.maxValue - this.minValue) + 7;
+            return (this.animateVal - this.minValue) * 66 / (this.maxValue - this.minValue) + 7;
         },
         getComent:function () {
             if(this.rezultData.WHRatio > this.maxValue){

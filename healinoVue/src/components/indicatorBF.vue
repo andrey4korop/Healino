@@ -8,6 +8,7 @@
         <div class="text" v-lang.descriptionText="{BFP: rezultData.BFP, coment: getComent, ideal: getIdeal}"></div>
       </div>
       <div class="progress_bar1" v-on:click="start">
+        <img src="static/img/indicator_6.png" alt="">
         <div class="plus" v-on:click="$emit('onDescription','8')"><img src="static/img/plus.png" alt=""></div>
         <img src="static/img/cursor_1.png" alt="" class="cursor"
              v-bind:style="{ left: BFPDeg + '%' }">
@@ -209,7 +210,6 @@ export default {
     margin-top: 16px;
     border-radius: 15%;
     transition: all 0.1s linear;
-    height: 31px;
 
     position: relative;
   }
@@ -219,9 +219,7 @@ export default {
   .cursor{
     top: -11px
   }
-  .percent{
-    top: -42px
-  }
+
   .progress_bar1 .shkala-1, .progress_bar1 .shkala-2, .progress_bar1 .shkala-3 {
     bottom: 0;
   }

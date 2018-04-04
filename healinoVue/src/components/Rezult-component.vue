@@ -9,11 +9,14 @@
       </div>
       <div class="row">
         <div class="left">
-          <div class="theme">
+          <!--<div class="theme">
             <p>{{themeActiveObj.Title}}</p>
             <div class="img"
                     v-bind:style="{background: 'url(' + themeActiveObj.ImageUrl + ') center center / cover' }" alt=""></div>
-          </div>
+          </div>-->
+          <indicatorLMP :rezultData="rezultData"
+                        :showDescription="showDescription"
+                        @onDescription="onDescription"></indicatorLMP>
         </div>
         <div class="center" v-bind:style="{background: 'url(/static/img/'+gender+') top center / contain no-repeat'}">
           <indicator2 :rezultData="rezultData"
@@ -84,9 +87,7 @@
             <indicatorWHR :rezultData="rezultData"
                           :showDescription="showDescription"
                           @onDescription="onDescription"></indicatorWHR>
-            <indicatorLMP :rezultData="rezultData"
-                          :showDescription="showDescription"
-                          @onDescription="onDescription"></indicatorLMP>
+
           </div>
         </div>
       </div>
@@ -446,7 +447,7 @@
     height: 20px;
     position: absolute;
     bottom: 105%;
-    right: 0;
+    left: 98%;
     border-radius: 50%;
     z-index: 1;
   }
@@ -457,7 +458,7 @@
   div.center > div:nth-child(4) .description{
     background: rgba(255,255,255,0.5);
     position: absolute;
-    left: 105%;
+    left: 120%;
     bottom: 120%;
 
     width: 22vw;
@@ -481,6 +482,7 @@
   }
   .bottom {
     margin-bottom: 15px;
+    width: calc(51% - 5px);
   }
   .music_btn{
     width: 30px;
@@ -501,6 +503,9 @@
     left: 0;
     width: 45%;
   }
+  .row {
+    margin-top: 0;
+  }
   .rowt{
     position: relative;
     left: -15%;
@@ -512,5 +517,31 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+  }
+  .bottom .indicators{
+    margin: 0 0 15px 0;
+  }
+  .bottom .indicators:nth-child(2){
+    margin: 0;
+  }
+  @media screen and (max-height: 768px) and (orientation: landscape){
+    .row{
+      width: 78%;
+      margin: 0 auto;
+    }
+    .progress_bar2 p {
+      font-size: 8px;
+    }
+    .progress_bar2 p.big {
+      font-size: 17px;
+      line-height: 17px;
+    }
+    .center .indicators .title_indicator .age{
+      font-size: 10px;
+    }
+    .title_indicator .cvd {
+      font-size: 12px;
+      line-height: 21px;
+    }
   }
 </style>

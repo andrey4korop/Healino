@@ -101,7 +101,8 @@
         <div class="Metrics">
           <div class="btn" v-bind:class="[(PersonMeasurementSystem == '0') ? 'active': '']"
                             v-on:click="changeMetrics('0')">{{langString('metric')}}</div>
-          <div class="btn" v-bind:class="[(PersonMeasurementSystem == '1') ? 'active': '']"
+          <div class="btn" v-if="language=='en'"
+               v-bind:class="[(PersonMeasurementSystem == '1') ? 'active': '']"
                             v-on:click="changeMetrics('1')">US</div>
         </div>
         <label v-if="PersonMeasurementSystem == '0'">
@@ -544,5 +545,36 @@
       margin: 5px 0;
     }
 
+  }
+  @media screen and (max-height: 768px) and (orientation: landscape){
+    .formBlock{
+      margin: 0 10px;
+    }
+    .avatar {
+      width: 7vw;
+      height: 7vw;
+      margin-top: 10px;
+      margin-bottom: 0px;
+    }
+    .login label input[type=date], .login label input[type=email], .login label input[type=number], .login label input[type=password], .login label input[type=tel], .login label input[type=text], .login label option, .login label select {
+      width: 100%;
+      height: unset;
+      font-size: 14px;
+      padding: 2% 15px;
+      margin-bottom: 10px;
+      margin-top: 7px;
+    }
+    .login label.pointer2 span, .login label.radio {
+      margin-top: 0px;
+    }
+    .formBlock .Metrics {
+      margin-bottom: 22px;
+    }
+    .formBlock .Metrics .btn {
+      padding: 10px 0;
+    }
+    .login{
+      padding: 30px 0 25px;
+    }
   }
 </style>

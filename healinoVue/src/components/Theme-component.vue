@@ -166,4 +166,7 @@
     height: 27px;
     margin-left: 10px;
   }
+  .row{
+    margin-top: 70px;
+  }
 </style>
