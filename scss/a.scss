@@ -82,7 +82,38 @@ html,body{
       @include sm(margin, 5px);
       @include sm(height, 45px);
       @include sm(width, 45px);
+      position: relative;
+    }
+    .user_Avatar{
+      .margin_op{
+        padding: 15px;
+        background: rgba(255,255,255,0.5);
+        border-radius: 15px;
+        box-sizing: border-box;
+        position: absolute;
+        top: 120%;
+        right: 50%;
+      }
+      ul{
 
+        background: rgba(255,255,255,1);
+        padding: 15px;
+        border-radius: 15px;
+        li{
+          background:#fff;
+          padding: 5px;
+          color: #000000;
+          font-size: 16px;
+          width:150px;
+          text-align: center;
+          border-bottom: 1px solid rgba(124,206, 84, 0.5);
+          box-sizing: border-box;
+
+          &:hover{
+            border-bottom: 2px solid rgba(124,206, 84, 1);
+          }
+        }
+      }
     }
     .lang{
 

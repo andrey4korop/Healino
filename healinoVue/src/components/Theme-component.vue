@@ -21,7 +21,15 @@
             <li v-on:click="$emit('changeLang', 'ru')" v-if="lang!='ru'"><img src="static/img/langUA.png" alt=""></li>
           </ul>
         </div>
-        <div v-bind:style="{background: 'url(' + userIMG + ') center center / cover' }" class="user_Avatar" ></div>
+        <div v-bind:style="{background: 'url(' + userIMG + ') center center / cover' }" class="user_Avatar" >
+          <div class="margin_op">
+          <ul>
+            <li>Edit profile</li>
+            <li>Emails Rezults</li>
+            <li>Exit</li>
+          </ul>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row sm-margin">
