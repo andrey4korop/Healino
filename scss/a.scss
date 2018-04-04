@@ -1439,7 +1439,7 @@ html,body{
 
     display: flex;
 
-    justify-content: space-around;
+    justify-content: flex-start;
     align-content: flex-start;
     align-items: center;
     flex-direction: column;
@@ -1448,7 +1448,7 @@ html,body{
     padding: 0 15px;
     box-sizing: border-box;
     overflow-y: auto;
-   /* &::-webkit-scrollbar {
+    &::-webkit-scrollbar {
       width: 5px;
       background: rgba(109,207,77,0.5);
       border-radius: 3px;
@@ -1466,7 +1466,7 @@ html,body{
     scrollbar-highlight-color: rgba(109,207,77,1);
     scrollbar-track-color: rgba(109,207,77,0.5);
     scrollbar-arrow-color: rgba(109,207,77,0.5);
-    scrollbar-shadow-color: rgba(109,207,77,1);*/
+    scrollbar-shadow-color: rgba(109,207,77,1);
     .theme{
       @include size(12);
       width: 289px;
@@ -1479,12 +1479,14 @@ html,body{
       position: relative;
       background-size: cover;
       cursor: pointer;
-
+      &:last-child{
+        margin: 0;
+      }
       img{
         display: block;
 
         width: 100%;
-        
+
       }
       .title_theme{
         margin-left: 76px;

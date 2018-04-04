@@ -33,11 +33,11 @@
                  v-on:click.prevent="changeActive(list)"
 
                  v-bind:class="[(list.ThemeStatus=='3') ? 'disable' : '', (list.QuestionsTotal==list.QuestionsFinished) ? 'check' : '', (isActive(list.Id)) ? 'active' : '' ]" >
-              <img src="static/img/theme.png" alt="">
+              <img v-bind:src="'static/img/theme_'+ list.Id +'.png'">
 
               <div class="filter" v-on:click="changeActive(list)">
 
-                <img src="static/img/theme_finish.png" alt="">
+                <img src="static/img/theme_finish.png" alt="" v-on:click.prevent="getRezult(list)">
                <!-- <button v-on:click.prevent="getRezult(list)"  v-lang.rezult></button>-->
               </div>
             </div>
