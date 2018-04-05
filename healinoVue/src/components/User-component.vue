@@ -184,7 +184,7 @@
           <span class="checkbox"><i class="fa fa-check" aria-hidden="true"></i></span><span v-lang.female></span>
         </label>
         <label class="bottom">
-          <p>{{langString('someDate')}}: {{(userData.LastTestFinishedDate)?userData.LastTestFinishedDate:''}}</p>
+          <p>{{langString('someDate')}}: {{(userData.LastTestFinishedDate) ? dateformat(userData.LastTestFinishedDate):''}}</p>
         </label>
       </div>
 
@@ -510,6 +510,10 @@
                     }
                 }, 1500);
             },
+          dateformat(date){
+          let o = new Date(date);
+            return ('0' + o.getDate()).slice(-2)+'-'+ ('0' + (o.getMonth() + 1)).slice(-2) +'-' + o.getFullYear();
+          },
             checkBody(){
                 var error = false;
                 for(let index in this.bodySet){
@@ -547,6 +551,9 @@
 
   }
   @media screen and (max-height: 768px) and (orientation: landscape){
+    .row{
+      margin-top: 2px;
+    }
     .formBlock{
       margin: 0 10px;
     }

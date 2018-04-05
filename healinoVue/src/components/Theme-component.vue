@@ -21,13 +21,18 @@
             <li v-on:click="$emit('changeLang', 'ru')" v-if="lang!='ru'"><img src="static/img/langUA.png" alt=""></li>
           </ul>
         </div>
-        <div v-bind:style="{background: 'url(' + userIMG + ') center center / cover' }" class="user_Avatar" >
-          <div class="margin_op">
-          <ul>
-            <li>Edit profile</li>
-            <li>Emails Rezults</li>
-            <li>Exit</li>
-          </ul>
+        <div class="user_Avatar">
+          <div v-bind:style="{background: 'url(' + userIMG + ') center center / cover' }"
+               v-on:click="showPopupUserOn()"
+               class="user_Avatar1"></div>
+          <div class="block_user_popup" v-bind:class="(showPopupUser)?'on':''">
+            <div class="margin_op">
+              <ul>
+                <li v-on:click="$emit('onToUser')">Edit profile</li>
+                <li>Email rezults</li>
+                <li v-on:click="$emit('exit')">Exit</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -40,12 +45,13 @@
             <div class="theme" v-for="list in List"
                  v-on:click.prevent="changeActive(list)"
 
-                 v-bind:class="[(list.ThemeStatus=='3') ? 'disable' : '', (list.QuestionsTotal==list.QuestionsFinished) ? 'check' : '', (isActive(list.Id)) ? 'active' : '' ]" >
+                 v-bind:class="[(list.ThemeStatus=='3') ? 'disable' : '', (list.QuestionsTotal==list.QuestionsFinished) ? 'check' : '']" >
               <img v-bind:src="'static/img/theme_'+ list.Id +'.png'">
 
               <div class="filter" v-on:click="changeActive(list)">
-
-                <img src="static/img/theme_finish.png" alt="" v-on:click.prevent="getRezult(list)">
+                <img src="/static/img/activeTheme.png" alt="" v-if="(isActive(list.Id) && list.QuestionsTotal!=list.QuestionsFinished)" style="position: absolute" class="checktheme1">
+                <img src="/static/img/theme_finish.png" alt="" v-on:click.prevent="getRezult(list)" v-if="(list.QuestionsTotal==list.QuestionsFinished)">
+                <div v-if="(list.QuestionsTotal==list.QuestionsFinished)" class="text_rezult"><p> <img src="/static/img/mark.png" class="mark"> {{langString('rezult')}}</p></div>
                <!-- <button v-on:click.prevent="getRezult(list)"  v-lang.rezult></button>-->
               </div>
             </div>
@@ -72,13 +78,14 @@
 
 <script>
     export default {
-        props: ['SessionData', /*'List', */'userData', 'lang', 'audio_p'],
+        props: ['SessionData', 'List', 'userData', 'lang', 'audio_p'],
         data () {
             return {
                 activeId:0,
                 Description:"",
                 Title:"",
-                List:[{"Id":3,"QuestionsFinished":3,"QuestionsTotal":3,"Title":"Общее состояния здоровья\r\n","ImageUrl":"http://img2.ntv.ru/home/schedule/2016/20160305/ed.jpg","Description":"\"Тест предназначен для самооценки состояния здоровья, напоминания о необходимости правильного образа жизни, снижения устранимых факторов риска или незамедлительного обращения к врачу. \nНаш организм самоисцеляется, и степень самоисцеления связана с характером питания и особенностями образа жизни, которые играют большую роль на протяжении всей его жизни. \nКаждый из нас в состоянии полностью контролировать устранимые факторы риска самостоятельно и управлять ими. К ним относят физическую нагрузку и упражнения, правильное питание, контроль за весом тела, отказ от курения и потребления алкоголя, стресс, повышенное давление, уровень холестерина и триглицеридов, диабет.\"\t\t\t\t\t\t\t\t\t\r\n","ThemeStatus":0},{"Id":2,"QuestionsFinished":0,"QuestionsTotal":23,"Title":"Реальный возраст\r\n","ImageUrl":"http://img2.ntv.ru/home/schedule/2016/20160305/ed.jpg","Description":"\"Тест предназначен для определения ментального и биологического  возраста.\nСравнените возрасты  с хронологическим возрастом\"\t\t\t\t\t\t\t\t\t\r\n","ThemeStatus":0},{"Id":1,"QuestionsFinished":0,"QuestionsTotal":6,"Title":"Риск возникновения атеросклеротического сердечно-сосудистого заболевания\r\n","ImageUrl":"http://img2.ntv.ru/home/schedule/2016/20160305/ed.jpg","Description":"\"Тест предназначен для оценки риска возникновения сердечно-сосудистого заболевания.\nПри этом горизонт риска - вся жизнь и ближайшие 10 лет\"\t\t\t\t\t\t\t\t\t\r\n","ThemeStatus":3}],
+                //List:[{"Id":3,"QuestionsFinished":3,"QuestionsTotal":3,"Title":"Общее состояния здоровья\r\n","ImageUrl":"http://img2.ntv.ru/home/schedule/2016/20160305/ed.jpg","Description":"\"Тест предназначен для самооценки состояния здоровья, напоминания о необходимости правильного образа жизни, снижения устранимых факторов риска или незамедлительного обращения к врачу. \nНаш организм самоисцеляется, и степень самоисцеления связана с характером питания и особенностями образа жизни, которые играют большую роль на протяжении всей его жизни. \nКаждый из нас в состоянии полностью контролировать устранимые факторы риска самостоятельно и управлять ими. К ним относят физическую нагрузку и упражнения, правильное питание, контроль за весом тела, отказ от курения и потребления алкоголя, стресс, повышенное давление, уровень холестерина и триглицеридов, диабет.\"\t\t\t\t\t\t\t\t\t\r\n","ThemeStatus":0},{"Id":2,"QuestionsFinished":0,"QuestionsTotal":23,"Title":"Реальный возраст\r\n","ImageUrl":"http://img2.ntv.ru/home/schedule/2016/20160305/ed.jpg","Description":"\"Тест предназначен для определения ментального и биологического  возраста.\nСравнените возрасты  с хронологическим возрастом\"\t\t\t\t\t\t\t\t\t\r\n","ThemeStatus":0},{"Id":1,"QuestionsFinished":0,"QuestionsTotal":6,"Title":"Риск возникновения атеросклеротического сердечно-сосудистого заболевания\r\n","ImageUrl":"http://img2.ntv.ru/home/schedule/2016/20160305/ed.jpg","Description":"\"Тест предназначен для оценки риска возникновения сердечно-сосудистого заболевания.\nПри этом горизонт риска - вся жизнь и ближайшие 10 лет\"\t\t\t\t\t\t\t\t\t\r\n","ThemeStatus":3}],
+              showPopupUser:false,
             }
         },
         watch:{
@@ -129,7 +136,20 @@
         created: function() {
             this.changeActive(this.List[0]);
         },
+        mounted(){
+          let t = this;
+          $(document).mouseup(function (e) {
+
+            var container = $(".user_Avatar");
+            if (container.has(e.target).length === 0){
+              t.showPopupUser = false;
+            }
+          })
+        },
         methods: {
+            showPopupUserOn(){
+              this.showPopupUser = true;
+            },
             langString(string){
                 return this.translate(string);
             },
@@ -179,5 +199,33 @@
   }
   .row{
     margin-top: 70px;
+  }
+  .text_rezult{
+    position: absolute;
+    width: 20%;
+    font-size: 10px;
+    left: 4%;
+    text-align: center;
+    display: flex;
+    height: 100%;
+  }
+  .text_rezult p{
+    margin: auto;
+  }
+  .themesPageContainer .themes .theme.check .filter p .mark{
+    opacity: 1;
+    width: 40%;
+  }
+  .filter{
+    position: absolute;
+    top:0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .checktheme1{
+    opacity: 1!important;
+    height: 100%;
   }
 </style>

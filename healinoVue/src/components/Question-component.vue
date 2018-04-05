@@ -7,7 +7,7 @@
         <a href="/" class="logo_head m"><img src="static/img/logoM.png" alt="" class=""></a>
         <a href="/" v-lang.main></a>
         <a v-bind:href="langString('forumUrl')" target="_blank" v-lang.forum></a>
-        <h3>{{questionData.QuestionsProgress}}%</h3>
+        <h3>{{userData.QuestionsProgress}}%</h3>
         <div class="music_btn1" v-on:click="$emit('audio')">
           <img v-bind:src="(audio_p)?'static/img/noMusic.png':'static/img/music.png'" >
         </div>
@@ -21,7 +21,20 @@
             <li v-on:click="$emit('changeLang', 'ru')" v-if="lang!='ru'"><img src="static/img/langUA.png" alt=""></li>
           </ul>
         </div>
-        <div v-bind:style="{background: 'url(' + userIMG + ') center center / cover' }" class="user_Avatar" ></div>
+        <div class="user_Avatar">
+          <div v-bind:style="{background: 'url(' + userIMG + ') center center / cover' }"
+               v-on:click="showPopupUserOn()"
+               class="user_Avatar1"></div>
+          <div class="block_user_popup" v-bind:class="(showPopupUser)?'on':''">
+            <div class="margin_op">
+              <ul>
+                <li v-on:click="$emit('onToUser')">Edit profile</li>
+                <li>Email rezults</li>
+                <li v-on:click="$emit('exit')">Exit</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row sm">
@@ -75,6 +88,26 @@
                 AnswersId:"",
                 AnswerValue: "",
                 Type:-1,
+              showPopupUser:false,
+              /*questionData:{"PreviusQuestionId":7,"QuestionId":8,"QuestionNum":2,"TotalQuestions":23,"QuestionTypeEnum":0,"UserThemeTestId":89,
+                "IsAnswered":false,"AnsValue":0.0,"QText":"У Вас высокий уровень толерантности?\r\n","ImageUrl":null,
+                "QuestionsProgress":22.0,
+                "AnswerOptions":[
+                        {"Id":29,"ParrentId":null,"AnswerText":"Да","ImageUrl":null,"IsUserAnswered":false,"Children":null},
+                        {"Id":30,"ParrentId":null,"AnswerText":"Нет","ImageUrl":null,"IsUserAnswered":false,"Children":null},
+                        {"Id":31,"ParrentId":null,"AnswerText":"Нет","ImageUrl":null,"IsUserAnswered":false,"Children":null},
+                        {"Id":32,"ParrentId":null,"AnswerText":"Нет","ImageUrl":null,"IsUserAnswered":false,"Children":null},
+                        {"Id":33,"ParrentId":null,"AnswerText":"Нет","ImageUrl":null,"IsUserAnswered":false,"Children":null},
+                        {"Id":34,"ParrentId":null,"AnswerText":"Нет","ImageUrl":null,"IsUserAnswered":false,"Children":null},
+                        {"Id":35,"ParrentId":null,"AnswerText":"Иногда\r\n","ImageUrl":null,"IsUserAnswered":false,"Children":null},
+                        {"Id":36,"ParrentId":null,"AnswerText":"Иногда\r\n","ImageUrl":null,"IsUserAnswered":false,"Children":null},
+                        {"Id":37,"ParrentId":null,"AnswerText":"Иногда\r\n","ImageUrl":null,"IsUserAnswered":false,"Children":null},
+                        {"Id":38,"ParrentId":null,"AnswerText":"Иногда\r\n","ImageUrl":null,"IsUserAnswered":false,"Children":null},
+                        {"Id":39,"ParrentId":null,"AnswerText":"Иногда\r\n","ImageUrl":null,"IsUserAnswered":false,"Children":null},
+                        {"Id":40,"ParrentId":null,"AnswerText":"Иногда\r\n","ImageUrl":null,"IsUserAnswered":false,"Children":null},
+                        {"Id":41,"ParrentId":null,"AnswerText":"Иногда\r\n","ImageUrl":null,"IsUserAnswered":false,"Children":null},
+                        {"Id":42,"ParrentId":null,"AnswerText":"Иногда\r\n","ImageUrl":null,"IsUserAnswered":false,"Children":null},],
+                "NextQuestionId":14,"ErrorCode":1,"DebugMessage":null,"UIMessage":null},*/
             }
         },
         messages: {
@@ -154,10 +187,23 @@
                 this.AnswerValue = "";
             }
         },
+      mounted(){
+        let t = this;
+        $(document).mouseup(function (e) {
+
+          var container = $(".user_Avatar");
+          if (container.has(e.target).length === 0){
+            t.showPopupUser = false;
+          }
+        })
+      },
         methods: {
             langString(string){
                 return this.translate(string);
             },
+          showPopupUserOn(){
+            this.showPopupUser = true;
+          },
             getType() {
                 return this.questionData.QuestionTypeEnum;
             },

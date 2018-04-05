@@ -13,6 +13,7 @@
                      @onUser="isFirst"
                      @nextBack="nextBack"
                      @audio="audio"
+                     @exit="exit"
                      :audio_p="audio_p"
                      :lang="lang"
                      :SessionData="SessionData"></start-component>
@@ -22,6 +23,8 @@
                      @audio="audio"
                      :audio_p="audio_p"
                      @logined="logined"
+                     @exit="exit"
+                     @onToUser="ToUser"
                      @onForgot="onForgot"
                      @onLicense="license"></login-component>
     <recoveryPassComponent  v-if="state == 'forgot'"
@@ -36,8 +39,10 @@
                        :UniqId="UniqId"></recPassComponent>
     <register-component v-if="state == 'register'"
                         :lang="lang"
+                        @exit="exit"
                         @audio="audio"
                         :audio_p="audio_p"
+                        @onToUser="ToUser"
                         @logined="logined"
                         @toShowMessageReg="toShowMessageReg"
                      @onLicense="license"></register-component>
@@ -46,6 +51,7 @@
                        @audio="audio"
                        @onToStart="onToStart"
                        :audio_p="audio_p"
+                       @exit="exit"
                        @onToUser="ToUser"></license-component>
     <user-component v-if="state == 'user'"
                     :SessionData="SessionData"
@@ -53,6 +59,8 @@
                     @audio="audio"
                     :audio_p="audio_p"
                     @changeAva="changeAvatar"
+                    @exit="exit"
+                    @onToUser="ToUser"
                     @toTheme="toTheme"></user-component>
     <theme-component v-if="state == 'theme'"
                      :SessionData="SessionData"
@@ -62,6 +70,8 @@
                      @audio="audio"
                      :audio_p="audio_p"
                      @toRezult="toRezult"
+                     @exit="exit"
+                     @onToUser="ToUser"
                      @changeLang="changeLang"
                      @changeActiveTheme="changeActiveTheme"
                      @toQuestion="toQuestion"
@@ -73,8 +83,10 @@
                         :userData="userData"
                         :errorQuest="errorQuest"
                         @audio="audio"
+                        @exit="exit"
                         :audio_p="audio_p"
                         @toTheme="toTheme"
+                        @onToUser="ToUser"
                         @toRezult="toRezult"
                         @changeLang="changeLang"
                         @nextQuestion="nextQuestion"
@@ -83,12 +95,15 @@
 
     <rezult-component v-else-if="state == 'rezult'"
                       @audio="audio"
+                      @exit="exit"
+                      @onToUser="ToUser"
                       :audio_p="audio_p"
                       :userData="userData"
                       :themeActiveObj="themeActiveObj"
                       :rezultData="rezultData"></rezult-component>
     <rezultPublic-component v-else-if="state == 'rezultPublic'"
                             @audio="audio"
+                            @exit="exit"
                             :audio_p="audio_p"
                       :rezultData="rezultData"></rezultPublic-component>
 
@@ -113,7 +128,7 @@ export default {
         userData:{},
         themeActive:0,
         lang:'en',
-        state: 'theme',
+        state: 'start',
         SessionData: '',
         UserId: '',
         questionData:{
@@ -212,6 +227,12 @@ export default {
         },
         license(){
             this.state = "license"
+        },
+        exit(){
+            FB.logout();
+            deleteCookie('SessionData');
+            this.SessionData = '';
+            location.reload();
         },
         ToUser(){
             let t = this;

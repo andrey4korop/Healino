@@ -72,30 +72,42 @@ html,body{
       @include sm(font-size, 15px);
       font-size: 16px;
     }
-    .user_Avatar, .lang{
+    .user_Avatar, .user_Avatar1, .lang{
       height: 50px;
       width: 50px;
       border-radius: 200px;
       border: 1px solid #fff;
       box-sizing: border-box;
       margin-left: 20px;
-      @include sm(margin, 5px);
+      //@include sm(margin, 5px);
       @include sm(height, 45px);
       @include sm(width, 45px);
       position: relative;
     }
     .user_Avatar{
-      .margin_op{
-        padding: 15px;
-        background: rgba(255,255,255,0.5);
-        border-radius: 15px;
+      border: none;
+      .block_user_popup{
+        opacity: 0;
         box-sizing: border-box;
         position: absolute;
         top: 120%;
         right: 50%;
+        z-index: -10;
+        height: 0;
+        transition: all 0.5s linear;
+        overflow: hidden;
+        &.on{
+          opacity: 1;
+          height: unset;
+          z-index: 2;
+        }
+      }
+      .margin_op{
+        padding: 15px;
+        background: rgba(255,255,255,0.5);
+        border-radius: 15px;
       }
       ul{
-
         background: rgba(255,255,255,1);
         padding: 15px;
         border-radius: 15px;
@@ -114,6 +126,14 @@ html,body{
           }
         }
       }
+    }
+    .user_Avatar1{
+      margin-left: 0;
+      border: none;
+      &:hover{
+        box-shadow: 0 0 10px #fff;
+      }
+
     }
     .lang{
 
@@ -1538,7 +1558,7 @@ html,body{
         cursor: auto;
       }
       .filter{
-        display: none;
+        //display: none;
       }
       &.check{
         .filter{
