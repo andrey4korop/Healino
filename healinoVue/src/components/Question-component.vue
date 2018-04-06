@@ -89,7 +89,7 @@
                 AnswerValue: "",
                 Type:-1,
               showPopupUser:false,
-              /*questionData:{"PreviusQuestionId":7,"QuestionId":8,"QuestionNum":2,"TotalQuestions":23,"QuestionTypeEnum":0,"UserThemeTestId":89,
+             /*questionData:{"PreviusQuestionId":7,"QuestionId":8,"QuestionNum":2,"TotalQuestions":23,"QuestionTypeEnum":0,"UserThemeTestId":89,
                 "IsAnswered":false,"AnsValue":0.0,"QText":"У Вас высокий уровень толерантности?\r\n","ImageUrl":null,
                 "QuestionsProgress":22.0,
                 "AnswerOptions":[
@@ -99,7 +99,7 @@
                         {"Id":32,"ParrentId":null,"AnswerText":"Нет","ImageUrl":null,"IsUserAnswered":false,"Children":null},
                         {"Id":33,"ParrentId":null,"AnswerText":"Нет","ImageUrl":null,"IsUserAnswered":false,"Children":null},
                         {"Id":34,"ParrentId":null,"AnswerText":"Нет","ImageUrl":null,"IsUserAnswered":false,"Children":null},
-                        {"Id":35,"ParrentId":null,"AnswerText":"Иногда\r\n","ImageUrl":null,"IsUserAnswered":false,"Children":null},
+                        {"Id":35,"ParrentId":null,"AnswerText":"Иногда бывает длинный текст","ImageUrl":null,"IsUserAnswered":false,"Children":null},
                         {"Id":36,"ParrentId":null,"AnswerText":"Иногда\r\n","ImageUrl":null,"IsUserAnswered":false,"Children":null},
                         {"Id":37,"ParrentId":null,"AnswerText":"Иногда\r\n","ImageUrl":null,"IsUserAnswered":false,"Children":null},
                         {"Id":38,"ParrentId":null,"AnswerText":"Иногда\r\n","ImageUrl":null,"IsUserAnswered":false,"Children":null},
@@ -249,5 +249,22 @@
   }
   .ques{
     margin: auto;
+  }
+  .col{
+    position: relative;
+    z-index:1;
+    margin-top: 55px;
+  }
+  .themesPageContainer label {
+    margin: 4% calc(100% / 24);
+  }
+  @media screen and (max-width: 760px) {
+    .themesPageContainer label {
+      margin: 20% calc(100% / 24);
+    }
+
+    .themesPageContainer .content.col {
+      margin-top: 0;
+    }
   }
 </style>

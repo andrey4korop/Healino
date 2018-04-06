@@ -7,15 +7,18 @@
         <div class="selectBlock"
              v-on:input="changeVal"
              v-on:click="setShowSelectId"
+             v-bind:class="(showSelectId?'hidden':'')"
         >
           {{AnswerText}}
         </div>
-        <div class="select" v-if="showSelectId">
-          <p class="option" v-for="ans in questionData.AnswerOptions"
-             v-on:click="setValueId(ans.Id, ans.AnswerText, $event)"
-             v-bind:class="(ans.Id==AnswersId) ? 'active' : ''">{{ans.AnswerText}}</p>
+        <div class="selectBlockNeed" v-if="showSelectId" v-on:click="changeSelectColor()">
+          <div class="select">
+            <p class="option" v-for="ans in questionData.AnswerOptions"
+               v-on:click="setValueId(ans.Id, ans.AnswerText, $event)"
+               v-bind:class="(ans.Id==AnswersId) ? 'active' : ''">{{ans.AnswerText}}</p>
+          </div>
+          <div class="colorActive" v-if="showSelectId" v-on:click="changeSelectColor()"></div>
         </div>
-        <div class="colorActive" v-if="showSelectId" v-on:click="changeSelectColor()"></div>
         <span class="check"  v-bind:class="(showLoadSelect==true) ? 'loading': ''" v-if="showCheckSelect">
           <i class="fa fa-check" aria-hidden="true"></i>
         </span>
@@ -42,6 +45,11 @@ export default {
     props: ['questionData', 'errorQuest'],
     data () {
         return {
+          touchstartX : 0,
+          touchstartY : 0,
+          touchendX : 0,
+          touchendY : 0,
+
           anchors: [],
           currentAnchor: 0,
           isAnimating : false,
@@ -103,9 +111,16 @@ export default {
           this.showSelectId = true;
           let t = this;
           setTimeout(function () {
+            if(t.currentAnchor==-1){
+              t.currentAnchor=0;
+            }
+            t.AnswersId = t.questionData.AnswerOptions[t.currentAnchor].Id;
+            t.AnswerText = t.questionData.AnswerOptions[t.currentAnchor].AnswerText;
             t.updateAnchors();
+            $('.colorActive').css({'height':$('.option')[t.currentAnchor].offsetHeight});
+            $('.colorActive').css({'top':(150-$('.option')[t.currentAnchor].offsetHeight)/2});
             if($('.active').length>0) {
-              $('.select').scrollTop($('.active').position().top - 40);
+              $('.select').scrollTop($('.active').position().top - (150-$('.option')[t.currentAnchor].offsetHeight)/2);
             }else{
               t.AnswersId = t.questionData.AnswerOptions[0].id;
               t.AnswerText = t.questionData.AnswerOptions[0].AnswerText;
@@ -113,7 +128,7 @@ export default {
             }
             t.currentAnchor =$('.active').index();
 
-          },50)
+          },10)
         }
       },
       updateAnchors() {
@@ -124,6 +139,66 @@ export default {
         });
 
       },
+      handleGesure(k) {
+        let t = this;
+        if( t.isAnimating ) {
+          return false;
+        }
+        t.isAnimating  = true;
+        if((Math.abs(t.touchendY-t.touchstartY)>10)) {
+          if (this.touchendY < this.touchstartY) {
+            //alert( 'up!');
+            if (t.questionData.AnswerOptions.length - 1 != t.currentAnchor) {
+              t.currentAnchor++;
+            }
+            t.AnswersId = t.questionData.AnswerOptions[t.currentAnchor].Id;
+            t.AnswerText = t.questionData.AnswerOptions[t.currentAnchor].AnswerText;
+            t.changeVal();
+            if (t.currentAnchor > (t.anchors.length - 1)
+                    || t.currentAnchor < 0) {
+              t.currentAnchor = 0;
+            }
+            t.isAnimating = true;
+            $('.colorActive').css({'height': $('.option')[t.currentAnchor].offsetHeight});
+            $('.colorActive').css({'top': (150 - $('.option')[t.currentAnchor].offsetHeight) / 2});
+            $('.select').animate({
+              scrollTop: parseInt(t.anchors[t.currentAnchor] - (150 - $('.option')[t.currentAnchor].offsetHeight) / 2)//55
+            }, 200, 'swing', function () {
+              t.isAnimating = false;
+
+            });
+            if (k == '1') {
+              t.touchstartY = t.touchendY;
+            }
+          }
+          if (this.touchendY > this.touchstartY) {
+            //alert( 'down!');
+            if (t.currentAnchor != 0) {
+              t.currentAnchor--;
+            }
+            t.AnswersId = t.questionData.AnswerOptions[t.currentAnchor].Id;
+            t.AnswerText = t.questionData.AnswerOptions[t.currentAnchor].AnswerText;
+            t.changeVal();
+            if (t.currentAnchor > (t.anchors.length - 1)
+                    || t.currentAnchor < 0) {
+              t.currentAnchor = 0;
+            }
+            t.isAnimating = true;
+            $('.colorActive').css({'height': $('.option')[t.currentAnchor].offsetHeight});
+            $('.colorActive').css({'top': (150 - $('.option')[t.currentAnchor].offsetHeight) / 2});
+            $('.select').animate({
+              scrollTop: parseInt(t.anchors[t.currentAnchor] - (150 - $('.option')[t.currentAnchor].offsetHeight) / 2)//55
+            }, 200, 'swing', function () {
+
+              t.isAnimating = false;
+            });
+            if (k == '1') {
+              t.touchstartY = t.touchendY;
+            }
+
+          }
+        }
+        },
         setValueId(id, AnswerText, event){
             //event.preventDefault();
             if(event) {
@@ -150,12 +225,32 @@ export default {
     },
   mounted(){
     let t = this;
-    $('body').on('mousewheel', '.select, .colorActive', function(e){
+    t.touchstartX = 0;
+    t.touchstartY = 0;
+    t.touchendX = 0;
+    t.touchendY = 0;
+
+    $(document).on('touchstart', '.selectBlockNeed, .colorActive', function(event) {
+      t.isAnimating = false;
+      t.touchstartY = event.originalEvent.touches[0].screenY;
+    });
+
+    $(document).on('touchend', '.selectBlockNeed, .colorActive', function(event) {
+      t.touchendY = event.originalEvent.changedTouches[0].screenY;
+      t.handleGesure();
+    });
+    $(document).on('touchmove', '.selectBlockNeed, .colorActive', function(event) {
+      if((Math.abs(event.originalEvent.changedTouches[0].screenY-t.touchstartY)>20)) {
+        t.touchendY = event.originalEvent.changedTouches[0].screenY;
+        t.handleGesure('1');
+      }
+    });
+
+
+    //let t = this;
+    $('body').on('mousewheel', '.selectBlockNeed, .colorActive', function(e){
       e.preventDefault();
       e.stopPropagation();
-
-
-
 
       if( t.isAnimating ) {
         return false;
@@ -179,8 +274,10 @@ export default {
         t.currentAnchor = 0;
       }
       t.isAnimating  = true;
+      $('.colorActive').css({'height':$('.option')[t.currentAnchor].offsetHeight});
+      $('.colorActive').css({'top':(150-$('.option')[t.currentAnchor].offsetHeight)/2});
       $('.select').animate({
-        scrollTop: parseInt( t.anchors[t.currentAnchor]-40 )
+        scrollTop: parseInt( t.anchors[t.currentAnchor]-(150-$('.option')[t.currentAnchor].offsetHeight)/2 )//55
       }, 200, 'swing', function(){
         t.isAnimating  = false;
       });
@@ -210,23 +307,35 @@ export default {
 
 <style>
   .option:first-child{
-    margin-top: 40px;
+    margin-top: 55px;
   }
   .option:last-child{
-    margin-bottom: 40px;
+    margin-bottom: 55px;
   }
   .colorActive{
     background-color: #79cd77;
     opacity: 0.43;
     height: 40px;
-    width: calc(100% - 11px);
+    width: 100%;
     position: absolute;
     z-index: 100;
-    top:41px
+    top:56px;
+    transition: all 0.2s linear;
+  }
+  .selectBlockNeed{
+    position: absolute;
+    width: 100%;
+    box-shadow: inset 0px 10px 30px 0px #fff, inset 0px -10px 30px 0px #fff;
+    height: 150px;
+    top: -50px;
+    border-radius: 15px;
+  }
+  .hidden{
+    visibility: hidden;
   }
   @media screen and (max-width: 760px) {
     .varyNeedMar {
-      margin-bottom: 70px !important;
+      /*margin-bottom: 70px !important;*/
     }
   }
 </style>
