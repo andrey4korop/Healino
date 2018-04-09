@@ -2,8 +2,14 @@
 <div class="background">
 
   <div class="bgMain"
-       v-bind:style="{ backgroundPositionX: 'calc('+bgpersent +'%)' }">
-
+       v-bind:style="{ marginLeft: 'calc(-'+bgpersent +'vw)' }">
+   <img src="/static/img/bg40.jpg" alt="">
+   <img src="/static/img/bg41.jpg" alt="">
+   <img src="/static/img/bg42.jpg" alt="">
+   <img src="/static/img/bg43.jpg" alt="">
+   <img src="/static/img/bg44.jpg" alt="">
+   <img src="/static/img/bg45.jpg" alt="">
+   <img src="/static/img/bg46.jpg" alt="">
   </div>
   <bg class="big"
       :urlImg="'/static/img/symbols/bSymbols/10Lg.png'"
@@ -351,7 +357,7 @@ export default {
         bgpersent: function () {
             //return (6.64 + ( this.bg * 15.53 ))+'%';
             //return /*6.26 +*/ 14.2856*this.bg;
-            return 1.4 *this.bg + this.posMouseTemp.x / document.body.clientWidth*0.1;
+            return 5 *this.bg /*+ this.posMouseTemp.x / document.body.clientWidth*0.1*/;
         },
 
     },
@@ -410,10 +416,10 @@ export default {
 
 <style scoped>
   .bgMain{
-    background: url("/static/img/bg3.jpg");
+   /* background: url("/static/img/bg40.jpg");*/
     background-repeat: repeat-x;
     position: fixed;
-    width: 150%;
+   width: max-content;
     height: 150%;
    transition: all 2s cubic-bezier(.76,0,.5,1);
     transition-delay: 0s;
@@ -421,17 +427,27 @@ export default {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    animation: animationBGSmall 5s ease-out infinite normal;
+   display: flex;
+    animation: animationBG 5s ease-out infinite normal;
   }
-@keyframes animationBGSmall {  
+  .bgMain img{
+   height: 100%;
+   width: auto;
+   margin: 0;
+   margin-left: -1px;
+   padding: 0;
+   border: none;
+   outline: none;
+  }
+@keyframes animationBG {
     from {
-        background-position-y: -2.8vw;
+        margin-top: -2.8vw;
     }
     50%{
-        background-position-y: 0vw;
+     margin-top: 0vw;
     }
     to {
-        background-position-y: -2.8vw;
+     margin-top: -2.8vw;
     }
 }
 </style>

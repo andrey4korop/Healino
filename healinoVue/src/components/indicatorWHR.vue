@@ -165,10 +165,10 @@ export default {
     right: 32%;
     border-radius: 50%;
     z-index: 1;
-    transition: all 1.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
   }
-  .plus:hover{
-
+  .plus:hover, .description.on ~ div .plus{
+    transform: rotate(45deg);
     box-shadow: 0 0 10px rgba(255, 255, 255, 1), inset 0 0 10px rgba(255, 255, 255, 1);
     animation: unset !important;
   }

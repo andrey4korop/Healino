@@ -195,16 +195,16 @@ export default {
   .plus{
     width: 5%;
     height: 80%;
-    transition: all 1.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
     position: absolute;
     top: -90%;
     right: 4%;
     border-radius: 25%;
     z-index: 1;
   }
-  .plus:hover{
+  .plus:hover, .description.on ~ div .plus{
     animation: unset !important;
-
+    transform: rotate(45deg);
     box-shadow: 0 0px 20px rgba(255, 255, 255, 1), inset 0 0 80px rgba(255, 255, 255, 0.5)
   }
   .progress_bar1{

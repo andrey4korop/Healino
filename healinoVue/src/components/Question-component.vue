@@ -260,7 +260,7 @@
   }
   @media screen and (max-width: 760px) {
     .themesPageContainer label {
-      margin: 20% calc(100% / 24);
+      margin: 40px calc(100% / 24);
     }
 
     .themesPageContainer .content.col {

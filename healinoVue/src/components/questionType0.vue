@@ -148,22 +148,26 @@ export default {
                 this.showSelectId = true;
               let t = this;
                 setTimeout(function () {
-                  if(t.currentAnchor==-1){
+                  if(t.currentAnchor==0){
                     t.currentAnchor=0;
+                      t.AnswersId = t.questionData.AnswerOptions[t.currentAnchor].Id;
+                      t.AnswerText = t.questionData.AnswerOptions[t.currentAnchor].AnswerText;
+                      t.changeVal();
                   }
-                  t.AnswersId = t.questionData.AnswerOptions[t.currentAnchor].Id;
-                  t.AnswerText = t.questionData.AnswerOptions[t.currentAnchor].AnswerText;
+
                   t.updateAnchors();
                   $('.colorActive').css({'height':$('.option')[t.currentAnchor].offsetHeight});
                   $('.colorActive').css({'top':(150-$('.option')[t.currentAnchor].offsetHeight)/2});
                     if($('.active').length>0) {
                         $('.select').scrollTop($('.active').position().top - (150-$('.option')[t.currentAnchor].offsetHeight)/2);
+                        t.currentAnchor =$('.active').index();
                     }else{
-                      t.AnswersId = t.questionData.AnswerOptions[0].id;
+                      t.AnswersId = t.questionData.AnswerOptions[0].Id;
                       t.AnswerText = t.questionData.AnswerOptions[0].AnswerText;
+                        t.changeVal();
                         $('.select').scrollTop(0);
+                        t.currentAnchor =0;
                     }
-                  t.currentAnchor =$('.active').index();
 
                 },10)
             }
@@ -256,6 +260,13 @@ export default {
             this.showCheckSelect= false;
             this.showLoadSelect= true;
         }
+    },
+    destroyed(){
+        $(document).unbind('touchstart');
+        $(document).unbind('touchend');
+        $(document).unbind('touchmove');
+        $('body').unbind('mousewheel');
+        $('body').unbind('mousewheel');
     },
   mounted(){
     let t = this;

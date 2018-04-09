@@ -396,150 +396,155 @@
 </script>
 
 <style scoped>
-    .avatar .img{
-        cursor: default;
+  .avatar .img{
+    cursor: default;
+  }
+  div.center > div:nth-child(3) > div.indicator > div.plus{
+    width:20px;
+    height: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    z-index: 1;
+    transition: all 0.5s ease-in-out;
+  }
+  @media screen and (max-width: 780px){
+    .plus {
+      width: 30%;
+      height: 16%;
+      bottom: -57%;
+      top: unset;
     }
-    div.center > div:nth-child(3) > div.indicator > div.plus{
-        width:20px;
-        height: 20px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        border-radius: 50%;
-        z-index: 1;
-    }
-    @media screen and (max-width: 780px){
-        .plus {
-            width: 30%;
-            height: 16%;
-            bottom: -57%;
-            top: unset;
-        }
-    }
-    div.center > div:nth-child(3) > div.indicator > div.plus:hover{
+  }
+  div.center > div:nth-child(3) > div.indicator > div.plus:hover, .description.on ~ .plus{
+    transform: rotate(45deg);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 1), inset 0 0 10px rgba(255, 255, 255, 1);
+  }
+  div.indicator{
+    position: relative;
+  }
+  div.center > div:nth-child(3) .description{
+    background: rgba(255,255,255,0.5);
+    position: absolute;
+    right: 100%;
+    bottom: 100%;
+    width: 22vw;
+    text-align: left;
+    border-radius: 15px 15px 0 15px;
+    padding: 15px;
+    z-index: -10;
+    opacity: 0;
+    transition: all 0.5s linear;
+  }
+  div.center > div:nth-child(3) .description.on{
+    z-index: 15;
+    opacity: 1;
+  }
+  div.center > div:nth-child(4) > div.indicator > div.plus{
+    width:20px;
+    height: 20px;
+    position: absolute;
+    bottom: 105%;
+    left: 98%;
+    border-radius: 50%;
+    z-index: 1;
+    transition: all 0.5s linear;
+  }
+  div.center > div:nth-child(4) > div.indicator > div.plus:hover, .description.on ~ .plus{
+    transform: rotate(45deg);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 1), inset 0 0 10px rgba(255, 255, 255, 1);
+  }
+  div.center > div:nth-child(4) .description{
+    background: rgba(255,255,255,0.5);
+    position: absolute;
+    left: 120%;
+    bottom: 120%;
 
-        box-shadow: 0 0 10px rgba(255, 255, 255, 1), inset 0 0 10px rgba(255, 255, 255, 1);
+    width: 22vw;
+    text-align: left;
+    border-radius: 15px 15px 15px 0;
+    padding: 15px;
+    z-index: -10;
+    opacity: 0;
+    transition: all 0.5s linear;
+  }
+  div.center > div:nth-child(4) .description.on{
+    z-index: 15;
+    opacity: 1;
+  }
+  .description .text{
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 3px;
+    background: rgba(255,255,255,1);
+    color: #585858;
+  }
+  .bottom {
+    margin-bottom: 15px;
+    width: calc(51% - 5px);
+  }
+  .music_btn{
+    width: 30px;
+    height: 30px;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+  }
+  .indicator:hover .plus{
+    animation: anima 2s infinite ease-in-out;
+  }
+  @keyframes anima {
+    from {box-shadow: unset;}
+    50% { box-shadow: 0 0px 20px rgba(255, 255, 255, 1), inset 0 0 80px rgba(255, 255, 255, 0.5)}
+    to {box-shadow: unset;}
+  }
+  .rowt .title_indicator{
+    left: 0;
+    width: 45%;
+  }
+  .row {
+    margin-top: 0;
+  }
+  .rowt{
+    position: relative;
+    left: -15%;
+    right: -15%;
+    width: 130%;
+    justify-content: space-evenly!important;
+  }
+  .container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .bottom .indicators{
+    margin: 0 0 15px 0;
+  }
+  .bottom .indicators:nth-child(2){
+    margin: 0;
+  }
+  .plus:hover{
+    transform: rotate(45deg);
+  }
+  @media screen and (max-height: 768px) and (orientation: landscape){
+    .row{
+      width: 78%;
+      margin: 0 auto;
     }
-    div.indicator{
-        position: relative;
+    .progress_bar2 p {
+      font-size: 8px;
     }
-    div.center > div:nth-child(3) .description{
-        background: rgba(255,255,255,0.5);
-        position: absolute;
-        right: 100%;
-        bottom: 100%;
-        width: 22vw;
-        text-align: left;
-        border-radius: 15px 15px 0 15px;
-        padding: 15px;
-        z-index: -10;
-        opacity: 0;
-        transition: all 0.5s linear;
+    .progress_bar2 p.big {
+      font-size: 17px;
+      line-height: 17px;
     }
-    div.center > div:nth-child(3) .description.on{
-        z-index: 15;
-        opacity: 1;
+    .center .indicators .title_indicator .age{
+      font-size: 10px;
     }
-    div.center > div:nth-child(4) > div.indicator > div.plus{
-        width:20px;
-        height: 20px;
-        position: absolute;
-        bottom: 105%;
-        left: 98%;
-        border-radius: 50%;
-        z-index: 1;
+    .title_indicator .cvd {
+      font-size: 12px;
+      line-height: 21px;
     }
-    div.center > div:nth-child(4) > div.indicator > div.plus:hover{
-
-        box-shadow: 0 0 10px rgba(255, 255, 255, 1), inset 0 0 10px rgba(255, 255, 255, 1);
-    }
-    div.center > div:nth-child(4) .description{
-        background: rgba(255,255,255,0.5);
-        position: absolute;
-        left: 120%;
-        bottom: 120%;
-
-        width: 22vw;
-        text-align: left;
-        border-radius: 15px 15px 15px 0;
-        padding: 15px;
-        z-index: -10;
-        opacity: 0;
-        transition: all 0.5s linear;
-    }
-    div.center > div:nth-child(4) .description.on{
-        z-index: 15;
-        opacity: 1;
-    }
-    .description .text{
-        overflow-x: hidden;
-        overflow-y: auto;
-        padding: 3px;
-        background: rgba(255,255,255,1);
-        color: #585858;
-    }
-    .bottom {
-        margin-bottom: 15px;
-        width: calc(51% - 5px);
-    }
-    .music_btn{
-        width: 30px;
-        height: 30px;
-        position: fixed;
-        bottom: 10px;
-        right: 10px;
-    }
-    .indicator:hover .plus{
-        animation: anima 2s infinite ease-in-out;
-    }
-    @keyframes anima {
-        from {box-shadow: unset;}
-        50% { box-shadow: 0 0px 20px rgba(255, 255, 255, 1), inset 0 0 80px rgba(255, 255, 255, 0.5)}
-        to {box-shadow: unset;}
-    }
-    .rowt .title_indicator{
-        left: 0;
-        width: 45%;
-    }
-    .row {
-        margin-top: 0;
-    }
-    .rowt{
-        position: relative;
-        left: -15%;
-        right: -15%;
-        width: 130%;
-        justify-content: space-evenly!important;
-    }
-    .container{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-    .bottom .indicators{
-        margin: 0 0 15px 0;
-    }
-    .bottom .indicators:nth-child(2){
-        margin: 0;
-    }
-    @media screen and (max-height: 768px) and (orientation: landscape){
-        .row{
-            width: 78%;
-            margin: 0 auto;
-        }
-        .progress_bar2 p {
-            font-size: 8px;
-        }
-        .progress_bar2 p.big {
-            font-size: 17px;
-            line-height: 17px;
-        }
-        .center .indicators .title_indicator .age{
-            font-size: 10px;
-        }
-        .title_indicator .cvd {
-            font-size: 12px;
-            line-height: 21px;
-        }
-    }
+  }
 </style>

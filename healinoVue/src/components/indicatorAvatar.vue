@@ -1,12 +1,12 @@
 <template>
 
   <div class="avatar_scale"v-on:click="start">
-    <div class="plus" v-on:click="$emit('onDescription','1')"><img src="static/img/plus.png" alt=""></div>
     <div class="description" v-bind:class="(showDescription==1)?'on':''">
       <div class="text" v-lang.descriptionText="{THR: rezultData.HealthRate, THR_Comment: getComent}">
 
       </div>
     </div>
+    <div class="plus" v-on:click="$emit('onDescription','1')"><img src="static/img/plus.png" alt=""></div>
     <img src="static/img/cursor_2.png" alt="" class="cursor"
          v-bind:style="{ transform: 'rotate(' + HealthRateDeg + 'deg)' }">
     <div class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + HealthRateDegOp + 'deg)' }"></div>
@@ -131,19 +131,19 @@ export default {
 
 <style scoped>
   .plus{
-    width: 15%;
-    height: 15%;
+    width: 25%;
+    height: 25%;
     position: absolute;
     top: -5%;
-    right: -5%;
+    right: -25%;
     border-radius: 25%;
     z-index: 1;
-    transition: all 1.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
   }
-  .plus:hover{
+  .plus:hover, .description.on ~ .plus{
     animation: unset !important;
-    box-shadow: 0 0px 20px rgba(255, 255, 255, 1), inset 0 0 80px rgba(255, 255, 255, 0.5)
-
+    box-shadow: 0 0px 20px rgba(255, 255, 255, 1), inset 0 0 80px rgba(255, 255, 255, 0.5);
+    transform: rotate(45deg);
   }
   .avatar_scale:hover{
     box-shadow: 0 0 50px rgba(255, 255, 255, 1), inset 0 0 50px rgba(255, 255, 255, 0.5);

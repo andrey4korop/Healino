@@ -31,12 +31,12 @@
               <p class="age">Chronological age</p>
             </div>
             <div class="indicator">
-              <div class="plus" v-on:click="onDescription(4)"><img src="static/img/plus.png" alt=""></div>
               <div class="description" v-bind:class="(showDescription==4)?'on':''">
                 <div class="text"
                      v-lang.AgeDescriptionText="{ChronologicalAge: rezultData.BioMentalAge.ChronologicalAge, MentalAge: rezultData.BioMentalAge.MentalAge, BiologicalAge: rezultData.BioMentalAge.BiologicalAge, txtMental:txtMental, txtBiological:txtBiological}">
                 </div>
               </div>
+              <div class="plus" v-on:click="onDescription(4)"><img src="static/img/plus.png" alt=""></div>
               <div class="row_indicator">
                 <indicator-real-age :rezultData="rezultData"></indicator-real-age>
               </div>
@@ -65,10 +65,10 @@
               <p class="cvd">Risks of atherosclerotic cardiovascular disease (RACVD)</p>
             </div>
             <div class="indicator">
-              <div class="plus" v-on:click="onDescription(5)"><img src="static/img/plus.png" alt=""></div>
               <div class="description" v-bind:class="(showDescription==5)?'on':''">
                 <div class="text" v-lang.CVDdescriptionText="{RASCVD: rezultData.RASCVD, TenYearsASCVDCalculated: rezultData.TenYearsASCVD.Calculated, TenYearsASCVDOptimal: rezultData.TenYearsASCVD.Optimal}"></div>
               </div>
+              <div class="plus" v-on:click="onDescription(5)"><img src="static/img/plus.png" alt=""></div>
 
               <div class="row_indicator">
                 <indicator-CVD5 :rezultData="rezultData"></indicator-CVD5>
@@ -133,12 +133,12 @@
           <p class="age">Real Age</p>
         </div>
         <div class="indicator">
-          <div class="plus" v-on:click="onDescription(4)"><img src="static/img/plus.png" alt=""></div>
           <div class="description" v-bind:class="(showDescription==4)?'on':''">
             <div class="text"
                  v-lang.AgeDescriptionText="{ChronologicalAge: rezultData.BioMentalAge.ChronologicalAge, MentalAge: rezultData.BioMentalAge.MentalAge, BiologicalAge: rezultData.BioMentalAge.BiologicalAge, txtMental:txtMental, txtBiological:txtBiological}">
             </div>
           </div>
+          <div class="plus" v-on:click="onDescription(4)"><img src="static/img/plus.png" alt=""></div>
           <div class="row_indicator">
             <indicator-real-age :rezultData="rezultData"></indicator-real-age>
           </div>
@@ -168,11 +168,10 @@
           <p class="cvd">Risks of atherosclerotic cardiovascular disease (RACVD)</p>
         </div>
         <div class="indicator">
-          <div class="plus" v-on:click="onDescription(5)"><img src="static/img/plus.png" alt=""></div>
           <div class="description" v-bind:class="(showDescription==5)?'on':''">
             <div class="text" v-lang.CVDdescriptionText="{RASCVD: rezultData.RASCVD, TenYearsASCVDCalculated: rezultData.TenYearsASCVD.Calculated, TenYearsASCVDOptimal: rezultData.TenYearsASCVD.Optimal}"></div>
           </div>
-
+          <div class="plus" v-on:click="onDescription(5)"><img src="static/img/plus.png" alt=""></div>
           <div class="row_indicator">
             <indicator-CVD5 :rezultData="rezultData"></indicator-CVD5>
             <indicator-CVD10 :rezultData="rezultData"></indicator-CVD10>
@@ -409,6 +408,7 @@
     left: 0;
     border-radius: 50%;
     z-index: 1;
+    transition: all 0.5s ease-in-out;
   }
   @media screen and (max-width: 780px){
     .plus {
@@ -418,8 +418,8 @@
       top: unset;
     }
   }
-  div.center > div:nth-child(3) > div.indicator > div.plus:hover{
-
+  div.center > div:nth-child(3) > div.indicator > div.plus:hover, .description.on ~ .plus{
+    transform: rotate(45deg);
     box-shadow: 0 0 10px rgba(255, 255, 255, 1), inset 0 0 10px rgba(255, 255, 255, 1);
   }
   div.indicator{
@@ -450,9 +450,10 @@
     left: 98%;
     border-radius: 50%;
     z-index: 1;
+    transition: all 0.5s linear;
   }
-  div.center > div:nth-child(4) > div.indicator > div.plus:hover{
-
+  div.center > div:nth-child(4) > div.indicator > div.plus:hover, .description.on ~ .plus{
+    transform: rotate(45deg);
     box-shadow: 0 0 10px rgba(255, 255, 255, 1), inset 0 0 10px rgba(255, 255, 255, 1);
   }
   div.center > div:nth-child(4) .description{
@@ -523,6 +524,9 @@
   }
   .bottom .indicators:nth-child(2){
     margin: 0;
+  }
+  .plus:hover{
+    transform: rotate(45deg);
   }
   @media screen and (max-height: 768px) and (orientation: landscape){
     .row{

@@ -171,11 +171,12 @@ export default {
     right: 32%;
     border-radius: 50%;
     z-index: 1;
-    transition: all 1.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
   }
-  .plus:hover{
+  .plus:hover, .description.on ~ div .plus{
     box-shadow: 0 0 10px rgba(255, 255, 255, 1), inset 0 0 10px rgba(255, 255, 255, 1);
     animation: unset !important;
+    transform: rotate(45deg);
   }
   .progress_bar5{
     border-radius: 23%;
@@ -187,11 +188,11 @@ export default {
   .description{
     background: rgba(255,255,255,0.5);
     position: absolute;
-    right: 50%;
+    left: 50%;
     top: 115%;
     width: 33vw;
     text-align: left;
-    border-radius: 15px 0 15px 15px;
+    border-radius: 0 15px 15px 15px;
     padding: 15px;
     z-index: -10;
     opacity: 0;

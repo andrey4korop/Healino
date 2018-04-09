@@ -187,7 +187,7 @@ export default {
   .plus{
     width: 5%;
     height: 80%;
-    transition: all 1.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
     position: absolute;
     top: -90%;
     right: 4%;
@@ -202,9 +202,10 @@ export default {
     50% { box-shadow: 0 0px 20px rgba(255, 255, 255, 1), inset 0 0 80px rgba(255, 255, 255, 0.5)}
     to {box-shadow: unset;}
   }
-  .plus:hover{
+  .plus:hover, .description.on ~ div .plus{
     box-shadow: 0 0px 20px rgba(255, 255, 255, 1), inset 0 0 80px rgba(255, 255, 255, 0.5);
     animation: unset !important;
+    transform: rotate(45deg);
   }
   .progress_bar1{
     margin-top: 16px;

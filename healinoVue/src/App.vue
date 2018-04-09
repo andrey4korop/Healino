@@ -12,6 +12,7 @@
                      @onLogin="login"
                      @onUser="isFirst"
                      @nextBack="nextBack"
+                     @exit="exit"
                      @audio="audio"
                      :audio_p="audio_p"
                      :lang="lang"
@@ -22,21 +23,25 @@
                      @audio="audio"
                      :audio_p="audio_p"
                      @logined="logined"
+                     @exit="exit"
                      @onForgot="onForgot"
                      @onLicense="license"></login-component>
     <recoveryPassComponent  v-if="state == 'forgot'"
                             @audio="audio"
+                            @exit="exit"
                             :audio_p="audio_p"
                             @onForgotMessage="onForgotMessage"></recoveryPassComponent>
     <recoveryPassMessageComponent  v-if="state == 'forgotMessage'"></recoveryPassMessageComponent>
     <recPassComponent  v-if="state == 'recPass'"
                        @audio="audio"
+                       @exit="exit"
                        @onLogin="login"
                        :audio_p="audio_p"
                        :UniqId="UniqId"></recPassComponent>
     <register-component v-if="state == 'register'"
                         :lang="lang"
                         @audio="audio"
+                        @exit="exit"
                         :audio_p="audio_p"
                         @logined="logined"
                         @toShowMessageReg="toShowMessageReg"
@@ -45,12 +50,14 @@
     <license-component v-if="state == 'license'"
                        @audio="audio"
                        @onToStart="onToStart"
+                       @exit="exit"
                        :audio_p="audio_p"
                        @onToUser="ToUser"></license-component>
     <user-component v-if="state == 'user'"
                     :SessionData="SessionData"
                     :userData="userData"
                     @audio="audio"
+                    @exit="exit"
                     :audio_p="audio_p"
                     @changeAva="changeAvatar"
                     @toTheme="toTheme"></user-component>
@@ -60,6 +67,7 @@
                      :userData="userData"
                      :lang="lang"
                      @audio="audio"
+                     @exit="exit"
                      :audio_p="audio_p"
                      @toRezult="toRezult"
                      @changeLang="changeLang"
@@ -73,6 +81,7 @@
                         :userData="userData"
                         :errorQuest="errorQuest"
                         @audio="audio"
+                        @exit="exit"
                         :audio_p="audio_p"
                         @toTheme="toTheme"
                         @toRezult="toRezult"
@@ -83,12 +92,14 @@
 
     <rezult-component v-else-if="state == 'rezult'"
                       @audio="audio"
+                      @exit="exit"
                       :audio_p="audio_p"
                       :userData="userData"
                       :themeActiveObj="themeActiveObj"
                       :rezultData="rezultData"></rezult-component>
     <rezultPublic-component v-else-if="state == 'rezultPublic'"
                             @audio="audio"
+                            @exit="exit"
                             :audio_p="audio_p"
                       :rezultData="rezultData"></rezultPublic-component>
 
@@ -356,6 +367,12 @@ export default {
         },
         changeAvatar(img){
             this.userData.PhotoUrl = img;
+        },
+        exit(){
+          deleteCookie('SessionData');
+          deleteCookie('lang');
+          FB.logout();
+          location.reload();
         },
         bodyToken(token){
             return {

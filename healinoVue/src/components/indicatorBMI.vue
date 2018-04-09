@@ -174,11 +174,12 @@ export default {
     right: -7%;
     border-radius: 50%;
     z-index: 1;
-    transition: all 1.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
   }
-  .plus:hover{
+  .plus:hover, .description.on ~ div .plus{
     box-shadow: 0 0 10px rgba(255, 255, 255, 1), inset 0 0 10px rgba(255, 255, 255, 1);
     animation: unset !important;
+    transform: rotate(45deg);
   }
   .progress_bar4{
     border-radius: 50%;
