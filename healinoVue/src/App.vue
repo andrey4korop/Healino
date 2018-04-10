@@ -124,7 +124,7 @@ export default {
         userData:{},
         themeActive:0,
         lang:'en',
-        state: 'start',
+        state: 'theme',
         SessionData: '',
         UserId: '',
         questionData:{

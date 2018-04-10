@@ -64,8 +64,8 @@ gulp.task('sass', function(){
 gulp.task('serve', ['sass'], function() {
 
     browserSync.init({
-        //server: "./"
-        proxy: "localhost:8080/"
+        server: "./"
+       // proxy: "localhost:8080/"
     });
 
     gulp.watch('./scss/a.scss', ['sass'])

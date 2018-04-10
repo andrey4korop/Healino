@@ -2375,3 +2375,168 @@ div.p{
     line-height: 21px;
   }
 }
+.payContainer{
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  .payContent{
+    margin: 75px 0;
+    padding: 35px 52px;
+    @include size(24);
+    box-shadow: 2px 3px 7px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    background: rgba(250, 247, 247, 0.95);
+    box-sizing: border-box;
+
+    label{
+      @include size(15);
+      @include size-md(17);
+      @include size-sm(18);
+      color: #000;
+      position: relative;
+      &.card{
+        width: 250px;
+      }
+      &.cardInfo{
+        width:120px;
+      }
+      &.email{
+        width: 90%;
+      }
+      .check{
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        box-sizing: border-box;
+        text-align: center;
+        font-size: 14px;
+        color: #fff;
+        border-radius: 13px;
+        border: 3px solid #70cf47;
+        background: #70cf47;
+        position: absolute;
+        top: 30px;
+        left: calc(100% + 20px);
+        @include sm(left, calc(100% + 5px))
+      }
+      input[type="text"], input[type="date"], input[type="email"],
+      input[type="password"], input[type="tel"], input[type="number"],
+      select, option{
+        width: 100%;
+        height: 35px;
+        font-size: 16px;
+        box-sizing: border-box;
+        padding: 0 15px;
+        background: #fffffe;
+        border: none;
+        border-top: 1px solid #e5e6e5;
+        border-radius: 4px;
+        color: #555555;
+        margin-bottom: 20px;
+        margin-top: 7px;
+        &:focus, &:hover{
+          outline: none;
+        }
+        &.number{
+          @include size(7);
+        }
+      }
+      select{
+        /*for WebKit*/
+        -webkit-appearance: none;
+        /* for FF */
+        -moz-appearance: none;
+        text-indent: 0.01px;
+        text-overflow: '';
+        /* for IE */
+        -ms-appearance: none;
+        appearance: none!important;
+        background-image: url('../img/Arrow.png');
+        background-position-x: 94%;
+        background-position-y: center;
+        background-repeat: no-repeat;
+        &::-ms-expand {
+          display: none;
+        }
+      }
+      input[type="number"]{
+        -moz-appearance: textfield;
+        &::-webkit-outer-spin-button, &::-webkit-inner-spin-button{
+          -webkit-appearance: none;
+          margin: 0;
+        }
+      }
+      p{
+        color: #c2c2c2;
+        font-size: 14px;
+        //margin-left: -7px;
+        text-align: left;
+        span{
+          color: #6fcf46;
+        }
+      }
+    }
+    .rowPay{
+      display: flex;
+      justify-content: space-between;
+      .cardTypes{
+        display: flex;
+        @include size(12);
+        justify-content: space-between;
+        margin-left: auto;
+        .cardType img{
+          border-radius: 5px;
+        }
+      }
+      &.jsa{
+        justify-content: space-around;
+        button{
+          color: #fefefe;
+          font-size: 18px;
+          text-transform: uppercase;
+          letter-spacing: 1.33px;
+          box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+          border-radius: 23px;
+          background-color: #ff8f1f;
+          padding:20px 35px;
+          border: none;
+          min-width: 180px;
+        }
+      }
+      &.miniButtons{
+        width: 350px;
+        margin-left: auto;
+        button{
+          font-size: 10px;
+          text-transform: uppercase;
+          border-radius: 12px;
+          background-color: #ff8f1f;
+          padding: 11px 30px;
+          border: none;
+          color: #fefefe;
+          min-width:100px;
+        }
+      }
+      .col{
+        @include size(12);
+        display: flex;
+        flex-direction: column;
+        .address{
+          width: 250px;
+
+        }
+      }
+    }
+    h1{
+      color: #79ce77;
+      font-size: 24px;
+    }
+    h2{
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      letter-spacing: 0.35px;
+      color: #565656;
+    }
+  }
+}
