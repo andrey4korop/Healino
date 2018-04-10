@@ -19,7 +19,7 @@ export default {
 
     watch:{
         bgCurrent:function () {
-            if(this.Xbg<-100 || this.Xbg>200 ){
+            if(this.Xbg<-70 || this.Xbg>150 ){
                 this.toHide = true;
             }else{
                 this.toHide = false;
@@ -33,13 +33,13 @@ export default {
     computed: {
 
         Xbg: function () {
-            let h = this.posBG.x + ( this.posMouse.x / document.body.clientWidth * Math.abs(this.Kof.x) *200) + ( Math.abs(this.Kof.x) * 2000 * -this.bgCurrent);
+            let h = this.posBG.x + /*( this.posMouse.x / document.body.clientWidth * Math.abs(this.Kof.x) *200) +*/ ( Math.abs(this.Kof.x) * 2000 * -this.bgCurrent);
 
             h = h % 700;
             if(h<-200){
                 h+=700;
             }
-            if(h<-100 || h>200 ){
+            if(h<-70 || h>150 ){
                 this.toHide = true;
             }else{
                 this.toHide = false;
@@ -47,18 +47,18 @@ export default {
             return h;
         },
         Ybg: function () {
-            return this.posBG.y + ( this.posMouse.y / document.body.clientHeight * Math.abs(this.Kof.y) *100);
+            return this.posBG.y;// + ( this.posMouse.y / document.body.clientHeight * Math.abs(this.Kof.y) *100);
         },
-        rotDeg: function () {
+       /* rotDeg: function () {
             return (this.posMouse.y + this.posMouse.x) * this.constKof;
-        },
-        constKof:function () {
+        },*/
+        /*constKof:function () {
             if(this.Kof.x>0) {
                 return Math.pow(this.Kof.x * 100, this.Kof.x * 100) / 250;
             }else{
                 return -Math.pow(Math.abs(this.Kof.x) * 100, Math.abs(this.Kof.x) * 100) / 250;
             }
-        }
+        }*/
     },
 }
 </script>

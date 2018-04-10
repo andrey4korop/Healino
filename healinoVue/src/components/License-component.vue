@@ -4,9 +4,16 @@
     <div class="row">
       <div class="license">
         <div class="ob">
-          <div class="text" v-html="langString('license')">
+          <p class="btnPrev" v-on:click="changeActive(0)"><</p>
+          <p class="btnNext" v-on:click="changeActive(1)">></p>
+          <div class="text" v-html="licenseText">
 
           </div>
+        </div>
+        <div class="rowRadio">
+          <div class="radioDot" v-bind:class="(activeDot=='1')?'active':''" v-on:click="clickDot(1)"></div>
+          <div class="radioDot" v-bind:class="(activeDot=='2')?'active':''" v-on:click="clickDot(2)"></div>
+          <div class="radioDot" v-bind:class="(activeDot=='3')?'active':''" v-on:click="clickDot(3)"></div>
         </div>
         <div class="row checkb">
           <div class="ck">
@@ -44,7 +51,8 @@
     export default {
         props: ['audio_p'],
         data () {
-            return {
+            return{
+                activeDot:1,
                 check1:false,
                 check2:false,
                 check3:false
@@ -52,7 +60,7 @@
         },
         messages: {
             en: {
-                license:"<h1>Privacy Law and Legal Notice</h1>"
+                license1:"<h1>Privacy Law and Legal Notice</h1>"
     +'<p>HEALINO LEGAL NOTICE AND PRIVACY POLICY</p>'
     +'<p>Legal Notice</p>'
     +'<p>In accordance with Polish Law Nr&nbsp;171 on Telecommunications, which comes into force on 22 March 2013, and art. 24 of the Act of 29 August 1997 on the protection of personal data (Journal of Laws of 2014, item 1182, as amended), you are now informed that this website is owned by HEALINO Sp. z o.o., an Polish company having its offices at UL. PLAC PRZYMIERZA, 6, LOK. 26, 03-944 WARSZAWA, POLAND, with registered number KRS 0000679373, REGON: 367337494, NIP: 1132942828. For any enquire, we can be reached by e-mail: <a href="mailto:info@healino.com">info@healino.com</a>, or phone +48&nbsp;784&nbsp;877 672</p>'
@@ -105,8 +113,8 @@
     +'<p>Changes</p>'
     +'<p>Healino may update this Privacy Policy from time to time and we encourage you to review it periodically.</p>'
     +'<p>Comments and Questions</p>'
-    +'<p>&nbsp;If you have any comments or questions about our privacy policy, please contact us at info@healino.com.</p>'
-    +'<h1>Terms of Use</h1>'
+    +'<p>&nbsp;If you have any comments or questions about our privacy policy, please contact us at info@healino.com.</p>',
+ license2:'<h1>Terms of Use</h1>'
     +'<p>Healino Terms of Service</p>'
     +'<p>Healino Health Ltd. (&ldquo;we&rdquo;, &ldquo;us&rdquo; or &ldquo;Healino&rdquo;) provides its users with virtual nutritionist services called Healino. These Terms of Service (&ldquo;Terms&rdquo;) constitute a legal agreement between Healino and yourself. &ldquo;User or &ldquo;you&rdquo; means an individual or entity end user of the Services. By accessing or using the Healino internet site located at&nbsp;<a href="http://www.healino.com/" target="_blank">http://www.Healino.com/</a> (&ldquo;Site&rdquo;), the mobile application (&ldquo;Application&rdquo;) and any service provided by us, (all of the foregoing, the &ldquo;Services&rdquo;) you agree that you have read, understood, accept and agree to be bound by these Terms, as well as our Privacy Policy, which is available at&nbsp;<a href="http://www.healino.com/privacy-policy" target="_blank">http://www.Healino.com/privacy-policy</a>. If you do not agree to these Terms or the Privacy Policy, do not access, download or use the Services. These Terms and the Privacy Policy are accepted by your accessing, downloading and/or use of the Services.</p>'
     +'<p>We reserve the right, in our sole discretion, to revise or modify these Terms at any time, and you agree to be bound by such revisions or modifications. You are responsible for reviewing these Terms periodically. Your continued use of the Services after a change or modification of these Terms has been made will constitute your acceptance of the revised Terms. Services may not be available in all geographic locations.</p>'
@@ -161,8 +169,8 @@
     +'<p>Apple App Store</p>'
     +'<p>This provision is only applicable to users that download the Application through the Apple App Store. These Terms are an agreement between you and Healino. Apple has no responsibility for the Application or the content of the Application, including in respect of claims of intellectual property infringement, product liability or that the Application does not conform with applicable law. To the maximum extent permitted by applicable law, Apple provides no warranty in respect of the Application and has no obligation to provide support in respect of the Application. All claims in respect of the Application must be directed to Healino and not to Apple. Your use of the Application must be in compliance with the App Store Terms of Service, and you may only use the Application on an iPhone or iPod that you own or control as permitted by such terms. In the event the Application fails to conform to the warranty set forth herein, you may notify Apple, and Apple will refund the purchase price for the Application to you. Apple shall be a third party beneficiary of these Terms with the right to enforce these Terms against you.</p>'
     +'<p>Miscellaneous</p>'
-    +'<p>These&nbsp;Terms&nbsp;shall be governed by the law of Poland exclusive of its choice of law rules. Your conduct may also be subject to other local, state, and national laws. Any action to be brought in connection with these&nbsp;Terms, the Services shall be brought exclusively in the court located in Warszawa/Poland, and you irrevocably consent to their jurisdiction. Any cause of action against us must be brought within one (1) year of the date such cause of action arose. In the event that any provision of these&nbsp;Terms&nbsp;is held to be unenforceable, such provision shall be replaced with an enforceable provision which most closely achieves the effect of the original provision as permitted by applicable law, and the remaining terms of these Terms&nbsp;shall remain in full force and effect. Nothing in these Terms creates any agency, employment, joint venture, or partnership relationship between you and us or enables you to act on our behalf. Except as may be expressly stated in these&nbsp;Terms, these&nbsp;Terms&nbsp;constitute the entire agreement between us and you pertaining to the subject matter hereof, and supersedes any other agreements, understandings or warranties. Nothing contained in these Terms shall be construed to limit the actions or remedies available to us with respect to any prohibited activity or conduct. Non-enforcement of any term of these&nbsp;Terms&nbsp;does not constitute consent or waiver, and we reserve the right to enforce such term at our sole discretion. No waiver of any breach or default hereunder shall be deemed to be a waiver of any preceding or subsequent breach or default. We may assign our rights under these terms to any third party. You may not assign your rights or obligations hereunder except as we expressly permit in writing. Any notice to be provided to you pursuant to these Terms maybe provided to the email address or other contact information you have provided to us.</p>'
-    +'<h1>COOKIES POLICY</h1>'
+    +'<p>These&nbsp;Terms&nbsp;shall be governed by the law of Poland exclusive of its choice of law rules. Your conduct may also be subject to other local, state, and national laws. Any action to be brought in connection with these&nbsp;Terms, the Services shall be brought exclusively in the court located in Warszawa/Poland, and you irrevocably consent to their jurisdiction. Any cause of action against us must be brought within one (1) year of the date such cause of action arose. In the event that any provision of these&nbsp;Terms&nbsp;is held to be unenforceable, such provision shall be replaced with an enforceable provision which most closely achieves the effect of the original provision as permitted by applicable law, and the remaining terms of these Terms&nbsp;shall remain in full force and effect. Nothing in these Terms creates any agency, employment, joint venture, or partnership relationship between you and us or enables you to act on our behalf. Except as may be expressly stated in these&nbsp;Terms, these&nbsp;Terms&nbsp;constitute the entire agreement between us and you pertaining to the subject matter hereof, and supersedes any other agreements, understandings or warranties. Nothing contained in these Terms shall be construed to limit the actions or remedies available to us with respect to any prohibited activity or conduct. Non-enforcement of any term of these&nbsp;Terms&nbsp;does not constitute consent or waiver, and we reserve the right to enforce such term at our sole discretion. No waiver of any breach or default hereunder shall be deemed to be a waiver of any preceding or subsequent breach or default. We may assign our rights under these terms to any third party. You may not assign your rights or obligations hereunder except as we expressly permit in writing. Any notice to be provided to you pursuant to these Terms maybe provided to the email address or other contact information you have provided to us.</p>',
+ license3:'<h1>COOKIES POLICY</h1>'
     +'<p>&nbsp;Use of Cookies by the Website of HEALINO Sp. z o.o.</p>'
     +'<p>The website of HEALINO Sp. z o.o., (hereinafter the Web) uses Cookies. Cookies are files sent to a browser through a web server to record the activities of the User in a certain web. The first purpose of Cookies is to provide the user with faster access to the selected services. In addition, Cookies personalize the services offered by the Web, facilitating and offering to each user information that is of interest or that may be of interest, in view of their use of the Services.</p>'
     +'<p>&nbsp;The Web uses Cookies to personalize and facilitate the user&rsquo;s browsing. Cookies are only associated with an anonymous user and his computer and do not provide references that allow to deduce personal data of the user. The user may configure his browser to notify and reject the installation of Cookies sent by the Web, without prejudice to the possibility of the user to access the contents of said web. However, we note that, in any case, the performance of the website may decrease.</p>'
@@ -252,7 +260,7 @@
                 buttonPrev:'Back'
             },
             ru: {
-                license:"<h1>Privacy Law and Legal Notice</h1>"
+                license1:"<h1>Privacy Law and Legal Notice</h1>"
                 +'<p>HEALINO LEGAL NOTICE AND PRIVACY POLICY</p>'
                 +'<p>Legal Notice</p>'
                 +'<p>In accordance with Polish Law Nr&nbsp;171 on Telecommunications, which comes into force on 22 March 2013, and art. 24 of the Act of 29 August 1997 on the protection of personal data (Journal of Laws of 2014, item 1182, as amended), you are now informed that this website is owned by HEALINO Sp. z o.o., an Polish company having its offices at UL. PLAC PRZYMIERZA, 6, LOK. 26, 03-944 WARSZAWA, POLAND, with registered number KRS 0000679373, REGON: 367337494, NIP: 1132942828. For any enquire, we can be reached by e-mail: <a href="mailto:info@healino.com">info@healino.com</a>, or phone +48&nbsp;784&nbsp;877 672</p>'
@@ -305,8 +313,8 @@
                 +'<p>Changes</p>'
                 +'<p>Healino may update this Privacy Policy from time to time and we encourage you to review it periodically.</p>'
                 +'<p>Comments and Questions</p>'
-                +'<p>&nbsp;If you have any comments or questions about our privacy policy, please contact us at info@healino.com.</p>'
-                +'<h1>Terms of Use</h1>'
+                +'<p>&nbsp;If you have any comments or questions about our privacy policy, please contact us at info@healino.com.</p>',
+            license2:'<h1>Terms of Use</h1>'
                 +'<p>Healino Terms of Service</p>'
                 +'<p>Healino Health Ltd. (&ldquo;we&rdquo;, &ldquo;us&rdquo; or &ldquo;Healino&rdquo;) provides its users with virtual nutritionist services called Healino. These Terms of Service (&ldquo;Terms&rdquo;) constitute a legal agreement between Healino and yourself. &ldquo;User or &ldquo;you&rdquo; means an individual or entity end user of the Services. By accessing or using the Healino internet site located at&nbsp;<a href="http://www.healino.com/" target="_blank">http://www.Healino.com/</a> (&ldquo;Site&rdquo;), the mobile application (&ldquo;Application&rdquo;) and any service provided by us, (all of the foregoing, the &ldquo;Services&rdquo;) you agree that you have read, understood, accept and agree to be bound by these Terms, as well as our Privacy Policy, which is available at&nbsp;<a href="http://www.healino.com/privacy-policy" target="_blank">http://www.Healino.com/privacy-policy</a>. If you do not agree to these Terms or the Privacy Policy, do not access, download or use the Services. These Terms and the Privacy Policy are accepted by your accessing, downloading and/or use of the Services.</p>'
                 +'<p>We reserve the right, in our sole discretion, to revise or modify these Terms at any time, and you agree to be bound by such revisions or modifications. You are responsible for reviewing these Terms periodically. Your continued use of the Services after a change or modification of these Terms has been made will constitute your acceptance of the revised Terms. Services may not be available in all geographic locations.</p>'
@@ -361,8 +369,8 @@
                 +'<p>Apple App Store</p>'
                 +'<p>This provision is only applicable to users that download the Application through the Apple App Store. These Terms are an agreement between you and Healino. Apple has no responsibility for the Application or the content of the Application, including in respect of claims of intellectual property infringement, product liability or that the Application does not conform with applicable law. To the maximum extent permitted by applicable law, Apple provides no warranty in respect of the Application and has no obligation to provide support in respect of the Application. All claims in respect of the Application must be directed to Healino and not to Apple. Your use of the Application must be in compliance with the App Store Terms of Service, and you may only use the Application on an iPhone or iPod that you own or control as permitted by such terms. In the event the Application fails to conform to the warranty set forth herein, you may notify Apple, and Apple will refund the purchase price for the Application to you. Apple shall be a third party beneficiary of these Terms with the right to enforce these Terms against you.</p>'
                 +'<p>Miscellaneous</p>'
-                +'<p>These&nbsp;Terms&nbsp;shall be governed by the law of Poland exclusive of its choice of law rules. Your conduct may also be subject to other local, state, and national laws. Any action to be brought in connection with these&nbsp;Terms, the Services shall be brought exclusively in the court located in Warszawa/Poland, and you irrevocably consent to their jurisdiction. Any cause of action against us must be brought within one (1) year of the date such cause of action arose. In the event that any provision of these&nbsp;Terms&nbsp;is held to be unenforceable, such provision shall be replaced with an enforceable provision which most closely achieves the effect of the original provision as permitted by applicable law, and the remaining terms of these Terms&nbsp;shall remain in full force and effect. Nothing in these Terms creates any agency, employment, joint venture, or partnership relationship between you and us or enables you to act on our behalf. Except as may be expressly stated in these&nbsp;Terms, these&nbsp;Terms&nbsp;constitute the entire agreement between us and you pertaining to the subject matter hereof, and supersedes any other agreements, understandings or warranties. Nothing contained in these Terms shall be construed to limit the actions or remedies available to us with respect to any prohibited activity or conduct. Non-enforcement of any term of these&nbsp;Terms&nbsp;does not constitute consent or waiver, and we reserve the right to enforce such term at our sole discretion. No waiver of any breach or default hereunder shall be deemed to be a waiver of any preceding or subsequent breach or default. We may assign our rights under these terms to any third party. You may not assign your rights or obligations hereunder except as we expressly permit in writing. Any notice to be provided to you pursuant to these Terms maybe provided to the email address or other contact information you have provided to us.</p>'
-                +'<h1>COOKIES POLICY</h1>'
+                +'<p>These&nbsp;Terms&nbsp;shall be governed by the law of Poland exclusive of its choice of law rules. Your conduct may also be subject to other local, state, and national laws. Any action to be brought in connection with these&nbsp;Terms, the Services shall be brought exclusively in the court located in Warszawa/Poland, and you irrevocably consent to their jurisdiction. Any cause of action against us must be brought within one (1) year of the date such cause of action arose. In the event that any provision of these&nbsp;Terms&nbsp;is held to be unenforceable, such provision shall be replaced with an enforceable provision which most closely achieves the effect of the original provision as permitted by applicable law, and the remaining terms of these Terms&nbsp;shall remain in full force and effect. Nothing in these Terms creates any agency, employment, joint venture, or partnership relationship between you and us or enables you to act on our behalf. Except as may be expressly stated in these&nbsp;Terms, these&nbsp;Terms&nbsp;constitute the entire agreement between us and you pertaining to the subject matter hereof, and supersedes any other agreements, understandings or warranties. Nothing contained in these Terms shall be construed to limit the actions or remedies available to us with respect to any prohibited activity or conduct. Non-enforcement of any term of these&nbsp;Terms&nbsp;does not constitute consent or waiver, and we reserve the right to enforce such term at our sole discretion. No waiver of any breach or default hereunder shall be deemed to be a waiver of any preceding or subsequent breach or default. We may assign our rights under these terms to any third party. You may not assign your rights or obligations hereunder except as we expressly permit in writing. Any notice to be provided to you pursuant to these Terms maybe provided to the email address or other contact information you have provided to us.</p>',
+            license3:'<h1>COOKIES POLICY</h1>'
                 +'<p>&nbsp;Use of Cookies by the Website of HEALINO Sp. z o.o.</p>'
                 +'<p>The website of HEALINO Sp. z o.o., (hereinafter the Web) uses Cookies. Cookies are files sent to a browser through a web server to record the activities of the User in a certain web. The first purpose of Cookies is to provide the user with faster access to the selected services. In addition, Cookies personalize the services offered by the Web, facilitating and offering to each user information that is of interest or that may be of interest, in view of their use of the Services.</p>'
                 +'<p>&nbsp;The Web uses Cookies to personalize and facilitate the user&rsquo;s browsing. Cookies are only associated with an anonymous user and his computer and do not provide references that allow to deduce personal data of the user. The user may configure his browser to notify and reject the installation of Cookies sent by the Web, without prejudice to the possibility of the user to access the contents of said web. However, we note that, in any case, the performance of the website may decrease.</p>'
@@ -452,7 +460,7 @@
                 buttonPrev:'Назад'
             },
             pl: {
-                license:
+                license1:
     '<h1>Polityka prywatności i informacja prawna</h1>'
     +'<p>HEALINO&nbsp; - INFORMACJA PRAWNA I POLITYKA PRYWATNOŚCI</p>'
     +'<p>Polityka prywatności</p>'
@@ -493,8 +501,8 @@
     +'<p>Healino umożliwia przeglądanie informacji podanych podczas rejestracji oraz zmianę danych, nieścisłości lub błęd&oacute;w. Aby poprosić o taki dostęp lub poprawić, zaktualizować lub poprawić swoje dane osobowe, prosimy o kontakt pod następującym adresem e-mail, adresem pocztowym lub numerem telefonu:</p>'
     +'<p>Adres e-mail:</p>'
     +'<p>Adres pocztowy: UL. PLAC PRZYMIERZA 6, LOK. 26, 03-944 WARSZAWA, POLSKA</p>'
-    +'<p>Numer telefonu: +48 784 877 672</p>'
-    +'<h1>Regulamin</h1>'
+    +'<p>Numer telefonu: +48 784 877 672</p>',
+ license2:'<h1>Regulamin</h1>'
     +'<p>Warunki świadczenia usług Healino</p>'
     +'<p>Healino Sp&oacute;łka z o.o. ("my", "nas" lub "Healino") zapewnia swoim użytkownikom wirtualne usługi żywieniowe o nazwie Healino. Niniejsze Warunki świadczenia usług ("Warunki") stanowią umowę między firmą Healino a użytkownikiem. "Użytkownik&rdquo; oznacza osobę lub osobę fizyczną korzystającą z Usług. Uzyskując dostęp lub korzystając z witryny internetowej Healino znajdującej się pod adresem "Witryna", aplikacja mobilna ("Aplikacja") i wszelkie świadczone przez nas usługi (wszystkie powyższe, "Usługi") potwierdzają, że przeczytali, zrozumieli i zaakceptowali warunki korzystania z Usług, a także naszą Politykę prywatności, kt&oacute;ra jest dostępna na stronie internetowej Healino. Jeśli nie zgadzasz się z niniejszymi Warunkami lub Polityką prywatności, nie otwieraj, nie pobieraj ani nie korzystaj z Usług. Dostęp, pobieranie i / lub korzystanie z naszych Usług oznacza, że akceptujesz Niniejsze Warunki i Politykę prywatności.</p>'
     +'<p>Healino zastrzega sobie prawo do zmiany lub modyfikacji niniejszych Warunk&oacute;w w dowolnym momencie, a tym samym korzystając z Usług Użytkownik wyraża zgodę na takie zmiany lub modyfikacje. Użytkownik jest odpowiedzialny za okresowe sprawdzanie niniejszych Warunk&oacute;w. Dalsze korzystanie z Usług po zmianie lub modyfikacji niniejszych Warunk&oacute;w będzie stanowić akceptację zmienionych Warunk&oacute;w. Usługi mogą nie być dostępne we wszystkich lokalizacjach geograficznych.</p>'
@@ -548,8 +556,8 @@
     +'<p>Platforma Apple App Store</p>'
     +'<p>Ten fragment dotyczy tylko użytkownik&oacute;w, kt&oacute;rzy pobierają Aplikację za pośrednictwem Apple App Store. Niniejsze Warunki stanowią umowę między Użytkownikiem a firmą Healino. Apple nie ponosi odpowiedzialności za Aplikację ani zawartość Aplikacji, w tym za roszczenia dotyczące naruszenia praw własności intelektualnej, odpowiedzialności za produkt lub niezgodność Aplikacji z obowiązującym prawem. W maksymalnym zakresie dozwolonym przez obowiązujące prawo firma Apple nie udziela żadnych gwarancji w odniesieniu do Aplikacji i nie ma obowiązku zapewnienia wsparcia w odniesieniu do Aplikacji. Wszelkie roszczenia dotyczące Aplikacji należy kierować do firmy Healino, a nie do firmy Apple. Korzystanie z Aplikacji musi być zgodne z Warunkami korzystania z serwisu App Store. Użytkownik może korzystać z Aplikacji na iPhonie lub iPodzie, kt&oacute;rych właścicielem jest Użytkownik, zgodnie z niniejszym Regulaminem. W przypadku, gdy Aplikacja nie będzie spełniała warunk&oacute;w gwarancji określonej w niniejszym dokumencie, Użytkownik może powiadomić Apple, a Apple zwr&oacute;ci Użytkownikowi cenę zakupu Aplikacji. Apple jest stroną trzecią będącą beneficjentem niniejszych Warunk&oacute;w, z prawem egzekwowania niniejszych Warunk&oacute;w wobec Użytkownika.</p>'
     +'<p>Pozostałe warunki</p>'
-    +'<p>Niniejsze Warunki podlegają prawu polskiemu, z wyłączeniem zasad prawa wyboru. Postępowanie użytkownika może r&oacute;wnież podlegać innym lokalnym, stanowym i krajowym prawom. Wszelkie czynności związane z niniejszymi Warunkami będą rozstrzygane wyłącznie w sądzie w Warszawie / Polska, a Użytkownik nieodwołalnie wyrazi zgodę na ich jurysdykcję. Wszelkie pow&oacute;dztwa przeciwko nam muszą być wniesione w ciągu jednego (1) roku od daty powstania takiej przyczyny. W przypadku, gdy jakiekolwiek postanowienie niniejszych Warunk&oacute;w zostanie uznane za niewykonalne, takie postanowienie zostanie zastąpione wykonalnym postanowieniem, kt&oacute;re najbardziej zbliża się do skutku pierwotnego postanowienia dozwolonego przez obowiązujące prawo, a pozostałe warunki niniejszych Warunk&oacute;w pozostają w mocy. Żadne postanowienie niniejszych Warunk&oacute;w nie tworzy pośrednictwa, zatrudnienia, joint venture lub związku partnerskiego między Użytkownikiem a nami lub umożliwia działanie w naszym imieniu. Z wyjątkiem przypadk&oacute;w wyraźnie określonych w niniejszych Warunkach, niniejsze Warunki stanowią całość porozumienia między nami a Użytkownikiem dotyczącego przedmiotu niniejszej Umowy i zastępują wszelkie inne umowy, porozumienia lub gwarancje. Żadne z postanowień niniejszych Warunk&oacute;w nie będzie interpretowane jako ograniczenie działań lub środk&oacute;w ochrony prawnej dostępnych dla nas w odniesieniu do zabronionej działalności lub zachowania. Niewykonanie kt&oacute;regokolwiek z postanowień niniejszych Warunk&oacute;w nie stanowi zgody ani zrzeczenia się prawa, a my zastrzegamy sobie prawo do egzekwowania takiego postanowienia według naszego wyłącznego uznania. Żadne zrzeczenie się jakiegokolwiek naruszenia lub niewykonania zobowiązania nie będzie uważane za zrzeczenie się jakiegokolwiek wcześniejszego lub kolejnego naruszenia lub niewykonania zobowiązania. Możemy przenieść nasze prawa wynikające z niniejszych warunk&oacute;w dowolnej osobie trzeciej. Użytkownik nie może scedować swoich praw lub obowiązk&oacute;w wynikających z niniejszej Umowy, chyba że wyraźnie zezwolimy na to na piśmie. Wszelkie powiadomienia, kt&oacute;re przesyłamy zgodnie z niniejszymi Warunkami, mogą zostać dostarczone na adres e-mail lub inne dane kontaktowe, kt&oacute;re otrzymaliśmy od Uzytkownika.</p>'
-    +'<h1>POLITYKA DOTYCZĄCA PLIK&Oacute;W COOKIES</h1>'
+    +'<p>Niniejsze Warunki podlegają prawu polskiemu, z wyłączeniem zasad prawa wyboru. Postępowanie użytkownika może r&oacute;wnież podlegać innym lokalnym, stanowym i krajowym prawom. Wszelkie czynności związane z niniejszymi Warunkami będą rozstrzygane wyłącznie w sądzie w Warszawie / Polska, a Użytkownik nieodwołalnie wyrazi zgodę na ich jurysdykcję. Wszelkie pow&oacute;dztwa przeciwko nam muszą być wniesione w ciągu jednego (1) roku od daty powstania takiej przyczyny. W przypadku, gdy jakiekolwiek postanowienie niniejszych Warunk&oacute;w zostanie uznane za niewykonalne, takie postanowienie zostanie zastąpione wykonalnym postanowieniem, kt&oacute;re najbardziej zbliża się do skutku pierwotnego postanowienia dozwolonego przez obowiązujące prawo, a pozostałe warunki niniejszych Warunk&oacute;w pozostają w mocy. Żadne postanowienie niniejszych Warunk&oacute;w nie tworzy pośrednictwa, zatrudnienia, joint venture lub związku partnerskiego między Użytkownikiem a nami lub umożliwia działanie w naszym imieniu. Z wyjątkiem przypadk&oacute;w wyraźnie określonych w niniejszych Warunkach, niniejsze Warunki stanowią całość porozumienia między nami a Użytkownikiem dotyczącego przedmiotu niniejszej Umowy i zastępują wszelkie inne umowy, porozumienia lub gwarancje. Żadne z postanowień niniejszych Warunk&oacute;w nie będzie interpretowane jako ograniczenie działań lub środk&oacute;w ochrony prawnej dostępnych dla nas w odniesieniu do zabronionej działalności lub zachowania. Niewykonanie kt&oacute;regokolwiek z postanowień niniejszych Warunk&oacute;w nie stanowi zgody ani zrzeczenia się prawa, a my zastrzegamy sobie prawo do egzekwowania takiego postanowienia według naszego wyłącznego uznania. Żadne zrzeczenie się jakiegokolwiek naruszenia lub niewykonania zobowiązania nie będzie uważane za zrzeczenie się jakiegokolwiek wcześniejszego lub kolejnego naruszenia lub niewykonania zobowiązania. Możemy przenieść nasze prawa wynikające z niniejszych warunk&oacute;w dowolnej osobie trzeciej. Użytkownik nie może scedować swoich praw lub obowiązk&oacute;w wynikających z niniejszej Umowy, chyba że wyraźnie zezwolimy na to na piśmie. Wszelkie powiadomienia, kt&oacute;re przesyłamy zgodnie z niniejszymi Warunkami, mogą zostać dostarczone na adres e-mail lub inne dane kontaktowe, kt&oacute;re otrzymaliśmy od Uzytkownika.</p>',
+ license3:'<h1>POLITYKA DOTYCZĄCA PLIK&Oacute;W COOKIES</h1>'
     +'<p>Korzystanie z plik&oacute;w Cookies przez stronę internetową firmy HEALINO Sp. o.o.</p>'
     +'<p>Strona internetowa HEALINO Sp. z o.o. (zwana dalej Stroną) używa plik&oacute;w Cookie. Pliki Cookies to pliki wysyłane do przeglądarki za pośrednictwem serwera internetowego w celu rejestrowania działań Użytkownika w określonej sieci. Pierwszym celem plik&oacute;w Cookies jest zapewnienie użytkownikowi szybszego dostępu do wybranych usług. Ponadto Cookies personalizują usługi oferowane przez Internet, ułatwiając i oferując każdemu użytkownikowi informacje, kt&oacute;re mogą go zainteresować, w związku z korzystaniem z Usług.</p>'
     +'<p>Sieć wykorzystuje pliki Cookies w celu personalizacji i ułatwienia przeglądania. Pliki Cookies są kojarzone wyłącznie z anonimowym użytkownikiem i jego komputerem i nie zawierają odniesień, kt&oacute;re pozwalają na ujawnienie danych osobowych użytkownika. Użytkownik może skonfigurować swoją przeglądarkę, aby powiadamiała i odrzucała instalację Cookies wysłanych przez Internet nie ograniczając dla możliwości dostępu użytkownika do zawartości wspomnianej sieci. Jednakże trzeba mieć na uwadze, że w każdym przypadku wydajność Strony może się zmniejszyć.</p>'
@@ -617,7 +625,18 @@
                     return true
                 }
                 return false;
+            },
+          licenseText:function () {
+              if(this.activeDot==1) {
+                return this.langString('license1');
+              }
+            if(this.activeDot==2) {
+              return this.langString('license2');
             }
+            if(this.activeDot==3) {
+              return this.langString('license3');
+            }
+          }
         },
         methods: {
             langString(string){
@@ -628,6 +647,18 @@
                     this.$emit('onToUser')
                 }
             },
+          clickDot(num){
+            this.activeDot=num;
+            $('.license .text').scrollTop(0)
+          },
+          changeActive(num){
+            if(num==0 &&  this.activeDot-1){
+              this.clickDot(this.activeDot-1)
+            }
+            if(num==1 &&  this.activeDot+1<4){
+              this.clickDot(this.activeDot+1)
+            }
+          },
             prev:function () {
                 this.$emit('onToStart')
             }
@@ -645,6 +676,39 @@
     position: fixed;
     bottom: 10px;
     right: 10px;
+  }
+  .rowRadio{
+    display: flex;
+    justify-content: center;
+  }
+  .radioDot{
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    margin: 10px;
+    background: #c9c9c9;
+    cursor: pointer;
+  }
+  .radioDot.active{
+    background: #78cd76;
+  }
+  .btnPrev, .btnNext{
+    position: absolute;
+    top:50%;
+    height:30px;
+    width: 30px;
+    left: 5px;
+    background: #78cd76;
+    border-radius: 30px;
+    color: #fff;
+    font-size: 23px;
+    line-height: 30px;
+    text-align: center;
+    cursor:pointer;
+  }
+  .btnNext{
+    right: 10px;
+    left: unset;
   }
   @media screen and (max-width: 760px) {
     .firstPageContainer .row {

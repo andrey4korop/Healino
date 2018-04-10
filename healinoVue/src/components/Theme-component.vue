@@ -50,8 +50,10 @@
 
               <div class="filter" v-on:click="changeActive(list)">
                 <img src="/static/img/activeTheme.png" alt="" v-if="(isActive(list.Id) && list.QuestionsTotal!=list.QuestionsFinished)" style="position: absolute" class="checktheme1">
-                <img src="/static/img/theme_finish.png" alt="" v-on:click.prevent="getRezult(list)" v-if="(list.QuestionsTotal==list.QuestionsFinished)">
-                <div v-if="(list.QuestionsTotal==list.QuestionsFinished)" class="text_rezult"><p> <img src="/static/img/mark.png" class="mark"> {{langString('rezult')}}</p></div>
+                <img src="/static/img/theme_finish.png" alt=""  v-if="(list.QuestionsTotal==list.QuestionsFinished)">
+                <div v-if="(list.QuestionsTotal==list.QuestionsFinished)" class="text_rezult" v-on:click.prevent="getRezult(list)">
+                  <p> <img src="/static/img/mark.png" class="mark"> {{langString('rezult')}}</p>
+                </div>
                <!-- <button v-on:click.prevent="getRezult(list)"  v-lang.rezult></button>-->
               </div>
             </div>

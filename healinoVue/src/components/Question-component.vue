@@ -260,9 +260,11 @@
   }
   @media screen and (max-width: 760px) {
     .themesPageContainer label {
-      margin: 40px calc(100% / 24);
+       margin: 40px calc(100% / 24);
+     }
+    .themesPageContainer label:nth-child(2) {
+      margin: 10px calc(100% / 24);
     }
-
     .themesPageContainer .content.col {
       margin-top: 0;
     }

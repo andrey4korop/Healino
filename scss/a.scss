@@ -367,6 +367,7 @@ html,body{
   }
   label{
     @include size(15);
+    @include size-md(17);
     @include size-sm(18);
     color: #000;
     position: relative;
@@ -617,6 +618,7 @@ html,body{
     border-radius: 5px;
     box-sizing: border-box;
     padding: 20px 0px 20px 15px;
+    position: relative;
     @include sm(padding, 0 0 0 15px);
     @include size(22);
   }
@@ -639,14 +641,14 @@ html,body{
       width: 5px;
       background: rgba(109,207,77,0.5);
       border-radius: 3px;
-      height: 90%;
+      height: 10%;
     }
 
     &::-webkit-scrollbar-thumb {
       background: rgb(109,207,77);
       border-radius: 3px;
       width: 5px;
-      height: 90%;
+      height: 10%;
     }
     scrollbar-base-color: rgba(109,207,77,1);
     scrollbar-3dlight-color:rgba(109,207,77,1);
@@ -749,6 +751,7 @@ html,body{
     @include md(display, flex);
     @include md(margin, 15px auto);
     @include md(text-align, center);
+    @include md(justify-content, space-around);
   }
   button {
     height: 45px;
@@ -1225,6 +1228,7 @@ html,body{
         @include align-items-sm(center);
         width: 100%;
         margin-bottom: 40px;
+        margin-top: 0;
         @include sm(margin-bottom, 0);
       }
     }
@@ -1522,7 +1526,8 @@ html,body{
       background-size: cover;
       cursor: pointer;
       &:last-child{
-        margin: 0;
+        margin-bottom: 10px;
+
       }
       img{
         display: block;
@@ -2263,90 +2268,90 @@ div.p{
 
 @keyframes animationBGBig {  
     from {
-      transform: rotate(0deg);
-      margin-top: -15%;
-      margin-left: 0%;
+      transform: rotate(0deg) translateY(-40%) translateX(0);
+     /* margin-top: -15%;
+      margin-left: 0%;*/
     }
     25%{
-      margin-top: -7%;
-      margin-left: 5%;
-      transform: rotate(-15deg);
+     /* margin-top: -7%;
+      margin-left: 5%;*/
+      transform: rotate(-15deg) translateY(-25%) translateX(15%);
     }
     50%{
-    transform: rotate(-40deg);
-      margin-top: 0%;
-      margin-left: 0%;
+    transform: rotate(-40deg) translateY(0) translateX(0);
+     /* margin-top: 0%;
+      margin-left: 0%;*/
       
     }
     75%{
-      transform: rotate(-15deg);
-      margin-top: -7%;
-      margin-left: -5%;
+      transform: rotate(-15deg) translateY(-25%) translateX(-15%);
+      /*margin-top: -7%;
+      margin-left: -5%;*/
     }
     to {
       
-      margin-top: -15%;
-      margin-left: 0%;
-      transform: rotate(0deg)
+      /*margin-top: -15%;
+      margin-left: 0%;*/
+      transform: rotate(0deg) translateY(-40%) translateX(0);
     };
   }
   @keyframes animationBGMedium {  
     from {
-      transform: rotate(0deg);
-      margin-top: -10%;
-      margin-left: 0%;
+      transform: rotate(0deg) translateY(-40%) translateX(0);
+      /*margin-top: -10%;
+      margin-left: 0%;*/
  
     }
     25%{
-      margin-top: -3%;
-      margin-left: 3%;
-  transform: rotate(15deg);
+     /* margin-top: -3%;
+      margin-left: 3%;*/
+      transform: rotate(15deg) translateY(-25%) translateX(15%);
     }
     50%{
-      transform: rotate(40deg);
-      margin-top: 0%;
-      margin-left: 0%;
+      transform: rotate(40deg) translateY(0) translateX(0);
+      /*margin-top: 0%;
+      margin-left: 0%;*/
     }
     75%{
-      transform: rotate(15deg);
-      margin-top: -3%;
-      margin-left: -3%;
+      transform: rotate(15deg) translateY(-25%) translateX(-15%);
+      /*margin-top: -3%;
+      margin-left: -3%;*/
     }
     to {
-      transform: rotate(0deg);
-      margin-top: -10%;
-      margin-left: 0%;
+      transform: rotate(0deg) translateY(-40%) translateX(0);
+      /*margin-top: -10%;
+      margin-left: 0%;*/
       
     }
   }
 
    @keyframes animationBGSmall {  
     from {
-      transform: rotate(0deg);
-      margin-top: -5%;
-      margin-left: 0%;
+      transform: rotate(0deg) translateY(-40%) translateX(0);
+      /*margin-top: -5%;
+      margin-left: 0%;*/
  
     }
     25%{
-      margin-top: -2%;
-      margin-left: 2%;
-      transform: rotate(-15deg);
+      /*margin-top: -2%;
+      margin-left: 2%;*/
+      transform: rotate(-15deg) translateY(-25%) translateX(15%);
     }
     50%{
-      transform: rotate(-40deg);
-      margin-top:0%;
-      margin-left: 0%;
+      transform: rotate(-40deg) translateY(0) translateX(0);
+      /*margin-top:0%;
+      margin-left: 0%;*/
       
     }
     75%{
-      margin-top: -2%;
-      margin-left: -2%;
-      transform: rotate(-15deg);
+      /*margin-top: -2%;
+      margin-left: -2%;*/
+      transform: rotate(-15deg) translateY(-25%) translateX(-15%);
     }
     to {
-      transform: rotate(0deg);
-      margin-top: -5%;
-      margin-left: 0%;
+      transform: rotate(0deg) translateY(-40%) translateX(0);
+      /*margin-top: -5%;
+      margin-left: 0%;*/
       
     }
   }

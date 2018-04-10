@@ -2,14 +2,14 @@
 <div class="background">
 
   <div class="bgMain"
-       v-bind:style="{ marginLeft: 'calc(-'+bgpersent +'vw)' }">
-   <img src="/static/img/bg40.jpg" alt="">
-   <img src="/static/img/bg41.jpg" alt="">
-   <img src="/static/img/bg42.jpg" alt="">
-   <img src="/static/img/bg43.jpg" alt="">
-   <img src="/static/img/bg44.jpg" alt="">
-   <img src="/static/img/bg45.jpg" alt="">
-   <img src="/static/img/bg46.jpg" alt="">
+       v-bind:style="{ marginLeft: 'calc(-'+bgpersent +'vw)', width:widthBgImg*7 +'px' }">
+   <img src="/static/img/bg40.jpg" v-bind:style="{width:widthBgImg + 'px'}">
+   <img src="/static/img/bg41.jpg" v-bind:style="{width:widthBgImg + 'px'}">
+   <img src="/static/img/bg42.jpg" v-bind:style="{width:widthBgImg + 'px'}">
+   <img src="/static/img/bg43.jpg" v-bind:style="{width:widthBgImg + 'px'}">
+   <img src="/static/img/bg44.jpg" v-bind:style="{width:widthBgImg + 'px'}">
+   <img src="/static/img/bg45.jpg" v-bind:style="{width:widthBgImg + 'px'}">
+   <img src="/static/img/bg46.jpg" v-bind:style="{width:widthBgImg + 'px'}">
   </div>
   <bg class="big"
       :urlImg="'/static/img/symbols/bSymbols/10Lg.png'"
@@ -351,6 +351,7 @@ export default {
             randomB:{x:0,y:0},
             randomM:{x:0,y:0},
             randomS:{x:0,y:0},
+            heightWindow:window.screen.height,
         }
     },
     computed: {
@@ -359,7 +360,9 @@ export default {
             //return /*6.26 +*/ 14.2856*this.bg;
             return 5 *this.bg /*+ this.posMouseTemp.x / document.body.clientWidth*0.1*/;
         },
-
+        widthBgImg:function () {
+         return 1.5 * 3420 * this.heightWindow / 1080;
+        }
     },
     methods:{
          mousemove(event) {
@@ -376,8 +379,15 @@ export default {
            return rand;
        },
     },
+ mounted(){
+     let t = this;
+   $(window).on('resize',function () {
+    t.heightWindow =  window.screen.height;
+   })
+ },
   created: function() {
      let t = this;
+
       setTimeout(function(){
           var ns4 = (document.layers)? true:false
           var ie4 = (document.all)? true:false
