@@ -2380,7 +2380,7 @@ div.p{
   display: flex;
   justify-content: center;
   .payContent{
-    margin: 75px 0;
+    margin: 75px auto 10px auto;
     padding: 35px 52px;
     @include size(24);
     box-shadow: 2px 3px 7px rgba(0, 0, 0, 0.25);
@@ -2395,13 +2395,51 @@ div.p{
       color: #000;
       position: relative;
       &.card{
-        width: 250px;
+        flex-basis: 250px;
+        flex-shrink: 0;
       }
       &.cardInfo{
         width:120px;
+        &.cardInfoNum{
+          width: 50%;
+        }
+        &.marRig{
+          margin-right: 35px;
+          flex-basis: 60px;
+          flex-shrink: 0;
+        }
       }
       &.email{
         width: 90%;
+      }
+      &.pointer{
+        color: #c2c2c2;
+        font-size: 14px;
+        letter-spacing: 0.35px;
+        display: flex;
+        line-height: 35px;
+        flex-basis:215px;
+        input[type="checkbox"]{
+          display: none;
+        }
+        input[type="checkbox"]:checked+.checkbox i{
+          display: block;
+        }
+        .checkbox{
+          width: 40px;
+          height: 35px;
+          box-shadow: inset 0 2px 2px rgba(51, 51, 51, 0.13);
+          border-radius: 4px;
+          background-color: #ffffff;
+          opacity: 0.97;
+          display: flex;
+          margin-left: 10px;
+          i{
+            margin: auto;
+            color: #555555;
+            display: none;
+          }
+        }
       }
       .check{
         display: inline-block;
@@ -2412,11 +2450,12 @@ div.p{
         font-size: 14px;
         color: #fff;
         border-radius: 13px;
-        border: 3px solid #70cf47;
-        background: #70cf47;
+        border: 3px solid #78cd76;
+        background: #78cd76;
         position: absolute;
         top: 30px;
-        left: calc(100% + 20px);
+        left: calc(100% + 10px);
+        box-shadow: 1px 1px 2px rgba(164, 200, 126, 0.36);
         @include sm(left, calc(100% + 5px))
       }
       input[type="text"], input[type="date"], input[type="email"],
@@ -2434,11 +2473,33 @@ div.p{
         color: #555555;
         margin-bottom: 20px;
         margin-top: 7px;
+        box-shadow: inset 0 2px 2px rgba(51, 51, 51, 0.13);
         &:focus, &:hover{
           outline: none;
         }
         &.number{
           @include size(7);
+        }
+        &::-webkit-input-placeholder{
+          color: #c2c2c2;
+          font-size: 14px;
+          letter-spacing: 0.44px;
+        }
+        &::-moz-placeholder
+        {
+          color: #c2c2c2;
+          font-size: 14px;
+          letter-spacing: 0.44px;
+        },
+        &:-moz-placeholder{
+        color: #c2c2c2;
+        font-size: 14px;
+        letter-spacing: 0.44px;
+      }
+        &:-ms-input-placeholder{
+          color: #c2c2c2;
+          font-size: 14px;
+          letter-spacing: 0.44px;
         }
       }
       select{
@@ -2476,6 +2537,18 @@ div.p{
         }
       }
     }
+    .rowInfo{
+      display: flex;
+      margin-left: 70px;
+      margin-right: 70px;
+    }
+    .hren{
+      color: #555555;
+      font-size: 18px;
+      width: 24px;
+      margin-top: 30px;
+      text-align: center
+    }
     .rowPay{
       display: flex;
       justify-content: space-between;
@@ -2484,28 +2557,53 @@ div.p{
         @include size(12);
         justify-content: space-between;
         margin-left: auto;
-        .cardType img{
-          border-radius: 5px;
+        align-items: center;
+        .cardType{
+          border-radius: 8px;
+          display: block;
+          &.active{
+            border: 3px solid #79ce77;
+          }
+          img{
+            border-radius: 5px;
+            display: block;
+            box-sizing: border-box;
+          }
         }
+
       }
       &.jsa{
         justify-content: space-around;
         button{
-          color: #fefefe;
+          color: rgba(0,0,0,0.3);
           font-size: 18px;
           text-transform: uppercase;
           letter-spacing: 1.33px;
           box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
           border-radius: 23px;
           background-color: #ff8f1f;
-          padding:20px 35px;
+          padding:17px 35px;
           border: none;
           min-width: 180px;
+          &:hover{
+            color: #fefefe;
+          }
+          &:active{
+            box-shadow: inset 2px 3px 7px rgba(0, 0, 0, 0.35);
+            color: #fefefe;
+          }
         }
       }
       &.miniButtons{
-        width: 350px;
+        //width: 350px;
         margin-left: auto;
+        align-items: center;
+        justify-content: flex-end;
+        img{
+          height: 38px;
+          width: 38px;
+          margin-right: 30px;
+        }
         button{
           font-size: 10px;
           text-transform: uppercase;
@@ -2513,8 +2611,17 @@ div.p{
           background-color: #ff8f1f;
           padding: 11px 30px;
           border: none;
-          color: #fefefe;
+          color: rgba(0,0,0,0.3);
           min-width:100px;
+          letter-spacing: 1.4px;
+          margin-left: 26px;
+          &:hover{
+            color: #fefefe;
+          }
+          &:active{
+            box-shadow: inset 2px 3px 7px rgba(0, 0, 0, 0.35);
+            color: #fefefe;
+          }
         }
       }
       .col{
@@ -2537,6 +2644,10 @@ div.p{
       line-height: 20px;
       letter-spacing: 0.35px;
       color: #565656;
+      margin-top: 2%;
+      margin-bottom: 2%;
+      text-align: center;
+      width:100%;
     }
   }
 }
