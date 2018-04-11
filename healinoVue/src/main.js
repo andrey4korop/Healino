@@ -19,6 +19,7 @@ import licenseComponent  from './components/License-component.vue'
 import userComponent  from './components/User-component.vue'
 import themeComponent  from './components/Theme-component.vue'
 import questionComponent  from './components/Question-component.vue'
+import payComponent  from './components/Pay-component.vue'
 /**
  * загрущка малых компонентов
  * индикаторов
@@ -45,15 +46,9 @@ import bg  from './components/bg.vue'
 
 Vue.use(MultiLanguage, {
     default: 'en',
-    en: {
-        start: 'START'
-    },
-    ru: {
-        start: 'СТАРТ'
-    },
-    pl: {
-        start: 'START'
-    }
+    en: {},
+    ru: {},
+    pl: {}
 })
 
 import GSignInButton from 'vue-google-signin-button'
@@ -75,6 +70,7 @@ Vue.component('license-component', licenseComponent);
 Vue.component('user-component', userComponent);
 Vue.component('theme-component', themeComponent);
 Vue.component('question-component', questionComponent);
+Vue.component('pay-component', payComponent);
 /**
  * загрущка малых компонентов
  * индикаторов

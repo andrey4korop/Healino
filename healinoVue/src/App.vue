@@ -1,8 +1,8 @@
 <template>
   <div id="app">
       <audio loop id="audio" autoplay>
-      <source src="static/music.mp3" type="audio/mpeg">
-      <source src="static/music.ogg" type="audio/ogg; codecs=vorbis">
+      <source src="1static/music.mp3" type="audio/mpeg">
+      <source src="1static/music.ogg" type="audio/ogg; codecs=vorbis">
       </audio>
     <background :backgr="backgr"
                 :bg="bg"></background>
@@ -102,6 +102,12 @@
                             @exit="exit"
                             :audio_p="audio_p"
                       :rezultData="rezultData"></rezultPublic-component>
+      <pay-component v-else-if="state == 'pay'"
+                              @audio="audio"
+                              @exit="exit"
+                              :audio_p="audio_p"
+                                :lang="lang"
+                              @changeLang="changeLang"></pay-component>
 
   </div>
 </template>
@@ -124,7 +130,7 @@ export default {
         userData:{},
         themeActive:0,
         lang:'en',
-        state: 'theme',
+        state: 'pay',
         SessionData: '',
         UserId: '',
         questionData:{

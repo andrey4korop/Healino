@@ -248,7 +248,7 @@
     justify-content: flex-start;
   }
   .ques{
-      margin: auto 0;
+    margin: auto;
   }
   .col{
     position: relative;

@@ -2418,7 +2418,9 @@ div.p{
         letter-spacing: 0.35px;
         display: flex;
         line-height: 35px;
-        flex-basis:215px;
+        flex-basis: 50%;
+        justify-content: center;
+
         input[type="checkbox"]{
           display: none;
         }
