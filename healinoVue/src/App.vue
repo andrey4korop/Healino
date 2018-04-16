@@ -92,6 +92,7 @@
                         @changeLang="changeLang"
                         @nextQuestion="nextQuestion"
                         @prevQuestion="prevQuestion"
+                        @setErrorQuestion="setErrorQuestion"
                         @clearnError="clearnError"></question-component>
 
     <rezult-component v-else-if="state == 'rezult'"
@@ -383,6 +384,9 @@ export default {
           FB.logout();
           location.reload();
         },
+        setErrorQuestion(){
+          this.errorQuest = true;
+        },
         bodyToken(token){
             return {
                 Token: token,
@@ -544,6 +548,13 @@ export default {
                       t.SessionData = '';
                       deleteCookie('SessionData');
                   }
+                if(getCookie('lang')){
+                  t.lang = getCookie('lang');
+                  t.changeLang(t.lang);
+                }
+                else{
+                  t.changeLang(t.lang)
+                }
               })
               .fail(function() {
               });

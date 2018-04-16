@@ -63,7 +63,7 @@ html,body{
       color: #fff;
       text-decoration: none;
       margin-left: 40px;
-      @include sm(margin-left, 10px);
+      @include sm(margin-left, 2%);
       @include sm(font-size, 15px);
       font-size: 16px;
     }
@@ -76,6 +76,7 @@ html,body{
       margin-left: 20px;
       @include sm(height, 45px);
       @include sm(width, 45px);
+      @include sm(margin-left, 1%);
       position: relative;
     }
     .user_Avatar{
@@ -114,6 +115,7 @@ html,body{
           text-align: center;
           border-bottom: 1px solid rgba(124,206, 84, 0.5);
           box-sizing: border-box;
+          cursor: pointer;
           &:hover{
             border-bottom: 2px solid rgba(124,206, 84, 1);
           }
@@ -1394,7 +1396,7 @@ html,body{
         border: 3px solid #70cf47;
         background: #70cf47;
         position: absolute;
-        top: 10px;
+        top: 13px;
         left: calc(100% + 10px);
         @include sm(left, calc(100% + 5px));
       }
@@ -1572,10 +1574,12 @@ html,body{
     scrollbar-shadow-color: rgba(109,207,77,1);
     h1{
       font-size: 24px;
+      @include sm(font-size, 19px);
       text-align: center;
     }
     p{
       font-size: 12px;
+      @include sm(font-size, 11px);
       margin-top: 15px;
     }
     h4{
@@ -2198,57 +2202,7 @@ div.p{
 
 /* Animation*/
 
-@keyframes animationBGBig {  
-    from {
-      transform: rotate(0deg) translateY(-40%) translateX(0);
-    }
-    25%{
-      transform: rotate(-15deg) translateY(-25%) translateX(15%);
-    }
-    50%{
-      transform: rotate(-40deg) translateY(0) translateX(0);
-    }
-    75%{
-      transform: rotate(-15deg) translateY(-25%) translateX(-15%);
-    }
-    to {
-      transform: rotate(0deg) translateY(-40%) translateX(0);
-    }
-  }
-  @keyframes animationBGMedium {  
-    from {
-      transform: rotate(0deg) translateY(-40%) translateX(0);
-    }
-    25%{
-      transform: rotate(15deg) translateY(-25%) translateX(15%);
-    }
-    50%{
-      transform: rotate(40deg) translateY(0) translateX(0);
-    }
-    75%{
-      transform: rotate(15deg) translateY(-25%) translateX(-15%);
-    }
-    to {
-      transform: rotate(0deg) translateY(-40%) translateX(0);
-    }
-  }
-   @keyframes animationBGSmall {  
-    from {
-      transform: rotate(0deg) translateY(-40%) translateX(0);
-    }
-    25%{
-      transform: rotate(-15deg) translateY(-25%) translateX(15%);
-    }
-    50%{
-      transform: rotate(-40deg) translateY(0) translateX(0);
-    }
-    75%{
-      transform: rotate(-15deg) translateY(-25%) translateX(-15%);
-    }
-    to {
-      transform: rotate(0deg) translateY(-40%) translateX(0);
-    }
-  }
+
 @media screen and (max-height: 768px) and (orientation: landscape){
   .progress_bar2 p {
     font-size: 8px;

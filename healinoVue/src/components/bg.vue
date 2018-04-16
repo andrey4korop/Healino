@@ -1,6 +1,7 @@
 <template>
     <div class="bg"
         v-if="!toHide"
+         v-bind:class="classS"
          v-bind:style="{background: 'url('+ urlImg +') center center / cover', left: Xbg + '%', top: Ybg + '%' }">
     </div>
 </template>
@@ -11,6 +12,7 @@ export default {
     data () {
         return {
             toHide:false,
+            classS:'',
         }},
     watch:{
         bgCurrent:function () {
@@ -39,5 +41,10 @@ export default {
             return this.posBG.y;// + ( this.posMouse.y / document.body.clientHeight * Math.abs(this.Kof.y) *100);
         },
     },
+    created: function() {
+        var rand = 1 + Math.random() * 4;
+        rand = Math.round(rand);
+        this.classS = 'animaBG' + rand;
+    }
 }
 </script>

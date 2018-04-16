@@ -28,9 +28,9 @@
           <div class="block_user_popup" v-bind:class="(showPopupUser)?'on':''">
             <div class="margin_op">
               <ul>
-                <li v-on:click="$emit('onToUser')">Edit profile</li>
-                <li>Email rezults</li>
-                <li v-on:click="$emit('exit')">Exit</li>
+                <li v-on:click="$emit('onToUser')" v-lang.editUser></li>
+                <li v-lang.getRezult></li>
+                <li v-on:click="$emit('exit')" v-lang.exit></li>
               </ul>
             </div>
           </div>
@@ -90,7 +90,7 @@
                 Type:-1,
               showPopupUser:false,
              /*questionData:{"PreviusQuestionId":7,"QuestionId":8,"QuestionNum":2,"TotalQuestions":23,"QuestionTypeEnum":2,"UserThemeTestId":89,
-                "IsAnswered":true,"AnsValue":5,"QText":"У Вас высокий уровень толерантности?\r\n","ImageUrl":null,
+                "IsAnswered":false,"AnsValue":5,"QText":"У Вас высокий уровень толерантности?\r\n","ImageUrl":null,
                 "QuestionsProgress":22.0,
                 "AnswerOptions":[
                         {"Id":29,"ParrentId":null,"AnswerText":"Да","ImageUrl":null,"IsUserAnswered":false,"Children":null},
@@ -99,7 +99,7 @@
                         {"Id":32,"ParrentId":null,"AnswerText":"Нет","ImageUrl":null,"IsUserAnswered":false,"Children":null},
                         {"Id":33,"ParrentId":null,"AnswerText":"Нет","ImageUrl":null,"IsUserAnswered":false,"Children":null},
                         {"Id":34,"ParrentId":null,"AnswerText":"Нет","ImageUrl":null,"IsUserAnswered":false,"Children":null},
-                        {"Id":35,"ParrentId":null,"AnswerText":"Иногда бывает длинный текст","ImageUrl":null,"IsUserAnswered":true,"Children":null},
+                        {"Id":35,"ParrentId":null,"AnswerText":"Иногда бывает длинный текст","ImageUrl":null,"IsUserAnswered":false,"Children":null},
                         {"Id":36,"ParrentId":null,"AnswerText":"Иногда\r\n","ImageUrl":null,"IsUserAnswered":false,"Children":null},
                         {"Id":37,"ParrentId":null,"AnswerText":"Иногда\r\n","ImageUrl":null,"IsUserAnswered":false,"Children":null},
                         {"Id":38,"ParrentId":null,"AnswerText":"Иногда\r\n","ImageUrl":null,"IsUserAnswered":false,"Children":null},
@@ -117,6 +117,9 @@
                 back: 'BACK',
                 next: 'NEXT',
                 finish: 'FINISH',
+              editUser:'Edit profile',
+              getRezult:'Email results',
+              exit:'Exit',
                 forumUrl: 'https://www.healino.com/blog-us'
             },
             ru: {
@@ -125,6 +128,9 @@
                 back: 'НАЗАД',
                 next: 'СЛЕДУЮЩИЙ',
                 finish: 'ФИНИШ',
+              editUser:'Редактировать профиль',
+              getRezult:'Результаты электронной почты',
+              exit:'Выход',
                 forumUrl: 'https://www.healino.com/blog-ru'
             },
             pl: {
@@ -133,6 +139,9 @@
                 back: 'NAZAD',
                 next: 'NASTĘPNY',
                 finish: 'FINISZ',
+              editUser:'Edytuj profil',
+              getRezult:'Wyślij wyniki e-mailem',
+              exit:'Wyjście',
                 forumUrl: 'https://www.healino.com/blog-pl'
             }
         },
@@ -216,7 +225,7 @@
             nextQuestion(){
                 let error = false;
 
-              if(this.AnswersId == 0 && this.questionData.AnswerOptions.length > 0){
+              if((!this.AnswersId || this.AnswersId == 0) && this.questionData.AnswerOptions.length > 0){
                 error=true;
               }
               if(!this.AnswerValue && this.questionData.QuestionTypeEnum==2){
@@ -224,6 +233,8 @@
               }
               if(!error){
                   this.$emit('nextQuestion', this.body);
+              }else{
+                this.$emit('setErrorQuestion');
               }
             },
             prevQuestion(){

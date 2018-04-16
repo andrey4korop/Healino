@@ -27,9 +27,9 @@
           <div class="block_user_popup" v-bind:class="(showPopupUser)?'on':''">
             <div class="margin_op">
               <ul>
-                <li v-on:click="$emit('onToUser')">Edit profile</li>
-                <li>Email rezults</li>
-                <li v-on:click="$emit('exit')">Exit</li>
+                <li v-on:click="$emit('onToUser')" v-lang.editUser></li>
+                <li v-lang.getRezult></li>
+                <li v-on:click="$emit('exit')" v-lang.exit></li>
               </ul>
             </div>
           </div>
@@ -268,6 +268,9 @@
             save:"save",
             send:"send",
             start:"start",
+            editUser:'Edit profile',
+            getRezult:'Email results',
+            exit:'Exit',
           },
           ru: {
             main: 'Главная',
@@ -287,6 +290,9 @@
             save:"Сохранить",
             send:"Отправить",
             start:"Начало",
+            editUser:'Редактировать профиль',
+            getRezult:'Результаты электронной почты',
+            exit:'Выход',
           },
           pl: {
             main: 'Strona główna',
@@ -306,6 +312,9 @@
             save:"zapisać",
             send:"wysłać",
             start:"początek",
+            editUser:'Edytuj profil',
+            getRezult:'Wyślij wyniki e-mailem',
+            exit:'Wyjście',
           }
         },
         computed: {

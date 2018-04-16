@@ -19,12 +19,15 @@
         <span class="check"  v-bind:class="(showLoadSelect==true) ? 'loading': ''" v-if="showCheckSelect">
           <i class="fa fa-check" aria-hidden="true"></i>
         </span>
+        <span class="check" v-bind:class="(errorQuest && !Id) ? 'error' : ''" v-if="errorQuest">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </span>
     </label>
 </template>
 
 <script>
 export default {
-   props: ['valueItem','selectOption' ],
+   props: ['valueItem','selectOption', 'errorQuest' ],
     data () {
         return {
             Id:0,
@@ -51,6 +54,7 @@ export default {
         if(this.Id){
             this.title = this.selectOption[this.Id].title;
         }
+        this.currentAnchor = this.Id;
         var text = "";
         var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
@@ -78,7 +82,7 @@ export default {
             if(w==-1 && this.currentAnchor>0){
                 this.Id = --this.currentAnchor;
 
-            }else if(w==1 && this.currentAnchor<this.anchors.length){
+            }else if(w==1 && this.currentAnchor<this.anchors.length-1){
                 this.Id = ++this.currentAnchor;
             }else{
                 this.Id = this.currentAnchor;
@@ -103,11 +107,11 @@ export default {
                 let t = this;
                 setTimeout(function () {
                     t.updateAnchors();
-                    if($('#'+this.className+' .active').length>0) {
-                        t.currentAnchor =$('#'+this.className+' .active').index();
+                    if($('#'+t.className+' .active').length>0) {
+                        t.currentAnchor =$('#'+t.className+' .active').index();
                         t.Id = t.currentAnchor;
                         t.changeVal();
-                        $('#'+this.className+' .select').scrollTop(t.anchors[t.currentAnchor]-(150-$('#'+this.className+' .option')[t.currentAnchor].offsetHeight)/2);
+                        $('#'+t.className+' .select').scrollTop(t.anchors[t.currentAnchor]-(150-$('#'+t.className+' .option')[t.currentAnchor].offsetHeight)/2);
                     }else{
                         t.Id = 0;
                         t.currentAnchor =0;
@@ -131,7 +135,7 @@ export default {
             if((Math.abs(t.touchendY-t.touchstartY)>10)){
                 if (this.touchendY < this.touchstartY) {
                     //alert( 'up!');
-                    if (t.currentAnchor<t.anchors.length) {
+                    if (t.currentAnchor<t.anchors.length-1) {
                         t.currentAnchor++;
                     }
 
@@ -141,15 +145,15 @@ export default {
                         t.currentAnchor = 0;
                     }
                     t.isAnimating = true;
-                    $('#'+t.className+' .colorActive').css({'height':$('#'+t.className+' .option')[t.currentAnchor].offsetHeight});
-                    $('#'+t.className+' .colorActive').css({'top':(150-$('#'+t.className+' .option')[t.currentAnchor].offsetHeight)/2});
-                    $('#'+t.className+' .nocolorActive:first').css({'height':(150-$('#'+t.className+' .option')[t.currentAnchor].offsetHeight)/2});
-                    $('#'+t.className+' .nocolorActive:last-child').css({'top':(150-$('#'+t.className+' .option')[t.currentAnchor].offsetHeight)/2 + $('#'+t.className+' .option')[t.currentAnchor].offsetHeight});
-                    $('#'+t.className+' .nocolorActive:last-child').css({'height':(150-$('#'+t.className+' .option')[t.currentAnchor].offsetHeight)/2});
+                    $('#'+t.className+' .colorActive').css({'height':$($('#'+t.className+' .option')[t.currentAnchor]).height()});
+                    $('#'+t.className+' .colorActive').css({'top':(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2});
+                    $('#'+t.className+' .nocolorActive:first').css({'height':(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2});
+                    $('#'+t.className+' .nocolorActive:last-child').css({'top':(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2 + $($('#'+t.className+' .option')[t.currentAnchor]).height()});
+                    $('#'+t.className+' .nocolorActive:last-child').css({'height':(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2});
                     $('#'+t.className+' .select').animate({
-                        scrollTop: parseInt( t.anchors[t.currentAnchor]-(150-$('#'+t.className+' .option')[t.currentAnchor].offsetHeight)/2 )//55
-                    }, 200, 'swing', function () {
-                        t.isAnimating = false;
+                        scrollTop: parseInt( t.anchors[t.currentAnchor]-(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2 )//55
+                    }, 200, 'swing', function(){
+                        t.isAnimating  = false;
                     });
                     if(k=='1'){
                         t.touchstartY = t.touchendY;
@@ -166,15 +170,15 @@ export default {
                         t.currentAnchor = 0;
                     }*/
                     t.isAnimating = true;
-                    $('#'+t.className+' .colorActive').css({'height':$('#'+t.className+' .option')[t.currentAnchor].offsetHeight});
-                    $('#'+t.className+' .colorActive').css({'top':(150-$('#'+t.className+' .option')[t.currentAnchor].offsetHeight)/2});
-                    $('#'+t.className+' .nocolorActive:first').css({'height':(150-$('#'+t.className+' .option')[t.currentAnchor].offsetHeight)/2});
-                    $('#'+t.className+' .nocolorActive:last-child').css({'top':(150-$('#'+t.className+' .option')[t.currentAnchor].offsetHeight)/2 + $('#'+t.className+' .option')[t.currentAnchor].offsetHeight});
-                    $('#'+t.className+' .nocolorActive:last-child').css({'height':(150-$('#'+t.className+' .option')[t.currentAnchor].offsetHeight)/2});
+                    $('#'+t.className+' .colorActive').css({'height':$($('#'+t.className+' .option')[t.currentAnchor]).height()});
+                    $('#'+t.className+' .colorActive').css({'top':(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2});
+                    $('#'+t.className+' .nocolorActive:first').css({'height':(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2});
+                    $('#'+t.className+' .nocolorActive:last-child').css({'top':(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2 + $($('#'+t.className+' .option')[t.currentAnchor]).height()});
+                    $('#'+t.className+' .nocolorActive:last-child').css({'height':(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2});
                     $('#'+t.className+' .select').animate({
-                        scrollTop: parseInt( t.anchors[t.currentAnchor]-(150-$('#'+t.className+' .option')[t.currentAnchor].offsetHeight)/2 )//55
-                    }, 200, 'swing', function () {
-                        t.isAnimating = false;
+                        scrollTop: parseInt( t.anchors[t.currentAnchor]-(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2 )//55
+                    }, 200, 'swing', function(){
+                        t.isAnimating  = false;
                     });
                     if(k=='1'){
                         t.touchstartY = t.touchendY;
@@ -201,6 +205,7 @@ export default {
                 t.touchendY = event.originalEvent.changedTouches[0].screenY;
                 t.handleGesure('1');
             }
+            event.preventDefault();
         });
 
         $('body').on('mousewheel', '#'+this.className+' .selectBlockNeed, .colorActive', function(e){
@@ -225,16 +230,19 @@ export default {
                 t.currentAnchor = 0;
             }
             t.isAnimating  = true;
-            $('#'+t.className+' .colorActive').css({'height':$('#'+t.className+' .option')[t.currentAnchor].offsetHeight});
-            $('#'+t.className+' .colorActive').css({'top':(150-$('#'+t.className+' .option')[t.currentAnchor].offsetHeight)/2});
-            $('#'+t.className+' .nocolorActive:first').css({'height':(150-$('#'+t.className+' .option')[t.currentAnchor].offsetHeight)/2});
-            $('#'+t.className+' .nocolorActive:last-child').css({'top':(150-$('#'+t.className+' .option')[t.currentAnchor].offsetHeight)/2 + $('#'+t.className+' .option')[t.currentAnchor].offsetHeight});
-            $('#'+t.className+' .nocolorActive:last-child').css({'height':(150-$('#'+t.className+' .option')[t.currentAnchor].offsetHeight)/2});
-            $('#'+t.className+' .select').animate({
-                scrollTop: parseInt( t.anchors[t.currentAnchor]-(150-$('#'+t.className+' .option')[t.currentAnchor].offsetHeight)/2 )//55
-            }, 200, 'swing', function(){
-                t.isAnimating  = false;
-            });
+
+                $('#'+t.className+' .colorActive').css({'height':$($('#'+t.className+' .option')[t.currentAnchor]).height()});
+                $('#'+t.className+' .colorActive').css({'top':(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2});
+                $('#'+t.className+' .nocolorActive:first').css({'height':(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2});
+                $('#'+t.className+' .nocolorActive:last-child').css({'top':(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2 + $($('#'+t.className+' .option')[t.currentAnchor]).height()});
+                $('#'+t.className+' .nocolorActive:last-child').css({'height':(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2});
+                $('#'+t.className+' .select').animate({
+                    scrollTop: parseInt( t.anchors[t.currentAnchor]-(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2 )//55
+                }, 200, 'swing', function(){
+                    t.isAnimating  = false;
+                });
+
+
         });
     },
     destroyed(){
@@ -246,3 +254,47 @@ export default {
     },
 }
 </script>
+<style>
+    .option:first-child{
+        margin-top: 55px;
+    }
+    .option:last-child{
+        margin-bottom: 55px;
+    }
+    .colorActive{
+        background-color: #79cd77;
+        opacity: 0.43;
+        height: 40px;
+        width: 100%;
+        position: absolute;
+        z-index: 100;
+        top:56px;
+        transition: all 0.2s linear;
+    }
+    .nocolorActive{
+        background-color: transparent;
+        opacity: 0;
+        height: 40px;
+        width: 100%;
+        position: absolute;
+        z-index: 100;
+        top:0px;
+    }
+    .nocolorActive:last-child{
+        background-color: transparent;
+        opacity: 0;
+        height: 40px;
+        width: 100%;
+        position: absolute;
+        z-index: 100;
+        top:100px;
+    }
+    .selectBlockNeed{
+        position: absolute;
+        width: 100%;
+        box-shadow: inset 0px 10px 30px 0px #fff, inset 0px -10px 30px 0px #fff;
+        height: 150px;
+        top: -50px;
+        border-radius: 15px;
+    }
+</style>

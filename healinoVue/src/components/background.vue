@@ -361,7 +361,7 @@ export default {
             return 5 *this.bg /*+ this.posMouseTemp.x / document.body.clientWidth*0.1*/;
         },
         widthBgImg:function () {
-         return 1.05 * 3420 * this.heightWindow / 1080;
+         return 1.1 * 3420 * this.heightWindow / 1080;
         }
     },
     methods:{
@@ -386,9 +386,9 @@ export default {
    })
  },
   created: function() {
-     let t = this;
+     //let t = this;
 
-      setTimeout(function(){
+     /* setTimeout(function(){
           var ns4 = (document.layers)? true:false
           var ie4 = (document.all)? true:false
 
@@ -419,7 +419,7 @@ export default {
                   t.randomS={x:t.randomInteger(-150,150),y:t.randomInteger(-150,150)};
                   t.posMouseS=t.posMouseTemp;
               })
-      },1500);
+      },1500);*/
     }
 }
 </script>
@@ -428,7 +428,7 @@ export default {
   .bgMain{
     position: fixed;
    width: max-content;
-    height: 105%;
+    height: 110%;
     transition: all 2s cubic-bezier(.76,0,.5,1);
     transition-delay: 0s;
     -webkit-background-size: cover;
@@ -452,9 +452,34 @@ export default {
      top:0;
     }
     to {
-     top:-5%;
+     top:-10%;
     }
 }
+  @keyframes animationBG1 {
+    from {
+     margin-top:10%;
+    }
+    to {
+     margin-top:-2%;
+    }
+   }
+
+  @keyframes animationBG2 {
+   from {
+    margin-top:10%;
+   }
+   to {
+    margin-top:0%;
+   }
+  }
+  @keyframes animationBG3 {
+   from {
+    margin-top:10%;
+   }
+   to {
+    margin-top:3%;
+   }
+  }
   .big{
    height: 640px;
    width: 640px;
@@ -463,7 +488,6 @@ export default {
    height: 50vmax;
    width: 50vmax;
    transition: all 3s linear;
-   animation: animationBGBig 30s linear infinite normal;
   }
   .medium{
    height: 390px;
@@ -473,7 +497,6 @@ export default {
    height: 30vmax;
    width: 30vmax;
    transition: all 5s linear;
-   animation: animationBGMedium 15s linear infinite normal;
   }
   .small{
    height: 200px;
@@ -483,12 +506,111 @@ export default {
    height: 15vmax;
    width: 15vmax;
    transition: all 8s linear;
-   animation: animationBGSmall 10s linear infinite normal;
+  }
+  .animaBG1{
+   animation: animationBGBig 30s ease infinite normal, animationBG1 5s ease-out infinite alternate;
+  }
+  .animaBG2{
+   animation: animationBGMedium 15s ease-in infinite normal, animationBG2 5s ease-out infinite alternate;
+  }
+  .animaBG3{
+   animation: animationBGSmall 10s ease-out infinite normal, animationBG3 5s ease-out infinite alternate;
+  }
+  .animaBG4{
+   animation: animationBGSmall1 20s ease-in-out infinite normal, animationBG1 5s ease-out infinite alternate;
+  }
+  .animaBG5{
+   animation: animationBGSmall2 17s linear infinite normal, animationBG2 5s ease-out infinite alternate;
   }
   .bg{
    position: fixed;
   }
   .hide{
    display: none;
+  }
+  @keyframes animationBGBig {
+   from {
+    transform: rotate(0deg) /*translateY(-40%)*/ translateX(0);
+   }
+   25%{
+    transform: rotate(-15deg) /*translateY(-25%) */translateX(15%);
+   }
+   50%{
+    transform: rotate(-40deg) /*translateY(0)*/ translateX(0);
+   }
+   75%{
+    transform: rotate(-15deg) /*translateY(-25%)*/ translateX(-15%);
+   }
+   to {
+    transform: rotate(0deg) /*translateY(-40%)*/ translateX(0);
+   }
+  }
+  @keyframes animationBGMedium {
+   from {
+    transform: rotate(0deg) /*translateY(-40%)*/ translateX(0);
+   }
+   25%{
+    transform: rotate(15deg) /*translateY(-25%)*/ translateX(15%);
+   }
+   50%{
+    transform: rotate(40deg) /*translateY(0)*/ translateX(0);
+   }
+   75%{
+    transform: rotate(15deg) /*translateY(-25%)*/ translateX(-15%);
+   }
+   to {
+    transform: rotate(0deg) /*translateY(-40%)*/ translateX(0);
+   }
+  }
+  @keyframes animationBGSmall {
+    from {
+     transform: rotate(0deg) /*translateY(-40%)*/ translateX(0);
+    }
+    25%{
+     transform: rotate(-15deg) /*translateY(-25%)*/ translateX(-15%);
+    }
+    50%{
+     transform: rotate(-40deg) /*translateY(0)*/ translateX(0);
+    }
+    75%{
+     transform: rotate(-15deg) /*translateY(-25%)*/ translateX(15%);
+    }
+    to {
+     transform: rotate(0deg) /*translateY(-40%)*/ translateX(0);
+    }
+   }
+  @keyframes animationBGSmall1 {
+   from {
+    transform: rotate(0deg) /*translateY(40%)*/ translateX(0);
+   }
+   25%{
+    transform: rotate(-15deg) /*translateY(25%)*/ translateX(15%);
+   }
+   50%{
+    transform: rotate(-40deg) /*translateY(0)*/ translateX(0);
+   }
+   75%{
+    transform: rotate(-15deg) /*translateY(25%)*/ translateX(-15%);
+   }
+   to {
+    transform: rotate(0deg) /*translateY(40%)*/ translateX(0);
+   }
+  }
+  @keyframes animationBGSmall2 {
+   from {
+    transform: rotate(0deg) /*translateY(-40%)*/ translateX(0);
+   }
+   25%{
+    transform: rotate(15deg) /*translateY(-25%)*/ translateX(-15%);
+   }
+   50%{
+    transform: rotate(40deg) /*translateY(0)*/ translateX(0);
+   }
+   75%{
+    transform: rotate(15deg) /*translateY(-25%)*/ translateX(15%);
+   }
+   to {
+    transform: rotate(0deg) /*translateY(-40%)*/ translateX(0);
+   }
   }
 </style>

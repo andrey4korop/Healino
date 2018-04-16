@@ -5,6 +5,7 @@
       <selectBlock v-if="questionData.AnswerOptions.length>0"
                    :valueItem="selectId"
                    :selectOption="valForSelect"
+                   :errorQuest="errorQuest"
                    @changeValSelect="changeValSelect"
       ></selectBlock>
       <label>
@@ -51,15 +52,11 @@ export default {
         AnswerValue: this.AnswerValue,
       }
     },
-    valForSelect: function () {
-      let r = [];
-      for (var item in this.questionData.AnswerOptions) {
-        r.push({
-          key: item,
-          title: this.questionData.AnswerOptions[item].AnswerText,
-          Id: this.questionData.AnswerOptions[item].Id
-        });
-      }
+    valForSelect:function () {
+      let r =[];
+      jQuery.each(this.questionData.AnswerOptions, function (i, val) {
+        r.push({key: i, title: val.AnswerText, Id:val.Id});
+      });
       return r;
     }
   },
@@ -130,48 +127,7 @@ export default {
 </script>
 
 <style>
-  .option:first-child{
-    margin-top: 55px;
-  }
-  .option:last-child{
-    margin-bottom: 55px;
-  }
-  .colorActive{
-    background-color: #79cd77;
-    opacity: 0.43;
-    height: 40px;
-    width: 100%;
-    position: absolute;
-    z-index: 100;
-    top:56px;
-    transition: all 0.2s linear;
-  }
-  .nocolorActive{
-    background-color: transparent;
-    opacity: 0;
-    height: 40px;
-    width: 100%;
-    position: absolute;
-    z-index: 100;
-    top:0px;
-  }
-  .nocolorActive:last-child{
-    background-color: transparent;
-    opacity: 0;
-    height: 40px;
-    width: 100%;
-    position: absolute;
-    z-index: 100;
-    top:100px;
-  }
-  .selectBlockNeed{
-    position: absolute;
-    width: 100%;
-    box-shadow: inset 0px 10px 30px 0px #fff, inset 0px -10px 30px 0px #fff;
-    height: 150px;
-    top: -50px;
-    border-radius: 15px;
-  }
+
   .hidden{
     visibility: hidden;
   }

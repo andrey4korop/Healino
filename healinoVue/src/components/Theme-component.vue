@@ -27,9 +27,9 @@
           <div class="block_user_popup" v-bind:class="(showPopupUser)?'on':''">
             <div class="margin_op">
               <ul>
-                <li v-on:click="$emit('onToUser')">Edit profile</li>
-                <li>Email rezults</li>
-                <li v-on:click="$emit('exit')">Exit</li>
+                <li v-on:click="$emit('onToUser')" v-lang.editUser></li>
+                <li v-lang.getRezult></li>
+                <li v-on:click="$emit('exit')" v-lang.exit></li>
               </ul>
             </div>
           </div>
@@ -112,6 +112,9 @@
                 forum: 'Forum',
                 rezult: 'VIEW RESULT',
                 start: 'START',
+              editUser:'Edit profile',
+              getRezult:'Email results',
+              exit:'Exit',
                 forumUrl: 'https://www.healino.com/blog-us'
             },
             ru: {
@@ -119,6 +122,9 @@
                 forum: 'Форум',
                 rezult: 'СМОТРЕТЬ РЕЗУЛЬТАТ',
                 start: 'СТАРТ',
+              editUser:'Редактировать профиль',
+              getRezult:'Результаты электронной почты',
+              exit:'Выход',
                 forumUrl: 'https://www.healino.com/blog-ru'
             },
             pl: {
@@ -126,6 +132,9 @@
                 forum: 'Forum',
                 rezult: 'ZOBACZYĆ  REZULTAT',
                 start: 'START',
+              editUser:'Edytuj profil',
+              getRezult:'Wyślij wyniki e-mailem',
+              exit:'Wyjście',
                 forumUrl: 'https://www.healino.com/blog-pl'
             }
         },
@@ -221,6 +230,11 @@
   }
   .text_rezult p{
     margin: auto;
+  }
+  @media screen and (max-width: 760px) {
+    .text_rezult p{
+      font-size: 0.65em;
+    }
   }
   .themesPageContainer .themes .theme.check .filter p .mark{
     opacity: 1;
