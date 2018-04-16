@@ -13,7 +13,7 @@
     <div class="avatar">
       <div v-bind:style="{background: 'url(' + img + ') center center / cover' }" class="img" ></div>
     </div>
-    <h1>Total Health Ratio</h1>
+    <h1 v-lang.title></h1>
   </div>
 
 </template>
@@ -29,7 +29,7 @@ export default {
     },
     messages: {
         en: {
-            descriptionText: '<p>YYour integrated deviation index is {THR}%.</p><p>Which corresponds to the possible {THR_Comment}</p>',
+            descriptionText: '<p>Your integrated deviation index is {THR}%.</p><p>Which corresponds to the possible {THR_Comment}</p>',
             com0: "very good health",
             com1: "good health",
             com2: "average health",
@@ -37,6 +37,7 @@ export default {
             com4: "disease",
             com5: "diseases",
             com6: "serious illness",
+          title:"Index deviations from the norm (IDN)",
         },
         ru: {
             descriptionText: "<p>Ваш интегрированный индекс отклонения от нормативов составляет {THR}%.</p><p>Что соответсвует {THR_Comment}</p>",
@@ -47,6 +48,7 @@ export default {
             com4: "вероятной болезни",
             com5: "болезни",
             com6: "серьезной болезни",
+          title:"Индекс отклонений от нормативов",
         },
         pl: {
             descriptionText: "<p>Twój zintegrowany indeks odchylenia wynosi {THR}%.</p><p>Co odpowiada {THR_Comment}</p>",
@@ -57,6 +59,7 @@ export default {
             com4: "prawdopodobnej chorobie",
             com5: "chorobie",
             com6: "poważnej chorobie",
+          title:"Indeks odchyleń od norm",
         }
     },
     computed:{
@@ -190,9 +193,9 @@ export default {
   .description{
     background: rgba(255,255,255,0.5);
     position: absolute;
-    left: 112%;
-    top: 0%;
-    width: 22vw;
+    left: 134%;
+    top: 4%;
+    width: 25vw;
     text-align: left;
     border-radius: 0px 15px 15px 15px;
     padding: 15px;
@@ -215,8 +218,8 @@ export default {
   h1{
     position: absolute;
     bottom: 105%;
-    left: -10vw;
-    right: -10vw;
+    left: -15vw;
+    right: -15vw;
     text-align: center;
     font-size: 14px;
   }

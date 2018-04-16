@@ -15,6 +15,9 @@
           <span class="check" v-bind:class="(errorEmail) ? 'error' : ''" v-if="errorEmail">
             <i class="fa fa-times" aria-hidden="true"></i>
           </span>
+          <div class="description" v-bind:class="(errorEmail)?'on':''">
+            <div class="text" v-lang.errorEmail></div>
+          </div>
         </label>
 
 
@@ -44,12 +47,9 @@
         data () {
             return {
                 Email: "",
-
-
                 showCheckEmail: false,
                 showLoadEmail: true,
                 errorEmail: false,
-
             }
         },
         messages: {
@@ -57,20 +57,20 @@
                 email:'E-mail',
                 title:'Password recovery',
                 login: 'RESTORE',
-
+                errorEmail:"No account with this email was found",
             },
             ru: {
 
                 email:'E-mail',
                 title:'Восстановление пароля',
                 login: 'ВОССТАНОВИТЬ',
-
+                errorEmail:"Пользователя с таким Email не найден",
             },
             pl: {
                 email:'E-mail',
                 title:'Odzyskiwanie hasła',
                 login: 'PRZYWRACAĆ',
-
+                errorEmail:"Nie znaleziono konta z tym e-mailem",
             }
         },
         computed: {
@@ -117,6 +117,7 @@
                 let t = this;
                 this.showCheckEmail = true;
                 this.showLoadEmail =true;
+                this.errorEmail=false;
                 setTimeout( function () {
                     t.showLoadEmail = false;
                     var r = /^\w+@\w+\.\w{2,4}$/i;

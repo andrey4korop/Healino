@@ -1,5 +1,4 @@
 <template>
-
   <div class="container themesPageContainer ">
     <div class="header">
       <div class="headerContainer">
@@ -12,9 +11,9 @@
           <img v-bind:src="(audio_p)?'static/img/noMusic.png':'static/img/music.png'" >
         </div>
         <div class="lang">
-          <img src="static/img/langPL.png" alt=""   v-if="lang=='pl'">
-          <img src="static/img/langUSA.png" alt=""  v-if="lang=='en'">
-          <img src="static/img/langUA.png" alt=""   v-if="lang=='ru'">
+          <img src="static/img/langPL.png" alt="" v-if="lang=='pl'">
+          <img src="static/img/langUSA.png" alt="" v-if="lang=='en'">
+          <img src="static/img/langUA.png" alt="" v-if="lang=='ru'">
           <ul>
             <li v-on:click="$emit('changeLang', 'pl')" v-if="lang!='pl'"><img src="static/img/langPL.png" alt=""></li>
             <li v-on:click="$emit('changeLang', 'en')" v-if="lang!='en'"><img src="static/img/langUSA.png" alt=""></li>
@@ -41,10 +40,8 @@
       <div class="content">
         <div class="mar">
           <div class="themes">
-            <!--v-bind:style="{background: 'url(' + list.ImageUrl + ') center center / cover' }"-->
             <div class="theme" v-for="list in List"
                  v-on:click.prevent="changeActive(list)"
-
                  v-bind:class="[(list.ThemeStatus=='3') ? 'disable' : '', (list.QuestionsTotal==list.QuestionsFinished) ? 'check' : '']" >
                 <div class="buy" v-if="list.ThemeStatus==4">0.99$</div>
                 <img v-bind:src="'static/img/theme_'+ list.Id +'.png'">
@@ -54,30 +51,21 @@
                 <div v-if="(list.QuestionsTotal==list.QuestionsFinished)" class="text_rezult" v-on:click.prevent="getRezult(list)">
                   <p> <img src="/static/img/mark.png" class="mark"> {{langString('rezult')}}</p>
                 </div>
-
                <!-- <button v-on:click.prevent="getRezult(list)"  v-lang.rezult></button>-->
               </div>
-
             </div>
-
           </div>
         </div>
-        <div class="description">
+        <div class="descriptionTheme">
           <h1>{{Title}}</h1>
           <p>{{Description}} </p>
-          <!--<h4>Lorem ipsum dolor sit amet.</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid animi asperiores cumque dicta
-            dignissimos distinctio eius esse, id illo numquam omnis perferendis provident quod repellendus sequi
-            veritatis?</p>-->
         </div>
       </div>
       <div class="green">
         <button v-on:click="$emit('toQuestion', activeId)" v-lang.start></button>
       </div>
     </div>
-
   </div>
-
 </template>
 
 <script>
@@ -148,7 +136,6 @@
                 }
             },
             userIMG: function () {
-
                 if(this.userData.PhotoUrl){
                     return this.userData.PhotoUrl;
                 }
@@ -156,7 +143,6 @@
                     return '../static/img/noIMG.png';
                 }
             },
-
         },
         created: function() {
             this.changeActive(this.List[0]);
@@ -164,7 +150,6 @@
         mounted(){
           let t = this;
           $(document).mouseup(function (e) {
-
             var container = $(".user_Avatar");
             if (container.has(e.target).length === 0){
               t.showPopupUser = false;

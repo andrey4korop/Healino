@@ -1,8 +1,8 @@
 <template>
   <div class="indicators" v-on:click="start">
     <div class="title_indicator">
-      <p>Lean Body</p>
-      <p>Mass  </p>
+      <p></p>
+      <p v-lang.title></p>
     </div>
     <div class="indicator indicatorLMP">
 
@@ -14,7 +14,7 @@
         <img src="/static/img/indicator_5.png" alt="">
         <div class="plus" v-on:click="$emit('onDescription','7')"><img src="static/img/plus.png" alt=""></div>
         <div class="opacity" v-bind:style="{ height: LMPPresent + '%' }"></div>
-        <div class="cursor" v-bind:style="{ top: 'calc(' + LMPPresent + '% - 6px' }">
+        <div class="cursor" v-bind:style="{ top: LMPPresent + '%' }">
           <img src="static/img/cursor_4.png" alt="">
           <div>
             <p class="big">{{animateVal}}%</p>
@@ -51,6 +51,7 @@ export default {
             com6: "Obese Class I",
             com7: "Obese Class II",
             com8: "Obese Class III",
+            title:"Lean Mass Percentage",
         },
         ru: {
             descriptionText:
@@ -67,6 +68,7 @@ export default {
             com6: "Ожирение I класса",
             com7: "Ожирение II класса",
             com8: "Ожирение III класса",
+            title:"Мышечная масса",
         },
         pl: {
             descriptionText:
@@ -83,6 +85,7 @@ export default {
             com6: "Otyłość klasy I.",
             com7: "Otyłość klasy II",
             com8: "Otyłość stopnia III",
+            title:"Masa mięśniowa",
         }
     },
     computed:{
@@ -181,6 +184,7 @@ export default {
   .progress_bar5{
     border-radius: 23%;
     transition: all 0.1s linear;
+    box-sizing: border-box;
   }
   .progress_bar5:hover{
     box-shadow: 0 0 20px rgba(255, 255, 255, 1), inset 0 0 40px rgba(255, 255, 255, 0.7)
@@ -190,7 +194,7 @@ export default {
     position: absolute;
     left: 50%;
     top: 115%;
-    width: 33vw;
+    width: 50vw;
     text-align: left;
     border-radius: 0 15px 15px 15px;
     padding: 15px;

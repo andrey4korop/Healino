@@ -361,7 +361,7 @@ export default {
             return 5 *this.bg /*+ this.posMouseTemp.x / document.body.clientWidth*0.1*/;
         },
         widthBgImg:function () {
-         return 1.5 * 3420 * this.heightWindow / 1080;
+         return 1.05 * 3420 * this.heightWindow / 1080;
         }
     },
     methods:{
@@ -426,19 +426,17 @@ export default {
 
 <style scoped>
   .bgMain{
-   /* background: url("/static/img/bg40.jpg");*/
-    background-repeat: repeat-x;
     position: fixed;
    width: max-content;
-    height: 150%;
-   transition: all 2s cubic-bezier(.76,0,.5,1);
+    height: 105%;
+    transition: all 2s cubic-bezier(.76,0,.5,1);
     transition-delay: 0s;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-   display: flex;
-    animation: animationBG 5s ease-out infinite normal;
+    display: flex;
+    animation: animationBG 5s ease-out infinite alternate;
   }
   .bgMain img{
    height: 100%;
@@ -451,13 +449,46 @@ export default {
   }
 @keyframes animationBG {
     from {
-        margin-top: -2.8vw;
-    }
-    50%{
-     margin-top: 0vw;
+     top:0;
     }
     to {
-     margin-top: -2.8vw;
+     top:-5%;
     }
 }
+  .big{
+   height: 640px;
+   width: 640px;
+   height: 50vw;
+   width: 50vw;
+   height: 50vmax;
+   width: 50vmax;
+   transition: all 3s linear;
+   animation: animationBGBig 30s linear infinite normal;
+  }
+  .medium{
+   height: 390px;
+   width: 390px;
+   height: 30vw;
+   width: 30vw;
+   height: 30vmax;
+   width: 30vmax;
+   transition: all 5s linear;
+   animation: animationBGMedium 15s linear infinite normal;
+  }
+  .small{
+   height: 200px;
+   width: 200px;
+   height: 15vw;
+   width: 15vw;
+   height: 15vmax;
+   width: 15vmax;
+   transition: all 8s linear;
+   animation: animationBGSmall 10s linear infinite normal;
+  }
+  .bg{
+   position: fixed;
+  }
+  .hide{
+   display: none;
+  }
 </style>

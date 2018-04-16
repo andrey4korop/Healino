@@ -1,10 +1,7 @@
 <template>
   <div class="indicators" v-on:click="start">
-    <div class="title_indicator">
-      <p>Waist to Hip</p><p> Ratio</p>
-    </div>
+    <div class="title_indicator" v-html="langString('title')"></div>
     <div class="indicator indicatorWHR">
-
       <div class="description" v-bind:class="(showDescription==6)?'on':''">
         <div class="text" v-lang.descriptionText="{WHR: rezultData.WHRatio, coment: getComent}"></div>
       </div>
@@ -22,7 +19,7 @@
           </div>
         </div>
         <div class="opacity" v-bind:style="{ height: WHRPresent + '%' }"></div>
-        <div class="cursor" v-bind:style="{ top: 'calc(' + WHRPresent + '% - 6px' }">
+        <div class="cursor" v-bind:style="{ top: WHRPresent + '%' }">
           <img src="static/img/cursor_4.png" alt="">
           <div>
             <p class="big">{{animateVal}}</p>
@@ -55,6 +52,7 @@ export default {
             com5: "obesity of the Class I",
             com6: "obesity of the Class II",
             com7: "obesity of the Class III",
+            title:"<p>Waist-to-hip</p><p>ratio</p>",
         },
         ru: {
             descriptionText:
@@ -68,6 +66,7 @@ export default {
             com5: "ожирению первой степени",
             com6: "ожирению второй степени",
             com7: "ожирению третьей степени (морбидное)",
+            title:"<p>Отношение талии</p><p>к бедрам </p>",
         },
         pl: {
             descriptionText:
@@ -81,6 +80,7 @@ export default {
             com5: "otyłości pierwszego stopnia",
             com6: "otyłości drugiego stopnia",
             com7: "otyłości trzeciego stopnia (chorobliwe)",
+            title:"<p>Stosunek talii</p><p>do bioder</p>",
         }
     },
     computed:{
@@ -97,7 +97,7 @@ export default {
             if(this.animateVal>this.maxValue){
                 return  83;
             }
-            return (this.animateVal - this.minValue) * 66 / (this.maxValue - this.minValue) + 7;
+            return (this.animateVal - this.minValue) * 66 / (this.maxValue - this.minValue) + 17;
         },
         getComent:function () {
             if(this.rezultData.WHRatio > this.maxValue){
@@ -113,8 +113,10 @@ export default {
             }
         }
     },
-
     methods:{
+      langString(string){
+        return this.translate(string);
+      },
         animate () {
             if (TWEEN.update()) {
                 requestAnimationFrame(this.animate)
@@ -179,7 +181,6 @@ export default {
   .progress_bar6:hover{
     box-shadow: 0 0 20px rgba(255, 255, 255, 1), inset 0 0 40px rgba(255, 255, 255, 0.7)
   }
-
   .description{
     background: rgba(255,255,255,0.5);
     position: absolute;
@@ -217,7 +218,6 @@ export default {
     border-radius: 3px;
     height: 90%;
   }
-
   .description .text::-webkit-scrollbar-thumb {
     background: rgb(109,207,77);
     border-radius: 3px;

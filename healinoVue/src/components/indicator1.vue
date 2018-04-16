@@ -1,7 +1,7 @@
 <template>
   <div class="indicators">
     <div class="title_indicator">
-      <p>Body Fat (US Navy)</p>
+      <p v-lang.title></p>
     </div>
     <div class="indicator indicator1">
 
@@ -53,6 +53,7 @@ export default {
             com6: "Obese Class I",
             com7: "Obese Class II",
             com8: "Obese Class III",
+            title:"Fat mass"
         },
         ru: {
             descriptionText:
@@ -69,6 +70,7 @@ export default {
             com6: "Ожирение I класса",
             com7: "Ожирение II класса",
             com8: "Ожирение III класса",
+            title:"Масса жира",
         },
         pl: {
             descriptionText:
@@ -85,6 +87,7 @@ export default {
             com6: "Otyłość klasy I.",
             com7: "Otyłość klasy II",
             com8: "Otyłość stopnia III",
+            title:"Masa tłuszczu",
         }
     },
     computed:{
@@ -198,7 +201,7 @@ export default {
     transition: all 0.5s ease-in-out;
     position: absolute;
     top: -90%;
-    right: 4%;
+    left: 100%;
     border-radius: 25%;
     z-index: 1;
   }
@@ -229,11 +232,11 @@ export default {
   .description{
     background: rgba(255,255,255,0.5);
     position: absolute;
-    left: 100%;
+    right: 1%;
     bottom: 140%;
-    width: 22vw;
+    width: 40vw;
     text-align: left;
-    border-radius: 15px 15px 15px 0;
+    border-radius: 15px 15px 0 15px;
     padding: 15px;
     z-index: -10;
     opacity: 0;
@@ -244,17 +247,9 @@ export default {
     opacity: 1;
   }
   .description .text{
-    overflow-x: hidden;
-    overflow-y: auto;
     padding: 3px;
     background: rgba(255,255,255,1);
     color: #585858;
-    scrollbar-base-color: rgba(109,207,77,1);
-    scrollbar-3dlight-color:rgba(109,207,77,1);
-    scrollbar-highlight-color: rgba(109,207,77,1);
-    scrollbar-track-color: rgba(109,207,77,0.5);
-    scrollbar-arrow-color: rgba(109,207,77,0.5);
-    scrollbar-shadow-color: rgba(109,207,77,1);
   }
   .opacity_cursor{
     position: absolute;
@@ -283,7 +278,7 @@ export default {
   @media screen and (max-width: 760px){
     .opacity_cursor2, .opacity_cursor{
       top:0;
-      height: 5.7vw;
+      /*height: 5.7vw;*/
     }
   }
   .opacity_cursor2 img{

@@ -43,6 +43,7 @@ import questionType1  from './components/questionType1.vue'
 import questionType2  from './components/questionType2.vue'
 import background  from './components/background.vue'
 import bg  from './components/bg.vue'
+import selectBlock  from './components/selectBlock.vue'
 
 Vue.use(MultiLanguage, {
     default: 'en',
@@ -96,6 +97,7 @@ Vue.component('questionType1', questionType1);
 Vue.component('questionType2', questionType2);
 Vue.component('background', background);
 Vue.component('bg', bg);
+Vue.component('selectBlock', selectBlock);
 
 new Vue({
   el: '#app',

@@ -79,12 +79,12 @@
             <label class="cardInfo cardInfoNum">
               <input type="text" v-model="Year" v-on:change="" style="margin-top: 27px;">
 
-              <span class="check" v-bind:class="(showLoadEmail) ? 'loading': ''" v-if="showCheckEmail">
-							<i class="fa fa-check" aria-hidden="true"></i>
-						</span>
-              <span class="check" v-bind:class="(showErrorEmail) ? 'error' : ''" v-if="showErrorEmail">
-							<i class="fa fa-times" aria-hidden="true"></i>
-						</span>
+              <span class="check" v-bind:class="(objExp.showLoad) ? 'loading': ''" v-if="objExp.showCheck">
+						<i class="fa fa-check" aria-hidden="true"></i>
+					</span>
+              <span class="check" v-bind:class="(objExp.error) ? 'error' : ''" v-if="objExp.error">
+						<i class="fa fa-times" aria-hidden="true"></i>
+					</span>
             </label>
           </div>
           <label class="cardInfo marRig">
@@ -100,7 +100,7 @@
           </label>
         </div>
         <div class="rowPay miniButtons">
-          <img src="/static/img/loadIcon.png" height="38" width="38">
+          <img class="loading" src="/static/img/loadIcon.png" height="38" width="38" v-if="showSomeImg">
           <button v-on:click="cancel()" v-lang.cancel></button>
           <button v-on:click="save()" v-lang.save></button>
           <button v-on:click="pay()" v-lang.pay></button>
@@ -211,6 +211,12 @@
               sendEmail:false,
               showLoadEmail:false,
               showErrorEmail:false,
+              showSomeImg:false,
+              objExp:{
+                showLoad:false,
+                showCheck:false,
+                error:false
+              },
               objCardNumber:{
                 showLoad:false,
                 showCheck:false,
@@ -349,6 +355,12 @@
               t.objCardNumber.error = false;
             }
           },
+          Year:function () {
+            this.changeExp();
+          },
+          Month:function () {
+            this.changeExp();
+          },
           Phone:function () {
             let t = this;
             if(this.getPhone.length>11){
@@ -382,6 +394,38 @@
           },
           changeTypeCard(type){
             this.cardType = type;
+          },
+          changeExp(){
+            let t = this;
+            this.objExp.showCheck = true;
+            this.objExp.showLoad = true;
+            this.objExp.error = false;
+            if(this.Year.length>4){
+              this.Year=this.Year.substr(0, 4);
+            }
+            if(this.Month.length>2){
+              this.Month=this.Month.substr(0, 2);
+            }
+            setTimeout(function () {
+              if(t.Year.length==4 && t.Month.length==2){
+                console.log((new Date(t.Year, t.Month-1) != 'Invalid Date'));
+                console.log((t.Month < 13));
+                console.log((t.Year >= new Date().getFullYear()));
+                if ((new Date(t.Year, t.Month-1) != 'Invalid Date') && (t.Month < 13) && (t.Year >= new Date().getFullYear())) {
+                  t.objExp.showLoad = false;
+                  t.objExp.showCheck = true;
+                  t.objExp.error = false;
+                }else{
+                  t.objExp.showCheck = false;
+                  t.objExp.showLoad = false;
+                  t.objExp.error = true;
+                }
+              }else {
+                t.objExp.showCheck = false;
+                t.objExp.showLoad = false;
+                t.objExp.error = false;
+              }
+            }, 1500);
           },
           change(obj, val, input){
             let t = this;

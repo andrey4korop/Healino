@@ -1,8 +1,8 @@
 <template>
   <div id="app">
       <audio loop id="audio" autoplay>
-      <source src="1static/music.mp3" type="audio/mpeg">
-      <source src="1static/music.ogg" type="audio/ogg; codecs=vorbis">
+      <source src="static/music.mp3" type="audio/mpeg">
+      <source src="static/music.ogg" type="audio/ogg; codecs=vorbis">
       </audio>
     <background :backgr="backgr"
                 :bg="bg"></background>
@@ -22,6 +22,7 @@
                      :SessionData="SessionData"
                      @audio="audio"
                      :audio_p="audio_p"
+                     @changeLang="changeLang"
                      @logined="logined"
                      @exit="exit"
                      @onForgot="onForgot"
@@ -31,7 +32,8 @@
                             @exit="exit"
                             :audio_p="audio_p"
                             @onForgotMessage="onForgotMessage"></recoveryPassComponent>
-    <recoveryPassMessageComponent  v-if="state == 'forgotMessage'"></recoveryPassMessageComponent>
+    <recoveryPassMessageComponent  v-if="state == 'forgotMessage'"
+                                   @toStart="onToStart"></recoveryPassMessageComponent>
     <recPassComponent  v-if="state == 'recPass'"
                        @audio="audio"
                        @exit="exit"
@@ -42,11 +44,13 @@
                         :lang="lang"
                         @audio="audio"
                         @exit="exit"
+                        @changeLang="changeLang"
                         :audio_p="audio_p"
                         @logined="logined"
                         @toShowMessageReg="toShowMessageReg"
                      @onLicense="license"></register-component>
-    <registrationMessageComponent v-if="state == 'RegMessage'"></registrationMessageComponent>
+    <registrationMessageComponent v-if="state == 'RegMessage'"
+                                  @toStart="onToStart"></registrationMessageComponent>
     <license-component v-if="state == 'license'"
                        @audio="audio"
                        @onToStart="onToStart"
@@ -130,7 +134,7 @@ export default {
         userData:{},
         themeActive:0,
         lang:'en',
-        state: 'pay',
+        state: 'start',
         SessionData: '',
         UserId: '',
         questionData:{
@@ -241,14 +245,13 @@ export default {
                 })
                 .fail(function() {
                 });
-
         },
         toShowMessageReg(){
             this.state = "RegMessage";
         },
         isFirst(){
             let t = this;
-            $.post( '/api/Account/GetUserProfile',  this.bodyGet  )
+            $.post( '/api/Account/GetUserProfile',  t.bodyGet  )
                 .done(function( data ){
                     if(data.ErrorCode==1 || data.UserId != null) {
                         t.userData = data;
@@ -500,6 +503,7 @@ export default {
                       .done(function( data ){
                           if(data.ErrorCode==1){
                               t.SessionData = data.SessionString;
+                              t.changeLang(data.Language);
                               setCookie('SessionData', data.SessionString, {
                                   expires: 10000,
                                   path: '/'

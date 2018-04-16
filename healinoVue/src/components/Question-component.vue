@@ -89,8 +89,8 @@
                 AnswerValue: "",
                 Type:-1,
               showPopupUser:false,
-             /*questionData:{"PreviusQuestionId":7,"QuestionId":8,"QuestionNum":2,"TotalQuestions":23,"QuestionTypeEnum":0,"UserThemeTestId":89,
-                "IsAnswered":false,"AnsValue":0.0,"QText":"У Вас высокий уровень толерантности?\r\n","ImageUrl":null,
+             /*questionData:{"PreviusQuestionId":7,"QuestionId":8,"QuestionNum":2,"TotalQuestions":23,"QuestionTypeEnum":2,"UserThemeTestId":89,
+                "IsAnswered":true,"AnsValue":5,"QText":"У Вас высокий уровень толерантности?\r\n","ImageUrl":null,
                 "QuestionsProgress":22.0,
                 "AnswerOptions":[
                         {"Id":29,"ParrentId":null,"AnswerText":"Да","ImageUrl":null,"IsUserAnswered":false,"Children":null},
@@ -99,7 +99,7 @@
                         {"Id":32,"ParrentId":null,"AnswerText":"Нет","ImageUrl":null,"IsUserAnswered":false,"Children":null},
                         {"Id":33,"ParrentId":null,"AnswerText":"Нет","ImageUrl":null,"IsUserAnswered":false,"Children":null},
                         {"Id":34,"ParrentId":null,"AnswerText":"Нет","ImageUrl":null,"IsUserAnswered":false,"Children":null},
-                        {"Id":35,"ParrentId":null,"AnswerText":"Иногда бывает длинный текст","ImageUrl":null,"IsUserAnswered":false,"Children":null},
+                        {"Id":35,"ParrentId":null,"AnswerText":"Иногда бывает длинный текст","ImageUrl":null,"IsUserAnswered":true,"Children":null},
                         {"Id":36,"ParrentId":null,"AnswerText":"Иногда\r\n","ImageUrl":null,"IsUserAnswered":false,"Children":null},
                         {"Id":37,"ParrentId":null,"AnswerText":"Иногда\r\n","ImageUrl":null,"IsUserAnswered":false,"Children":null},
                         {"Id":38,"ParrentId":null,"AnswerText":"Иногда\r\n","ImageUrl":null,"IsUserAnswered":false,"Children":null},
@@ -208,6 +208,7 @@
                 return this.questionData.QuestionTypeEnum;
             },
             changeVal(newVal){
+              console.log(newVal);
                 this.AnswersId= newVal.AnswersId;
                 this.AnswerValue= newVal.AnswerValue;
                 this.$emit('clearnError');
@@ -248,12 +249,13 @@
     justify-content: flex-start;
   }
   .ques{
-    margin: auto;
+    margin: auto 5px;
+    /*margin-top: 70px; TODO  */
   }
   .col{
     position: relative;
     z-index:1;
-    margin-top: 55px;
+    margin-top: 80px;
   }
   .themesPageContainer label {
     margin: 4% calc(100% / 24);

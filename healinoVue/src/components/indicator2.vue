@@ -1,9 +1,6 @@
 <template>
   <div class="indicators">
-    <div class="title_indicator">
-      <p>&nbsp;</p>
-      <p>Calories Burned</p>
-    </div>
+    <div class="title_indicator" v-html="langString('title')"></div>
     <div class="indicator DaylyCallorie">
       <div class="description" v-bind:class="(showDescription==2)?'on':''">
         <div class="text"v-lang.descriptionText="{Calorie_Counting: rezultData.DaylyCallorie, Calorie_CountingM: rezultData.DaylyCallorie-500, Calorie_CountingP: rezultData.DaylyCallorie+500,}">
@@ -39,24 +36,24 @@ export default {
             "<p>The daily requirement for calories is based on the weight, height and age of a person.</p>"+
             "<p>Your daily Calorie requirement is {Calorie_Counting} calories a day.</p>"+
             "<p>If you consume {Calorie_CountingM} calories a day, then your weight will go down by 0.45 kg per week.</p>"+
-            "<p>If you consume {Calorie_CountingP} calories a day, then your weight will increase by 0.45 kg per week.</p>"
-
+            "<p>If you consume {Calorie_CountingP} calories a day, then your weight will increase by 0.45 kg per week.</p>",
+            title:"<p>&nbsp;</p><p>Calories Burned</p>",
         },
         ru: {
             descriptionText:
-            "<p>Дневная потребность в каллориях, основана на показателях веса, роста и возраста человека.</p>"+
-            "<p>Ваша дневная потребность {Calorie_Counting} каллорий в день.</p>"+
-            "<p>Если Вы будете потреблять {Calorie_CountingM} каллорий в день, то ваш вес будет снижаться на 0,45 кг в неделю.</p>"+
-            "<p>Если Вы будете потреблять {Calorie_CountingP} каллорий в день, то ваш вес будет увеличиваться на 0,45 кг в неделю.</p>"
-
+            "<p>Дневная потребность в калориях, основана на показателях веса, роста и возраста человека.</p>"+
+            "<p>Ваша дневная потребность {Calorie_Counting} калорий в день.</p>"+
+            "<p>Если Вы будете потреблять {Calorie_CountingM} калорий в день, то ваш вес будет снижаться на 0,45 кг в неделю.</p>"+
+            "<p>Если Вы будете потреблять {Calorie_CountingP} калорий в день, то ваш вес будет увеличиваться на 0,45 кг в неделю.</p>",
+            title:"<p>Дневная потребность</p><p>в калориях</p>",
         },
         pl: {
             descriptionText:
             "<p>Dzienne zapotrzebowanie na kalorie zależy od wagi, wzrostu i wieku danej osoby.</p>"+
             "<p>Twoje dzienne zapotrzebowanie na kalorie to {Calorie_Counting} kalorii dziennie.</p>"+
             "<p>Jeśli spożywasz {Calorie_CountingM} kalorii dziennie, Twoja waga spadnie o 0,45 kg na tydzień.</p>"+
-            "<p>Jeśli spożywasz {Calorie_CountingP} kalorii dziennie, Twoja waga wzrośnie o 0,45 kg na tydzień.</p>"
-
+            "<p>Jeśli spożywasz {Calorie_CountingP} kalorii dziennie, Twoja waga wzrośnie o 0,45 kg na tydzień.</p>",
+            title:"<p>Codzienne zapotrzebowanie</p><p>na kalorie</p>",
         }
     },
     computed:{
@@ -111,6 +108,9 @@ export default {
     },
 
     methods:{
+      langString(string){
+        return this.translate(string);
+      },
         animate () {
             if (TWEEN.update()) {
                 requestAnimationFrame(this.animate)
@@ -154,8 +154,8 @@ export default {
     to {box-shadow: unset;}
   }
   .plus{
-    width: 15%;
-    height: 15%;
+    width: 20%;
+    height: 20%;
     position: absolute;
     top: -7%;
     left: -7%;
@@ -179,11 +179,11 @@ export default {
   .description{
     background: rgba(255,255,255,0.5);
     position: absolute;
-    right: 112%;
+    left: 18%;
     top: 0%;
-    width: 22vw;
+    width: 40vw;
     text-align: left;
-    border-radius: 15px 0 15px 15px;
+    border-radius: 0 15px 15px 15px;
     padding: 15px;
     z-index: -10;
     opacity: 0;
@@ -194,8 +194,6 @@ export default {
     opacity: 1;
   }
   .description .text{
-    overflow-x: hidden;
-    overflow-y: auto;
     padding: 3px;
     background: rgba(255,255,255,1);
     color: #585858;

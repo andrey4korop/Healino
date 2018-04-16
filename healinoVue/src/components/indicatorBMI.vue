@@ -1,8 +1,8 @@
 <template>
   <div class="indicators">
     <div class="title_indicator">
-      <p>BMI</p>
-      <p>(body mass index)</p>
+      <p>&nbsp;</p>
+      <p v-lang.title></p>
     </div>
     <div class="indicator">
 
@@ -47,6 +47,7 @@ export default {
             com5: "obesity of the Class I",
             com6: "obesity of the Class II",
             com7: "obesity of the Class III",
+            title:"Body Mass Index",
         },
         ru: {
             descriptionText:
@@ -60,6 +61,7 @@ export default {
             com5: "ожирению первой степени",
             com6: "ожирению второй степени",
             com7: "ожирению третьей степени (морбидное)",
+            title:"Индекс массы тела",
         },
         pl: {
             descriptionText:
@@ -73,6 +75,7 @@ export default {
             com5: "otyłości pierwszego stopnia",
             com6: "otyłości drugiego stopnia",
             com7: "otyłości trzeciego stopnia (chorobliwe)",
+            title:"Wskaźnik masy ciała",
         }
     },
     computed:{
@@ -167,8 +170,8 @@ export default {
     to {box-shadow: unset;}
   }
   .plus{
-    width: 15%;
-    height: 15%;
+    width: 20%;
+    height: 20%;
     position: absolute;
     top: -7%;
     right: -7%;
@@ -192,11 +195,11 @@ export default {
   .description{
     background: rgba(255,255,255,0.5);
     position: absolute;
-    left: 112%;
-    bottom: 104%;
-    width: 22vw;
+    right: 20%;
+    top: 4%;
+    width: 40vw;
     text-align: left;
-    border-radius: 15px 15px 15px 0;
+    border-radius: 15px 0 15px 15px;
     padding: 15px;
     z-index: -10;
     opacity: 0;
@@ -207,8 +210,6 @@ export default {
     opacity: 1;
   }
   .description .text{
-    overflow-x: hidden;
-    overflow-y: auto;
     padding: 3px;
     background: rgba(255,255,255,1);
     color: #585858;

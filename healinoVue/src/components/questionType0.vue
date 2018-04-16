@@ -2,27 +2,11 @@
   <div class="questionBlock type1" v-if="!questionData.ImageUrl">
     <h1>{{questionData.QText}}</h1>
     <div class="row" v-bind:class="(needMargin)? 'varyNeedMar':''">
-      <label  v-if="questionData.AnswerOptions.length>0" >
-
-        <div class="selectBlock"
-             v-on:input="changeVal"
-             v-on:click="setShowSelectId"
-             v-bind:class="(showSelectId?'hidden':'')"
-        >
-          {{AnswerText}}
-        </div>
-        <div class="selectBlockNeed" v-if="showSelectId" v-on:click="changeSelectColor()">
-          <div class="select">
-            <p class="option" v-for="ans in questionData.AnswerOptions"
-               v-on:click="setValueId(ans.Id, ans.AnswerText, $event)"
-               v-bind:class="(ans.Id==AnswersId) ? 'active' : ''">{{ans.AnswerText}}</p>
-          </div>
-          <div class="colorActive" v-if="showSelectId" v-on:click="changeSelectColor()"></div>
-        </div>
-        <span class="check"  v-bind:class="(showLoadSelect==true) ? 'loading': ''" v-if="showCheckSelect">
-          <i class="fa fa-check" aria-hidden="true"></i>
-        </span>
-      </label>
+      <selectBlock v-if="questionData.AnswerOptions.length>0"
+                   :valueItem="selectId"
+                   :selectOption="valForSelect"
+                   @changeValSelect="changeValSelect"
+      ></selectBlock>
       <label  v-if="questionData.QuestionTypeEnum==2">
 
         <input type="number"
@@ -46,27 +30,11 @@
       </div>
       <div class="right">
         <h1>{{questionData.QText}}</h1>
-        <label  v-if="questionData.AnswerOptions.length>0" >
-
-          <div class="selectBlock"
-               v-on:input="changeVal"
-               v-on:click="setShowSelectId"
-               v-bind:class="(showSelectId?'hidden':'')"
-          >
-            {{AnswerText}}
-          </div>
-          <div class="selectBlockNeed" v-if="showSelectId" v-on:click="changeSelectColor()">
-            <div class="select">
-              <p class="option" v-for="ans in questionData.AnswerOptions"
-                 v-on:click="setValueId(ans.Id, ans.AnswerText, $event)"
-                 v-bind:class="(ans.Id==AnswersId) ? 'active' : ''">{{ans.AnswerText}}</p>
-            </div>
-            <div class="colorActive" v-if="showSelectId" v-on:click="changeSelectColor()"></div>
-          </div>
-          <span class="check"  v-bind:class="(showLoadSelect==true) ? 'loading': ''" v-if="showCheckSelect">
-          <i class="fa fa-check" aria-hidden="true"></i>
-        </span>
-        </label>
+        <selectBlock v-if="questionData.AnswerOptions.length>0"
+                     :valueItem="selectId"
+                     :selectOption="valForSelect"
+                     @changeValSelect="changeValSelect"
+        ></selectBlock>
 
       </div>
     </div>
@@ -78,45 +46,46 @@ export default {
     props: ['questionData', 'errorQuest'],
     data () {
         return {
-          touchstartX : 0,
-          touchstartY : 0,
-          touchendX : 0,
-          touchendY : 0,
-
-            anchors: [],
-            currentAnchor: 0,
-            isAnimating : false,
-
             AnswersId:"",
             AnswerValue: "",
+            selectId:"",
 
             showCheckInput: false,
             showLoadInput: true,
-            showCheckSelect: false,
-            showLoadSelect: true,
-
-            showSelectId:false,
-            AnswerText:"	 "
     }},
     computed:{
-        needMargin:function () {
-            return this.showSelectId && this.questionData.QuestionTypeEnum!=2
-        },
+      needMargin:function () {
+          return this.showSelectId && this.questionData.QuestionTypeEnum!=2
+      },
       newVal:function () {
-          
           return {
               AnswersId: this.AnswersId,
               AnswerValue: this.AnswerValue,
           }
       },
+      valForSelect:function () {
+        let r =[];
+        console.log('valForSelect');
+        console.log(this.questionData.AnswerOptions.length);
+          jQuery.each(this.questionData.AnswerOptions, function (i, val) {
+              console.log(i);
+              console.log(val);
+              r.push({key: i, title: val.AnswerText, Id:val.Id});
+          })
+        /*for(var item in this.questionData.AnswerOptions) {
+            console.log(item);
+            console.log(this.questionData.AnswerOptions[item]);
 
+          r.push({key: item, title: this.questionData.AnswerOptions[item].AnswerText, Id:this.questionData.AnswerOptions[item].Id});
+        }*/
+        return r;
+      }
     },
 
     methods:{
         changeVal: function () {
             this.$emit('changeVal', this.newVal);
         },
-
         changeInput(){
             let t = this;
             this.showCheckInput = true;
@@ -127,128 +96,23 @@ export default {
 
             }, 1500);
         },
-      changeSelectColor(){
-        this.showSelectId = false;
-        this.changeSelect();
-      },
-        changeSelect(){
-            let t = this;
-            this.showCheckSelect = true;
-            this.showLoadSelect =true;
-            this.changeVal();
-            setTimeout( function () {
-                t.showLoadSelect = false;
-            }, 1500);
+        changeValSelect(k){
+          if(k && k>-1){
+            this.AnswersId = this.questionData.AnswerOptions[k].Id
+          }else{
+            this.AnswersId = this.questionData.AnswerOptions[0].Id
+          }
+          this.changeVal();
         },
-        setShowSelectId(event){
-            //event.preventDefault();
-            //$('select option').hide();
-
-            if(event.target.className == "selectBlock") {
-                this.showSelectId = true;
-              let t = this;
-                setTimeout(function () {
-                  /*if(t.currentAnchor==0){
-                    t.currentAnchor=0;
-                      t.AnswersId = t.questionData.AnswerOptions[t.currentAnchor].Id;
-                      t.AnswerText = t.questionData.AnswerOptions[t.currentAnchor].AnswerText;
-                      t.changeVal();
-                  }*/
-
-                  t.updateAnchors();
-
-                    if($('.active').length>0) {
-                        $('.select').scrollTop($('.active').position().top - (150-$('.option')[t.currentAnchor].offsetHeight)/2);
-                        t.currentAnchor =$('.active').index();
-                    }else{
-                      t.AnswersId = t.questionData.AnswerOptions[0].Id;
-                      t.AnswerText = t.questionData.AnswerOptions[0].AnswerText;
-                        t.changeVal();
-                        $('.select').scrollTop(0);
-                        t.currentAnchor =0;
-                    }
-                  $('.colorActive').css({'height':$('.option')[t.currentAnchor].offsetHeight});
-                  $('.colorActive').css({'top':(150-$('.option')[t.currentAnchor].offsetHeight)/2});
-                },10)
-            }
-        },
-        setValueId(id, AnswerText, event){
+        setValueId(id, AnswersId, AnswerText, event){
             //event.preventDefault();
             if(event) {
                 event.stopPropagation();
             }
             this.showSelectId = false;
-            this.AnswersId = id;
-            this.AnswerText = AnswerText;
-            this.changeSelect();
+            this.AnswersId = AnswersId;
+            this.selectId = id;
         },
-      updateAnchors() {
-        this.anchors = [];
-        let t = this;
-          $('p.option').each(function(i, element){
-            t.anchors.push( $(element).position().top );
-          });
-
-      },
-      handleGesure(k) {
-        let t = this;
-        if( t.isAnimating ) {
-          return false;
-        }
-        t.isAnimating  = true;
-      if((Math.abs(t.touchendY-t.touchstartY)>10)){
-        if (this.touchendY < this.touchstartY) {
-          //alert( 'up!');
-          if (t.questionData.AnswerOptions.length - 1 != t.currentAnchor) {
-            t.currentAnchor++;
-          }
-          t.AnswersId = t.questionData.AnswerOptions[t.currentAnchor].Id;
-          t.AnswerText = t.questionData.AnswerOptions[t.currentAnchor].AnswerText;
-          t.changeVal();
-          if (t.currentAnchor > (t.anchors.length - 1)
-                  || t.currentAnchor < 0) {
-            t.currentAnchor = 0;
-          }
-          t.isAnimating = true;
-          $('.colorActive').css({'height':$('.option')[t.currentAnchor].offsetHeight});
-          $('.colorActive').css({'top':(150-$('.option')[t.currentAnchor].offsetHeight)/2});
-          $('.select').animate({
-            scrollTop: parseInt( t.anchors[t.currentAnchor]-(150-$('.option')[t.currentAnchor].offsetHeight)/2 )//55
-          }, 200, 'swing', function () {
-            t.isAnimating = false;
-          });
-          if(k=='1'){
-            t.touchstartY = t.touchendY;
-          }
-        }
-        if (this.touchendY > this.touchstartY) {
-          //alert( 'down!');
-          if (t.currentAnchor != 0) {
-            t.currentAnchor--;
-          }
-          t.AnswersId = t.questionData.AnswerOptions[t.currentAnchor].Id;
-          t.AnswerText = t.questionData.AnswerOptions[t.currentAnchor].AnswerText;
-          t.changeVal();
-          if (t.currentAnchor > (t.anchors.length - 1)
-                  || t.currentAnchor < 0) {
-            t.currentAnchor = 0;
-          }
-          t.isAnimating = true;
-          $('.colorActive').css({'height':$('.option')[t.currentAnchor].offsetHeight});
-          $('.colorActive').css({'top':(150-$('.option')[t.currentAnchor].offsetHeight)/2});
-          $('.select').animate({
-            scrollTop: parseInt( t.anchors[t.currentAnchor]-(150-$('.option')[t.currentAnchor].offsetHeight)/2 )//55
-          }, 200, 'swing', function () {
-
-            t.isAnimating = false;
-          });
-          if(k=='1'){
-            t.touchstartY = t.touchendY;
-          }
-        }
-      }
-}
-
     },
     watch: {
         questionData: function(newVal, oldVal) { // watch it
@@ -257,83 +121,11 @@ export default {
 
             this.showCheckInput= false;
             this.showLoadInput= true;
-            this.showCheckSelect= false;
-            this.showLoadSelect= true;
         }
     },
-    destroyed(){
-        $(document).unbind('touchstart');
-        $(document).unbind('touchend');
-        $(document).unbind('touchmove');
-        $('body').unbind('mousewheel');
-        $('body').unbind('mousewheel');
-    },
-  mounted(){
-    let t = this;
-
-    t.touchstartX = 0;
-    t.touchstartY = 0;
-    t.touchendX = 0;
-    t.touchendY = 0;
-
-    $(document).on('touchstart', '.selectBlockNeed, .colorActive', function(event) {
-      //console.log(event);
-      t.isAnimating = false;
-      t.touchstartY = event.originalEvent.touches[0].screenY;
-    });
-
-    $(document).on('touchend', '.selectBlockNeed, .colorActive', function(event) {
-      //console.log(event);
-        t.touchendY = event.originalEvent.changedTouches[0].screenY;
-        t.handleGesure();
-    });
-    $(document).on('touchmove', '.selectBlockNeed, .colorActive', function(event) {
-      //console.log(event);
-      if((Math.abs(event.originalEvent.changedTouches[0].screenY-t.touchstartY)>20)) {
-        t.touchendY = event.originalEvent.changedTouches[0].screenY;
-        t.handleGesure('1');
-      }
-    });
-
-
-    //let t = this;
-    $('body').on('mousewheel', '.selectBlockNeed, .colorActive', function(e){
-      e.preventDefault();
-      e.stopPropagation();
-
-      if( t.isAnimating ) {
-        return false;
-      }
-      t.isAnimating  = true;
-      // Increase or reset current anchor
-      if( e.originalEvent.wheelDelta >= 0 ) {
-        if (t.currentAnchor != 0) {
-          t.currentAnchor--;
-        }
-      }else{
-        if(t.questionData.AnswerOptions.length-1!=t.currentAnchor) {
-          t.currentAnchor++;
-        }
-      }
-
-      t.AnswersId = t.questionData.AnswerOptions[t.currentAnchor].Id;
-      t.AnswerText = t.questionData.AnswerOptions[t.currentAnchor].AnswerText;
-      t.changeVal();
-      if( t.currentAnchor > (t.anchors.length - 1)
-              || t.currentAnchor < 0 ) {
-        t.currentAnchor = 0;
-      }
-      t.isAnimating  = true;
-      $('.colorActive').css({'height':$('.option')[t.currentAnchor].offsetHeight});
-      $('.colorActive').css({'top':(150-$('.option')[t.currentAnchor].offsetHeight)/2});
-      $('.select').animate({
-        scrollTop: parseInt( t.anchors[t.currentAnchor]-(150-$('.option')[t.currentAnchor].offsetHeight)/2 )//55
-      }, 200, 'swing', function(){
-        t.isAnimating  = false;
-      });
-    });
-  },
   created: function() {
+        console.log(this.questionData);
+        console.log(this.valForSelect);
       if (this.questionData.IsAnswered) {
           if (this.questionData.AnsValue) {
               this.AnswerValue = this.questionData.AnsValue;
@@ -343,25 +135,20 @@ export default {
               for(var opt in this.questionData.AnswerOptions){
                   if(this.questionData.AnswerOptions[opt].IsUserAnswered){
                       let t = this;
-                      setTimeout(function () {
-                          t.setValueId(t.questionData.AnswerOptions[opt].Id, t.questionData.AnswerOptions[opt].AnswerText, t.$event);
-                      },100);
-                      return;
+                    this.showSelectId = false;
+                    this.AnswersId = t.questionData.AnswerOptions[opt].Id;
+                    this.AnswerText = t.questionData.AnswerOptions[opt].AnswerText;
+                    this.selectId = opt;
                   }
               }
           }
+        this.changeVal();
       }
   }
 }
 </script>
 
 <style>
-option{
-  display: none;
-  opacity: 0;
-  border: none;
-  outline: none;
-}
 .option:first-child{
   margin-top: 55px;
 }
@@ -378,6 +165,24 @@ option{
   top:56px;
   transition: all 0.2s linear;
 }
+.nocolorActive{
+  background-color: transparent;
+  opacity: 0;
+  height: 40px;
+  width: 100%;
+  position: absolute;
+  z-index: 100;
+  top:0px;
+}
+.nocolorActive:last-child{
+  background-color: transparent;
+  opacity: 0;
+  height: 40px;
+  width: 100%;
+  position: absolute;
+  z-index: 100;
+  top:100px;
+}
 .selectBlockNeed{
   position: absolute;
   width: 100%;
@@ -388,10 +193,5 @@ option{
 }
 .hidden{
   visibility: hidden;
-}
-@media screen and (max-width: 760px) {
-  .varyNeedMar {
-   /* margin-bottom: 100px !important;*/
-  }
 }
 </style>

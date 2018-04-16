@@ -3,9 +3,9 @@
   <div class="container firstPageContainer">
     <div class="row">
       <form action="" class="login">
-        <button class="btn_social facebook" v-on:click.prevent="FacebookLogin">
-          <img src="static/img/facebook.png" alt="">{{langString('loginFB')}}
-        </button>
+        <div class="btn_social facebook g-signin-button" v-on:click.prevent="FacebookLogin">
+          <img src="static/img/facebook.png" alt=""> {{langString('loginFB')}}
+        </div>
         <g-signin-button
                 :params="googleSignInParams"
                 @success="onSignInSuccess"
@@ -30,7 +30,11 @@
         <label>
           <p><span>*</span>{{langString('password')}}</p>
           <input v-bind:type="typeInputPass" v-model="Password" v-on:change="changePass">
-          <div  class="eye" v-bind:class="(putMouse) ? 'active' : '' " v-on:mousedown="toShowPass" v-on:mouseup="toHidePass"></div>
+          <div  class="eye" v-bind:class="(putMouse) ? 'active' : '' "
+                v-on:mousedown="toShowPass"
+                v-on:touchstart="toShowPass"
+                v-on:mouseup="toHidePass"
+                v-on:touchend="toHidePass"></div>
           <span class="check" v-bind:class="(showLoadPass) ? 'loading': ''" v-if="showCheckPass">
             <i class="fa fa-check" aria-hidden="true"></i>
           </span>
@@ -44,7 +48,11 @@
         <label>
           <p><span>*</span>{{langString('verPass')}}</p>
           <input v-bind:type="typeInputVPass" v-model="VPassword" v-on:change="changeVPass">
-          <div  class="eye" v-bind:class="(putVMouse) ? 'active' : '' " v-on:mousedown="toShowVPass" v-on:mouseup="toHideVPass"></div>
+          <div  class="eye" v-bind:class="(putVMouse) ? 'active' : '' "
+                v-on:mousedown="toShowVPass"
+                v-on:touchstart="toShowVPass"
+                v-on:mouseup="toHideVPass"
+                v-on:touchend="toHideVPass"></div>
           <span class="check" v-bind:class="(showLoadVPass) ? 'loading': ''" v-if="showCheckVPass">
             <i class="fa fa-check" aria-hidden="true"></i>
           </span>
@@ -195,6 +203,7 @@
                         .done(function( data ){
                             if(data.ErrorCode==1){
                                 t.SessionData = data.SessionString;
+                                t.$emit('changeLang', data.Language);
                                 setCookie('SessionData', data.SessionString, {
                                     expires: 10000*10000,
                                     path: '/'
@@ -228,6 +237,7 @@
                                     if(data.ErrorCode==1){
                                         //t.toQuestion(this.themeActive);
                                         tempthis.SessionData = data.SessionString;
+                                        tempthis.$emit('changeLang', data.Language);
                                         setCookie('SessionData', data.SessionString, {
                                             expires: 10000*10000,
                                             path: '/'
