@@ -209,8 +209,6 @@ export default {
   }
   .description .text{
     max-height: 109px;
-    overflow-x: hidden;
-    overflow-y: auto;
     padding: 3px;
     background: rgba(255,255,255,1);
     color: #585858;

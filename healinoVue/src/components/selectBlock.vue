@@ -36,7 +36,7 @@ export default {
             isAnimating:false,
 
             currentAnchor:0,
-
+            anchors:[],
             touchstartY:0,
             touchendY:0,
 
@@ -48,8 +48,6 @@ export default {
 
     },
     created: function() {
-       console.log(this.selectOption);
-       console.log(this.valueItem);
         this.Id = this.valueItem;
         if(this.Id){
             this.title = this.selectOption[this.Id].title;
@@ -116,14 +114,13 @@ export default {
                         t.Id = 0;
                         t.currentAnchor =0;
                         t.changeVal();
-                        $('#'+this.className+' .select').scrollTop(0);
+                        $('#'+t.className+' .select').scrollTop(0);
                     }
-                    $('#'+t.className+' .colorActive').css({'height':$('#'+t.className+' .option')[t.currentAnchor].offsetHeight});
-                    $('#'+t.className+' .colorActive').css({'top':(150-$('#'+t.className+' .option')[t.currentAnchor].offsetHeight)/2});
-                    $('#'+t.className+' .nocolorActive:first').css({'height':(150-$('#'+t.className+' .option')[t.currentAnchor].offsetHeight)/2});
-                    $('#'+t.className+' .nocolorActive:last-child').css({'top':(150-$('#'+t.className+' .option')[t.currentAnchor].offsetHeight)/2 + $('#'+t.className+' .option')[t.currentAnchor].offsetHeight});
-                    $('#'+t.className+' .nocolorActive:last-child').css({'height':(150-$('#'+t.className+' .option')[t.currentAnchor].offsetHeight)/2});
-                },10)
+                    let o = $($('#'+t.className+' .option')[t.currentAnchor]);
+                    $('#'+t.className+' .colorActive').css({'height':o.height(), 'top':(150-o.height())/2});
+                    $('#'+t.className+' .nocolorActive:first').css({'height':(150-o.height())/2});
+                    $('#'+t.className+' .nocolorActive:last-child').css({'top':(150-o.height())/2 + o.height(), 'height':(150-o.height())/2});
+                },10);
             }
         },
         handleGesure(k) {
@@ -132,7 +129,7 @@ export default {
                 return false;
             }
             t.isAnimating  = true;
-            if((Math.abs(t.touchendY-t.touchstartY)>10)){
+            if((Math.abs(t.touchendY-t.touchstartY)>30)){
                 if (this.touchendY < this.touchstartY) {
                     //alert( 'up!');
                     if (t.currentAnchor<t.anchors.length-1) {
@@ -145,13 +142,12 @@ export default {
                         t.currentAnchor = 0;
                     }
                     t.isAnimating = true;
-                    $('#'+t.className+' .colorActive').css({'height':$($('#'+t.className+' .option')[t.currentAnchor]).height()});
-                    $('#'+t.className+' .colorActive').css({'top':(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2});
-                    $('#'+t.className+' .nocolorActive:first').css({'height':(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2});
-                    $('#'+t.className+' .nocolorActive:last-child').css({'top':(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2 + $($('#'+t.className+' .option')[t.currentAnchor]).height()});
-                    $('#'+t.className+' .nocolorActive:last-child').css({'height':(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2});
+                    let o = $($('#'+t.className+' .option')[t.currentAnchor]);
+                    $('#'+t.className+' .colorActive').css({'height':o.height(), 'top':(150-o.height())/2});
+                    $('#'+t.className+' .nocolorActive:first').css({'height':(150-o.height())/2});
+                    $('#'+t.className+' .nocolorActive:last-child').css({'top':(150-o.height())/2 + o.height(), 'height':(150-o.height())/2});
                     $('#'+t.className+' .select').animate({
-                        scrollTop: parseInt( t.anchors[t.currentAnchor]-(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2 )//55
+                        scrollTop: parseInt( t.anchors[t.currentAnchor]-(150-o.height())/2 )//55
                     }, 200, 'swing', function(){
                         t.isAnimating  = false;
                     });
@@ -170,13 +166,13 @@ export default {
                         t.currentAnchor = 0;
                     }*/
                     t.isAnimating = true;
-                    $('#'+t.className+' .colorActive').css({'height':$($('#'+t.className+' .option')[t.currentAnchor]).height()});
-                    $('#'+t.className+' .colorActive').css({'top':(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2});
-                    $('#'+t.className+' .nocolorActive:first').css({'height':(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2});
-                    $('#'+t.className+' .nocolorActive:last-child').css({'top':(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2 + $($('#'+t.className+' .option')[t.currentAnchor]).height()});
-                    $('#'+t.className+' .nocolorActive:last-child').css({'height':(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2});
+                    t.isAnimating = true;
+                    let o = $($('#'+t.className+' .option')[t.currentAnchor]);
+                    $('#'+t.className+' .colorActive').css({'height':o.height(), 'top':(150-o.height())/2});
+                    $('#'+t.className+' .nocolorActive:first').css({'height':(150-o.height())/2});
+                    $('#'+t.className+' .nocolorActive:last-child').css({'top':(150-o.height())/2 + o.height(), 'height':(150-o.height())/2});
                     $('#'+t.className+' .select').animate({
-                        scrollTop: parseInt( t.anchors[t.currentAnchor]-(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2 )//55
+                        scrollTop: parseInt( t.anchors[t.currentAnchor]-(150-o.height())/2 )//55
                     }, 200, 'swing', function(){
                         t.isAnimating  = false;
                     });
@@ -191,58 +187,64 @@ export default {
         let t = this;
         t.touchstartY = 0;
         t.touchendY = 0;
-        $(document).on('touchstart', '#'+this.className+' .selectBlockNeed, .colorActive', function(event) {
-            t.isAnimating = false;
-            t.touchstartY = event.originalEvent.touches[0].screenY;
+        $(document).on('touchstart', '#'+t.className+' .selectBlockNeed, .colorActive', function(event) {
+            if ($(event.target).parents('#' + t.className).length) {
+                t.isAnimating = false;
+                t.touchstartY = event.originalEvent.touches[0].screenY;
+            }
         });
 
-        $(document).on('touchend', '#'+this.className+' .selectBlockNeed, .colorActive', function(event) {
-            t.touchendY = event.originalEvent.changedTouches[0].screenY;
-            t.handleGesure();
-        });
-        $(document).on('touchmove', '#'+this.className+' .selectBlockNeed, .colorActive', function(event) {
-            if((Math.abs(event.originalEvent.changedTouches[0].screenY-t.touchstartY)>20)) {
+        $(document).on('touchend', '#'+t.className+' .selectBlockNeed, .colorActive', function(event) {
+            if ($(event.target).parents('#' + t.className).length) {
                 t.touchendY = event.originalEvent.changedTouches[0].screenY;
-                t.handleGesure('1');
+                t.handleGesure();
             }
-            event.preventDefault();
+        });
+        $(document).on('touchmove', '#'+t.className+' .selectBlockNeed, .colorActive', function(event) {
+            if ($(event.target).parents('#' + t.className).length) {
+                if ((Math.abs(event.originalEvent.changedTouches[0].screenY - t.touchstartY) > 40)) {
+                    t.touchendY = event.originalEvent.changedTouches[0].screenY;
+                    t.handleGesure('1');
+                }
+                event.preventDefault();
+            }
         });
 
-        $('body').on('mousewheel', '#'+this.className+' .selectBlockNeed, .colorActive', function(e){
-            e.preventDefault();
-            e.stopPropagation();
-            if( t.isAnimating ) {
-                return false;
-            }
-            t.isAnimating  = true;
-            if( e.originalEvent.wheelDelta >= 0 ) {
-                if (t.currentAnchor > 0) {
-                    t.currentAnchor--;
+        $('body').on('mousewheel', '#'+t.className+' .selectBlockNeed, .colorActive', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            if ($(event.target).parents('#' + t.className).length) {
+                if (t.isAnimating) {
+                    return false;
                 }
-            }else{
-                if(t.anchors.length-1!=t.currentAnchor) {
-                    t.currentAnchor++;
+                t.isAnimating = true;
+                if (event.originalEvent.wheelDelta >= 0) {
+                    if (t.currentAnchor > 0) {
+                        t.currentAnchor--;
+                    }
+                } else {
+                    if (t.anchors.length - 1 != t.currentAnchor) {
+                        t.currentAnchor++;
+                    }
                 }
-            }
-            t.Id = t.currentAnchor;
-            t.changeVal();
-            if( t.currentAnchor > (t.anchors.length - 1) || t.currentAnchor < 0 ) {
-                t.currentAnchor = 0;
-            }
-            t.isAnimating  = true;
+                t.Id = t.currentAnchor;
+                t.changeVal();
+                if (t.currentAnchor > (t.anchors.length - 1) || t.currentAnchor < 0) {
+                    t.currentAnchor = 0;
+                }
+                t.isAnimating = true;
 
-                $('#'+t.className+' .colorActive').css({'height':$($('#'+t.className+' .option')[t.currentAnchor]).height()});
-                $('#'+t.className+' .colorActive').css({'top':(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2});
-                $('#'+t.className+' .nocolorActive:first').css({'height':(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2});
-                $('#'+t.className+' .nocolorActive:last-child').css({'top':(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2 + $($('#'+t.className+' .option')[t.currentAnchor]).height()});
-                $('#'+t.className+' .nocolorActive:last-child').css({'height':(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2});
-                $('#'+t.className+' .select').animate({
-                    scrollTop: parseInt( t.anchors[t.currentAnchor]-(150-$($('#'+t.className+' .option')[t.currentAnchor]).height())/2 )//55
-                }, 200, 'swing', function(){
-                    t.isAnimating  = false;
+                t.isAnimating = true;
+                let o = $($('#'+t.className+' .option')[t.currentAnchor]);
+                $('#'+t.className+' .colorActive').css({'height':o.height(), 'top':(150-o.height())/2});
+                $('#'+t.className+' .nocolorActive:first').css({'height':(150-o.height())/2});
+                $('#'+t.className+' .nocolorActive:last-child').css({'top':(150-o.height())/2 + o.height(), 'height':(150-o.height())/2});
+                $('#' + t.className + ' .select').animate({
+                    scrollTop: parseInt(t.anchors[t.currentAnchor] - (150 - o.height()) / 2)//55
+                }, 200, 'swing', function () {
+                    t.isAnimating = false;
                 });
-
-
+            }
         });
     },
     destroyed(){
@@ -250,16 +252,75 @@ export default {
         $(document).unbind('touchend');
         $(document).unbind('touchmove');
         $('body').unbind('mousewheel');
-        $('body').unbind('mousewheel');
     },
 }
 </script>
-<style>
+<style scoped>
+    label{
+        z-index: 100;
+    }
+    .selectBlock {
+        width: 100%;
+        font-size: 16px;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        background: url(/static/img/Arrow.png) no-repeat #fffffe;
+        border: none;
+        border-top: 1px solid #e5e6e5;
+        /*border-radius: 15px;*/
+        color: #b8b8b8;
+        margin-bottom: 20px;
+        margin-top: 7px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        text-indent: .01px;
+        text-overflow: '';
+        -ms-appearance: none;
+        appearance: none!important;
+        background-position-x: 94%;
+        background-position-y: center;
+        z-index: 100;
+
+
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        height: unset;
+        min-height: 38px;
+        padding: 5px 40px 5px 15px;
+    }
     .option:first-child{
         margin-top: 55px;
     }
     .option:last-child{
         margin-bottom: 55px;
+    }
+    .option{
+        transition: all .2s cubic-bezier(0.4, 0, 1, 1);
+        line-height: 36px;
+    }
+    .option.active{
+         font-size: 24px;
+     }
+    .select{
+        font-size: 18px;
+    /*@include sm(font-size, 19px);*/
+        color: #827d7e;
+        border-radius: 15px;
+        border: 2px solid #e1e1e1;
+        overflow-y: hidden;
+        background: #fff;
+        max-height: 150px;
+        text-align: center;
+        box-sizing: border-box;
+        z-index: -1;
+        width: 100%;
+        position: relative;
     }
     .colorActive{
         background-color: #79cd77;
@@ -296,5 +357,29 @@ export default {
         height: 150px;
         top: -50px;
         border-radius: 15px;
+        border: 1px solid #e5e6e5
+    }
+    p.option{
+        margin-left: unset;
+        text-align: center;
+    }
+    .hidden{
+        visibility: hidden;
+    }
+    .check {
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        text-align: center;
+        font-size: 14px;
+        color: #fff;
+        border-radius: 13px;
+        border: 3px solid #70cf47;
+        background: #70cf47;
+        position: absolute;
+        top: 13px;
+        left: calc(100% + 10px);
     }
 </style>

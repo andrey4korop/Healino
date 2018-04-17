@@ -16,7 +16,7 @@
         <div class="opacity_cursor" v-bind:style="{ width: FMPDegOp + '%' }">
          <!-- <img src="/static/img/indicator_6Cur.png" alt="">-->
         </div>
-        <div class="opacity_cursor2" v-bind:style="{ width: FMPDegOp2 + '%' }">
+        <div class="opacity_cursor2" v-bind:style="{ width: 'calc( '+FMPDegOp2 + '% + 1px)' }">
           <!--<img src="/static/img/indicator_6Cur.png" alt="">-->
         </div>
         <span class="percent" v-bind:style="{ left: FMPDeg + '%' }"> {{animateVal}}kg</span>
@@ -99,10 +99,10 @@ export default {
         },
         FMPDeg:function(){
             if(this.animateVal<=this.minValue){
-                return 0+1;
+                return 0;
             }
             if(this.animateVal>=this.maxValue){
-                return 100-1;
+                return 100;
             }
             //return (this.animateVal - this.minValue) * 100 / (this.maxValue - this.minValue)+2;
             for(var w=0; w<this.rezultData.FMCategoryScale.length; w++ ){
@@ -283,18 +283,5 @@ export default {
   }
   .opacity_cursor2 img{
     height: 100%;
-  }
-  .description .text::-webkit-scrollbar {
-    width: 5px;
-    background: rgba(109,207,77,0.5);
-    border-radius: 3px;
-    height: 90%;
-  }
-
-  .description .text::-webkit-scrollbar-thumb {
-    background: rgb(109,207,77);
-    border-radius: 3px;
-    width: 5px;
-    height: 90%;
   }
 </style>

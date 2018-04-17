@@ -95,9 +95,9 @@ export default {
                 return  17;
             }
             if(this.animateVal>this.maxValue){
-                return  83;
+                return  82.5;
             }
-            return (this.animateVal - this.minValue) * 66 / (this.maxValue - this.minValue) + 17;
+            return (this.animateVal - this.minValue) * 65.5 / (this.maxValue - this.minValue) + 17;
         },
         getComent:function () {
             if(this.rezultData.WHRatio > this.maxValue){
@@ -200,28 +200,8 @@ export default {
   }
   .description .text{
     max-height: 109px;
-    overflow-x: hidden;
-    overflow-y: auto;
     padding: 3px;
     background: rgba(255,255,255,1);
     color: #585858;
-    scrollbar-base-color: rgba(109,207,77,1);
-    scrollbar-3dlight-color:rgba(109,207,77,1);
-    scrollbar-highlight-color: rgba(109,207,77,1);
-    scrollbar-track-color: rgba(109,207,77,0.5);
-    scrollbar-arrow-color: rgba(109,207,77,0.5);
-    scrollbar-shadow-color: rgba(109,207,77,1);
-  }
-  .description .text::-webkit-scrollbar {
-    width: 5px;
-    background: rgba(109,207,77,0.5);
-    border-radius: 3px;
-    height: 90%;
-  }
-  .description .text::-webkit-scrollbar-thumb {
-    background: rgb(109,207,77);
-    border-radius: 3px;
-    width: 5px;
-    height: 90%;
   }
 </style>

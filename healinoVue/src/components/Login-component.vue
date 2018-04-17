@@ -24,7 +24,7 @@
           <span class="check" v-bind:class="(showErrorEmail) ? 'error' : ''" v-if="showErrorEmail">
             <i class="fa fa-times" aria-hidden="true"></i>
           </span>
-          <div class="description" v-bind:class="(showErrorEmail)?'on':''">
+          <div class="descriptionLogin" v-bind:class="(showErrorEmail)?'on':''">
             <div class="text">{{ErrorEmailMassage}}</div>
           </div>
         </label>
@@ -43,7 +43,7 @@
           <span class="check" v-bind:class="(showErrorPass) ? 'error' : ''" v-if="showErrorPass">
             <i class="fa fa-times" aria-hidden="true"></i>
           </span>
-          <div class="description" v-bind:class="(showErrorPass)?'on':''">
+          <div class="descriptionLogin" v-bind:class="(showErrorPass)?'on':''">
             <div class="text" v-html="ErrorPassMassage"></div>
           </div>
         </label>
@@ -313,7 +313,7 @@
 </script>
 
 <style>
-  .description{
+  .descriptionLogin{
     background: rgba(255,0,0,0.2);
     position: absolute;
     left: 0;
@@ -326,15 +326,13 @@
     opacity: 0;
     transition: all 0.5s linear;
   }
-  .description.on{
+  .descriptionLogin.on{
     z-index: 10;
     opacity: 1;
   }
-  .description .text{
+  .descriptionLogin .text{
     border-radius: 15px 0 15px 15px;
     max-height: 109px;
-    overflow-x: hidden;
-    overflow-y: hidden;
     padding: 3px;
     background: rgba(255,255,255,0.7);
     color: #585858;

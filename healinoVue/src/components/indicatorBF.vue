@@ -13,7 +13,7 @@
         <img src="static/img/cursor_1.png" alt="" class="cursor"
              v-bind:style="{ left: BFPDeg + '%' }">
         <div class="opacity_cursor" v-bind:style="{ width: BFPDegOp + '%' }"></div>
-        <div class="opacity_cursor2" v-bind:style="{ width: BFPDegOp2 + '%' }"></div>
+        <div class="opacity_cursor2" v-bind:style="{ width: 'calc('+BFPDegOp2 + '% + 1px)' }"></div>
         <span class="percent" v-bind:style="{ left: BFPDeg + '%' }">{{animateVal}}%</span>
         <!--<span class="shkala-1">10%</span>
         <span class="shkala-2">18%</span>
@@ -94,10 +94,10 @@ export default {
         },
         BFPDeg:function(){
             if(this.animateVal<=this.minValue){
-                return 0+1;
+                return 0;
             }
             if(this.animateVal>=this.maxValue){
-                return 100-1;
+                return 100;
             }
             //return (this.animateVal - this.minValue) * 100 / (this.maxValue - this.minValue)+2;
             for(var w=0; w<this.rezultData.BFCategoryScale.length; w++ ){
@@ -277,18 +277,5 @@ export default {
   }
   .opacity_cursor2 img{
     height: 100%;
-  }
-  .description .text::-webkit-scrollbar {
-    width: 5px;
-    background: rgba(109,207,77,0.5);
-    border-radius: 3px;
-    height: 90%;
-  }
-
-  .description .text::-webkit-scrollbar-thumb {
-    background: rgb(109,207,77);
-    border-radius: 3px;
-    width: 5px;
-    height: 90%;
   }
 </style>

@@ -365,7 +365,7 @@ export default {
         }
     },
     methods:{
-         mousemove(event) {
+        /* mousemove(event) {
 
            if (document.attachEvent != null) {
                this.posMouseTemp = {x: window.event.clientX, y: window.event.clientY}
@@ -377,7 +377,7 @@ export default {
            var rand = min - 0.5 + Math.random() * (max - min + 1)
            rand = Math.round(rand);
            return rand;
-       },
+       },*/
     },
  mounted(){
      let t = this;
@@ -386,40 +386,7 @@ export default {
    })
  },
   created: function() {
-     //let t = this;
 
-     /* setTimeout(function(){
-          var ns4 = (document.layers)? true:false
-          var ie4 = (document.all)? true:false
-
-          if (ns4) {document.captureEvents(Event.MOUSEMOVE);}
-          document.onmousemove=t.mousemove;
-          t.randomB={x:t.randomInteger(-150,150),y:t.randomInteger(-150,150)};
-          t.posMouseB=t.posMouseTemp;
-              $('body').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', '.bg.big:nth-child(3n)',
-                  function(e) {
-                      t.randomB={x:t.randomInteger(-150,150),y:t.randomInteger(-150,150)};
-                      t.posMouseB=t.posMouseTemp;
-                  })
-      },100);
-      setTimeout(function(){
-          t.randomM={x:t.randomInteger(-150,150),y:t.randomInteger(-150,150)};
-          t.posMouseM=t.posMouseTemp;
-          $('body').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', '.bg.medium:nth-child(5n)',
-              function(e) {
-                  t.randomM={x:t.randomInteger(-150,150),y:t.randomInteger(-150,150)};
-                  t.posMouseM=t.posMouseTemp;
-              })
-      },800);
-      setTimeout(function(){
-          t.randomS={x:t.randomInteger(-150,150),y:t.randomInteger(-150,150)};
-          t.posMouseS=t.posMouseTemp;
-          $('body').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', '.bg.small:nth-child(5n)',
-              function(e) {
-                  t.randomS={x:t.randomInteger(-150,150),y:t.randomInteger(-150,150)};
-                  t.posMouseS=t.posMouseTemp;
-              })
-      },1500);*/
     }
 }
 </script>
@@ -449,35 +416,35 @@ export default {
   }
 @keyframes animationBG {
     from {
-     top:0;
+     transform: translateY(0%);
     }
     to {
-     top:-10%;
+     transform: translateY(-10vh);
     }
 }
   @keyframes animationBG1 {
     from {
-     margin-top:10%;
+     margin-top:5%;
     }
     to {
-     margin-top:-2%;
+     margin-top:-5%;
     }
    }
 
   @keyframes animationBG2 {
    from {
-    margin-top:10%;
+    margin-top:5%;
    }
    to {
-    margin-top:0%;
+    margin-top:-5%;
    }
   }
   @keyframes animationBG3 {
    from {
-    margin-top:10%;
+    margin-top:5%;
    }
    to {
-    margin-top:3%;
+    margin-top:-5%;
    }
   }
   .big{
@@ -508,19 +475,19 @@ export default {
    transition: all 8s linear;
   }
   .animaBG1{
-   animation: animationBGBig 30s ease infinite normal, animationBG1 5s ease-out infinite alternate;
+   animation: animationBGBig 30s ease-out infinite normal, animationBG1 5s ease-out infinite alternate;
   }
   .animaBG2{
-   animation: animationBGMedium 15s ease-in infinite normal, animationBG2 5s ease-out infinite alternate;
+   animation: animationBGMedium 15s ease-out infinite normal, animationBG2 5s ease-out infinite alternate;
   }
   .animaBG3{
    animation: animationBGSmall 10s ease-out infinite normal, animationBG3 5s ease-out infinite alternate;
   }
   .animaBG4{
-   animation: animationBGSmall1 20s ease-in-out infinite normal, animationBG1 5s ease-out infinite alternate;
+   animation: animationBGSmall1 20s ease-out infinite normal, animationBG1 5s ease-out infinite alternate;
   }
   .animaBG5{
-   animation: animationBGSmall2 17s linear infinite normal, animationBG2 5s ease-out infinite alternate;
+   animation: animationBGSmall2 17s ease-out infinite normal, animationBG1 5s ease-out infinite alternate;
   }
   .bg{
    position: fixed;

@@ -58,7 +58,7 @@
             <i class="fa fa-times" aria-hidden="true"></i>
           </span>
         </label>
-        <label>
+        <!--<label>
           <p><span>*</span>{{langString('race')}}</p>
           <select v-model="Race" v-on:change="change(objRace, Race)">
             <option value="0">Caucasian</option>
@@ -71,7 +71,15 @@
           <span class="check" v-bind:class="(objRace.error) ? 'error' : ''" v-if="objRace.error">
             <i class="fa fa-times" aria-hidden="true"></i>
           </span>
-        </label>
+        </label>-->
+        <label>
+          <p><span>*</span>{{langString('race')}}</p></label>
+        <selectBlock
+                     :valueItem="Race"
+                     :selectOption="raseOption"
+                     :errorQuest="false"
+                     @changeValSelect="changeRace"
+        ></selectBlock>
         <label>
           <p><span>*</span>{{langString('phone')}}</p>
           <!--<input type="tel" pattern="^(?:0|\(?\+\)?\s?|00\s?)[1-79](?:[\.\-\s]?\d\d){4}$"
@@ -153,7 +161,7 @@
             <i class="fa fa-times" aria-hidden="true"></i>
           </span>
         </label>
-        <label>
+        <!--<label>
           <p><span>*</span>{{langString('activity')}}</p>
           <select v-model="Activity" v-on:change="change(objActivity, Activity)">
             <option value="0">No Activity</option>
@@ -169,7 +177,15 @@
           <span class="check" v-bind:class="(objActivity.error) ? 'error' : ''" v-if="objActivity.error">
             <i class="fa fa-times" aria-hidden="true"></i>
           </span>
-        </label>
+        </label>-->
+        <label>
+          <p><span>*</span>{{langString('activity')}}</p></label>
+        <selectBlock
+                :valueItem="Activity"
+                :selectOption="activityOption"
+                :errorQuest="false"
+                @changeValSelect="changeAct"
+        ></selectBlock>
         <label>
           <p><span>*</span>{{langString('gender')}}</p>
         </label>
@@ -192,7 +208,7 @@
     </form>
     <div class="row">
       <div class="firstPage fifthPage">
-        <button v-on:click.prevent="updateUser" v-lang.button></button>
+        <button v-on:click.prevent="updateUser">{{buttonTitle}}</button>
       </div>
     </div>
     <div class="music_btn" v-on:click="$emit('audio')">
@@ -210,6 +226,7 @@
         props: ['SessionData', 'userData', 'audio_p'],
         data () {
             return {
+              st:true,
                 Name:"",
                 SurName:"",
                 Birthday:"",
@@ -300,6 +317,7 @@
                 female: 'Female',
                 someDate: 'Date Actualization',
                 button: 'SIGN IN',
+              save:'UPDATE',
             },
             ru: {
                 name: 'Имя',
@@ -323,6 +341,7 @@
                 female: 'Женский',
                 someDate: 'Дата актуализации',
                 button: 'РЕГИСТРАЦИЯ',
+              save:'ОБНОВИТЬ',
             },
             pl: {
                 name: 'Imię',
@@ -346,9 +365,34 @@
                 female: 'żeńska',
                 someDate: 'Data aktualizacji',
                 button: 'REJESTRACJA',
+              save:'AKTUALIZACJA',
             },
         },
         computed: {
+          raseOption:function(){
+            let r =[];
+            r.push({key: 0, title: 'Caucasian', Id:0});
+            r.push({key: 1, title: 'Asian', Id:1});
+            r.push({key: 2, title: 'African', Id:2});
+            return r;
+          },
+          activityOption:function(){
+            let r =[];
+            r.push({key: 0, title: 'No Activity', Id:0});
+            r.push({key: 1, title: 'Sedentary', Id:1});
+            r.push({key: 2, title: 'Low Active', Id:2});
+            r.push({key: 3, title: 'Moderately Active', Id:3});
+            r.push({key: 4, title: 'Very Active', Id:4});
+            r.push({key: 5, title: 'Extra Active', Id:5});
+            return r;
+          },
+          buttonTitle:function () {
+            if(this.st){
+              return this.langString('button');
+            }else{
+              return this.langString('save');
+            }
+          },
             userIMG: function () {
 
                 if(this.img){
@@ -395,6 +439,7 @@
                      this['obj'+index].showLoad= false;
                      if((index=='Name' || index=='SurName' || index=='Location')&& this.userData[index]){
                          this['obj'+index].disable = true;
+                       this.st = false;
                      }
                  }
             }
@@ -510,6 +555,32 @@
                     }
                 }, 1500);
             },
+          changeAct(val){
+            let t = this;
+            this.Activity = val;
+            this.objActivity.showCheck = true;
+            this.objActivity.showLoad = true;
+            this.objActivity.error = false;
+            setTimeout( function () {
+              t.objActivity.showLoad = false;
+              if(val == null || val==="" || val < 0 ){
+                t.objActivity.showCheck = false;
+              }
+            }, 1500);
+          },
+          changeRace(val){
+            let t = this;
+            this.Race = val;
+            this.objRace.showCheck = true;
+            this.objRace.showLoad = true;
+            this.objRace.error = false;
+            setTimeout( function () {
+              t.objRace.showLoad = false;
+              if(val == null || val==="" || val < 0 ){
+                t.objRace.showCheck = false;
+              }
+            }, 1500);
+          },
           dateformat(date){
           let o = new Date(date);
             return ('0' + o.getDate()).slice(-2)+'-'+ ('0' + (o.getMonth() + 1)).slice(-2) +'-' + o.getFullYear();
@@ -536,7 +607,7 @@
     }
 </script>
 
-<style>
+<style scoped>
   .music_btn{
     width: 30px;
     height: 30px;
@@ -549,6 +620,9 @@
       margin: 5px 0;
     }
 
+  }
+  .row{
+    margin-top: 2px;
   }
   @media screen and (max-height: 768px) and (orientation: landscape){
     .row{
@@ -563,8 +637,7 @@
       margin-top: 10px;
       margin-bottom: 0px;
     }
-    .login label input[type=date], .login label input[type=email], .login label input[type=number], .login label input[type=password], .login label input[type=tel], .login label input[type=text], .login label option, .login label select {
-      width: 100%;
+    .login label input[type=date], .login label input[type=email], .login label input[type=number], .login label input[type=password], .login label input[type=tel], .login label input[type=text], .login label option, .login label select, .login label .selectBlock {
       height: unset;
       font-size: 14px;
       padding: 2% 15px;

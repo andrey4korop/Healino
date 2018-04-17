@@ -116,17 +116,4 @@ export default {
     background: url("/static/img/indicator_3Cur.png") no-repeat;
     background-size: cover;
   }
-  .description .text::-webkit-scrollbar {
-    width: 5px;
-    background: rgba(109,207,77,0.5);
-    border-radius: 3px;
-    height: 90%;
-  }
-
-  .description .text::-webkit-scrollbar-thumb {
-    background: rgb(109,207,77);
-    border-radius: 3px;
-    width: 5px;
-    height: 90%;
-  }
 </style>

@@ -77,6 +77,7 @@
                      @changeLang="changeLang"
                      @changeActiveTheme="changeActiveTheme"
                      @toQuestion="toQuestion"
+                     @onToUser="ToUser"
                      @chAc="chAc"></theme-component>
     <question-component v-if="state == 'question'"
                         :questionData="questionData"
@@ -93,6 +94,7 @@
                         @nextQuestion="nextQuestion"
                         @prevQuestion="prevQuestion"
                         @setErrorQuestion="setErrorQuestion"
+                        @onToUser="ToUser"
                         @clearnError="clearnError"></question-component>
 
     <rezult-component v-else-if="state == 'rezult'"
@@ -112,6 +114,7 @@
                               @exit="exit"
                               :audio_p="audio_p"
                                 :lang="lang"
+                              @onToUser="ToUser"
                               @changeLang="changeLang"></pay-component>
 
   </div>

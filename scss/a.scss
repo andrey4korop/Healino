@@ -318,6 +318,9 @@ html,body{
     border: none;
     text-align: left;
     font-size: 16px;
+    @media screen and (max-width: 355px){
+      font-size: 13px;
+    }
     margin-bottom: 15px;
     box-sizing: border-box;
     padding: 1px 6px;
@@ -402,6 +405,15 @@ html,body{
         left: calc(29.16667% + 40px);
       }
     }
+    .selectBlock{
+      border-radius: 4px!important;
+      color: #555;
+      min-height: 35px;
+      margin-bottom: 10px;
+    }
+    .option{
+      color: #555;
+    }
     .check{
       display: inline-block;
       width: 25px;
@@ -417,6 +429,9 @@ html,body{
       top: 30px;
       left: calc(100% + 20px);
       @include sm(left, calc(100% + 5px))
+    }
+    .selectBlock+.check{
+      top: 13px;
     }
     input[type="text"], input[type="date"], input[type="email"],
     input[type="password"], input[type="tel"], input[type="number"],
@@ -952,7 +967,7 @@ html,body{
   .cursor{
     position: absolute;
     left: 0;
-    margin-left: -7px;
+    transform: translateX(-50%);
   }
   .percent{
     position: absolute;
@@ -1002,7 +1017,7 @@ html,body{
   }
   p{
     position: relative;
-    font-size: 11px;
+    font-size: 10px;
     @include md(font-size, 9px);
     &.big{
       font-size: 24px;
@@ -2073,8 +2088,7 @@ html,body{
       .cursor {
         position: absolute;
         left: 0;
-        margin-left: -7px;
-        transform: translateX(-7px);
+        transform: translateX(-50%);
         height: 8vw;
       }
       .percent {
@@ -2144,7 +2158,7 @@ html,body{
         right:100%;
         align-items: flex-start;
         line-height: 12px;
-        transform: scale(-1, 1);
+        transform: scale(-1, 1)  translateY(-50%);
         margin: 0;
         img {
           height: 10px;
@@ -2200,12 +2214,9 @@ div.p{
   transition: all 1s;
 }
 
-/* Animation*/
-
-
 @media screen and (max-height: 768px) and (orientation: landscape){
   .progress_bar2 p {
-    font-size: 8px;
+    font-size: 7px;
   }
   .progress_bar2 p.big {
     font-size: 17px;
@@ -2492,4 +2503,11 @@ div.p{
       width:100%;
     }
   }
+}
+input[type='number'] {
+  -moz-appearance:textfield;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
 }

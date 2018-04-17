@@ -217,7 +217,6 @@
                 return this.questionData.QuestionTypeEnum;
             },
             changeVal(newVal){
-              console.log(newVal);
                 this.AnswersId= newVal.AnswersId;
                 this.AnswerValue= newVal.AnswerValue;
                 this.$emit('clearnError');
