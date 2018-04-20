@@ -62,8 +62,10 @@
                     :userData="userData"
                     @audio="audio"
                     @exit="exit"
+                    :answerSelectSelected="answerSelectSelected"
                     :audio_p="audio_p"
                     @changeAva="changeAvatar"
+                    @pushSelectOption="pushSelectOption"
                     @toTheme="toTheme"></user-component>
     <theme-component v-if="state == 'theme'"
                      :SessionData="SessionData"
@@ -88,12 +90,14 @@
                         @audio="audio"
                         @exit="exit"
                         :audio_p="audio_p"
+                        :answerSelectSelected="answerSelectSelected"
                         @toTheme="toTheme"
                         @toRezult="toRezult"
                         @changeLang="changeLang"
                         @nextQuestion="nextQuestion"
                         @prevQuestion="prevQuestion"
                         @setErrorQuestion="setErrorQuestion"
+                        @pushSelectOption="pushSelectOption"
                         @onToUser="ToUser"
                         @clearnError="clearnError"></question-component>
 
@@ -141,6 +145,7 @@ export default {
         state: 'start',
         SessionData: '',
         UserId: '',
+      answerSelectSelected:[],
         questionData:{
             QuestionId: 0,
             QuestionTypeEnum: 0,
@@ -390,6 +395,16 @@ export default {
         setErrorQuestion(){
           this.errorQuest = true;
         },
+      pushSelectOption(opt){
+          let t = this;
+          if(typeof opt ==="string") {
+            this.answerSelectSelected.push(opt);
+          }else{
+            $.each(opt,function ( index, value) {
+              t.pushSelectOption(value);
+            })
+          }
+      },
         bodyToken(token){
             return {
                 Token: token,

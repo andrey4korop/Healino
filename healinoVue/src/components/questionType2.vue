@@ -7,6 +7,7 @@
                    :selectOption="valForSelect"
                    :errorQuest="errorQuest"
                    @changeValSelect="changeValSelect"
+                   @pushSelectOption="pushSelectOption"
       ></selectBlock>
       <label>
 
@@ -27,7 +28,7 @@
 
 <script>
 export default {
-  props: ['questionData', 'errorQuest'],
+  props: ['questionData', 'errorQuest', 'answerSelectSelected'],
   data () {
     return {
       AnswersId: "",
@@ -65,7 +66,9 @@ export default {
     changeVal: function () {
       this.$emit('changeVal', this.newVal);
     },
-
+    pushSelectOption(opt){
+      this.$emit('pushSelectOption', opt);
+    },
     changeInput(){
       let t = this;
       this.showCheckInput = true;
@@ -121,6 +124,24 @@ export default {
         }
       }
       this.changeVal();
+    }else {
+      let d = this.answerSelectSelected.reverse();
+      let selectIn = 10000;
+      var ind;
+      $.each(this.questionData.AnswerOptions, function (index, value) {
+        let q = d.indexOf(value.AnswerText);
+        if (q < selectIn && q != -1) {
+          selectIn = q;
+          ind = index;
+        }
+      });
+      this.answerSelectSelected.reverse();
+      if (ind < this.questionData.AnswerOptions.length) {
+        this.AnswersId = this.questionData.AnswerOptions[ind].Id;
+        this.AnswerText = this.questionData.AnswerOptions[ind].AnswerText;
+        this.selectId = ind;
+        this.changeVal();
+      }
     }
   }
 }

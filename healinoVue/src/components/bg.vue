@@ -2,7 +2,11 @@
     <div class="bg"
         v-if="!toHide"
          v-bind:class="classS"
-         v-bind:style="{background: 'url('+ urlImg +') center center / cover', left: Xbg + '%', top: Ybg + '%' }">
+         v-bind:style="{left: Xbg + '%', top: Ybg + '%' }">
+        <div class="max"
+             v-bind:style="{background: 'url('+ urlImg +') center center / cover'}">
+
+        </div>
     </div>
 </template>
 
@@ -48,3 +52,12 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+
+    .max{
+        height: 100%;
+        width: 100%;
+        animation: animationBG10 5s ease-out infinite alternate;
+    }
+</style>

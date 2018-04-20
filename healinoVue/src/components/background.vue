@@ -361,7 +361,7 @@ export default {
             return 5 *this.bg /*+ this.posMouseTemp.x / document.body.clientWidth*0.1*/;
         },
         widthBgImg:function () {
-         return 1.1 * 3420 * this.heightWindow / 1080;
+         return 1.15 * 3420 * this.heightWindow / 1080;
         }
     },
     methods:{
@@ -392,10 +392,13 @@ export default {
 </script>
 
 <style scoped>
+ .background{
+  position: fixed;
+ }
   .bgMain{
     position: fixed;
    width: max-content;
-    height: 110%;
+    height: 115vh;
     transition: all 2s cubic-bezier(.76,0,.5,1);
     transition-delay: 0s;
     -webkit-background-size: cover;
@@ -416,13 +419,17 @@ export default {
   }
 @keyframes animationBG {
     from {
-     transform: translateY(0%);
+     /*transform: translateY(0%);
+     margin-top:0%;*/
+     top:0;
     }
     to {
-     transform: translateY(-10vh);
+     /*ransform: translateY(-10%);
+     margin-top:-10%;*/
+     top:-10%;
     }
 }
-  @keyframes animationBG1 {
+  /*@keyframes animationBG1 {
     from {
      margin-top:5%;
     }
@@ -446,7 +453,7 @@ export default {
    to {
     margin-top:-5%;
    }
-  }
+  }*/
   .big{
    height: 640px;
    width: 640px;

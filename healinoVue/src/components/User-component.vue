@@ -220,10 +220,9 @@
 </template>
 
 <script>
-    //import {TheMask} from 'vue-the-mask'
     import MaskedInput from 'vue-masked-input'
     export default {
-        props: ['SessionData', 'userData', 'audio_p'],
+        props: ['SessionData', 'userData', 'audio_p', 'answerSelectSelected'],
         data () {
             return {
               st:true,
@@ -527,6 +526,27 @@
             },
             changeMetrics:function (metrics) {
                 this.PersonMeasurementSystem = metrics;
+                var opt = [];
+                if(metrics==0){
+                  opt.push('cm');
+                  opt.push('см');
+                  opt.push('кг');
+                  opt.push('kg');
+                }else{
+                  opt.push('oz');
+                  opt.push('ft');
+                  opt.push('in');
+                  opt.push('lb');
+                  opt.push('футов');
+                  opt.push('дюймов');
+                  opt.push('фунтов');
+                  opt.push('унций');
+                  opt.push('stóp');
+                  opt.push('cali');
+                  opt.push('funt');
+                  opt.push('uncje');
+                }
+                this.$emit('pushSelectOption', opt);
             },
             updateUser:function () {
                 let t = this;

@@ -1389,7 +1389,7 @@ html,body{
         transition: all .2s cubic-bezier(0.4, 0, 1, 1);
         line-height: 36px;
         &.active{
-          font-size: 24px;
+          font-size: 20px;
         }
       }
     }
@@ -2510,4 +2510,17 @@ input[type='number'] {
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
+}
+
+
+@keyframes animationBG10 {
+  from {
+    -webkit-transform: translateY(40%);
+    transform: translateY(40%);
+
+  }
+  to {
+    -webkit-transform: translateY(0%);
+    transform: translateY(0%);
+  }
 }

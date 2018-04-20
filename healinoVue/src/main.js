@@ -43,8 +43,15 @@ import questionType1  from './components/questionType1.vue'
 import questionType2  from './components/questionType2.vue'
 import background  from './components/background.vue'
 import bg  from './components/bg.vue'
-import selectBlock  from './components/selectBlock.vue'
 
+    import  selectBlockIE from  './components/selectBlock.vue'
+
+    import  selectBlock from  './components/selectBlock2.vue'
+
+import pdSelectItem from './components/selectitem.vue'
+
+
+Vue.component('pdSelectItem', pdSelectItem);
 Vue.use(MultiLanguage, {
     default: 'en',
     en: {},
@@ -53,7 +60,10 @@ Vue.use(MultiLanguage, {
 })
 
 import GSignInButton from 'vue-google-signin-button'
-Vue.use(GSignInButton)
+Vue.use(GSignInButton);
+
+/*import pdSelect from 'pd-select'
+Vue.use(pdSelect)*/
 /**
  * загрузка главных страниц
  */
@@ -97,7 +107,36 @@ Vue.component('questionType1', questionType1);
 Vue.component('questionType2', questionType2);
 Vue.component('background', background);
 Vue.component('bg', bg);
-Vue.component('selectBlock', selectBlock);
+
+/*function getInternetExplorerVersion()
+{ var rv = -1;
+    if (navigator.appName == 'Microsoft Internet Explorer'){
+        var ua = navigator.userAgent;
+        var re  = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
+        if (re.exec(ua) != null)
+            rv = parseFloat( RegExp.$1 );
+    }
+    else if (navigator.appName == 'Netscape')    {
+        var ua = navigator.userAgent;
+        var re  = new RegExp("Trident/.*rv:([0-9]{1,}[\.0-9]{0,})");
+        if (re.exec(ua) != null)
+            rv = parseFloat( RegExp.$1 );
+    }
+    return rv;
+}*/
+if (document.documentMode || /Edge/.test(navigator.userAgent)) {
+    Vue.component('selectBlock', selectBlockIE);
+}else{
+    Vue.component('selectBlock', selectBlock);
+}
+
+/*if(getInternetExplorerVersion()!==-1){
+    Vue.component('selectBlock', selectBlockIE);
+}else{
+    Vue.component('selectBlock', selectBlock);
+}*/
+
+
 
 new Vue({
   el: '#app',

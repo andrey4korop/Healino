@@ -88,12 +88,9 @@ export default {
                 return this.translate( 'com'+(this.rezultData.HealthRatioScale.length-1));
             }
             let ret = this.translate( 'com0');
-            //console.log(ret);
             for( let i = 0; i < this.rezultData.HealthRatioScale.length; i++){
-                //console.log(this.rezultData.HealthRatioScale[i].Value);
                if(this.rezultData.HealthRate > this.rezultData.HealthRatioScale[i].Value){
                   ret = this.translate( 'com'+(i+1));
-                   //console.log(ret);
                }else{
                    return ret;
                }

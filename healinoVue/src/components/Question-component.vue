@@ -55,13 +55,19 @@
         <questionType0 v-if="Type==0"
                        :questionData="questionData"
                        :errorQuest="errorQuest"
+                       :answerSelectSelected="answerSelectSelected"
+                       @pushSelectOption="pushSelectOption"
                        @changeVal="changeVal"></questionType0>
         <questionType2 v-if="Type==2"
                        :questionData="questionData"
                        :errorQuest="errorQuest"
+                       @pushSelectOption="pushSelectOption"
+                       :answerSelectSelected="answerSelectSelected"
                        @changeVal="changeVal"></questionType2>
         <questionType1 v-if="Type==1"
                        :questionData="questionData"
+                       :answerSelectSelected="answerSelectSelected"
+                       @pushSelectOption="pushSelectOption"
                        @changeVal="changeVal"></questionType1>
       </div>
       <div class="green">
@@ -82,23 +88,23 @@
 
 <script>
     export default {
-        props: ['SessionData', 'questionData', 'userData', 'lang', 'errorQuest', 'audio_p'],
+        props: ['SessionData', 'questionData', 'userData', 'lang', 'errorQuest', 'audio_p', 'answerSelectSelected'],
         data () {
             return {
                 AnswersId:"",
                 AnswerValue: "",
                 Type:-1,
               showPopupUser:false,
-             /*questionData:{"PreviusQuestionId":7,"QuestionId":8,"QuestionNum":2,"TotalQuestions":23,"QuestionTypeEnum":2,"UserThemeTestId":89,
+             /*questionData:{"PreviusQuestionId":7,"QuestionId":8,"QuestionNum":2,"TotalQuestions":23,"QuestionTypeEnum":0,"UserThemeTestId":89,
                 "IsAnswered":false,"AnsValue":5,"QText":"У Вас высокий уровень толерантности?\r\n","ImageUrl":null,
                 "QuestionsProgress":22.0,
                 "AnswerOptions":[
                         {"Id":29,"ParrentId":null,"AnswerText":"Да","ImageUrl":null,"IsUserAnswered":false,"Children":null},
                         {"Id":30,"ParrentId":null,"AnswerText":"Нет","ImageUrl":null,"IsUserAnswered":false,"Children":null},
                         {"Id":31,"ParrentId":null,"AnswerText":"Нет","ImageUrl":null,"IsUserAnswered":false,"Children":null},
-                        {"Id":32,"ParrentId":null,"AnswerText":"Нет","ImageUrl":null,"IsUserAnswered":false,"Children":null},
-                        {"Id":33,"ParrentId":null,"AnswerText":"Нет","ImageUrl":null,"IsUserAnswered":false,"Children":null},
-                        {"Id":34,"ParrentId":null,"AnswerText":"Нет","ImageUrl":null,"IsUserAnswered":false,"Children":null},
+                        {"Id":32,"ParrentId":null,"AnswerText":"кг","ImageUrl":null,"IsUserAnswered":false,"Children":null},
+                        {"Id":33,"ParrentId":null,"AnswerText":"фунт","ImageUrl":null,"IsUserAnswered":false,"Children":null},
+                        {"Id":34,"ParrentId":null,"AnswerText":"Иногда бывает длинный","ImageUrl":null,"IsUserAnswered":false,"Children":null},
                         {"Id":35,"ParrentId":null,"AnswerText":"Иногда бывает длинный текст","ImageUrl":null,"IsUserAnswered":false,"Children":null},
                         {"Id":36,"ParrentId":null,"AnswerText":"Иногда\r\n","ImageUrl":null,"IsUserAnswered":false,"Children":null},
                         {"Id":37,"ParrentId":null,"AnswerText":"Иногда\r\n","ImageUrl":null,"IsUserAnswered":false,"Children":null},
@@ -207,6 +213,9 @@
         })
       },
         methods: {
+          pushSelectOption(opt){
+            this.$emit('pushSelectOption', opt);
+          },
             langString(string){
                 return this.translate(string);
             },

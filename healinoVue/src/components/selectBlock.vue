@@ -3,6 +3,7 @@
         <div class="selectBlock"
              v-on:click="setShowSelectId"
              v-bind:class="(showSelectId?'hidden':'')"
+             ref="selectBlock"
         >
             {{title}}
         </div>
@@ -43,13 +44,16 @@ export default {
             showCheckSelect:false,
             showLoadSelect:false,
             className:'',
+
+            timer:null,
+            elHeight:0,
         }},
     watch:{
 
     },
     created: function() {
         this.Id = this.valueItem;
-        if(this.Id){
+        if((typeof this.Id === "number" || typeof this.Id === "string") && parseInt(this.Id)>-1){
             this.title = this.selectOption[this.Id].title;
         }
         this.currentAnchor = this.Id;
@@ -88,6 +92,7 @@ export default {
             this.changeVal();
             this.showSelectId = false;
             this.changeSelect();
+            this.$emit('pushSelectOption', this.selectOption[this.Id].title);
         },
         changeSelect(){
             let t = this;
@@ -125,7 +130,7 @@ export default {
         },
         handleGesure(k) {
             let t = this;
-            if( t.isAnimating ) {
+            if (t.isAnimating) {
                 return false;
             }
             t.isAnimating  = true;
@@ -185,6 +190,12 @@ export default {
     },
     mounted(){
         let t = this;
+        this.timer = setInterval(function(){
+            if( t.$refs.selectBlock.offsetHeight != t.elHeight ) {
+                t.elHeight = t.$refs.selectBlock.offsetHeight;
+                $('#'+t.className+' .check').css({'top': (t.elHeight - 13)/2})
+            };
+        },200);
         t.touchstartY = 0;
         t.touchendY = 0;
         $(document).on('touchstart', '#'+t.className+' .selectBlockNeed, .colorActive', function(event) {
@@ -252,12 +263,20 @@ export default {
         $(document).unbind('touchend');
         $(document).unbind('touchmove');
         $('body').unbind('mousewheel');
+        clearTimeout(this.timer);
     },
 }
 </script>
 <style scoped>
     label{
         z-index: 100;
+        -webkit-user-select: none;
+        /* user-select -- это нестандартное свойство */
+
+        -moz-user-select: none;
+        /* поэтому нужны префиксы */
+
+        -ms-user-select: none;
     }
     .selectBlock {
         width: 100%;
@@ -290,7 +309,7 @@ export default {
         -webkit-align-items: center;
         -ms-flex-align: center;
         align-items: center;
-        height: unset;
+        height: auto;
         min-height: 38px;
         padding: 5px 40px 5px 15px;
     }
@@ -301,11 +320,14 @@ export default {
         margin-bottom: 55px;
     }
     .option{
-        transition: all .2s cubic-bezier(0.4, 0, 1, 1);
+        transition: all .1s cubic-bezier(0.4, 0, 1, 1);
         line-height: 36px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 36px;
     }
     .option.active{
-         font-size: 24px;
+         font-size: 20px;
      }
     .select{
         font-size: 18px;
