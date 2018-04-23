@@ -58,7 +58,6 @@
       }
     },
     mounted () {
-      /* 事件绑定 */
       this.$el.addEventListener('touchstart', this.itemTouchStart)
       this.$el.addEventListener('touchmove', this.itemTouchMove)
       this.$el.addEventListener('touchend', this.itemTouchEnd)
@@ -120,7 +119,6 @@
         let finger = event.changedTouches[0]
         this.finger.lastY = finger.pageY
         this.finger.lastTime = event.timestamp || Date.now()
-        /* 设置css */
         let move = this.finger.lastY - this.finger.startY
         this.setStyle(move)
         event.preventDefault()
@@ -268,7 +266,6 @@
         transform-style: preserve-3d;
         height: 34px;
         &-item {
-
           -webkit-backface-visibility: hidden;
           -moz-backface-visibility:hidden;
           backface-visibility: hidden;

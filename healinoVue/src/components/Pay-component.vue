@@ -6,14 +6,14 @@
         <a href="/" class="logo_head m"><img src="static/img/logoM.png" alt="" class=""></a>
         <a href="/" v-lang.main></a>
         <a v-bind:href="langString('forumUrl')" target="_blank" v-lang.forum></a>
-        <h3>111%</h3>
+        <h3>11%</h3>
         <div class="music_btn1" v-on:click="$emit('audio')">
           <img v-bind:src="(audio_p)?'static/img/noMusic.png':'static/img/music.png'" >
         </div>
         <div class="lang">
-          <img src="static/img/langPL.png" alt=""   v-if="lang=='pl'">
-          <img src="static/img/langUSA.png" alt=""  v-if="lang=='en'">
-          <img src="static/img/langUA.png" alt=""   v-if="lang=='ru'">
+          <img src="static/img/langPL.png" alt="" v-if="lang=='pl'">
+          <img src="static/img/langUSA.png" alt="" v-if="lang=='en'">
+          <img src="static/img/langUA.png" alt="" v-if="lang=='ru'">
           <ul>
             <li v-on:click="$emit('changeLang', 'pl')" v-if="lang!='pl'"><img src="static/img/langPL.png" alt=""></li>
             <li v-on:click="$emit('changeLang', 'en')" v-if="lang!='en'"><img src="static/img/langUSA.png" alt=""></li>
@@ -54,13 +54,11 @@
         <div class="rowPay">
           <label class="card">
             <p><span>*</span>{{langString('cardNumber')}}</p>
-            <!--<input type="text" v-model="CardNumber" v-on:change="" placeholder="XXXX XXXX XXXX XXXX XXXX">-->
-            <masked-input
-                    id="date"
-                    v-model="CardNumber"
-                    mask="1111 1111 1111 1111 1111"
-                    placeholder="XXXX XXXX XXXX XXXX XXXX"
-                    type="text" />
+              <input type="text"
+                     id="date"
+                     v-model="CardNumber"
+                     placeholder="XXXX XXXX XXXX XXXX XXXX"
+                     data-inputmask="'mask': '9999 9999 9999 9999 9999'">
             <span class="check" v-bind:class="(objCardNumber.showLoad) ? 'loading': ''" v-if="objCardNumber.showCheck">
 						<i class="fa fa-check" aria-hidden="true"></i>
 					</span>
@@ -69,23 +67,35 @@
 					</span>
           </label>
           <div class="rowInfo">
-            <label class="cardInfo cardInfoNum">
+
               <p><span>*</span>{{langString('expiration')}}</p>
-              <input type="number" v-model="Month" v-on:change="">
+              <!--<input type="number" v-model="Month" v-on:change="">-->
+              <div class="rowLabelsInput">
+                <selectBlock
+                        :valueItem="Month"
+                        :selectOption="MounthOption"
+                        :errorQuest="false"
+                        @changeValSelect="changeMonth"
+                ></selectBlock>
+                  <p class="hren">/</p>
+                <!--<label >
+                  <input type="text" v-model="Year" v-on:change="" style="margin-top: 27px;">
 
-              </span>
-            </label>
-            <p class="hren">/</p>
-            <label class="cardInfo cardInfoNum">
-              <input type="text" v-model="Year" v-on:change="" style="margin-top: 27px;">
-
-              <span class="check" v-bind:class="(objExp.showLoad) ? 'loading': ''" v-if="objExp.showCheck">
-						<i class="fa fa-check" aria-hidden="true"></i>
-					</span>
-              <span class="check" v-bind:class="(objExp.error) ? 'error' : ''" v-if="objExp.error">
-						<i class="fa fa-times" aria-hidden="true"></i>
-					</span>
-            </label>
+                  <span class="check" v-bind:class="(objExp.showLoad) ? 'loading': ''" v-if="objExp.showCheck">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                        </span>
+                  <span class="check" v-bind:class="(objExp.error) ? 'error' : ''" v-if="objExp.error">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </span>
+                </label>-->
+                <selectBlock
+                        class="cardInfo cardInfoNum"
+                        :valueItem="Year"
+                        :selectOption="YearOption"
+                        :errorQuest="false"
+                        @changeValSelect="changeYear"
+                ></selectBlock>
+            </div>
           </div>
           <label class="cardInfo marRig">
             <p><span>*</span>CVV</p>
@@ -161,12 +171,9 @@
             </label>
             <label class="address">
               <p><span style="width: 7px; height:19px;"></span>{{langString('phone')}}</p>
-              <masked-input
-                      v-model="Phone"
-                      mask="\+111111111111"
-                      placeholder="+xxxxxxxxxxxx"
-                      type="tel" />
-
+                <input type="text"
+                       v-model="Phone"
+                       data-inputmask="'alias': 'phone'">
               <span class="check" v-bind:class="(objPhone.showLoad) ? 'loading': ''" v-if="objPhone.showCheck">
             <i class="fa fa-check" aria-hidden="true"></i>
           </span>
@@ -189,8 +196,9 @@
 </template>
 
 <script>
-    //import {TheMask} from 'vue-the-mask'
-    import MaskedInput from 'vue-masked-input'
+
+    import "inputmask/dist/inputmask/phone-codes/phone";
+    import Inputmask from "inputmask";
     export default {
         props: ['SessionData', 'userData', 'audio_p', 'lang'],
         data () {
@@ -249,7 +257,6 @@
               },
             }
         },
-        components: {MaskedInput },
         messages: {
           en: {
             main: 'Home',
@@ -326,6 +333,21 @@
               return '../static/img/noIMG.png';
             //}
           },
+          MounthOption:function(){
+            let r =[];
+            for(let i = 1; i<13; i++) {
+              r.push({key: i-1, title: i, Id: i});
+            }
+            return r;
+          },
+          YearOption:function(){
+            let r =[];
+            let l = new Date().getFullYear()%100;
+            for(let i = 1; i<7; i++, l++) {
+              r.push({key: i-1, title: l, Id: l});
+            }
+            return r;
+          },
           getCardNumber:function () {
             return this.CardNumber.replace(/ /g,"").replace(/_/g,"")
           },
@@ -334,10 +356,14 @@
           }
 
         },
+        mounted(){
+            $(document).ready(function(){
+                Inputmask().mask(document.querySelectorAll("input"));
+            });
+        },
         created: function() {
-
-
-
+          this.Year = this.YearOption[0].key;
+          this.Month = this.MounthOption[0].key;
         },
         watch:{
           CardNumber:function (old, newVal) {
@@ -395,6 +421,18 @@
           }
         },
         methods: {
+          getValMonth(){
+            return this.MounthOption[this.Month].Id;
+          },
+          getValYear(){
+            return this.YearOption[this.Year].Id;
+          },
+          changeMonth(val){
+              this.Month = val;
+          },
+          changeYear(val){
+            this.Year = val;
+          },
             langString(string){
                 return this.translate(string);
             },

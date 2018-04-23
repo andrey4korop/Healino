@@ -43,13 +43,9 @@ import questionType1  from './components/questionType1.vue'
 import questionType2  from './components/questionType2.vue'
 import background  from './components/background.vue'
 import bg  from './components/bg.vue'
-
-    import  selectBlockIE from  './components/selectBlock.vue'
-
-    import  selectBlock from  './components/selectBlock2.vue'
-
+import  selectBlockIE from  './components/selectBlock.vue'
+import  selectBlock from  './components/selectBlock2.vue'
 import pdSelectItem from './components/selectitem.vue'
-
 
 Vue.component('pdSelectItem', pdSelectItem);
 Vue.use(MultiLanguage, {
@@ -61,6 +57,7 @@ Vue.use(MultiLanguage, {
 
 import GSignInButton from 'vue-google-signin-button'
 Vue.use(GSignInButton);
+
 
 /*import pdSelect from 'pd-select'
 Vue.use(pdSelect)*/

@@ -34,13 +34,18 @@
           <p><span>*</span>{{langString('date')}}</p>
           <!--<input id="date" type="date"
                  v-model="Birthday" v-on:change="change(objBirthday, Birthday)">-->
-          <masked-input
+          <!--<masked-input
                   id="date"
                   v-on:change="change(objBirthday, Birthday)"
                   v-model="Birthday"
                   mask="11/11/1111"
                   placeholder="dd/mm/yyyy"
-                  type="tel" />
+                  type="text" />-->
+          <input type="text"
+                 v-model="Birthday" v-on:change="change(objBirthday, Birthday)"
+                 data-inputmask-alias="date"
+                 data-inputmask-inputformat="dd/mm/yyyy">
+
           <span class="check" v-bind:class="(objBirthday.showLoad) ? 'loading': ''" v-if="objBirthday.showCheck">
             <i class="fa fa-check" aria-hidden="true"></i>
           </span>
@@ -89,12 +94,15 @@
                     v-on:change="change(objPhone, Phone)"
                     type="tel"
                     placeholder="(111)111-11-11"></the-mask>-->
-          <masked-input
+          <!--<masked-input
                   v-on:change="change(objPhone, Phone)"
                   v-model="Phone"
                   mask="\+111111111111"
                   placeholder="+xxxxxxxxxxxx"
-                  type="tel" />
+                  type="text" />-->
+          <input type="text"
+                 v-model="Phone" v-on:change="changePhone(Phone)"
+                 data-inputmask="'alias': 'phone'">
 
           <span class="check" v-bind:class="(objPhone.showLoad) ? 'loading': ''" v-if="objPhone.showCheck">
             <i class="fa fa-check" aria-hidden="true"></i>
@@ -199,7 +207,7 @@
           <input type="radio" name="raz" value="1" v-model="Gender">
           <span class="checkbox"><i class="fa fa-check" aria-hidden="true"></i></span><span v-lang.female></span>
         </label>
-        <label class="bottom">
+        <label class="bottom" v-if="userData.LastTestFinishedDate">
           <p>{{langString('someDate')}}: {{(userData.LastTestFinishedDate) ? dateformat(userData.LastTestFinishedDate):''}}</p>
         </label>
       </div>
@@ -220,7 +228,8 @@
 </template>
 
 <script>
-    import MaskedInput from 'vue-masked-input'
+  import "inputmask/dist/inputmask/phone-codes/phone";
+  import Inputmask from "inputmask";
     export default {
         props: ['SessionData', 'userData', 'audio_p', 'answerSelectSelected'],
         data () {
@@ -288,11 +297,15 @@
                     showLoad: true,
                     error:false
                 },
+                objGender:{
+                  showCheck: false,
+                  showLoad: true,
+                  error:false
+                },
                 img:""
 
             }
         },
-        components: {MaskedInput },
         messages: {
             en: {
                 name: 'Name',
@@ -414,7 +427,7 @@
                     Birthday:this.Birthday.substr(6,4) +'-'+ this.Birthday.substr(3,2) +'-'+ this.Birthday.substr(0,2),
                     Location:this.Location,
                     Race:this.Race,
-                    Phone:this.Phone.replace(/_/g,''),
+                    Phone:this.Phone.replace(/_/g,'').replace(/-/g,'').replace(/\(/g,'').replace(/\)/g,''),
                     Height:this.Height,
                     HeightAdditional:this.HeightAdditional,
                     Weight:this.Weight,
@@ -425,6 +438,12 @@
                 }
             },
         },
+      mounted(){
+        $(document).ready(function(){
+          Inputmask().mask(document.querySelectorAll("input"));
+
+        });
+      },
         created: function() {
 
             for(var index in this.userData) {
@@ -433,6 +452,8 @@
                      this[index] = this.userData[index];
                      if(index == 'Birthday'){
                          this.Birthday = this.birth(this.userData.Birthday);
+                       console.log(this.userData.Birthday);
+                       console.log(this.Birthday);
                      }
                      this['obj'+index].showCheck= true;
                      this['obj'+index].showLoad= false;
@@ -448,7 +469,7 @@
 
         },
         watch:{
-            Phone:function (newVal,oldVal) {
+            /*Phone:function (newVal,oldVal) {
                 this.objPhone.showCheck = true;
                 this.objPhone.showLoad = true;
                 this.objPhone.error = false;
@@ -466,8 +487,8 @@
                         t.objPhone.error = true;
                     }, 1500);
                 }
-            },
-            Birthday:function (newVal,oldVal) {
+            },*/
+            /*Birthday:function (newVal,oldVal) {
                 this.objBirthday.showCheck = true;
                 this.objBirthday.showLoad = true;
                 this.objBirthday.error = false;
@@ -490,7 +511,7 @@
                     }, 1500);
                 }
 
-            }
+            }*/
         },
         methods: {
             langString(string){
@@ -588,6 +609,26 @@
               }
             }, 1500);
           },
+          changePhone(val){
+            let t = this;
+            this.Phone = val;
+            this.objPhone.showCheck = true;
+            this.objPhone.showLoad = true;
+            this.objPhone.error = false;
+            if(val.replace(/_/g,'').replace(/-/g,'').replace(/\(/g,'').replace(/\)/g,'').length>11) {
+              setTimeout(function () {
+                t.objPhone.showLoad = false;
+                t.objPhone.showCheck = true;
+                t.objPhone.error = false;
+              }, 1600);
+            }else{
+              setTimeout(function () {
+                t.objPhone.showLoad = false;
+                t.objPhone.showCheck = false;
+                t.objPhone.error = true;
+              }, 1500);
+            }
+          },
           changeRace(val){
             let t = this;
             this.Race = val;
@@ -612,7 +653,7 @@
                         error = true;
                         this["obj"+index].error=true;
                     }
-                    if(( index=="Height" || index=='Weight' ) && this.bodySet[index] < 1){
+                    if(( index=="Height" || index=='Weight' ) && this.bodySet[index] < 1 && typeof this.bodySet[index] !='number'){
                         error = true;
                         this["obj"+index].error=true;
                     }
@@ -675,6 +716,19 @@
     }
     .login{
       padding: 30px 0 25px;
+    }
+  }
+  @media all and (-ms-high-contrast:none) and (max-height: 768px) and (orientation: landscape){
+    .login label .selectBlock,
+    .login label input[type=date],
+    .login label input[type=email],
+    .login label input[type=number],
+    .login label input[type=password],
+    .login label input[type=tel],
+    .login label input[type=text],
+    .login label option,
+    .login label select{
+      height: auto!important;
     }
   }
 </style>

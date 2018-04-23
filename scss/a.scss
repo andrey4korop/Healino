@@ -209,8 +209,9 @@ html,body{
 .loading{
   background: url("../img/loadIcon.png") no-repeat !important;
   background-size: contain !important;
-  animation: rotate 1s infinite linear;
+  animation: rotate 1s infinite linear !important;
   border: none !important;
+  box-shadow: none!important;
   i{
     display: none;
   }
@@ -398,11 +399,12 @@ html,body{
       font-size: 16px;
       color: #c2c2c2;
       margin: 10px;
+
       &:nth-child(3)~.check{
-        left: calc(70% + 45px);
-      }
-      &:nth-child(3)+.check{
         left: calc(29.16667% + 40px);
+      }
+      &:nth-child(5)~.check{
+        left: calc(70% + 45px);
       }
     }
     .selectBlock{
@@ -428,6 +430,7 @@ html,body{
       position: absolute;
       top: 30px;
       left: calc(100% + 20px);
+      animation: none;
       @include sm(left, calc(100% + 5px))
     }
     .selectBlock+.check{
@@ -665,7 +668,7 @@ html,body{
     @include size(20);
     @include size-sm(21);
     font-size: 16px;
-    align-items: center;
+    align-items: stretch;
     @include sm(font-size, 15px);
     .ck{
       display:flex;
@@ -2245,7 +2248,7 @@ div.p{
     border-radius: 15px;
     background: rgba(250, 247, 247, 0.95);
     box-sizing: border-box;
-    label{
+    label, .nuzno{
       @include size(15);
       @include size-md(17);
       @include size-sm(18);
@@ -2314,6 +2317,7 @@ div.p{
         top: 30px;
         left: calc(100% + 10px);
         box-shadow: 1px 1px 2px rgba(164, 200, 126, 0.36);
+        animation: none;
         @include sm(left, calc(100% + 5px))
       }
       input[type="text"], input[type="date"], input[type="email"],
@@ -2393,15 +2397,55 @@ div.p{
     }
     .rowInfo{
       display: flex;
+      flex-direction: column;
       margin-left: 70px;
       margin-right: 70px;
+      .hren{
+        color: #555555;
+        font-size: 18px;
+        width: 24px;
+        margin-bottom: 10px;
+        text-align: center
+      }
+      p{
+        color: #c2c2c2;
+        font-size: 14px;
+        span{
+          color: #6fcf46;
+        }
+      }
     }
-    .hren{
-      color: #555555;
-      font-size: 18px;
-      width: 24px;
-      margin-top: 30px;
-      text-align: center
+
+    .rowLabelsInput{
+      display: flex;
+      align-items: center;
+      label{
+        width: 120px;
+        .check{
+          top:13px;
+        }
+        &:first-child .check{
+          display: none;
+        }
+        .selectBlock{
+          width: 100%;
+          height: 35px;
+          font-size: 16px;
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+          padding: 0 15px;
+          background: #fffffe;
+          border: none;
+          border-top: 1px solid #e5e6e5;
+          border-radius: 4px;
+          color: #555;
+          margin-bottom: 20px;
+          margin-top: 7px;
+          -webkit-box-shadow: inset 0 2px 2px rgba(51,51,51,.13);
+          box-shadow: inset 0 2px 2px rgba(51,51,51,.13);
+        }
+
+      }
     }
     .rowPay{
       display: flex;

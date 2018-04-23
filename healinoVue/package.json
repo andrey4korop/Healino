@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "es6-promise": "^4.2.4",
+    "inputmask": "^3.3.11",
     "pd-select": "^1.0.6",
     "vue": "^2.5.16",
     "vue-axios": "^2.1.1",

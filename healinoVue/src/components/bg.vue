@@ -4,7 +4,7 @@
          v-bind:class="classS"
          v-bind:style="{left: Xbg + '%', top: Ybg + '%' }">
         <div class="max"
-             v-bind:style="{background: 'url('+ urlImg +') center center / cover'}">
+             v-bind:style="{background: 'url('+ urlImg +') center center / cover', transform: translate}">
 
         </div>
     </div>
@@ -44,6 +44,9 @@ export default {
         Ybg: function () {
             return this.posBG.y;// + ( this.posMouse.y / document.body.clientHeight * Math.abs(this.Kof.y) *100);
         },
+        translate:function () {
+            return (this.random.y)?'translateY(20%)':'translateY(-20%)';
+        }
     },
     created: function() {
         var rand = 1 + Math.random() * 4;
@@ -58,6 +61,7 @@ export default {
     .max{
         height: 100%;
         width: 100%;
-        animation: animationBG10 5s ease-out infinite alternate;
+        transition: all 5s ease-out;
+       /* animation: animationBG10 5s ease-out infinite alternate;*/
     }
 </style>

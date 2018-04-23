@@ -327,10 +327,10 @@ export default {
         height: 36px;
     }
     .option.active{
-         font-size: 20px;
+         font-size: 20px!important;
      }
     .select{
-        font-size: 18px;
+        font-size: 18px!important;;
     /*@include sm(font-size, 19px);*/
         color: #827d7e;
         border-radius: 15px;
@@ -383,7 +383,7 @@ export default {
     }
     p.option{
         margin-left: unset;
-        text-align: center;
+        text-align: center !important;
     }
     .hidden{
         visibility: hidden;

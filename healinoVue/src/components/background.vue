@@ -2,7 +2,7 @@
 <div class="background">
 
   <div class="bgMain"
-       v-bind:style="{ marginLeft: 'calc(-'+bgpersent +'vw)', width:widthBgImg*7 +'px' }">
+       v-bind:style="{ marginLeft: 'calc(-'+bgpersent +'vw)', width:widthBgImg*7 +'px', top: translate }">
    <img src="/static/img/bg40.jpg" v-bind:style="{width:widthBgImg + 'px'}">
    <img src="/static/img/bg41.jpg" v-bind:style="{width:widthBgImg + 'px'}">
    <img src="/static/img/bg42.jpg" v-bind:style="{width:widthBgImg + 'px'}">
@@ -17,91 +17,91 @@
       :posMouse="posMouseB"
       :Kof="{x:-0.025,y:-0.025}"
       :bgCurrent="bg"
-      :random="randomB"></bg>
+      :random="random"></bg>
  <bg class="big"
      :urlImg="'/static/img/symbols/bSymbols/11Lg.png'"
      :posBG="{x:60,y:45}"
      :posMouse="posMouseB"
      :Kof="{x:-0.025,y:-0.025}"
      :bgCurrent="bg"
-     :random="randomB"></bg>
+     :random="random"></bg>
  <bg class="big"
      :urlImg="'/static/img/symbols/bSymbols/9Lg.png'"
      :posBG="{x:130,y:60}"
      :posMouse="posMouseB"
      :Kof="{x:-0.025,y:-0.025}"
      :bgCurrent="bg"
-     :random="randomB"></bg>
+     :random="random"></bg>
  <bg class="big"
      :urlImg="'/static/img/symbols/bSymbols/7Lg.png'"
      :posBG="{x:230,y:-10}"
      :posMouse="posMouseB"
      :Kof="{x:-0.025,y:-0.025}"
      :bgCurrent="bg"
-     :random="randomB"></bg>
+     :random="random"></bg>
  <bg class="big"
      :urlImg="'/static/img/symbols/bSymbols/8Lg.png'"
      :posBG="{x:290,y:-12}"
      :posMouse="posMouseB"
      :Kof="{x:-0.025,y:-0.025}"
      :bgCurrent="bg"
-     :random="randomB"></bg>
+     :random="random"></bg>
  <bg class="big"
      :urlImg="'/static/img/symbols/bSymbols/6Lg.png'"
      :posBG="{x:300,y:65}"
      :posMouse="posMouseB"
      :Kof="{x:-0.025,y:-0.025}"
      :bgCurrent="bg"
-     :random="randomB"></bg>
+     :random="random"></bg>
  <bg class="big"
      :urlImg="'/static/img/symbols/bSymbols/5Lg.png'"
      :posBG="{x:400,y:58}"
      :posMouse="posMouseB"
      :Kof="{x:-0.025,y:-0.025}"
      :bgCurrent="bg"
-     :random="randomB"></bg>
+     :random="random"></bg>
  <bg class="big"
      :urlImg="'/static/img/symbols/bSymbols/4Lg.png'"
      :posBG="{x:470,y:30}"
      :posMouse="posMouseB"
      :Kof="{x:-0.025,y:-0.025}"
      :bgCurrent="bg"
-     :random="randomB"></bg>
+     :random="random"></bg>
  <bg class="big"
      :urlImg="'/static/img/symbols/bSymbols/2Lg.png'"
      :posBG="{x:540,y:43}"
      :posMouse="posMouseB"
      :Kof="{x:-0.025,y:-0.025}"
      :bgCurrent="bg"
-     :random="randomB"></bg>
+     :random="random"></bg>
  <bg class="big"
      :urlImg="'/static/img/symbols/bSymbols/3Lg.png'"
      :posBG="{x:550,y:-22}"
      :posMouse="posMouseB"
      :Kof="{x:-0.025,y:-0.025}"
      :bgCurrent="bg"
-     :random="randomB"></bg>
+     :random="random"></bg>
  <bg class="big"
      :urlImg="'/static/img/symbols/bSymbols/8Lg.png'"
      :posBG="{x:590,y:60}"
      :posMouse="posMouseB"
      :Kof="{x:-0.025,y:-0.025}"
      :bgCurrent="bg"
-     :random="randomB"></bg>
+     :random="random"></bg>
  <bg class="big"
      :urlImg="'/static/img/symbols/bSymbols/1Lg.png'"
      :posBG="{x:620,y:-9}"
      :posMouse="posMouseB"
      :Kof="{x:-0.025,y:-0.025}"
      :bgCurrent="bg"
-     :random="randomB"></bg>
+     :random="random"></bg>
  <bg class="big"
      :urlImg="'/static/img/symbols/bSymbols/12Lg.png'"
      :posBG="{x:650,y:51}"
      :posMouse="posMouseB"
      :Kof="{x:-0.025,y:-0.025}"
      :bgCurrent="bg"
-     :random="randomB"></bg>
+     :random="random"></bg>
 
  <bg class="medium"
      :urlImg="'/static/img/symbols/mSymbols/7M.png'"
@@ -109,91 +109,91 @@
      :posMouse="posMouseM"
      :Kof="{x:0.015,y:0.015}"
      :bgCurrent="bg"
-     :random="randomM"></bg>
+     :random="random"></bg>
  <bg class="medium"
      :urlImg="'/static/img/symbols/mSymbols/6M.png'"
      :posBG="{x:10,y:60}"
      :posMouse="posMouseM"
      :Kof="{x:0.015,y:0.015}"
      :bgCurrent="bg"
-     :random="randomM"></bg>
+     :random="random"></bg>
  <bg class="medium"
      :urlImg="'/static/img/symbols/mSymbols/4M.png'"
      :posBG="{x:100,y:50}"
      :posMouse="posMouseM"
      :Kof="{x:0.015,y:0.015}"
      :bgCurrent="bg"
-     :random="randomM"></bg>
+     :random="random"></bg>
  <bg class="medium"
      :urlImg="'/static/img/symbols/mSymbols/5M.png'"
      :posBG="{x:150,y:-5}"
      :posMouse="posMouseM"
      :Kof="{x:0.015,y:0.015}"
      :bgCurrent="bg"
-     :random="randomM"></bg>
+     :random="random"></bg>
  <bg class="medium"
      :urlImg="'/static/img/symbols/mSymbols/3M.png'"
      :posBG="{x:180,y:60}"
      :posMouse="posMouseM"
      :Kof="{x:0.015,y:0.015}"
      :bgCurrent="bg"
-     :random="randomM"></bg>
+     :random="random"></bg>
  <bg class="medium"
      :urlImg="'/static/img/symbols/mSymbols/2M.png'"
      :posBG="{x:230,y:30}"
      :posMouse="posMouseM"
      :Kof="{x:0.015,y:0.015}"
      :bgCurrent="bg"
-     :random="randomM"></bg>
+     :random="random"></bg>
  <bg class="medium"
      :urlImg="'/static/img/symbols/mSymbols/1M.png'"
      :posBG="{x:270,y:0}"
      :posMouse="posMouseM"
      :Kof="{x:0.015,y:0.015}"
      :bgCurrent="bg"
-     :random="randomM"></bg>
+     :random="random"></bg>
  <bg class="medium"
      :urlImg="'/static/img/symbols/mSymbols/8M.png'"
      :posBG="{x:350,y:62}"
      :posMouse="posMouseM"
      :Kof="{x:0.015,y:0.015}"
      :bgCurrent="bg"
-     :random="randomM"></bg>
+     :random="random"></bg>
  <bg class="medium"
      :urlImg="'/static/img/symbols/mSymbols/3M.png'"
      :posBG="{x:420,y:2}"
      :posMouse="posMouseM"
      :Kof="{x:0.015,y:0.015}"
      :bgCurrent="bg"
-     :random="randomM"></bg>
+     :random="random"></bg>
  <bg class="medium"
      :urlImg="'/static/img/symbols/mSymbols/6M.png'"
      :posBG="{x:490,y:20}"
      :posMouse="posMouseM"
      :Kof="{x:0.015,y:0.015}"
      :bgCurrent="bg"
-     :random="randomM"></bg>
+     :random="random"></bg>
  <bg class="medium"
      :urlImg="'/static/img/symbols/mSymbols/4M.png'"
      :posBG="{x:537,y:60}"
      :posMouse="posMouseM"
      :Kof="{x:0.015,y:0.015}"
      :bgCurrent="bg"
-     :random="randomM"></bg>
+     :random="random"></bg>
  <bg class="medium"
      :urlImg="'/static/img/symbols/mSymbols/1M.png'"
      :posBG="{x:604,y:-3}"
      :posMouse="posMouseM"
      :Kof="{x:0.015,y:0.015}"
      :bgCurrent="bg"
-     :random="randomM"></bg>
+     :random="random"></bg>
  <bg class="medium"
      :urlImg="'/static/img/symbols/mSymbols/8M.png'"
      :posBG="{x:643,y:34}"
      :posMouse="posMouseM"
      :Kof="{x:0.015,y:0.015}"
      :bgCurrent="bg"
-     :random="randomM"></bg>
+     :random="random"></bg>
 
  <bg class="small"
      :urlImg="'/static/img/symbols/lSymbols/17L.png'"
@@ -201,140 +201,140 @@
      :posMouse="posMouseS"
      :Kof="{x:-0.012,y:-0.012}"
      :bgCurrent="bg"
-     :random="randomS"></bg>
+     :random="random"></bg>
  <bg class="small"
      :urlImg="'/static/img/symbols/lSymbols/14L.png'"
      :posBG="{x:15,y:15}"
      :posMouse="posMouseS"
      :Kof="{x:-0.012,y:-0.012}"
      :bgCurrent="bg"
-     :random="randomS"></bg>
+     :random="random"></bg>
  <bg class="small"
      :urlImg="'/static/img/symbols/lSymbols/15L.png'"
      :posBG="{x:60,y:20}"
      :posMouse="posMouseS"
      :Kof="{x:-0.012,y:-0.012}"
      :bgCurrent="bg"
-     :random="randomS"></bg>
+     :random="random"></bg>
  <bg class="small"
      :urlImg="'/static/img/symbols/lSymbols/16L.png'"
      :posBG="{x:45,y:-5}"
      :posMouse="posMouseS"
      :Kof="{x:-0.012,y:-0.012}"
      :bgCurrent="bg"
-     :random="randomS"></bg>
+     :random="random"></bg>
  <bg class="small"
      :urlImg="'/static/img/symbols/lSymbols/6L.png'"
      :posBG="{x:100,y:50}"
      :posMouse="posMouseS"
      :Kof="{x:-0.012,y:-0.012}"
      :bgCurrent="bg"
-     :random="randomS"></bg>
+     :random="random"></bg>
  <bg class="small"
      :urlImg="'/static/img/symbols/lSymbols/12L.png'"
      :posBG="{x:125,y:1}"
      :posMouse="posMouseS"
      :Kof="{x:-0.012,y:-0.012}"
      :bgCurrent="bg"
-     :random="randomS"></bg>
+     :random="random"></bg>
  <bg class="small"
      :urlImg="'/static/img/symbols/lSymbols/11L.png'"
      :posBG="{x:173,y:2}"
      :posMouse="posMouseS"
      :Kof="{x:-0.012,y:-0.012}"
      :bgCurrent="bg"
-     :random="randomS"></bg>
+     :random="random"></bg>
  <bg class="small"
      :urlImg="'/static/img/symbols/lSymbols/9L.png'"
      :posBG="{x:164,y:80}"
      :posMouse="posMouseS"
      :Kof="{x:-0.012,y:-0.012}"
      :bgCurrent="bg"
-     :random="randomS"></bg>
+     :random="random"></bg>
  <bg class="small"
      :urlImg="'/static/img/symbols/lSymbols/8L.png'"
      :posBG="{x:218,y:16}"
      :posMouse="posMouseS"
      :Kof="{x:-0.012,y:-0.012}"
      :bgCurrent="bg"
-     :random="randomS"></bg>
+     :random="random"></bg>
  <bg class="small"
      :urlImg="'/static/img/symbols/lSymbols/5L.png'"
      :posBG="{x:261,y:47}"
      :posMouse="posMouseS"
      :Kof="{x:-0.012,y:-0.012}"
      :bgCurrent="bg"
-     :random="randomS"></bg>
+     :random="random"></bg>
  <bg class="small"
      :urlImg="'/static/img/symbols/lSymbols/16L.png'"
      :posBG="{x:301,y:76}"
      :posMouse="posMouseS"
      :Kof="{x:-0.012,y:-0.012}"
      :bgCurrent="bg"
-     :random="randomS"></bg>
+     :random="random"></bg>
  <bg class="small"
      :urlImg="'/static/img/symbols/lSymbols/13L.png'"
      :posBG="{x:349,y:3}"
      :posMouse="posMouseS"
      :Kof="{x:-0.012,y:-0.012}"
      :bgCurrent="bg"
-     :random="randomS"></bg>
+     :random="random"></bg>
  <bg class="small"
      :urlImg="'/static/img/symbols/lSymbols/3L.png'"
      :posBG="{x:382,y:57}"
      :posMouse="posMouseS"
      :Kof="{x:-0.012,y:-0.012}"
      :bgCurrent="bg"
-     :random="randomS"></bg>
+     :random="random"></bg>
  <bg class="small"
      :urlImg="'/static/img/symbols/lSymbols/4L.png'"
      :posBG="{x:431,y:15}"
      :posMouse="posMouseS"
      :Kof="{x:-0.012,y:-0.012}"
      :bgCurrent="bg"
-     :random="randomS"></bg>
+     :random="random"></bg>
  <bg class="small"
      :urlImg="'/static/img/symbols/lSymbols/18L.png'"
      :posBG="{x:476,y:86}"
      :posMouse="posMouseS"
      :Kof="{x:-0.012,y:-0.012}"
      :bgCurrent="bg"
-     :random="randomS"></bg>
+     :random="random"></bg>
  <bg class="small"
      :urlImg="'/static/img/symbols/lSymbols/1L.png'"
      :posBG="{x:506,y:-3}"
      :posMouse="posMouseS"
      :Kof="{x:-0.012,y:-0.012}"
      :bgCurrent="bg"
-     :random="randomS"></bg>
+     :random="random"></bg>
  <bg class="small"
      :urlImg="'/static/img/symbols/lSymbols/10L.png'"
      :posBG="{x:524,y:68}"
      :posMouse="posMouseS"
      :Kof="{x:-0.012,y:-0.012}"
      :bgCurrent="bg"
-     :random="randomS"></bg>
+     :random="random"></bg>
  <bg class="small"
      :urlImg="'/static/img/symbols/lSymbols/7L.png'"
      :posBG="{x:559,y:40}"
      :posMouse="posMouseS"
      :Kof="{x:-0.012,y:-0.012}"
      :bgCurrent="bg"
-     :random="randomS"></bg>
+     :random="random"></bg>
  <bg class="small"
      :urlImg="'/static/img/symbols/lSymbols/2L.png'"
      :posBG="{x:587,y:4}"
      :posMouse="posMouseS"
      :Kof="{x:-0.012,y:-0.012}"
      :bgCurrent="bg"
-     :random="randomS"></bg>
+     :random="random"></bg>
  <bg class="small"
      :urlImg="'/static/img/symbols/lSymbols/13L.png'"
      :posBG="{x:632,y:81}"
      :posMouse="posMouseS"
      :Kof="{x:-0.012,y:-0.012}"
      :bgCurrent="bg"
-     :random="randomS"></bg>
+     :random="random"></bg>
 </div>
 </template>
 
@@ -348,9 +348,7 @@ export default {
             posMouseM:{x:0, y:0},
             posMouseS:{x:0, y:0},
             posMouseTemp:{x:0, y:0},
-            randomB:{x:0,y:0},
-            randomM:{x:0,y:0},
-            randomS:{x:0,y:0},
+            random:{x:0,y:true},
             heightWindow:window.screen.height,
         }
     },
@@ -362,7 +360,10 @@ export default {
         },
         widthBgImg:function () {
          return 1.15 * 3420 * this.heightWindow / 1080;
-        }
+        },
+     translate:function () {
+      return (this.random.y)?'0%':'-10%'
+     }
     },
     methods:{
         /* mousemove(event) {
@@ -384,6 +385,12 @@ export default {
    $(window).on('resize',function () {
     t.heightWindow =  window.screen.height;
    })
+  setTimeout(function () {
+   t.random.y = !t.random.y;
+  },200)
+  setInterval( function () {
+   t.random.y = !t.random.y;
+  },4500);
  },
   created: function() {
 
@@ -406,7 +413,8 @@ export default {
     -o-background-size: cover;
     background-size: cover;
     display: flex;
-    animation: animationBG 5s ease-out infinite alternate;
+   /* animation: animationBG 5s ease-out infinite alternate;*/
+   transition: all 5s ease-out;
   }
   .bgMain img{
    height: 100%;

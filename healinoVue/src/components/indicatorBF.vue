@@ -12,7 +12,7 @@
         <div class="plus" v-on:click="$emit('onDescription','8')"><img src="static/img/plus.png" alt=""></div>
         <img src="static/img/cursor_1.png" alt="" class="cursor"
              v-bind:style="{ left: BFPDeg + '%' }">
-        <div class="opacity_cursor" v-bind:style="{ width: BFPDegOp + '%' }"></div>
+        <div class="opacity_cursor" v-bind:style="{ width: 'calc('+BFPDegOp + '% + 1px)' }"></div>
         <div class="opacity_cursor2" v-bind:style="{ width: 'calc('+BFPDegOp2 + '% + 1px)' }"></div>
         <span class="percent" v-bind:style="{ left: BFPDeg + '%' }">{{animateVal}}%</span>
         <!--<span class="shkala-1">10%</span>

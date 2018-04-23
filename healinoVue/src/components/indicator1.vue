@@ -13,7 +13,7 @@
         <div class="plus" v-on:click="$emit('onDescription','9')"><img src="static/img/plus.png" alt=""></div>
         <img src="static/img/cursor_1.png" alt="" class="cursor"
              v-bind:style="{ left: FMPDeg + '%' }">
-        <div class="opacity_cursor" v-bind:style="{ width: FMPDegOp + '%' }">
+        <div class="opacity_cursor" v-bind:style="{ width: 'calc( '+FMPDegOp + '% + 1px' }">
          <!-- <img src="/static/img/indicator_6Cur.png" alt="">-->
         </div>
         <div class="opacity_cursor2" v-bind:style="{ width: 'calc( '+FMPDegOp2 + '% + 1px)' }">

@@ -11,7 +11,7 @@
         <div class="sometext">
           <div class="txt">
             <p>Excellent</p>
-            <p class="big"><{{rezultData.WHRatioScale[0].Value}}</p>
+            <p class="big"><{{minValue}}</p>
           </div>
           <div class="txt">
             <p class="big">>{{maxValue}}</p>
