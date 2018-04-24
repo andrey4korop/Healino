@@ -204,6 +204,9 @@
     <img v-bind:src="(audio_p)?'static/img/noMusic.png':'static/img/music.png'" >
 
   </div>
+  <div class="back_btn" v-on:click="$emit('toTheme')">
+    BTN_back
+  </div>
 </div>
 
 </template>
@@ -531,6 +534,9 @@
     transform: rotate(45deg);
   }
   @media screen and (max-height: 768px) and (orientation: landscape){
+    .container{
+      transform: scale(0.95);
+    }
     .row{
       width: 78%;
       margin: 0 auto;

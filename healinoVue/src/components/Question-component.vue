@@ -96,8 +96,11 @@
                 Type:-1,
               showPopupUser:false,
              /*questionData:{"PreviusQuestionId":7,"QuestionId":8,"QuestionNum":2,"TotalQuestions":23,"QuestionTypeEnum":0,"UserThemeTestId":89,
-                "IsAnswered":false,"AnsValue":5,"QText":"У Вас высокий уровень толерантности?\r\n","ImageUrl":null,
+                "IsAnswered":true,"AnsValue":11,"QText":"У Вас высокий уровень толерантности?\r\n","ImageUrl":null,
                 "QuestionsProgress":22.0,
+               "MinValue": 5,
+               "MaxValue": 10,
+               "ValueStep": 2,
                 "AnswerOptions":[
                         {"Id":29,"ParrentId":null,"AnswerText":"Да","ImageUrl":null,"IsUserAnswered":false,"Children":null},
                         {"Id":30,"ParrentId":null,"AnswerText":"Нет","ImageUrl":null,"IsUserAnswered":false,"Children":null},
@@ -252,7 +255,7 @@
     }
 </script>
 
-<style>
+<style scoped>
   .music_btn1{
     width: 30px;
     height: 27px;

@@ -546,7 +546,7 @@
     }
 </script>
 
-<style>
+<style scoped>
   .music_btn1{
     width: 30px;
     height: 27px;

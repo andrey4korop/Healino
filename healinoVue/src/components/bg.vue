@@ -61,7 +61,7 @@ export default {
     .max{
         height: 100%;
         width: 100%;
-        transition: all 5s ease-out;
+        transition: all 9s linear;
        /* animation: animationBG10 5s ease-out infinite alternate;*/
     }
 </style>

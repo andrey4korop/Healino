@@ -9,19 +9,25 @@
                    @changeValSelect="changeValSelect"
                    @pushSelectOption="pushSelectOption"
       ></selectBlock>
-      <label>
+      <!--<label>
 
-        <input type="number"
-               v-model="AnswerValue"
-               v-on:input="changeVal"
-               v-on:change="changeInput">
-        <span class="check"  v-bind:class="(showLoadInput) ? 'loading': ''" v-if="showCheckInput && !errorQuest">
+      <input type="number"
+             v-model="AnswerValue"
+             v-on:input="changeVal"
+             v-on:change="changeInput">
+      <span class="check"  v-bind:class="(showLoadInput) ? 'loading': ''" v-if="showCheckInput && !errorQuest">
           <i class="fa fa-check" aria-hidden="true"></i>
         </span>
-        <span class="check" v-bind:class="(errorQuest) ? 'error' : ''" v-if="errorQuest">
+      <span class="check" v-bind:class="(errorQuest) ? 'error' : ''" v-if="errorQuest">
             <i class="fa fa-times" aria-hidden="true"></i>
           </span>
-      </label>
+    </label>-->
+      <selectBlock
+                   :valueItem="selectId2"
+                   :selectOption="valForSelect2"
+                   :errorQuest="errorQuest"
+                   @changeValSelect="changeValSelect2"
+      ></selectBlock>
     </div>
   </div>
 </template>
@@ -34,6 +40,7 @@ export default {
       AnswersId: "",
       AnswerValue: "",
       selectId: "",
+      selectId2: "",
 
       showCheckInput: false,
       showLoadInput: true,
@@ -58,6 +65,13 @@ export default {
       jQuery.each(this.questionData.AnswerOptions, function (i, val) {
         r.push({key: i, title: val.AnswerText, Id:val.Id});
       });
+      return r;
+    },
+    valForSelect2:function () {
+      let r =[];
+      for (var val = this.questionData.MinValue, i=0 ; val<=this.questionData.MaxValue ; val+=this.questionData.ValueStep, i++) {
+        r.push({key: Math.round(val*100)/100, title: Math.round(val*100)/100, Id: i});
+      }
       return r;
     }
   },
@@ -87,6 +101,11 @@ export default {
       }
       this.changeVal();
     },
+    changeValSelect2(k){
+        this.AnswerValue = this.valForSelect2[k].key;
+        this.selectId2 = 0;
+      this.changeVal();
+    },
     setValueId(id, AnswersId, AnswerText, event){
       //event.preventDefault();
       if (event) {
@@ -109,7 +128,19 @@ export default {
   created: function () {
     if (this.questionData.IsAnswered) {
       if (this.questionData.AnsValue) {
-        this.AnswerValue = this.questionData.AnsValue;
+        if(this.questionData.AnsValue > this.questionData.MaxValue){
+          this.selectId2 = this.valForSelect2.length-1;
+          this.AnswerValue = this.valForSelect2[this.valForSelect2.length-1];
+        }else {
+          for (var opt in this.valForSelect2) {
+            if (this.questionData.AnsValue <= this.valForSelect2[opt].key) {
+              console.log('yes');
+              this.AnswerValue = this.valForSelect2[opt];
+              this.selectId2 = opt;
+              break;
+            }
+          }
+        }
         this.changeInput();
       }
       if (this.questionData.AnswerOptions.length > 0) {
@@ -147,7 +178,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
   .hidden{
     visibility: hidden;

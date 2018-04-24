@@ -669,7 +669,7 @@
     }
 </script>
 
-<style>
+<style scoped>
   .music_btn{
     width: 30px;
     height: 30px;

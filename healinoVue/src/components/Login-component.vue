@@ -1,5 +1,5 @@
 <template>
-
+<div class="prostoTask">
   <div class="container firstPageContainer">
     <div class="row">
       <form action="" class="login">
@@ -66,12 +66,13 @@
         </div>
       </div>
     </div>
-    <div class="music_btn" v-on:click="$emit('audio')">
-      <img v-bind:src="(audio_p)?'static/img/noMusic.png':'static/img/music.png'" >
 
-    </div>
   </div>
+  <div class="music_btn" v-on:click="$emit('audio')">
+    <img v-bind:src="(audio_p)?'static/img/noMusic.png':'static/img/music.png'" >
 
+  </div>
+</div>
 </template>
 
 <script>
@@ -312,7 +313,16 @@
     }
 </script>
 
-<style>
+<style scoped>
+  @media screen and (max-height: 500px) and (orientation: portrait) {
+    .container {
+      transform: scale(0.8);
+      margin: -10%;
+    }
+    .prostoTask{
+      height: 100vh;
+    }
+  }
   .descriptionLogin{
     background: rgba(255,0,0,0.2);
     position: absolute;

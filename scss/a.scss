@@ -1471,6 +1471,7 @@ html,body{
     padding: 0 15px;
     box-sizing: border-box;
     overflow-y: auto;
+    overflow-x: hidden;
     &::-webkit-scrollbar {
       width: 5px;
       background: rgba(109,207,77,0.5);
@@ -2567,4 +2568,9 @@ input::-webkit-inner-spin-button {
     -webkit-transform: translateY(0%);
     transform: translateY(0%);
   }
+}
+.back_btn{
+  top:10px;
+  left: 10px;
+  position: fixed;
 }

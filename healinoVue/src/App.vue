@@ -107,10 +107,12 @@
                       :audio_p="audio_p"
                       :userData="userData"
                       :themeActiveObj="themeActiveObj"
+                      @toTheme="toTheme"
                       :rezultData="rezultData"></rezult-component>
     <rezultPublic-component v-else-if="state == 'rezultPublic'"
                             @audio="audio"
                             @exit="exit"
+                            @toTheme="toTheme"
                             :audio_p="audio_p"
                       :rezultData="rezultData"></rezultPublic-component>
       <pay-component v-else-if="state == 'pay'"
@@ -564,7 +566,6 @@ export default {
                       })
                       .fail(function() {
                       });
-
               }
           } );
       };

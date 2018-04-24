@@ -62,7 +62,7 @@
         </div>
       </div>
       <div class="green">
-        <button v-on:click="$emit('toQuestion', activeId)" v-lang.start></button>
+        <button v-on:click="mainButton()">{{mainBTNtext}}</button>
       </div>
     </div>
   </div>
@@ -76,7 +76,7 @@
                 activeId:0,
                 Description:"",
                 Title:"",
-                /*List:[
+               /* List:[
                         {"Id":3,
                             "QuestionsFinished":3,
                             "QuestionsTotal":3,
@@ -152,6 +152,14 @@
                     return '../static/img/noIMG.png';
                 }
             },
+            mainBTNtext:function () {
+              let list = this.returnActiveList();
+              if(list.QuestionsTotal==list.QuestionsFinished){
+                return this.langString('rezult')
+              }else{
+                return this.langString('start')
+              }
+            }
         },
         created: function() {
             this.changeActive(this.List[0]);
@@ -166,6 +174,16 @@
           })
         },
         methods: {
+          mainButton(){
+            let list = this.returnActiveList();
+            console.log('list');
+            console.log(list);
+            if(list.QuestionsTotal==list.QuestionsFinished){
+              this.getRezult(list)
+            }else{
+              this.$emit('toQuestion', this.activeId)
+            }
+          },
             showPopupUserOn(){
               this.showPopupUser = true;
             },
@@ -202,11 +220,21 @@
                     Argument: list.Id,
                 }
             },
+          returnActiveList(){
+              for(var list in this.List){
+                console.log(this.activeId);
+                console.log(this.List[list].Id);
+                if(this.List[list].Id == this.activeId){
+                  console.log(this.List[list]);
+                  return (this.List[list]);
+                }
+              }
+          }
         }
     }
 </script>
 
-<style>
+<style scoped>
   .filter img {
     opacity: 0.7;
     width: 40%;

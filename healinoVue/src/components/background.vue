@@ -390,7 +390,7 @@ export default {
   },200)
   setInterval( function () {
    t.random.y = !t.random.y;
-  },4500);
+  },8500);
  },
   created: function() {
 
@@ -414,7 +414,7 @@ export default {
     background-size: cover;
     display: flex;
    /* animation: animationBG 5s ease-out infinite alternate;*/
-   transition: all 5s ease-out;
+   transition: all 9s ease-out;
   }
   .bgMain img{
    height: 100%;
@@ -490,19 +490,19 @@ export default {
    transition: all 8s linear;
   }
   .animaBG1{
-   animation: animationBGBig 30s ease-out infinite normal, animationBG1 5s ease-out infinite alternate;
+   animation: animationBGBig 30s linear infinite normal, animationBG1 5s ease-out infinite alternate;
   }
   .animaBG2{
-   animation: animationBGMedium 15s ease-out infinite normal, animationBG2 5s ease-out infinite alternate;
+   animation: animationBGMedium 15s linear infinite normal, animationBG2 5s ease-out infinite alternate;
   }
   .animaBG3{
-   animation: animationBGSmall 10s ease-out infinite normal, animationBG3 5s ease-out infinite alternate;
+   animation: animationBGSmall 10s linear infinite normal, animationBG3 5s ease-out infinite alternate;
   }
   .animaBG4{
-   animation: animationBGSmall1 20s ease-out infinite normal, animationBG1 5s ease-out infinite alternate;
+   animation: animationBGSmall1 20s linear infinite normal, animationBG1 5s ease-out infinite alternate;
   }
   .animaBG5{
-   animation: animationBGSmall2 17s ease-out infinite normal, animationBG1 5s ease-out infinite alternate;
+   animation: animationBGSmall2 17s linear infinite normal, animationBG1 5s ease-out infinite alternate;
   }
   .bg{
    position: fixed;
@@ -515,13 +515,13 @@ export default {
     transform: rotate(0deg) /*translateY(-40%)*/ translateX(0);
    }
    25%{
-    transform: rotate(-15deg) /*translateY(-25%) */translateX(15%);
+    transform: rotate(-15deg) /*translateY(-25%) */translateX(25%);
    }
    50%{
     transform: rotate(-40deg) /*translateY(0)*/ translateX(0);
    }
    75%{
-    transform: rotate(-15deg) /*translateY(-25%)*/ translateX(-15%);
+    transform: rotate(-15deg) /*translateY(-25%)*/ translateX(-25%);
    }
    to {
     transform: rotate(0deg) /*translateY(-40%)*/ translateX(0);
@@ -532,13 +532,13 @@ export default {
     transform: rotate(0deg) /*translateY(-40%)*/ translateX(0);
    }
    25%{
-    transform: rotate(15deg) /*translateY(-25%)*/ translateX(15%);
+    transform: rotate(15deg) /*translateY(-25%)*/ translateX(25%);
    }
    50%{
     transform: rotate(40deg) /*translateY(0)*/ translateX(0);
    }
    75%{
-    transform: rotate(15deg) /*translateY(-25%)*/ translateX(-15%);
+    transform: rotate(15deg) /*translateY(-25%)*/ translateX(-25%);
    }
    to {
     transform: rotate(0deg) /*translateY(-40%)*/ translateX(0);
@@ -549,13 +549,13 @@ export default {
      transform: rotate(0deg) /*translateY(-40%)*/ translateX(0);
     }
     25%{
-     transform: rotate(-15deg) /*translateY(-25%)*/ translateX(-15%);
+     transform: rotate(-15deg) /*translateY(-25%)*/ translateX(-25%);
     }
     50%{
      transform: rotate(-40deg) /*translateY(0)*/ translateX(0);
     }
     75%{
-     transform: rotate(-15deg) /*translateY(-25%)*/ translateX(15%);
+     transform: rotate(-15deg) /*translateY(-25%)*/ translateX(25%);
     }
     to {
      transform: rotate(0deg) /*translateY(-40%)*/ translateX(0);
@@ -566,13 +566,13 @@ export default {
     transform: rotate(0deg) /*translateY(40%)*/ translateX(0);
    }
    25%{
-    transform: rotate(-15deg) /*translateY(25%)*/ translateX(15%);
+    transform: rotate(-15deg) /*translateY(25%)*/ translateX(25%);
    }
    50%{
     transform: rotate(-40deg) /*translateY(0)*/ translateX(0);
    }
    75%{
-    transform: rotate(-15deg) /*translateY(25%)*/ translateX(-15%);
+    transform: rotate(-15deg) /*translateY(25%)*/ translateX(-25%);
    }
    to {
     transform: rotate(0deg) /*translateY(40%)*/ translateX(0);
@@ -583,13 +583,13 @@ export default {
     transform: rotate(0deg) /*translateY(-40%)*/ translateX(0);
    }
    25%{
-    transform: rotate(15deg) /*translateY(-25%)*/ translateX(-15%);
+    transform: rotate(15deg) /*translateY(-25%)*/ translateX(-25%);
    }
    50%{
     transform: rotate(40deg) /*translateY(0)*/ translateX(0);
    }
    75%{
-    transform: rotate(15deg) /*translateY(-25%)*/ translateX(15%);
+    transform: rotate(15deg) /*translateY(-25%)*/ translateX(25%);
    }
    to {
     transform: rotate(0deg) /*translateY(-40%)*/ translateX(0);

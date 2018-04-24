@@ -13,7 +13,7 @@
         <span class="check"  v-bind:class="(showLoadSelect==true) ? 'loading': ''" v-if="showCheckSelect">
           <i class="fa fa-check" aria-hidden="true"></i>
         </span>
-        <span class="check" v-bind:class="(errorQuest && !Id) ? 'error' : ''" v-if="errorQuest">
+        <span class="check" v-bind:class="(errorQuest) ? 'error' : ''" v-if="errorQuest">
             <i class="fa fa-times" aria-hidden="true"></i>
           </span>
     </label>

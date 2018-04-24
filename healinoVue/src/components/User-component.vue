@@ -1,5 +1,5 @@
 <template>
-
+<div class="prostoTask">
   <div class="container firstPageContainer">
     <div class="row">
       <div class="avatar"><label>
@@ -219,12 +219,14 @@
         <button v-on:click.prevent="updateUser">{{buttonTitle}}</button>
       </div>
     </div>
-    <div class="music_btn" v-on:click="$emit('audio')">
-      <img v-bind:src="(audio_p)?'static/img/noMusic.png':'static/img/music.png'" >
 
-    </div>
   </div>
 
+  <div class="music_btn" v-on:click="$emit('audio')">
+    <img v-bind:src="(audio_p)?'static/img/noMusic.png':'static/img/music.png'" >
+
+  </div>
+</div>
 </template>
 
 <script>
@@ -669,6 +671,7 @@
 </script>
 
 <style scoped>
+
   .music_btn{
     width: 30px;
     height: 30px;
@@ -680,12 +683,17 @@
     .firstPageContainer .row, .roww {
       margin: 5px 0;
     }
-
+    .container{
+      transform: scale(0.95);
+    }
   }
   .row{
     margin-top: 2px;
   }
   @media screen and (max-height: 768px) and (orientation: landscape){
+    .container{
+      transform: scale(0.95);
+    }
     .row{
       margin-top: 2px;
     }
@@ -729,6 +737,15 @@
     .login label option,
     .login label select{
       height: auto!important;
+    }
+  }
+  @media screen and (max-height: 500px) and (orientation: portrait) {
+    .container {
+      transform: scale(0.7);
+      margin: -20%;
+    }
+    .prostoTask{
+      height: 100vh;
     }
   }
 </style>
