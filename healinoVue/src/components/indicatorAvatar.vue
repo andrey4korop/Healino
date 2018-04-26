@@ -1,7 +1,7 @@
 <template>
 
   <div class="avatar_scale"v-on:click="start">
-    <div class="description" v-bind:class="(showDescription==1)?'on':''">
+    <div class="description" v-bind:style="{zIndex:hIndex}" v-bind:class="(showDescription==1)?'on':''">
       <div class="text" v-lang.descriptionText="{THR: rezultData.HealthRate, THR_Comment: getComent}">
 
       </div>
@@ -25,6 +25,7 @@ export default {
         return {
             animateVal:0 ,
             valArray:[],
+          hIndex:-10,
         }
     },
     messages: {
@@ -97,7 +98,17 @@ export default {
             }
         }
     },
-
+  watch:{
+    showDescription:function (old, newVal) {
+      if(old==1){
+        this.hIndex=10;
+      }else{
+        setTimeout(()=>{
+          this.hIndex=-10;
+        },600);
+      }
+    }
+  },
     methods:{
         animate () {
             if (TWEEN.update()) {
@@ -198,7 +209,7 @@ export default {
     padding: 15px;
     z-index: -10;
     opacity: 0;
-    transition: all 0.5s linear;
+    transition: opacity 0.5s linear;
   }
   .description.on{
     z-index: 15;

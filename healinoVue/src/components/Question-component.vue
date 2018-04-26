@@ -69,6 +69,10 @@
                 AnswerValue: "",
                 Type:-1,
               showPopupUser:false,
+
+              touchstartX:0,
+              touchendX:0,
+              doPrevTouch:true,
              /*questionData:{"PreviusQuestionId":7,"QuestionId":8,"QuestionNum":2,"TotalQuestions":23,"QuestionTypeEnum":2,"UserThemeTestId":89,
                 "IsAnswered":true,"AnsValue":5,"QText":"У Вас высокий уровень толерантности?\r\n","ImageUrl":null,
                 "QuestionsProgress":22.0,
@@ -169,7 +173,40 @@
             }
         },
       mounted(){
-
+        let t = this;
+        $(document).on('touchstart', '.ques', function(event) {
+          console.log(event);
+          if ($(event.target).parents('.ques').length &&
+                  !($(event.target).parents('.selectBlock').length ||
+                  $(event.target).parents('.selectBlockNeed').length ||
+                  $(event.target).hasClass('selectBlockNeed')||
+                  $(event.target).hasClass('selectBlock'))) {
+            t.touchstartX = event.originalEvent.touches[0].screenX;
+            t.doPrevTouch=true;
+          }else{
+            t.doPrevTouch=false;
+          }
+        });
+        $(document).on('touchend', '.ques', function(event) {
+          if ($(event.target).parents('.ques').length && t.doPrevTouch &&
+                  !($(event.target).parents('.selectBlock').length ||
+                  $(event.target).parents('.selectBlockNeed').length ||
+                  $(event.target).hasClass('selectBlockNeed')||
+                  $(event.target).hasClass('selectBlock'))) {
+            t.touchendX = event.originalEvent.changedTouches[0].screenX;
+            if((Math.abs(t.touchendX-t.touchstartX)>50)){
+              if (t.touchendX > t.touchstartX) {
+                if(t.questionData.QuestionNum > 1) {
+                  t.prevQuestion();
+                }
+              }
+            }
+          }
+        });
+      },
+      destroyed(){
+        $(document).unbind('touchstart');
+        $(document).unbind('touchend');
       },
         methods: {
           changeLang(lang){

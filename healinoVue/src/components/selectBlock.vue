@@ -2,20 +2,21 @@
     <label v-bind:id="className">
         <div class="selectBlock"
              v-on:click="setShowSelectId"
-             v-bind:class="(showSelectId?'hidden':'')"
+             v-bind:class="(visibleBlock?'hidden':'')"
+             v-bind:style="{zIndex:(selectedBlock==className)?'1000':''}"
              ref="selectBlock"
         >
             {{title}}
         </div>
-        <div class="selectBlockNeed" v-if="showSelectId" v-on:click="changeSelectColor(0)">
+        <div class="selectBlockNeed" v-if="visibleBlock" v-on:click="changeSelectColor(0)">
             <div class="select">
                 <p class="option" v-for="ans in selectOption"
                    v-on:click="setValueId(ans.key, ans.title, $event)"
                    v-bind:class="(ans.key==Id) ? 'active' : ''">{{ans.title}}</p>
             </div>
-            <div class="nocolorActive" v-if="showSelectId" v-on:click="changeSelectColor(-1)"></div>
-            <div class="colorActive" v-if="showSelectId" v-on:click="changeSelectColor(0)"></div>
-            <div class="nocolorActive" v-if="showSelectId" v-on:click="changeSelectColor(1)"></div>
+            <div class="nocolorActive" v-if="visibleBlock" v-on:click="changeSelectColor(-1)"></div>
+            <div class="colorActive" v-if="visibleBlock" v-on:click="changeSelectColor(0)"></div>
+            <div class="nocolorActive" v-if="visibleBlock" v-on:click="changeSelectColor(1)"></div>
         </div>
         <span class="check"  v-bind:class="(showLoadSelect==true) ? 'loading': ''" v-if="showCheckSelect">
           <i class="fa fa-check" aria-hidden="true"></i>
@@ -28,7 +29,7 @@
 
 <script>
 export default {
-   props: ['valueItem','selectOption', 'errorQuest' ],
+   props: ['valueItem','selectOption', 'errorQuest', 'selectedBlock' ],
     data () {
         return {
             Id:0,
@@ -71,6 +72,9 @@ export default {
         idClass:function () {
             return '#'+this.className
         },
+        visibleBlock:function () {
+            return this.showSelectId && this.selectedBlock == this.className;
+        }
     },
     methods:{
         updateAnchors() {
@@ -137,6 +141,7 @@ export default {
             this.isAnimating=false;
             if(event.target.className == "selectBlock") {
                 this.showSelectId = true;
+                this.$parent.selectedBlock = this.className;
                 let t = this;
                 setTimeout(function () {
                     t.updateAnchors();

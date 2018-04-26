@@ -260,7 +260,7 @@ export default {
                     t.toTheme();
                 }
                 if(t.state=="question"){
-                    t.toQuestion(t.activeId);
+                    t.toQuestion(t.activeId, t.questionData.QuestionId);
                 }
             });
         },
@@ -333,12 +333,12 @@ export default {
             this.state="start";
             this.bg-=2;
         },
-        toQuestion(id){
+        toQuestion(id, questId){
             this.activeId = id;
             let body ={
                 Argument: id,
                 SessionData: this.SessionData,
-                QuestionId: (this.questionData) ? this.questionData.QuestionId : null,
+                QuestionId: (questId) ? questId : null,
             };
             let t = this;
             $.post( '/api/Theme/GetNextThemeQuestionWithAnswers',  body)

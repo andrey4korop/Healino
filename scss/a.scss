@@ -571,7 +571,7 @@ html,body{
     input[type="password"], input[type="tel"], input[type="number"],
     select, option {
       padding: 0 15px;
-      @include sm(padding, 3px 15px);
+      @include sm(padding, 3px 10px);
       @include sm(margin-bottom, 5px);
       @include sm(height,unset);
       margin-top: 7px;
@@ -581,6 +581,9 @@ html,body{
       &.number {
         @include size(7);
       }
+    }
+    input[type="number"]{
+      text-align: center;
     }
     &.pointer{
       @include sm(text-align, left);
@@ -1402,6 +1405,9 @@ html,body{
       @include size-md(10);
       @include size-sm(16);
       margin: 0 calc(100% / 24);
+      &:nth-child(2) .selectBlock{
+        @include sm(margin-bottom, 50px);
+      }
       .check{
         display: inline-block;
         width: 25px;

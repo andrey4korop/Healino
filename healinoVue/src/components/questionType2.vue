@@ -6,6 +6,7 @@
                    :valueItem="selectId"
                    :selectOption="valForSelect"
                    :errorQuest="errorQuest"
+                   :selectedBlock="selectedBlock"
                    @changeValSelect="changeValSelect"
                    @pushSelectOption="pushSelectOption"
       ></selectBlock>
@@ -13,6 +14,7 @@
                    :valueItem="selectId2"
                    :selectOption="valForSelect2"
                    :errorQuest="errorQuest"
+                   :selectedBlock="selectedBlock"
                    @changeValSelect="changeValSelect2"
       ></selectBlock>
     </div>
@@ -28,6 +30,8 @@ export default {
       AnswerValue: "",
       selectId: "",
       selectId2: "",
+
+      selectedBlock:"",
 
       showCheckInput: false,
       showLoadInput: true,
@@ -121,7 +125,7 @@ export default {
           for (var opt in this.valForSelect2) {
             if (this.questionData.AnsValue <= this.valForSelect2[opt].Id) {
               console.log('yes');
-              this.AnswerValue = this.valForSelect2[opt];
+              this.AnswerValue = this.valForSelect2[opt].Id;
               this.selectId2 = opt;
               break;
             }
@@ -165,7 +169,6 @@ export default {
 </script>
 
 <style scoped>
-
   .hidden{
     visibility: hidden;
   }

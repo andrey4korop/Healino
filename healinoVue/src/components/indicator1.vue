@@ -5,7 +5,7 @@
     </div>
     <div class="indicator indicator1">
 
-      <div class="description" v-bind:class="(showDescription==9)?'on':''">
+      <div class="description" v-bind:style="{zIndex:hIndex}" v-bind:class="(showDescription==9)?'on':''">
         <div class="text" v-lang.descriptionText="{FM: rezultData.FM, coment: getComent, ideal: getIdeal}"></div>
       </div>
       <div class="progress_bar1" v-on:click="start">
@@ -35,8 +35,21 @@ export default {
         return {
             animateVal:0 ,
             valArray:[],
+            hIndex:-10,
         }
     },
+  watch:{
+    showDescription:function (old, newVal) {
+      let t = this;
+      if(old==9){
+        this.hIndex=10;
+      }else{
+        setTimeout(()=>{
+          this.hIndex=-10;
+        },600);
+      }
+    }
+  },
     messages: {
         en: {
             descriptionText:
@@ -240,7 +253,7 @@ export default {
     padding: 15px;
     z-index: -10;
     opacity: 0;
-    transition: all 0.5s linear;
+    transition: opacity 0.5s linear;
   }
   .description.on{
     z-index: 10;

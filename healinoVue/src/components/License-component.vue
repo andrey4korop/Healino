@@ -4,8 +4,8 @@
     <div class="row">
       <div class="license">
         <div class="ob">
-          <p class="btnPrev" v-on:click="changeActive(0)"><</p>
-          <p class="btnNext" v-on:click="changeActive(1)">></p>
+          <p class="btnPrev" v-if="activeDot!=1" v-on:click="changeActive(0)"><</p>
+          <p class="btnNext" v-if="activeDot!=3" v-on:click="changeActive(1)">></p>
           <div class="text" v-html="licenseText">
 
           </div>
@@ -52,6 +52,9 @@
         props: ['audio_p'],
         data () {
             return{
+              touchstartX:0,
+              touchendX:0,
+
                 activeDot:1,
                 check1:false,
                 check2:false,
@@ -619,6 +622,37 @@
                 buttonPrev:'Nazad'
             }
         },
+      mounted(){
+          let t = this;
+        $(document).on('touchstart', '.text', function(event) {
+          console.log(event);
+          if ($(event.target).parents('.text').length) {
+            t.touchstartX = event.originalEvent.touches[0].screenX;
+          }
+        });
+        $(document).on('touchend', '.text', function(event) {
+          if ($(event.target).parents('.text').length) {
+            t.touchendX = event.originalEvent.changedTouches[0].screenX;
+            if((Math.abs(t.touchendX-t.touchstartX)>50)){
+              if (t.touchendX < t.touchstartX) {
+                t.changeActive(1);
+              }
+              if (t.touchendX > t.touchstartX) {
+                t.changeActive(0)
+              }
+            }
+          }
+        });
+        /*$(document).on('touchmove', '.text', function(event) {
+          if ($(event.target).parents('.text').length) {
+            event.preventDefault();
+          }
+        });*/
+      },
+      destroyed(){
+        $(document).unbind('touchstart');
+        $(document).unbind('touchend');
+      },
         computed: {
             act:function () {
                 if(this.check1 && this.check2 && this.check3 && true){
@@ -669,7 +703,7 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped rel="stylesheet/scss">
   .music_btn{
     width: 30px;
     height: 30px;
@@ -705,6 +739,13 @@
     line-height: 30px;
     text-align: center;
     cursor:pointer;
+    opacity: 0.5;
+    &:hover{
+      opacity: 1;
+    }
+    &:active{
+      background: #59cd59;
+    }
   }
   .btnNext{
     right: 10px;

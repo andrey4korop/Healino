@@ -2,7 +2,7 @@
   <div class="indicators" v-on:click="start">
     <div class="title_indicator" v-html="langString('title')"></div>
     <div class="indicator indicatorWHR">
-      <div class="description" v-bind:class="(showDescription==6)?'on':''">
+      <div class="description" v-bind:style="{zIndex:hIndex}" v-bind:class="(showDescription==6)?'on':''">
         <div class="text" v-lang.descriptionText="{WHR: rezultData.WHRatio, coment: getComent}"></div>
       </div>
       <div class="progress_bar6">
@@ -37,6 +37,7 @@ export default {
         return {
             animateVal:0 ,
             valArray:[],
+          hIndex:-10,
         }
     },
     messages: {
@@ -113,6 +114,17 @@ export default {
             }
         }
     },
+  watch:{
+    showDescription:function (old, newVal) {
+      if(old==6){
+        this.hIndex=10;
+      }else{
+        setTimeout(()=>{
+          this.hIndex=-10;
+        },600);
+      }
+    }
+  },
     methods:{
       langString(string){
         return this.translate(string);
@@ -192,7 +204,7 @@ export default {
     padding: 15px;
     z-index: -10;
     opacity: 0;
-    transition: all 0.5s linear;
+    transition: opacity 0.5s linear;
   }
   .description.on{
     z-index: 10;

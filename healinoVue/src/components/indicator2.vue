@@ -2,7 +2,7 @@
   <div class="indicators">
     <div class="title_indicator" v-html="langString('title')"></div>
     <div class="indicator DaylyCallorie">
-      <div class="description" v-bind:class="(showDescription==2)?'on':''">
+      <div class="description" v-bind:style="{zIndex:hIndex}" v-bind:class="(showDescription==2)?'on':''">
         <div class="text"v-lang.descriptionText="{Calorie_Counting: rezultData.DaylyCallorie, Calorie_CountingM: rezultData.DaylyCallorie-500, Calorie_CountingP: rezultData.DaylyCallorie+500,}">
         </div>
       </div>
@@ -28,6 +28,7 @@ export default {
         return {
             animateVal:0 ,
             valArray:[],
+          hIndex:-10,
         }
    },
     messages: {
@@ -106,7 +107,17 @@ export default {
             }
         }*/
     },
-
+  watch:{
+    showDescription:function (old, newVal) {
+      if(old==2){
+        this.hIndex=10;
+      }else{
+        setTimeout(()=>{
+          this.hIndex=-10;
+      },600);
+      }
+    }
+  },
     methods:{
       langString(string){
         return this.translate(string);
@@ -187,7 +198,7 @@ export default {
     padding: 15px;
     z-index: -10;
     opacity: 0;
-    transition: all 0.5s linear;
+    transition: opacity 0.5s linear;
   }
   .description.on{
     z-index: 15;

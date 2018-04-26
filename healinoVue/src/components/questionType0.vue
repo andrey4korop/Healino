@@ -6,6 +6,7 @@
                    :valueItem="selectId"
                    :selectOption="valForSelect"
                    :errorQuest="errorQuest"
+                   :selectedBlock="selectedBlock"
                    @changeValSelect="changeValSelect"
                    @pushSelectOption="pushSelectOption"
       ></selectBlock>
@@ -13,6 +14,7 @@
               :valueItem="selectId2"
               :selectOption="valForSelect2"
               :errorQuest="errorQuest"
+              :selectedBlock="selectedBlock"
               @changeValSelect="changeValSelect2"
       ></selectBlock>
     </div>
@@ -29,6 +31,7 @@
                      :valueItem="selectId"
                      :selectOption="valForSelect"
                      :errorQuest="errorQuest"
+                     :selectedBlock="selectedBlock"
                      @changeValSelect="changeValSelect"
                      @pushSelectOption="pushSelectOption"
         ></selectBlock>
@@ -47,6 +50,8 @@ export default {
             AnswerValue: "",
             selectId:"",
             selectId2: "",
+
+            selectedBlock:"",
 
             showCheckInput: false,
             showLoadInput: true,
@@ -180,7 +185,6 @@ export default {
 </script>
 
 <style scoped>
-
 .hidden{
   visibility: hidden;
 }

@@ -49,6 +49,7 @@
                         :valueItem="Month"
                         :selectOption="MounthOption"
                         :errorQuest="false"
+                        :selectedBlock="selectedBlock"
                         @changeValSelect="changeMonth"
                 ></selectBlock>
                   <p class="hren">/</p>
@@ -67,6 +68,7 @@
                         :valueItem="Year"
                         :selectOption="YearOption"
                         :errorQuest="false"
+                        :selectedBlock="selectedBlock"
                         @changeValSelect="changeYear"
                 ></selectBlock>
             </div>
@@ -177,6 +179,7 @@
         props: ['SessionData', 'userData', 'audio_p', 'lang'],
         data () {
             return {
+                selectedBlock:"",
               showPopupUser:false,
               cardType:'',
               CardNumber:'',

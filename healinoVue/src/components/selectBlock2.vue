@@ -1,13 +1,15 @@
 <template>
-    <label v-bind:id="className">
+    <label v-bind:id="className"
+           v-bind:style="{zIndex:(selectedBlock==className)?'1000':''}">
         <div class="selectBlock"
              v-on:click="setShowSelectId"
-             v-bind:class="(showSelectId?'hidden':'')"
+             v-bind:class="(visibleBlock?'hidden':'')"
              ref="selectBlock"
         >
             {{title}}
         </div>
-        <div class="selectBlockNeed" v-if="showSelectId" v-on:click="changeSelectColor">
+        <div class="selectBlockNeed" v-if="visibleBlock"
+             v-on:click="changeSelectColor">
                 <pd-select-item :listData="opt" v-model="Id"></pd-select-item>
         </div>
         <span class="check"  v-bind:class="(showLoadSelect==true) ? 'loading': ''" v-if="showCheckSelect">
@@ -22,7 +24,7 @@
 <script>
 
 export default {
-   props: ['valueItem','selectOption', 'errorQuest' ],
+   props: ['valueItem','selectOption', 'errorQuest','selectedBlock' ],
     data () {
         return {
             Id:0,
@@ -41,7 +43,12 @@ export default {
                 this.title = this.selectOption[newVal].title;
                 this.changeVal();
             }
-        }
+        },
+        /*selectedBlock:function (old, newVal) {
+            if(newVal!=this.className){
+                this.showSelectId=false;
+            }
+        }*/
     },
     mounted(){
         let t = this;
@@ -77,6 +84,9 @@ export default {
                 t.push(this.selectOption[i].title)
             }
             return t;
+        },
+        visibleBlock:function () {
+            return this.showSelectId && this.selectedBlock == this.className;
         }
     },
     methods:{
@@ -99,7 +109,7 @@ export default {
             //this.isAnimating=false;
             if(event.target.className == "selectBlock") {
                 this.showSelectId = true;
-
+                this.$parent.selectedBlock = this.className;
             }
         },
         changeSelectColor(){

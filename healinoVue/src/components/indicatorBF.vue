@@ -4,7 +4,7 @@
       <p v-lang.title></p>
     </div>
     <div class="indicator indicatorBF">
-      <div class="description" v-bind:class="(showDescription==8)?'on':''">
+      <div class="description" v-bind:style="{zIndex:hIndex}"  v-bind:class="(showDescription==8)?'on':''">
         <div class="text" v-lang.descriptionText="{BFP: rezultData.BFP, coment: getComent, ideal: getIdeal}"></div>
       </div>
       <div class="progress_bar1" v-on:click="start">
@@ -30,6 +30,7 @@ export default {
         return {
             animateVal:0 ,
             valArray:[],
+          hIndex:-10,
         }
     },
     messages: {
@@ -147,7 +148,17 @@ export default {
             return this.rezultData.BFCategoryScale[1].BF
         }
     },
-
+  watch:{
+    showDescription:function (old, newVal) {
+      if(old==8){
+        this.hIndex=10;
+      }else{
+        setTimeout(()=>{
+          this.hIndex=-10;
+        },600);
+      }
+    }
+  },
     methods:{
         animate () {
             if (TWEEN.update()) {
@@ -234,7 +245,7 @@ export default {
     padding: 15px;
     z-index: -10;
     opacity: 0;
-    transition: all 0.5s linear;
+    transition: opacity 0.5s linear;
   }
   .description.on{
     z-index: 10;

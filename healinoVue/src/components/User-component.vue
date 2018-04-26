@@ -83,6 +83,7 @@
                      :valueItem="Race"
                      :selectOption="raseOption"
                      :errorQuest="false"
+                     :selectedBlock="selectedBlock"
                      @changeValSelect="changeRace"
         ></selectBlock>
         <label>
@@ -192,6 +193,7 @@
                 :valueItem="Activity"
                 :selectOption="activityOption"
                 :errorQuest="false"
+                :selectedBlock="selectedBlock"
                 @changeValSelect="changeAct"
         ></selectBlock>
         <label>
@@ -236,6 +238,7 @@
         props: ['SessionData', 'userData', 'audio_p', 'answerSelectSelected'],
         data () {
             return {
+              selectedBlock:"",
               st:true,
                 Name:"",
                 SurName:"",
