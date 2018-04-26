@@ -433,7 +433,7 @@ html,body{
       animation: none;
       @include sm(left, calc(100% + 5px))
     }
-    .selectBlock+.check{
+    .selectBlock+.check, .selectBlockNeed+.check{
       top: 13px;
     }
     input[type="text"], input[type="date"], input[type="email"],

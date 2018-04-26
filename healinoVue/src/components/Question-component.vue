@@ -1,42 +1,16 @@
 <template>
 
   <div class="container themesPageContainer">
-    <div class="header">
-      <div class="headerContainer">
-        <a href="/" class="logo_head"><img src="static/img/logoHeader.png" alt="" class=""></a>
-        <a href="/" class="logo_head m"><img src="static/img/logoM.png" alt="" class=""></a>
-        <a href="/" v-lang.main></a>
-        <a v-bind:href="langString('forumUrl')" target="_blank" v-lang.forum></a>
-        <h3>{{userData.QuestionsProgress}}%</h3>
-        <div class="music_btn1" v-on:click="$emit('audio')">
-          <img v-bind:src="(audio_p)?'static/img/noMusic.png':'static/img/music.png'" >
-        </div>
-        <div class="lang">
-          <img src="static/img/langPL.png" alt=""   v-if="lang=='pl'">
-          <img src="static/img/langUSA.png" alt=""  v-if="lang=='en'">
-          <img src="static/img/langUA.png" alt=""   v-if="lang=='ru'">
-          <ul>
-            <li v-on:click="$emit('changeLang', 'pl')" v-if="lang!='pl'"><img src="static/img/langPL.png" alt=""></li>
-            <li v-on:click="$emit('changeLang', 'en')" v-if="lang!='en'"><img src="static/img/langUSA.png" alt=""></li>
-            <li v-on:click="$emit('changeLang', 'ru')" v-if="lang!='ru'"><img src="static/img/langUA.png" alt=""></li>
-          </ul>
-        </div>
-        <div class="user_Avatar">
-          <div v-bind:style="{background: 'url(' + userIMG + ') center center / cover' }"
-               v-on:click="showPopupUserOn()"
-               class="user_Avatar1"></div>
-          <div class="block_user_popup" v-bind:class="(showPopupUser)?'on':''">
-            <div class="margin_op">
-              <ul>
-                <li v-on:click="$emit('onToUser')" v-lang.editUser></li>
-                <li v-lang.getRezult></li>
-                <li v-on:click="$emit('exit')" v-lang.exit></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <headerComponent
+            :lang="lang"
+            :audio_p="audio_p"
+            :userData="userData"
+            :QuestionsProgress="userData.QuestionsProgress"
+            @changeLang="changeLang"
+            @onToUser="$emit('onToUser')"
+            @exit="$emit('exit')"
+            @toStart="$emit('toStart')"
+            @audio="$emit('audio')"></headerComponent>
     <div class="row sm">
       <div id="grad1" class="progressBarTheme">
 
@@ -95,12 +69,12 @@
                 AnswerValue: "",
                 Type:-1,
               showPopupUser:false,
-             /*questionData:{"PreviusQuestionId":7,"QuestionId":8,"QuestionNum":2,"TotalQuestions":23,"QuestionTypeEnum":0,"UserThemeTestId":89,
-                "IsAnswered":true,"AnsValue":11,"QText":"У Вас высокий уровень толерантности?\r\n","ImageUrl":null,
+             /*questionData:{"PreviusQuestionId":7,"QuestionId":8,"QuestionNum":2,"TotalQuestions":23,"QuestionTypeEnum":2,"UserThemeTestId":89,
+                "IsAnswered":true,"AnsValue":5,"QText":"У Вас высокий уровень толерантности?\r\n","ImageUrl":null,
                 "QuestionsProgress":22.0,
-               "MinValue": 5,
+               "MinValue": 1,
                "MaxValue": 10,
-               "ValueStep": 2,
+               "ValueStep": 0.5,
                 "AnswerOptions":[
                         {"Id":29,"ParrentId":null,"AnswerText":"Да","ImageUrl":null,"IsUserAnswered":false,"Children":null},
                         {"Id":30,"ParrentId":null,"AnswerText":"Нет","ImageUrl":null,"IsUserAnswered":false,"Children":null},
@@ -113,7 +87,7 @@
                         {"Id":37,"ParrentId":null,"AnswerText":"Иногда\r\n","ImageUrl":null,"IsUserAnswered":false,"Children":null},
                         {"Id":38,"ParrentId":null,"AnswerText":"Иногда\r\n","ImageUrl":null,"IsUserAnswered":false,"Children":null},
                         {"Id":39,"ParrentId":null,"AnswerText":"Иногда\r\n","ImageUrl":null,"IsUserAnswered":false,"Children":null},
-                        {"Id":40,"ParrentId":null,"AnswerText":"Иногда\r\n","ImageUrl":null,"IsUserAnswered":false,"Children":null},
+                        {"Id":40,"ParrentId":null,"AnswerText":"Иногда\r\n","ImageUrl":null,"IsUserAnswered":true,"Children":null},
                         {"Id":41,"ParrentId":null,"AnswerText":"Иногда\r\n","ImageUrl":null,"IsUserAnswered":false,"Children":null},
                         {"Id":42,"ParrentId":null,"AnswerText":"Иногда\r\n","ImageUrl":null,"IsUserAnswered":false,"Children":null},],
                 "NextQuestionId":14,"ErrorCode":1,"DebugMessage":null,"UIMessage":null},*/
@@ -156,7 +130,6 @@
         },
         computed: {
             body: function () {
-
                 return {
                     SessionData: this.SessionData,
                     UserThemeTestId: this.questionData.UserThemeTestId,
@@ -166,26 +139,16 @@
                 }
             },
             prevBody: function () {
-
                 return {
                     SessionData: this.SessionData,
                     Argument: this.questionData.UserThemeTestId,
                     QuestionId: this.questionData.PreviusQuestionId,
-
                 }
             },
             per: function(){
                 return  100 - (this.questionData.QuestionNum) / this.questionData.TotalQuestions * 100 ;
 
 
-            },
-            userIMG: function () {
-                if(this.userData.PhotoUrl){
-                    return this.userData.PhotoUrl;
-                }
-                else{
-                    return '../static/img/noIMG.png';
-                }
             },
         },
         created: function() {
@@ -206,25 +169,18 @@
             }
         },
       mounted(){
-        let t = this;
-        $(document).mouseup(function (e) {
 
-          var container = $(".user_Avatar");
-          if (container.has(e.target).length === 0){
-            t.showPopupUser = false;
-          }
-        })
       },
         methods: {
+          changeLang(lang){
+            this.$emit('changeLang', lang);
+          },
           pushSelectOption(opt){
             this.$emit('pushSelectOption', opt);
           },
             langString(string){
                 return this.translate(string);
             },
-          showPopupUserOn(){
-            this.showPopupUser = true;
-          },
             getType() {
                 return this.questionData.QuestionTypeEnum;
             },
@@ -256,11 +212,6 @@
 </script>
 
 <style scoped>
-  .music_btn1{
-    width: 30px;
-    height: 27px;
-    margin-left: 10px;
-  }
   .row.sm{
     position: unset;
     top: 100px;

@@ -55,6 +55,8 @@ export default {
         this.Id = this.valueItem;
         if((typeof this.Id === "number" || typeof this.Id === "string") && parseInt(this.Id)>-1){
             this.title = this.selectOption[this.Id].title;
+        }else{
+            this.Id = 0;
         }
         this.currentAnchor = this.Id;
         var text = "";
@@ -66,19 +68,26 @@ export default {
         this.className=text;
     },
     computed: {
-
+        idClass:function () {
+            return '#'+this.className
+        },
     },
     methods:{
         updateAnchors() {
             this.anchors = [];
             let t = this;
-            $('#'+this.className+' p.option').each(function(i, element){
+            $(this.idClass+' p.option').each(function(i, element){
                 t.anchors.push( $(element).position().top );
             })
+            if(!this.anchors.length){
+                setTimeout(()=>{this.updateAnchors()},3)
+            }
         },
         changeVal: function () {
-            this.title = this.selectOption[this.currentAnchor].title;
-            this.$emit('changeValSelect', this.Id);
+            if(this.Id!=-1 && this.Id!=='' && this.Id!==null && (typeof this.Id =='number' || typeof this.Id =='string' )) {
+                this.title = this.selectOption[this.Id].title;
+                this.$emit('changeValSelect', this.Id);
+            }
         },
         changeSelectColor(w){
             if(w==-1 && this.currentAnchor>0){
@@ -103,6 +112,27 @@ export default {
                 t.showLoadSelect = false;
             }, 1500);
         },
+        fun(){
+            let t = this;
+            if ($(t.idClass + ' .active').length > 0) {
+                t.currentAnchor = $(t.idClass + ' .active').index();
+                t.Id = t.currentAnchor;
+                t.changeVal();
+                $(t.idClass + ' .select').scrollTop(t.anchors[t.currentAnchor] - (150 - $(t.idClass + ' .option')[t.currentAnchor].offsetHeight) / 2);
+            } else {
+                t.Id = 0;
+                t.currentAnchor = 0;
+                t.changeVal();
+                $(t.idClass + ' .select').scrollTop(0);
+            }
+            let o = $($(t.idClass + ' .option')[t.currentAnchor]);
+            $(t.idClass + ' .colorActive').css({'height': o.height(), 'top': (150 - o.height()) / 2});
+            $(t.idClass + ' .nocolorActive:first').css({'height': (150 - o.height()) / 2});
+            $(t.idClass + ' .nocolorActive:last-child').css({
+                'top': (150 - o.height()) / 2 + o.height(),
+                'height': (150 - o.height()) / 2
+            });
+        },
         setShowSelectId(event){
             this.isAnimating=false;
             if(event.target.className == "selectBlock") {
@@ -110,21 +140,12 @@ export default {
                 let t = this;
                 setTimeout(function () {
                     t.updateAnchors();
-                    if($('#'+t.className+' .active').length>0) {
-                        t.currentAnchor =$('#'+t.className+' .active').index();
-                        t.Id = t.currentAnchor;
-                        t.changeVal();
-                        $('#'+t.className+' .select').scrollTop(t.anchors[t.currentAnchor]-(150-$('#'+t.className+' .option')[t.currentAnchor].offsetHeight)/2);
-                    }else{
-                        t.Id = 0;
-                        t.currentAnchor =0;
-                        t.changeVal();
-                        $('#'+t.className+' .select').scrollTop(0);
+                    if(t.anchors.length) {
+                        t.fun();
+                    }else {
+                        setTimeout(()=>{t.updateAnchors();
+                        t.fun()},3)
                     }
-                    let o = $($('#'+t.className+' .option')[t.currentAnchor]);
-                    $('#'+t.className+' .colorActive').css({'height':o.height(), 'top':(150-o.height())/2});
-                    $('#'+t.className+' .nocolorActive:first').css({'height':(150-o.height())/2});
-                    $('#'+t.className+' .nocolorActive:last-child').css({'top':(150-o.height())/2 + o.height(), 'height':(150-o.height())/2});
                 },10);
             }
         },
@@ -147,11 +168,11 @@ export default {
                         t.currentAnchor = 0;
                     }
                     t.isAnimating = true;
-                    let o = $($('#'+t.className+' .option')[t.currentAnchor]);
-                    $('#'+t.className+' .colorActive').css({'height':o.height(), 'top':(150-o.height())/2});
-                    $('#'+t.className+' .nocolorActive:first').css({'height':(150-o.height())/2});
-                    $('#'+t.className+' .nocolorActive:last-child').css({'top':(150-o.height())/2 + o.height(), 'height':(150-o.height())/2});
-                    $('#'+t.className+' .select').animate({
+                    let o = $($(t.idClass+' .option')[t.currentAnchor]);
+                    $(t.idClass+' .colorActive').css({'height':o.height(), 'top':(150-o.height())/2});
+                    $(t.idClass+' .nocolorActive:first').css({'height':(150-o.height())/2});
+                    $(t.idClass+' .nocolorActive:last-child').css({'top':(150-o.height())/2 + o.height(), 'height':(150-o.height())/2});
+                    $(t.idClass+' .select').animate({
                         scrollTop: parseInt( t.anchors[t.currentAnchor]-(150-o.height())/2 )//55
                     }, 200, 'swing', function(){
                         t.isAnimating  = false;
@@ -172,11 +193,11 @@ export default {
                     }*/
                     t.isAnimating = true;
                     t.isAnimating = true;
-                    let o = $($('#'+t.className+' .option')[t.currentAnchor]);
-                    $('#'+t.className+' .colorActive').css({'height':o.height(), 'top':(150-o.height())/2});
-                    $('#'+t.className+' .nocolorActive:first').css({'height':(150-o.height())/2});
-                    $('#'+t.className+' .nocolorActive:last-child').css({'top':(150-o.height())/2 + o.height(), 'height':(150-o.height())/2});
-                    $('#'+t.className+' .select').animate({
+                    let o = $($(t.idClass+' .option')[t.currentAnchor]);
+                    $(t.idClass+' .colorActive').css({'height':o.height(), 'top':(150-o.height())/2});
+                    $(t.idClass+' .nocolorActive:first').css({'height':(150-o.height())/2});
+                    $(t.idClass+' .nocolorActive:last-child').css({'top':(150-o.height())/2 + o.height(), 'height':(150-o.height())/2});
+                    $(t.idClass+' .select').animate({
                         scrollTop: parseInt( t.anchors[t.currentAnchor]-(150-o.height())/2 )//55
                     }, 200, 'swing', function(){
                         t.isAnimating  = false;
@@ -193,26 +214,26 @@ export default {
         this.timer = setInterval(function(){
             if( t.$refs.selectBlock.offsetHeight != t.elHeight ) {
                 t.elHeight = t.$refs.selectBlock.offsetHeight;
-                $('#'+t.className+' .check').css({'top': (t.elHeight - 13)/2})
+                $(t.idClass+' .check').css({'top': (t.elHeight - 13)/2})
             };
         },200);
         t.touchstartY = 0;
         t.touchendY = 0;
-        $(document).on('touchstart', '#'+t.className+' .selectBlockNeed, .colorActive', function(event) {
-            if ($(event.target).parents('#' + t.className).length) {
+        $(document).on('touchstart', t.idClass+' .selectBlockNeed, .colorActive', function(event) {
+            if ($(event.target).parents(t.idClass).length) {
                 t.isAnimating = false;
                 t.touchstartY = event.originalEvent.touches[0].screenY;
             }
         });
 
-        $(document).on('touchend', '#'+t.className+' .selectBlockNeed, .colorActive', function(event) {
-            if ($(event.target).parents('#' + t.className).length) {
+        $(document).on('touchend', t.idClass+' .selectBlockNeed, .colorActive', function(event) {
+            if ($(event.target).parents(t.idClass).length) {
                 t.touchendY = event.originalEvent.changedTouches[0].screenY;
                 t.handleGesure();
             }
         });
-        $(document).on('touchmove', '#'+t.className+' .selectBlockNeed, .colorActive', function(event) {
-            if ($(event.target).parents('#' + t.className).length) {
+        $(document).on('touchmove', t.idClass+' .selectBlockNeed, .colorActive', function(event) {
+            if ($(event.target).parents(t.idClass).length) {
                 if ((Math.abs(event.originalEvent.changedTouches[0].screenY - t.touchstartY) > 40)) {
                     t.touchendY = event.originalEvent.changedTouches[0].screenY;
                     t.handleGesure('1');
@@ -221,10 +242,10 @@ export default {
             }
         });
 
-        $('body').on('mousewheel', '#'+t.className+' .selectBlockNeed, .colorActive', function(event) {
+        $('body').on('mousewheel', t.idClass+' .selectBlockNeed, .colorActive', function(event) {
             event.preventDefault();
             event.stopPropagation();
-            if ($(event.target).parents('#' + t.className).length) {
+            if ($(event.target).parents(t.idClass).length) {
                 if (t.isAnimating) {
                     return false;
                 }
@@ -246,11 +267,11 @@ export default {
                 t.isAnimating = true;
 
                 t.isAnimating = true;
-                let o = $($('#'+t.className+' .option')[t.currentAnchor]);
-                $('#'+t.className+' .colorActive').css({'height':o.height(), 'top':(150-o.height())/2});
-                $('#'+t.className+' .nocolorActive:first').css({'height':(150-o.height())/2});
-                $('#'+t.className+' .nocolorActive:last-child').css({'top':(150-o.height())/2 + o.height(), 'height':(150-o.height())/2});
-                $('#' + t.className + ' .select').animate({
+                let o = $($(t.idClass+' .option')[t.currentAnchor]);
+                $(t.idClass+' .colorActive').css({'height':o.height(), 'top':(150-o.height())/2});
+                $(t.idClass+' .nocolorActive:first').css({'height':(150-o.height())/2});
+                $(t.idClass+' .nocolorActive:last-child').css({'top':(150-o.height())/2 + o.height(), 'height':(150-o.height())/2});
+                $(t.idClass+ ' .select').animate({
                     scrollTop: parseInt(t.anchors[t.currentAnchor] - (150 - o.height()) / 2)//55
                 }, 200, 'swing', function () {
                     t.isAnimating = false;

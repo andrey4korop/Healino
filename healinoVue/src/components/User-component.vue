@@ -1,5 +1,5 @@
 <template>
-<div class="prostoTask">
+<div class="prostoTask usercomasdfgh">
   <div class="container firstPageContainer">
     <div class="row">
       <div class="avatar"><label>
@@ -737,6 +737,14 @@
     .login label option,
     .login label select{
       height: auto!important;
+    }
+    .usercomasdfgh .container{
+      transform: none!important;
+    }
+  }
+  @supports (display:-ms-grid) {
+    .usercomasdfgh .container{
+      transform: none!important;
     }
   }
   @media screen and (max-height: 500px) and (orientation: portrait) {

@@ -80,6 +80,7 @@
                      @changeActiveTheme="changeActiveTheme"
                      @toQuestion="toQuestion"
                      @onToUser="ToUser"
+                     @toStart="toStart"
                      @chAc="chAc"></theme-component>
     <question-component v-if="state == 'question'"
                         :questionData="questionData"
@@ -99,6 +100,7 @@
                         @setErrorQuestion="setErrorQuestion"
                         @pushSelectOption="pushSelectOption"
                         @onToUser="ToUser"
+                        @toStart="toStart"
                         @clearnError="clearnError"></question-component>
 
     <rezult-component v-else-if="state == 'rezult'"
@@ -108,21 +110,23 @@
                       :userData="userData"
                       :themeActiveObj="themeActiveObj"
                       @toTheme="toTheme"
+                      @toStart="toStart"
                       :rezultData="rezultData"></rezult-component>
     <rezultPublic-component v-else-if="state == 'rezultPublic'"
                             @audio="audio"
                             @exit="exit"
                             @toTheme="toTheme"
+                            @toStart="toStart"
                             :audio_p="audio_p"
                       :rezultData="rezultData"></rezultPublic-component>
       <pay-component v-else-if="state == 'pay'"
                               @audio="audio"
                               @exit="exit"
                               :audio_p="audio_p"
-                                :lang="lang"
+                              :lang="lang"
                               @onToUser="ToUser"
+                              @toStart="$emit('toStart')"
                               @changeLang="changeLang"></pay-component>
-
   </div>
 </template>
 
@@ -220,6 +224,9 @@ export default {
         },
     },
     methods:{
+      toStart(){
+        this.state="start";
+      },
         audio:function () {
           let a = $('audio')[0];
           if(a.paused){
@@ -443,6 +450,7 @@ export default {
   created: function() {
       let t = this;
       setTimeout(function () {
+        $('body').on('touchstart', function (){})
           let a = $('audio')[0];
           try {
               a.play();

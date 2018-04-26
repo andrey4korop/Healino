@@ -128,7 +128,7 @@
         this.finger.transformY = this.$refs.list.getAttribute('scroll')
         this.finger.lastY = event.wheelDelta/3
         this.finger.lastTime = event.timestamp || Date.now()
-        let move = event.wheelDelta/10
+        let move = event.wheelDelta/12
         let time = 100
         let v = move / time
         let a = 1.8

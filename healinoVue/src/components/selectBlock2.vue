@@ -115,9 +115,7 @@ export default {
     label{
         z-index: 100;
         -webkit-user-select: none;
-        /* user-select -- это нестандартное свойство */
         -moz-user-select: none;
-        /* поэтому нужны префиксы */
         -ms-user-select: none;
     }
     .selectBlock {

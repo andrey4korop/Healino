@@ -9,19 +9,6 @@
                    @changeValSelect="changeValSelect"
                    @pushSelectOption="pushSelectOption"
       ></selectBlock>
-      <!--<label>
-
-      <input type="number"
-             v-model="AnswerValue"
-             v-on:input="changeVal"
-             v-on:change="changeInput">
-      <span class="check"  v-bind:class="(showLoadInput) ? 'loading': ''" v-if="showCheckInput && !errorQuest">
-          <i class="fa fa-check" aria-hidden="true"></i>
-        </span>
-      <span class="check" v-bind:class="(errorQuest) ? 'error' : ''" v-if="errorQuest">
-            <i class="fa fa-times" aria-hidden="true"></i>
-          </span>
-    </label>-->
       <selectBlock
                    :valueItem="selectId2"
                    :selectOption="valForSelect2"
@@ -54,7 +41,6 @@ export default {
       return this.showSelectId && this.questionData.QuestionTypeEnum != 2
     },
     newVal: function () {
-
       return {
         AnswersId: this.AnswersId,
         AnswerValue: this.AnswerValue,
@@ -70,7 +56,7 @@ export default {
     valForSelect2:function () {
       let r =[];
       for (var val = this.questionData.MinValue, i=0 ; val<=this.questionData.MaxValue ; val+=this.questionData.ValueStep, i++) {
-        r.push({key: Math.round(val*100)/100, title: Math.round(val*100)/100, Id: i});
+        r.push({key: i, title: Math.round(val*100)/100, Id:  Math.round(val*100)/100});
       }
       return r;
     }
@@ -102,8 +88,8 @@ export default {
       this.changeVal();
     },
     changeValSelect2(k){
-        this.AnswerValue = this.valForSelect2[k].key;
-        this.selectId2 = 0;
+        this.AnswerValue = this.valForSelect2[k].Id;
+        this.selectId2 = k;
       this.changeVal();
     },
     setValueId(id, AnswersId, AnswerText, event){
@@ -133,7 +119,7 @@ export default {
           this.AnswerValue = this.valForSelect2[this.valForSelect2.length-1];
         }else {
           for (var opt in this.valForSelect2) {
-            if (this.questionData.AnsValue <= this.valForSelect2[opt].key) {
+            if (this.questionData.AnsValue <= this.valForSelect2[opt].Id) {
               console.log('yes');
               this.AnswerValue = this.valForSelect2[opt];
               this.selectId2 = opt;

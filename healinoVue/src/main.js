@@ -24,6 +24,8 @@ import payComponent  from './components/Pay-component.vue'
  * загрущка малых компонентов
  * индикаторов
  */
+import header  from './components/headerComponent.vue'
+import rezultComponentMini  from './components/Rezult-component-mini.vue'
 import indicatorBF  from './components/indicatorBF.vue'
 import indicatorLMP  from './components/indicatorLMP.vue'
 import indicatorWHR  from './components/indicatorWHR.vue'
@@ -79,10 +81,12 @@ Vue.component('user-component', userComponent);
 Vue.component('theme-component', themeComponent);
 Vue.component('question-component', questionComponent);
 Vue.component('pay-component', payComponent);
+Vue.component('rezultComponentMini', rezultComponentMini);
 /**
  * загрущка малых компонентов
  * индикаторов
  */
+Vue.component('headerComponent', header);
 Vue.component('indicator1', indicator1);
 Vue.component('indicatorBF', indicatorBF);
 Vue.component('indicatorLMP', indicatorLMP);
