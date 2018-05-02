@@ -9,6 +9,11 @@
     <ul class="pd-select-wheel" ref="wheel">
       <li class="pd-select-wheel-item" :class="{'hidden':setHidden(el.index)}" :style="setWheelItemDeg(el.index)" :index="el.index" v-for="el,index in renderData " :key="index">{{el.value}}</li>
     </ul>
+    <div class="nocolorActive" v-on:click="changeSelectColor(-2)"></div>
+    <div class="nocolorActive" v-on:click="changeSelectColor(-1)"></div>
+    <div class="nocolorActive" v-on:click="changeSelectColor(0)"></div>
+    <div class="nocolorActive" v-on:click="changeSelectColor(1)"></div>
+    <div class="nocolorActive" v-on:click="changeSelectColor(2)"></div>
   </div>
 </template>
 <script>
@@ -74,6 +79,23 @@
       }
     },
     methods: {
+      changeSelectColor(w){
+        let ret = this.value;
+        if(w==-2 && ret>1){
+          ret-=2;
+        }else if((w==-1 && ret>0)||(w==-2 && ret==1)){
+          ret--;
+        }else if(w==1 && ret<this.listData.length-1){
+          ret++;
+        }else if(w==2 && ret<this.listData.length-2){
+          ret+=2;
+        }else if(w==2 && ret<this.listData.length-1){
+          ret++;
+        }
+        this.$emit('input', ret);
+        this.$emit('close');
+        this.showSelectId = false;
+      },
       setHidden (index) {
         if (this.type === 'line') {
           return index < 0 || index > this.listData.length - 1
@@ -275,6 +297,28 @@
           color: $color-text-second;
         }
       }
+    }
+  }
+  .nocolorActive{
+    position: absolute;
+    top:0;
+    width: 100%;
+    height: 25px;
+    z-index: 100;
+    &:nth-child(5){
+      top: 26px;
+      height: 34px;
+    }
+    &:nth-child(6){
+      top: 60px;
+      height: 34px;
+    }
+    &:nth-child(7){
+      top: 94px;
+      height: 34px;
+    }
+    &:nth-child(8){
+      top: 125px;
     }
   }
 </style>

@@ -74,11 +74,11 @@
               touchendX:0,
               doPrevTouch:true,
              /*questionData:{"PreviusQuestionId":7,"QuestionId":8,"QuestionNum":2,"TotalQuestions":23,"QuestionTypeEnum":2,"UserThemeTestId":89,
-                "IsAnswered":true,"AnsValue":5,"QText":"У Вас высокий уровень толерантности?\r\n","ImageUrl":null,
+                "IsAnswered":true,"AnsValue":10,"QText":"У Вас высокий уровень толерантности?\r\n","ImageUrl":null,
                 "QuestionsProgress":22.0,
                "MinValue": 1,
                "MaxValue": 10,
-               "ValueStep": 0.5,
+               "ValueStep": 2,
                 "AnswerOptions":[
                         {"Id":29,"ParrentId":null,"AnswerText":"Да","ImageUrl":null,"IsUserAnswered":false,"Children":null},
                         {"Id":30,"ParrentId":null,"AnswerText":"Нет","ImageUrl":null,"IsUserAnswered":false,"Children":null},
@@ -175,7 +175,6 @@
       mounted(){
         let t = this;
         $(document).on('touchstart', '.ques', function(event) {
-          console.log(event);
           if ($(event.target).parents('.ques').length &&
                   !($(event.target).parents('.selectBlock').length ||
                   $(event.target).parents('.selectBlockNeed').length ||

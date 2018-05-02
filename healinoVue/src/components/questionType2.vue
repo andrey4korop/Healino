@@ -10,13 +10,25 @@
                    @changeValSelect="changeValSelect"
                    @pushSelectOption="pushSelectOption"
       ></selectBlock>
-      <selectBlock
+      <selectBlock v-if="questionData.ValueStep"
                    :valueItem="selectId2"
                    :selectOption="valForSelect2"
                    :errorQuest="errorQuest"
                    :selectedBlock="selectedBlock"
                    @changeValSelect="changeValSelect2"
       ></selectBlock>
+      <label  v-if="questionData.ValueStep==0">
+        <input type="number"
+               v-model="AnswerValue"
+               v-on:input="changeVal"
+               v-on:change="changeInput">
+        <span class="check"  v-bind:class="(showLoadInput) ? 'loading': ''" v-if="showCheckInput && !errorQuest">
+          <i class="fa fa-check" aria-hidden="true"></i>
+        </span>
+        <span class="check" v-bind:class="(errorQuest) ? 'error' : ''" v-if="errorQuest">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </span>
+      </label>
     </div>
   </div>
 </template>
@@ -59,8 +71,10 @@ export default {
     },
     valForSelect2:function () {
       let r =[];
-      for (var val = this.questionData.MinValue, i=0 ; val<=this.questionData.MaxValue ; val+=this.questionData.ValueStep, i++) {
-        r.push({key: i, title: Math.round(val*100)/100, Id:  Math.round(val*100)/100});
+      if(this.questionData.ValueStep){
+        for (var val = this.questionData.MinValue, i = 0; val <= this.questionData.MaxValue; val += this.questionData.ValueStep, i++) {
+          r.push({key: i, title: Math.round(val * 100) / 100, Id: Math.round(val * 100) / 100});
+        }
       }
       return r;
     }
@@ -118,20 +132,24 @@ export default {
   created: function () {
     if (this.questionData.IsAnswered) {
       if (this.questionData.AnsValue) {
-        if(this.questionData.AnsValue > this.questionData.MaxValue){
-          this.selectId2 = this.valForSelect2.length-1;
-          this.AnswerValue = this.valForSelect2[this.valForSelect2.length-1];
-        }else {
-          for (var opt in this.valForSelect2) {
-            if (this.questionData.AnsValue <= this.valForSelect2[opt].Id) {
-              console.log('yes');
-              this.AnswerValue = this.valForSelect2[opt].Id;
-              this.selectId2 = opt;
-              break;
+        if(this.questionData.ValueStep) {
+          if (this.questionData.AnsValue > this.questionData.MaxValue) {
+            this.selectId2 = this.valForSelect2.length - 1;
+            this.AnswerValue = this.valForSelect2[this.valForSelect2.length - 1];
+          } else {
+            for (var opt in this.valForSelect2) {
+              if (this.questionData.AnsValue <= this.valForSelect2[opt].Id) {
+                this.AnswerValue = this.valForSelect2[opt].Id;
+                this.selectId2 = opt;
+                break;
+              }
             }
           }
+          this.changeInput();
+        }else{
+          this.AnswerValue = this.questionData.AnsValue;
+          this.changeInput();
         }
-        this.changeInput();
       }
       if (this.questionData.AnswerOptions.length > 0) {
         for (var opt in this.questionData.AnswerOptions) {

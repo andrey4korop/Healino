@@ -205,7 +205,7 @@
 
   </div>
   <div class="back_btn" v-on:click="back">
-    BTN_back
+    <i class="fa fa-chevron-circle-left"></i>
   </div>
 </div>
 
@@ -364,24 +364,38 @@
 
         },
         created: function() {
-            this.img = this.userData.PhotoUrl || '../static/img/noIMG.png';
+            this.img = this.photoImg || '../static/img/noIMG.png';
             this.gender = "body"+this.rezultData.BMIScale[0].Gender+".png";
         },
       watch:{
         showDescription:function (old, newVal) {
+          let t = this;
           if(old==5){
             this.descriptRACVD=10;
           }else if(old==4){
             this.descriptAge=10;
           }else{
-            setTimeout(()=>{
-              this.descriptRACVD=-10;
-              this.descriptAge=-10;
+            setTimeout(function(){
+              t.descriptRACVD=-10;
+              t.descriptAge=-10;
             },600);
           }
         }
       },
         mounted() {
+
+          let t = this;
+          $(document).on('touchstart', '.containerMob, .container', function(event) {
+              t.touchstartX = event.originalEvent.touches[0].screenX;
+          });
+          $(document).on('touchend', '.containerMob, .container', function(event) {
+              t.touchendX = event.originalEvent.changedTouches[0].screenX;
+              if((Math.abs(t.touchendX-t.touchstartX)>70)){
+                if (t.touchendX > t.touchstartX) {
+                  t.back();
+                }
+              }
+          });
             this.$nextTick(function() {
                 window.addEventListener('resize', this.getWindowWidth);
                 window.addEventListener('resize', this.getWindowHeight);
@@ -392,6 +406,8 @@
         },
         beforeDestroy() {
             window.removeEventListener('resize', this.getWindowWidth);
+          $(document).unbind('touchstart');
+          $(document).unbind('touchend');
         },
         methods:{
           back(){

@@ -450,7 +450,7 @@ export default {
   created: function() {
       let t = this;
       setTimeout(function () {
-        $('body').on('touchstart', function (){})
+        $('body').on('touchstart', function (){});
           let a = $('audio')[0];
           try {
               a.play();

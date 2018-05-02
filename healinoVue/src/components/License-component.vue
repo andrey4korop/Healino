@@ -625,7 +625,6 @@
       mounted(){
           let t = this;
         $(document).on('touchstart', '.text', function(event) {
-          console.log(event);
           if ($(event.target).parents('.text').length) {
             t.touchstartX = event.originalEvent.touches[0].screenX;
           }

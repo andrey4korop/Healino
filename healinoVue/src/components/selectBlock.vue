@@ -84,7 +84,9 @@ export default {
                 t.anchors.push( $(element).position().top );
             })
             if(!this.anchors.length){
-                setTimeout(()=>{this.updateAnchors()},3)
+                setTimeout(function(){
+                    t.updateAnchors()
+                },3)
             }
         },
         changeVal: function () {
@@ -148,8 +150,10 @@ export default {
                     if(t.anchors.length) {
                         t.fun();
                     }else {
-                        setTimeout(()=>{t.updateAnchors();
-                        t.fun()},3)
+                        setTimeout(function(){
+                            t.updateAnchors();
+                            t.fun();
+                        },3)
                     }
                 },10);
             }

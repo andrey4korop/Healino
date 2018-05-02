@@ -2,337 +2,41 @@
 <div class="background">
 
   <div class="bgMain"
-       v-bind:style="{ marginLeft: 'calc(-'+bgpersent +'vw)', width:widthBgImg*7 +'px', top: translate }">
-   <img src="/static/img/bg40.jpg" v-bind:style="{width:widthBgImg + 'px'}">
-   <img src="/static/img/bg41.jpg" v-bind:style="{width:widthBgImg + 'px'}">
-   <img src="/static/img/bg42.jpg" v-bind:style="{width:widthBgImg + 'px'}">
-   <img src="/static/img/bg43.jpg" v-bind:style="{width:widthBgImg + 'px'}">
-   <img src="/static/img/bg44.jpg" v-bind:style="{width:widthBgImg + 'px'}">
-   <img src="/static/img/bg45.jpg" v-bind:style="{width:widthBgImg + 'px'}">
-   <img src="/static/img/bg46.jpg" v-bind:style="{width:widthBgImg + 'px'}">
+       v-bind:style="{ marginLeft: 'calc(-'+bgpersent +'vw)', width:widthBgImg*countNeedBg +'px' }">
+       <img v-for="i in bgArray" v-bind:src="'/static/img/bg4'+i+'.jpg'" v-bind:style="{width:widthBgImg + 'px'}">
+
+       <!--<img src="/static/img/bg41.jpg" v-bind:style="{width:widthBgImg + 'px'}">
+       <img src="/static/img/bg42.jpg" v-bind:style="{width:widthBgImg + 'px'}">
+       <img src="/static/img/bg43.jpg" v-bind:style="{width:widthBgImg + 'px'}">
+       <img src="/static/img/bg44.jpg" v-bind:style="{width:widthBgImg + 'px'}">
+       <img src="/static/img/bg45.jpg" v-bind:style="{width:widthBgImg + 'px'}">
+       <img src="/static/img/bg46.jpg" v-bind:style="{width:widthBgImg + 'px'}">-->
   </div>
   <bg class="big"
+      v-for="(item, index) in bEl"
+      :key="index"
       :urlImg="'/static/img/symbols/bSymbols/10Lg.png'"
-      :posBG="{x:-20,y:-30}"
-      :posMouse="posMouseB"
-      :Kof="{x:-0.025,y:-0.025}"
+      :posBG="{x:item.left,y:item.top}"
+      :posMouse="posMouse"
+      :Kof="{x:0.025,y:0.025}"
       :bgCurrent="bg"
       :random="random"></bg>
- <bg class="big"
-     :urlImg="'/static/img/symbols/bSymbols/11Lg.png'"
-     :posBG="{x:60,y:45}"
-     :posMouse="posMouseB"
-     :Kof="{x:-0.025,y:-0.025}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="big"
-     :urlImg="'/static/img/symbols/bSymbols/9Lg.png'"
-     :posBG="{x:130,y:60}"
-     :posMouse="posMouseB"
-     :Kof="{x:-0.025,y:-0.025}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="big"
-     :urlImg="'/static/img/symbols/bSymbols/7Lg.png'"
-     :posBG="{x:230,y:-10}"
-     :posMouse="posMouseB"
-     :Kof="{x:-0.025,y:-0.025}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="big"
-     :urlImg="'/static/img/symbols/bSymbols/8Lg.png'"
-     :posBG="{x:290,y:-12}"
-     :posMouse="posMouseB"
-     :Kof="{x:-0.025,y:-0.025}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="big"
-     :urlImg="'/static/img/symbols/bSymbols/6Lg.png'"
-     :posBG="{x:300,y:65}"
-     :posMouse="posMouseB"
-     :Kof="{x:-0.025,y:-0.025}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="big"
-     :urlImg="'/static/img/symbols/bSymbols/5Lg.png'"
-     :posBG="{x:400,y:58}"
-     :posMouse="posMouseB"
-     :Kof="{x:-0.025,y:-0.025}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="big"
-     :urlImg="'/static/img/symbols/bSymbols/4Lg.png'"
-     :posBG="{x:470,y:30}"
-     :posMouse="posMouseB"
-     :Kof="{x:-0.025,y:-0.025}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="big"
-     :urlImg="'/static/img/symbols/bSymbols/2Lg.png'"
-     :posBG="{x:540,y:43}"
-     :posMouse="posMouseB"
-     :Kof="{x:-0.025,y:-0.025}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="big"
-     :urlImg="'/static/img/symbols/bSymbols/3Lg.png'"
-     :posBG="{x:550,y:-22}"
-     :posMouse="posMouseB"
-     :Kof="{x:-0.025,y:-0.025}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="big"
-     :urlImg="'/static/img/symbols/bSymbols/8Lg.png'"
-     :posBG="{x:590,y:60}"
-     :posMouse="posMouseB"
-     :Kof="{x:-0.025,y:-0.025}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="big"
-     :urlImg="'/static/img/symbols/bSymbols/1Lg.png'"
-     :posBG="{x:620,y:-9}"
-     :posMouse="posMouseB"
-     :Kof="{x:-0.025,y:-0.025}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="big"
-     :urlImg="'/static/img/symbols/bSymbols/12Lg.png'"
-     :posBG="{x:650,y:51}"
-     :posMouse="posMouseB"
-     :Kof="{x:-0.025,y:-0.025}"
-     :bgCurrent="bg"
-     :random="random"></bg>
-
  <bg class="medium"
+     v-for="(item, index) in mEl"
+     :key="index+100"
      :urlImg="'/static/img/symbols/mSymbols/7M.png'"
-     :posBG="{x:65,y:-10}"
-     :posMouse="posMouseM"
+     :posBG="{x:item.left,y:item.top}"
+     :posMouse="posMouse"
      :Kof="{x:0.015,y:0.015}"
      :bgCurrent="bg"
      :random="random"></bg>
- <bg class="medium"
-     :urlImg="'/static/img/symbols/mSymbols/6M.png'"
-     :posBG="{x:10,y:60}"
-     :posMouse="posMouseM"
-     :Kof="{x:0.015,y:0.015}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="medium"
-     :urlImg="'/static/img/symbols/mSymbols/4M.png'"
-     :posBG="{x:100,y:50}"
-     :posMouse="posMouseM"
-     :Kof="{x:0.015,y:0.015}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="medium"
-     :urlImg="'/static/img/symbols/mSymbols/5M.png'"
-     :posBG="{x:150,y:-5}"
-     :posMouse="posMouseM"
-     :Kof="{x:0.015,y:0.015}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="medium"
-     :urlImg="'/static/img/symbols/mSymbols/3M.png'"
-     :posBG="{x:180,y:60}"
-     :posMouse="posMouseM"
-     :Kof="{x:0.015,y:0.015}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="medium"
-     :urlImg="'/static/img/symbols/mSymbols/2M.png'"
-     :posBG="{x:230,y:30}"
-     :posMouse="posMouseM"
-     :Kof="{x:0.015,y:0.015}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="medium"
-     :urlImg="'/static/img/symbols/mSymbols/1M.png'"
-     :posBG="{x:270,y:0}"
-     :posMouse="posMouseM"
-     :Kof="{x:0.015,y:0.015}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="medium"
-     :urlImg="'/static/img/symbols/mSymbols/8M.png'"
-     :posBG="{x:350,y:62}"
-     :posMouse="posMouseM"
-     :Kof="{x:0.015,y:0.015}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="medium"
-     :urlImg="'/static/img/symbols/mSymbols/3M.png'"
-     :posBG="{x:420,y:2}"
-     :posMouse="posMouseM"
-     :Kof="{x:0.015,y:0.015}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="medium"
-     :urlImg="'/static/img/symbols/mSymbols/6M.png'"
-     :posBG="{x:490,y:20}"
-     :posMouse="posMouseM"
-     :Kof="{x:0.015,y:0.015}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="medium"
-     :urlImg="'/static/img/symbols/mSymbols/4M.png'"
-     :posBG="{x:537,y:60}"
-     :posMouse="posMouseM"
-     :Kof="{x:0.015,y:0.015}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="medium"
-     :urlImg="'/static/img/symbols/mSymbols/1M.png'"
-     :posBG="{x:604,y:-3}"
-     :posMouse="posMouseM"
-     :Kof="{x:0.015,y:0.015}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="medium"
-     :urlImg="'/static/img/symbols/mSymbols/8M.png'"
-     :posBG="{x:643,y:34}"
-     :posMouse="posMouseM"
-     :Kof="{x:0.015,y:0.015}"
-     :bgCurrent="bg"
-     :random="random"></bg>
-
  <bg class="small"
+     v-for="(item, index) in sEl"
+     :key="index+1000"
      :urlImg="'/static/img/symbols/lSymbols/17L.png'"
-     :posBG="{x:0,y:50}"
-     :posMouse="posMouseS"
-     :Kof="{x:-0.012,y:-0.012}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="small"
-     :urlImg="'/static/img/symbols/lSymbols/14L.png'"
-     :posBG="{x:15,y:15}"
-     :posMouse="posMouseS"
-     :Kof="{x:-0.012,y:-0.012}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="small"
-     :urlImg="'/static/img/symbols/lSymbols/15L.png'"
-     :posBG="{x:60,y:20}"
-     :posMouse="posMouseS"
-     :Kof="{x:-0.012,y:-0.012}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="small"
-     :urlImg="'/static/img/symbols/lSymbols/16L.png'"
-     :posBG="{x:45,y:-5}"
-     :posMouse="posMouseS"
-     :Kof="{x:-0.012,y:-0.012}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="small"
-     :urlImg="'/static/img/symbols/lSymbols/6L.png'"
-     :posBG="{x:100,y:50}"
-     :posMouse="posMouseS"
-     :Kof="{x:-0.012,y:-0.012}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="small"
-     :urlImg="'/static/img/symbols/lSymbols/12L.png'"
-     :posBG="{x:125,y:1}"
-     :posMouse="posMouseS"
-     :Kof="{x:-0.012,y:-0.012}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="small"
-     :urlImg="'/static/img/symbols/lSymbols/11L.png'"
-     :posBG="{x:173,y:2}"
-     :posMouse="posMouseS"
-     :Kof="{x:-0.012,y:-0.012}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="small"
-     :urlImg="'/static/img/symbols/lSymbols/9L.png'"
-     :posBG="{x:164,y:80}"
-     :posMouse="posMouseS"
-     :Kof="{x:-0.012,y:-0.012}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="small"
-     :urlImg="'/static/img/symbols/lSymbols/8L.png'"
-     :posBG="{x:218,y:16}"
-     :posMouse="posMouseS"
-     :Kof="{x:-0.012,y:-0.012}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="small"
-     :urlImg="'/static/img/symbols/lSymbols/5L.png'"
-     :posBG="{x:261,y:47}"
-     :posMouse="posMouseS"
-     :Kof="{x:-0.012,y:-0.012}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="small"
-     :urlImg="'/static/img/symbols/lSymbols/16L.png'"
-     :posBG="{x:301,y:76}"
-     :posMouse="posMouseS"
-     :Kof="{x:-0.012,y:-0.012}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="small"
-     :urlImg="'/static/img/symbols/lSymbols/13L.png'"
-     :posBG="{x:349,y:3}"
-     :posMouse="posMouseS"
-     :Kof="{x:-0.012,y:-0.012}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="small"
-     :urlImg="'/static/img/symbols/lSymbols/3L.png'"
-     :posBG="{x:382,y:57}"
-     :posMouse="posMouseS"
-     :Kof="{x:-0.012,y:-0.012}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="small"
-     :urlImg="'/static/img/symbols/lSymbols/4L.png'"
-     :posBG="{x:431,y:15}"
-     :posMouse="posMouseS"
-     :Kof="{x:-0.012,y:-0.012}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="small"
-     :urlImg="'/static/img/symbols/lSymbols/18L.png'"
-     :posBG="{x:476,y:86}"
-     :posMouse="posMouseS"
-     :Kof="{x:-0.012,y:-0.012}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="small"
-     :urlImg="'/static/img/symbols/lSymbols/1L.png'"
-     :posBG="{x:506,y:-3}"
-     :posMouse="posMouseS"
-     :Kof="{x:-0.012,y:-0.012}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="small"
-     :urlImg="'/static/img/symbols/lSymbols/10L.png'"
-     :posBG="{x:524,y:68}"
-     :posMouse="posMouseS"
-     :Kof="{x:-0.012,y:-0.012}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="small"
-     :urlImg="'/static/img/symbols/lSymbols/7L.png'"
-     :posBG="{x:559,y:40}"
-     :posMouse="posMouseS"
-     :Kof="{x:-0.012,y:-0.012}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="small"
-     :urlImg="'/static/img/symbols/lSymbols/2L.png'"
-     :posBG="{x:587,y:4}"
-     :posMouse="posMouseS"
-     :Kof="{x:-0.012,y:-0.012}"
-     :bgCurrent="bg"
-     :random="random"></bg>
- <bg class="small"
-     :urlImg="'/static/img/symbols/lSymbols/13L.png'"
-     :posBG="{x:632,y:81}"
-     :posMouse="posMouseS"
-     :Kof="{x:-0.012,y:-0.012}"
+     :posBG="{x:item.left,y:item.top}"
+     :posMouse="posMouse"
+     :Kof="{x:0.012,y:0.012}"
      :bgCurrent="bg"
      :random="random"></bg>
 </div>
@@ -344,12 +48,14 @@ export default {
    props: ['bg'],
     data () {
         return {
-            posMouseB:{x:0, y:0},
-            posMouseM:{x:0, y:0},
-            posMouseS:{x:0, y:0},
+            posMouse:{x:0, y:0},
             posMouseTemp:{x:0, y:0},
             random:{x:0,y:true},
             heightWindow:window.screen.height,
+            bEl:[],
+            mEl:[],
+            sEl:[],
+            bgArray:[],
         }
     },
     computed: {
@@ -358,43 +64,73 @@ export default {
             //return /*6.26 +*/ 14.2856*this.bg;
             return 5 *this.bg /*+ this.posMouseTemp.x / document.body.clientWidth*0.1*/;
         },
+        countNeedBg:function () {
+            this.bgArray=[];
+            for(var i = 0; i<=this.bgpersent/100;i++ ){
+                this.bgArray.push(i%7);
+            }
+            return  this.bgArray.length;
+        },
         widthBgImg:function () {
          return 1.15 * 3420 * this.heightWindow / 1080;
         },
-     translate:function () {
-      return (this.random.y)?'0%':'-10%'
-     }
+         translate2:function () {
+            if(this.random.y){
+                return '0%';
+            }else{
+                return '-10%';
+            }
+         }
     },
     methods:{
         /* mousemove(event) {
-
            if (document.attachEvent != null) {
                this.posMouseTemp = {x: window.event.clientX, y: window.event.clientY}
            } else if (!document.attachEvent && document.addEventListener) {
                this.posMouseTemp = {x: event.clientX, y: event.clientY}
            }
-       },
+       },*/
         randomInteger(min, max) {
            var rand = min - 0.5 + Math.random() * (max - min + 1)
            rand = Math.round(rand);
            return rand;
-       },*/
+       },
     },
+ created: function() {
+     var top = -20;
+     for(var left = -20; left<300;){
+        top=(top+this.randomInteger(-20, 100))%100;
+        left+=this.randomInteger(0, 40);
+        this.bEl.push({'top':top, 'left':left});
+     }
+     for(left = -20; left<300;){
+          top=(top+this.randomInteger(-20, 100))%100;
+          left+=this.randomInteger(0, 40);
+          this.mEl.push({'top':top, 'left':left});
+     }
+     for(left = -20; left<300;){
+         top=(top+this.randomInteger(-20, 100))%100;
+         left+=this.randomInteger(0, 40);
+         this.sEl.push({'top':top, 'left':left});
+     }
+ },
  mounted(){
      let t = this;
-   $(window).on('resize',function () {
-    t.heightWindow =  window.screen.height;
-   })
-  setTimeout(function () {
-   t.random.y = !t.random.y;
-  },200)
-  setInterval( function () {
-   t.random.y = !t.random.y;
-  },8500);
- },
-  created: function() {
-
-    }
+       $(window).on('resize',function () {
+          t.heightWindow =  window.screen.height;
+       });
+      setTimeout(function () {
+          t.random.y = !t.random.y;
+      },200);
+      setInterval( function () {
+          t.random.y = !t.random.y;
+      },8500);
+     //$(document).on('mousemove', this.mousemove);
+     /*setInterval( function () {
+         t.posMouse.x = t.posMouseTemp.x;
+         t.posMouse.y = t.posMouseTemp.y;
+     },1000);*/
+     },
 }
 </script>
 
@@ -406,8 +142,8 @@ export default {
     position: fixed;
    width: max-content;
     height: 115vh;
-    transition: all 2s cubic-bezier(.76,0,.5,1);
-    transition-delay: 0s;
+    /*transition: all 2s cubic-bezier(.76,0,.5,1);*/
+    /*transition-delay: 0s;*/
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -463,31 +199,34 @@ export default {
    }
   }*/
   .big{
-   height: 640px;
-   width: 640px;
-   height: 50vw;
-   width: 50vw;
-   height: 50vmax;
-   width: 50vmax;
+   height: 400px;
+   width: 400px;
+   height: 20vw;
+   width: 20vw;
+   height: 20vmax;
+   width: 20vmax;
    transition: all 3s linear;
+   opacity: 0.7;
   }
   .medium{
-   height: 390px;
-   width: 390px;
-   height: 30vw;
-   width: 30vw;
-   height: 30vmax;
-   width: 30vmax;
-   transition: all 5s linear;
-  }
-  .small{
    height: 200px;
    width: 200px;
-   height: 15vw;
-   width: 15vw;
-   height: 15vmax;
-   width: 15vmax;
+   height: 10vw;
+   width: 10vw;
+   height: 10vmax;
+   width: 10vmax;
+   transition: all 5s linear;
+   opacity: 0.8;
+  }
+  .small{
+   height: 100px;
+   width: 100px;
+   height: 5vw;
+   width: 5vw;
+   height: 5vmax;
+   width: 5vmax;
    transition: all 8s linear;
+   opacity: 0.9;
   }
   .animaBG1{
    animation: animationBGBig 30s linear infinite normal, animationBG1 5s ease-out infinite alternate;
@@ -512,87 +251,87 @@ export default {
   }
   @keyframes animationBGBig {
    from {
-    transform: rotate(0deg) /*translateY(-40%)*/ translateX(0);
+    transform: /*rotate(0deg)*/ /*translateY(-40%)*/ translateX(0);
    }
    25%{
-    transform: rotate(-15deg) /*translateY(-25%) */translateX(25%);
+    transform:/* rotate(-15deg)*/ /*translateY(-25%) */translateX(25%);
    }
    50%{
-    transform: rotate(-40deg) /*translateY(0)*/ translateX(0);
+    transform: /*rotate(-40deg)*/ /*translateY(0)*/ translateX(0);
    }
    75%{
-    transform: rotate(-15deg) /*translateY(-25%)*/ translateX(-25%);
+    transform:/* rotate(-15deg)*/ /*translateY(-25%)*/ translateX(-25%);
    }
    to {
-    transform: rotate(0deg) /*translateY(-40%)*/ translateX(0);
+    transform:/* rotate(0deg) *//*translateY(-40%)*/ translateX(0);
    }
   }
   @keyframes animationBGMedium {
    from {
-    transform: rotate(0deg) /*translateY(-40%)*/ translateX(0);
+    transform:/* rotate(0deg) *//*translateY(-40%)*/ translateX(0);
    }
    25%{
-    transform: rotate(15deg) /*translateY(-25%)*/ translateX(25%);
+    transform: /*rotate(15deg)*/ /*translateY(-25%)*/ translateX(25%);
    }
    50%{
-    transform: rotate(40deg) /*translateY(0)*/ translateX(0);
+    transform: /*rotate(40deg)*/ /*translateY(0)*/ translateX(0);
    }
    75%{
-    transform: rotate(15deg) /*translateY(-25%)*/ translateX(-25%);
+    transform: /*rotate(15deg)*/ /*translateY(-25%)*/ translateX(-25%);
    }
    to {
-    transform: rotate(0deg) /*translateY(-40%)*/ translateX(0);
+    transform:/*rotate(0deg)*//*translateY(-40%)*/ translateX(0);
    }
   }
   @keyframes animationBGSmall {
     from {
-     transform: rotate(0deg) /*translateY(-40%)*/ translateX(0);
+     transform: /*rotate(0deg)*/ /*translateY(-40%)*/ translateX(0);
     }
     25%{
-     transform: rotate(-15deg) /*translateY(-25%)*/ translateX(-25%);
+     transform: /*rotate(-15deg)*/ /*translateY(-25%)*/ translateX(-25%);
     }
     50%{
-     transform: rotate(-40deg) /*translateY(0)*/ translateX(0);
+     transform: /*rotate(-40deg)*/ /*translateY(0)*/ translateX(0);
     }
     75%{
-     transform: rotate(-15deg) /*translateY(-25%)*/ translateX(25%);
+     transform: /*rotate(-15deg)*//*translateY(-25%)*/ translateX(25%);
     }
     to {
-     transform: rotate(0deg) /*translateY(-40%)*/ translateX(0);
+     transform:/* rotate(0deg)*/ /*translateY(-40%)*/ translateX(0);
     }
    }
   @keyframes animationBGSmall1 {
    from {
-    transform: rotate(0deg) /*translateY(40%)*/ translateX(0);
+    transform: /*rotate(0deg)*/ /*translateY(40%)*/ translateX(0);
    }
    25%{
-    transform: rotate(-15deg) /*translateY(25%)*/ translateX(25%);
+    transform: /*rotate(-15deg)*/ /*translateY(25%)*/ translateX(25%);
    }
    50%{
-    transform: rotate(-40deg) /*translateY(0)*/ translateX(0);
+    transform:/* rotate(-40deg)*/ /*translateY(0)*/ translateX(0);
    }
    75%{
-    transform: rotate(-15deg) /*translateY(25%)*/ translateX(-25%);
+    transform: /*rotate(-15deg)*/ /*translateY(25%)*/ translateX(-25%);
    }
    to {
-    transform: rotate(0deg) /*translateY(40%)*/ translateX(0);
+    transform: /*rotate(0deg)*/ /*translateY(40%)*/ translateX(0);
    }
   }
   @keyframes animationBGSmall2 {
    from {
-    transform: rotate(0deg) /*translateY(-40%)*/ translateX(0);
+    transform: /*rotate(0deg) *//*translateY(-40%)*/ translateX(0);
    }
    25%{
-    transform: rotate(15deg) /*translateY(-25%)*/ translateX(-25%);
+    transform: /*rotate(15deg)*/ /*translateY(-25%)*/ translateX(-25%);
    }
    50%{
-    transform: rotate(40deg) /*translateY(0)*/ translateX(0);
+    transform: /*rotate(40deg)*/ /*translateY(0)*/ translateX(0);
    }
    75%{
-    transform: rotate(15deg) /*translateY(-25%)*/ translateX(25%);
+    transform: /*rotate(15deg)*/ /*translateY(-25%)*/ translateX(25%);
    }
    to {
-    transform: rotate(0deg) /*translateY(-40%)*/ translateX(0);
+    transform: /*rotate(0deg) *//*translateY(-40%)*/ translateX(0);
    }
   }
 </style>

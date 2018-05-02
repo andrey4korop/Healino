@@ -13,10 +13,10 @@
         <div class="plus" v-on:click="$emit('onDescription','9')"><img src="static/img/plus.png" alt=""></div>
         <img src="static/img/cursor_1.png" alt="" class="cursor"
              v-bind:style="{ left: FMPDeg + '%' }">
-        <div class="opacity_cursor" v-bind:style="{ width: 'calc( '+FMPDegOp + '% + 1px' }">
+        <div class="opacity_cursor" v-bind:style="{ width: 'calc('+FMPDegOp + '% + 1px)' }">
          <!-- <img src="/static/img/indicator_6Cur.png" alt="">-->
         </div>
-        <div class="opacity_cursor2" v-bind:style="{ width: 'calc( '+FMPDegOp2 + '% + 1px)' }">
+        <div class="opacity_cursor2" v-bind:style="{ width: 'calc('+FMPDegOp2 + '% + 1px)' }">
           <!--<img src="/static/img/indicator_6Cur.png" alt="">-->
         </div>
         <span class="percent" v-bind:style="{ left: FMPDeg + '%' }"> {{animateVal}}kg</span>
@@ -44,8 +44,8 @@ export default {
       if(old==9){
         this.hIndex=10;
       }else{
-        setTimeout(()=>{
-          this.hIndex=-10;
+        setTimeout(function(){
+          t.hIndex=-10;
         },600);
       }
     }

@@ -457,8 +457,6 @@
                      this[index] = this.userData[index];
                      if(index == 'Birthday'){
                          this.Birthday = this.birth(this.userData.Birthday);
-                       console.log(this.userData.Birthday);
-                       console.log(this.Birthday);
                      }
                      this['obj'+index].showCheck= true;
                      this['obj'+index].showLoad= false;

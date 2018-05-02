@@ -21,7 +21,7 @@
                 <img v-bind:src="'static/img/theme_'+ list.Id +'.png'">
               <div class="filter" v-on:click="changeActive(list)">
                 <img src="/static/img/theme_finish.png" alt=""  v-if="(list.QuestionsTotal==list.QuestionsFinished)">
-                <img src="/static/img/activeTheme.png" alt="" v-if="(isActive(list.Id))" style="position: absolute; top: 0; left: 0;" class="checktheme1">
+                <img src="/static/img/activeTheme.png" alt="" v-if="(isActive(list.Id))" style="position: absolute; top: 0; left: -1px;" class="checktheme1">
                 <div v-if="(list.QuestionsTotal==list.QuestionsFinished)" class="text_rezult" v-on:click.prevent="getRezult(list)">
                   <p> <img src="/static/img/mark.png" class="mark"> {{langString('rezult')}}</p>
                 </div>
@@ -122,8 +122,6 @@
           },
           mainButton(){
             let list = this.returnActiveList();
-            console.log('list');
-            console.log(list);
             if(list.QuestionsTotal==list.QuestionsFinished){
               this.getRezult(list)
             }else{

@@ -100,11 +100,12 @@ export default {
     },
   watch:{
     showDescription:function (old, newVal) {
+      let t = this;
       if(old==1){
-        this.hIndex=10;
+        this.hIndex=15;
       }else{
-        setTimeout(()=>{
-          this.hIndex=-10;
+        setTimeout(function(){
+          t.hIndex=-10;
         },600);
       }
     }
@@ -145,7 +146,7 @@ export default {
     width: 25%;
     height: 25%;
     position: absolute;
-    top: -5%;
+    top: 0;
     right: -25%;
     border-radius: 25%;
     z-index: 1;

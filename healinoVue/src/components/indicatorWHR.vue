@@ -116,11 +116,12 @@ export default {
     },
   watch:{
     showDescription:function (old, newVal) {
+      let t = this;
       if(old==6){
         this.hIndex=10;
       }else{
-        setTimeout(()=>{
-          this.hIndex=-10;
+        setTimeout(function(){
+          t.hIndex=-10;
         },600);
       }
     }

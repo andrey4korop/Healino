@@ -8,9 +8,11 @@
         >
             {{title}}
         </div>
-        <div class="selectBlockNeed" v-if="visibleBlock"
-             v-on:click="changeSelectColor">
-                <pd-select-item :listData="opt" v-model="Id"></pd-select-item>
+        <div class="selectBlockNeed" v-if="visibleBlock">
+                <pd-select-item :listData="opt"
+                                v-model="Id"
+                                @close="close"></pd-select-item>
+
         </div>
         <span class="check"  v-bind:class="(showLoadSelect==true) ? 'loading': ''" v-if="showCheckSelect">
           <i class="fa fa-check" aria-hidden="true"></i>
@@ -96,6 +98,11 @@ export default {
                 this.$emit('changeValSelect', this.Id);
             }
         },
+        close(){
+            this.changeVal();
+            this.showSelectId = false;
+            this.changeSelect();
+        },
         changeSelect(){
             let t = this;
             this.showCheckSelect = true;
@@ -112,16 +119,11 @@ export default {
                 this.$parent.selectedBlock = this.className;
             }
         },
-        changeSelectColor(){
-            this.showSelectId = false;
-            this.changeVal();
-            this.changeSelect();
-            this.$emit('pushSelectOption', this.selectOption[this.Id].title);
-        },
+
     },
 }
 </script>
-<style scoped>
+<style lang="scss" scoped rel="stylesheet/scss">
     label{
         z-index: 100;
         -webkit-user-select: none;
@@ -190,4 +192,5 @@ export default {
         top: 13px;
         left: calc(100% + 10px);
     }
+
 </style>
