@@ -1,5 +1,5 @@
 <template>
-  <div class="indicators" v-on:click="start">
+  <div class="indicators" v-on:click="st">
     <div class="title_indicator" v-html="langString('title')"></div>
     <div class="indicator indicatorWHR">
       <div class="description" v-bind:style="{zIndex:hIndex}" v-bind:class="(showDescription==6)?'on':''">
@@ -18,8 +18,8 @@
             <p>At Risk</p>
           </div>
         </div>
-        <div class="opacity" v-bind:style="{ height: WHRPresent + '%' }"></div>
-        <div class="cursor" v-bind:style="{ top: WHRPresent + '%' }">
+        <div class="opacity" v-bind:style="{ height: deg + '%' }"></div>
+        <div class="cursor" v-bind:style="{ top: deg + '%' }">
           <img src="static/img/cursor_4.png" alt="">
           <div>
             <p class="big">{{animateVal}}</p>
@@ -35,6 +35,7 @@ export default {
     props: ['rezultData','showDescription'],
     data () {
         return {
+          deg:0,
             animateVal:0 ,
             valArray:[],
           hIndex:-10,
@@ -91,15 +92,7 @@ export default {
         maxValue:function () {
             return this.rezultData.WHRatioScale[this.rezultData.WHRatioScale.length-1].Value;
         },
-        WHRPresent:function(){
-            if(this.animateVal<this.minValue){
-                return  17;
-            }
-            if(this.animateVal>this.maxValue){
-                return  82.5;
-            }
-            return (this.animateVal - this.minValue) * 65.5 / (this.maxValue - this.minValue) + 17;
-        },
+
         getComent:function () {
             if(this.rezultData.WHRatio > this.maxValue){
                 return this.translate( 'com'+(this.rezultData.WHRatioScale.length-1));
@@ -127,6 +120,19 @@ export default {
     }
   },
     methods:{
+      st(){
+        this.start2();
+        this.start();
+      },
+      WHRPresent:function(val){
+        if(val<this.minValue){
+          return  17;
+        }
+        if(val>this.maxValue){
+          return  82.5;
+        }
+        return (val - this.minValue) * 65.5 / (this.maxValue - this.minValue) + 17;
+      },
       langString(string){
         return this.translate(string);
       },
@@ -144,18 +150,31 @@ export default {
                 .onUpdate(function () {
                     t.animateVal = Math.round(parseFloat(this.tweeningNumber)*100)/100;
                 })
-                .delay(200)
                 .start();
             this.animate()
-        }
+        },
+      start2(){
+        let t = this;
+
+        t.deg=t.WHRPresent(t.minValue);
+
+        setTimeout(function () {
+          t.deg=t.WHRPresent(t.maxValue);
+        },700);
+        setTimeout(function () {
+          t.deg=t.WHRPresent(t.rezultData.WHRatio);
+        },1400);
+      }
     },
     created: function() {
+      this.deg=this.WHRPresent(this.minValue);
         this.animateVal = this.minValue;
         this.valArray.push(this.minValue);
         this.valArray.push(this.maxValue);
         this.valArray.push(this.rezultData.WHRatio);
         var t = this;
         setTimeout(t.start, 4500);
+        setTimeout(t.start2, 4500);
     },
 }
 </script>
@@ -216,5 +235,8 @@ export default {
     padding: 3px;
     background: rgba(255,255,255,1);
     color: #585858;
+  }
+  .opacity, .cursor{
+    transition: all 0.7s linear;
   }
 </style>

@@ -6,11 +6,12 @@
         <div class="text"v-lang.descriptionText="{Calorie_Counting: rezultData.DaylyCallorie, Calorie_CountingM: rezultData.DaylyCallorie-500, Calorie_CountingP: rezultData.DaylyCallorie+500,}">
         </div>
       </div>
-      <div class="progress_bar3" v-on:click="start">
+      <div class="progress_bar3" v-on:click="st">
         <img src="/static/img/indicator_1.png" alt="">
         <div class="plus" v-on:click="$emit('onDescription','2')"><img src="static/img/plus.png" alt=""></div>
-        <div class="cursor" v-bind:style="{ transform: 'rotate(' + CallorieDeg + 'deg)' }"></div>
-        <div class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + CallorieDegOp + 'deg)' }"></div>
+        <div class="cursor" v-bind:style="{ transform: 'rotate(' + deg + 'deg)' }"></div>
+        <div class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }"></div>
+        <div class="opacity_cursor" v-if="curShow" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }" style="background: url(/static/img/indicator_1Cur2.png) no-repeat; background-size: cover;"></div>
         <div class="text_indicator">
 
           <p>{{animateVal}} Kcal</p>
@@ -26,6 +27,9 @@ export default {
    props: ['rezultData','showDescription'],
     data () {
         return {
+          deg:0,
+          deg2:0,
+          curShow:true,
             animateVal:0 ,
             valArray:[],
           hIndex:-10,
@@ -86,13 +90,7 @@ export default {
             }
             return per-60;
         },
-        CallorieDegOp:function () {
-            let t = (this.CallorieDeg - (this.CallorieDeg) % 60);
-            if(this.CallorieDeg>=0){
-                t += 60;
-            }
-            return t;
-        },
+
         /*getComent:function () {
             if(this.rezultData.DaylyCallorie > this.maxValue){
                 return this.translate( 'com'+(this.rezultData.CallorieScale.length-1));
@@ -120,6 +118,39 @@ export default {
     }
   },
     methods:{
+      st(){
+        this.start2();
+        this.start();
+      },
+      CDeg(val){
+        if(val<=this.minValue){
+          return 3.6 * 0 -59;
+        }
+        if(val>=this.maxValue){
+          return 3.6 * 100 -61;
+        }
+        //return 3.6 * (this.animateVal - this.minValue) * 100 / (this.maxValue - this.minValue) -60;
+        for(var w=0; w<this.rezultData.CallorieScale.length; w++ ){
+          if(val < this.rezultData.CallorieScale[w].Callorie){
+            break;
+          }
+        }
+        var howManyDegForScale = 360 / this.rezultData.CallorieScale.length;
+        var per;
+        if(w>0) {
+          per = (val - this.rezultData.CallorieScale[w-1].Callorie) / (this.rezultData.CallorieScale[w].Callorie - this.rezultData.CallorieScale[w - 1].Callorie) * howManyDegForScale + howManyDegForScale * (w);
+        }else{
+          per = (val - this.minValue) / (this.rezultData.CallorieScale[w].Callorie - this.minValue) * howManyDegForScale;
+        }
+        return per-60;
+      },
+      CallorieDegOp(val) {
+        let t = (this.CDeg(val) - (this.CDeg(val)) % 60);
+        if(this.CDeg(val)>=0){
+          t += 60;
+        }
+        return t;
+      },
       langString(string){
         return this.translate(string);
       },
@@ -137,18 +168,34 @@ export default {
                  .onUpdate(function () {
                      t.animateVal = Math.round(this.tweeningNumber);
                  })
-                 .delay(200)
                  .start();
              this.animate()
-          }
+          },
+      start2(){
+          let t = this;
+          t.deg=t.CDeg(t.minValue);
+        t.curShow=true;
+          setTimeout(function () {
+            t.deg=t.CDeg(t.maxValue);
+          },700);
+          setTimeout(function () {
+            t.deg=t.CDeg(t.rezultData.DaylyCallorie);
+          },1400);
+        setTimeout(function () {
+          t.curShow=false;
+        },2150)
+      }
     },
   created: function() {
+      this.deg = this.deg=this.CDeg(this.minValue);
+    this.deg2=this.CallorieDegOp(this.rezultData.DaylyCallorie);
       this.animateVal = this.minValue;
       this.valArray.push(this.minValue);
       this.valArray.push(this.maxValue);
       this.valArray.push(this.rezultData.DaylyCallorie);
       var t = this;
       setTimeout(t.start, 1000);
+      setTimeout(t.start2, 1000);
     },
 }
 </script>
@@ -219,5 +266,8 @@ export default {
     opacity: 0.5;
     background: url("/static/img/indicator_1Cur.png") no-repeat;
     background-size: cover;
+  }
+  .cursor, .opacity_cursor{
+    transition: all 0.666s linear;
   }
 </style>

@@ -9,13 +9,13 @@
       <div class="description" v-bind:style="{zIndex:hIndex}"  v-bind:class="(showDescription==3)?'on':''">
         <div class="text" v-lang.descriptionText="{BMI: rezultData.BMI, coment: getComent}"></div>
       </div>
-      <div class="progress_bar4" v-on:click="start">
+      <div class="progress_bar4"  v-on:click="st">
         <img src="/static/img/indicator_2.png" alt="">
         <div class="plus"v-on:click="$emit('onDescription','3')"><img src="static/img/plus.png" alt=""></div>
-        <div class="cursor" v-bind:style="{ transform: 'rotate(' + CallorieDeg + 'deg)' }"></div>
-        <div class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + CallorieDegOp + 'deg)' }">
+        <div class="cursor" v-bind:style="{ transform: 'rotate(' + deg + 'deg)' }"></div>
+        <div class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }"></div>
+        <div class="opacity_cursor" v-if="curShow" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }" style="background: url(/static/img/indicator_2Cur2.png) no-repeat; background-size: cover;"></div>
 
-        </div>
         <div class="text_indicator">
           <p class="big">{{animateVal}}</p>
         </div>
@@ -30,6 +30,9 @@ export default {
    props: ['rezultData','showDescription'],
     data () {
         return {
+          deg:0,
+          deg2:0,
+          curShow:true,
             animateVal:0 ,
             valArray:[],
           hIndex:-10,
@@ -86,32 +89,7 @@ export default {
         maxValue:function () {
             return this.rezultData.BMIScale[this.rezultData.BMIScale.length-1].BMI;
         },
-        CallorieDeg:function(){
-            if(this.animateVal<=this.minValue){
-                return 91 + 3.6 *0;
-            }
-            if(this.animateVal>=this.maxValue){
-                return 89 + 3.6 *100;
-            }
-            //return 90 + 3.6 * (this.animateVal - this.minValue) * 100 / (this.maxValue - this.minValue);
 
-            for(var w=0; w<this.rezultData.BMIScale.length; w++ ){
-              if(this.animateVal < this.rezultData.BMIScale[w].BMI){
-                  break;
-              }
-            }
-            var howManyDegForScale = 360 / this.rezultData.BMIScale.length;
-            var per;
-            if(w>0) {
-                per = (this.animateVal - this.rezultData.BMIScale[w-1].BMI) / (this.rezultData.BMIScale[w].BMI - this.rezultData.BMIScale[w - 1].BMI) * howManyDegForScale + howManyDegForScale * (w);
-            }else{
-                 per = (this.animateVal - this.minValue) / (this.rezultData.BMIScale[w].BMI - this.minValue) * howManyDegForScale;
-            }
-            return 90+per;
-        },
-        CallorieDegOp:function () {
-          return (this.CallorieDeg - (this.CallorieDeg) % 45)-90 +0.5;
-        },
         getComent:function () {
             if(this.rezultData.BMI > this.maxValue){
                 return this.translate( 'com'+(this.rezultData.BMIScale.length-1));
@@ -139,6 +117,36 @@ export default {
     }
   },
     methods:{
+      st(){
+        this.start2();
+        this.start();
+      },
+      CallorieDeg(val){
+        if(val<=this.minValue){
+          return 91 + 3.6 *0;
+        }
+        if(val>=this.maxValue){
+          return 89 + 3.6 *100;
+        }
+        //return 90 + 3.6 * (this.animateVal - this.minValue) * 100 / (this.maxValue - this.minValue);
+
+        for(var w=0; w<this.rezultData.BMIScale.length; w++ ){
+          if(val < this.rezultData.BMIScale[w].BMI){
+            break;
+          }
+        }
+        var howManyDegForScale = 360 / this.rezultData.BMIScale.length;
+        var per;
+        if(w>0) {
+          per = (val - this.rezultData.BMIScale[w-1].BMI) / (this.rezultData.BMIScale[w].BMI - this.rezultData.BMIScale[w - 1].BMI) * howManyDegForScale + howManyDegForScale * (w);
+        }else{
+          per = (val - this.minValue) / (this.rezultData.BMIScale[w].BMI - this.minValue) * howManyDegForScale;
+        }
+        return 90+per;
+      },
+      CallorieDegOp (val) {
+        return (this.CallorieDeg(val) - (this.CallorieDeg(val)) % 45)-90 +0.5;
+      },
         animate () {
             if (TWEEN.update()) {
                 requestAnimationFrame(this.animate)
@@ -153,18 +161,34 @@ export default {
                  .onUpdate(function () {
                      t.animateVal = Math.round(parseFloat(this.tweeningNumber)*100)/100;
                  })
-                 .delay(200)
                  .start();
              this.animate()
-          }
+          },
+      start2(){
+        let t = this;
+        t.deg=t.CallorieDeg(t.minValue);
+        t.curShow=true;
+        setTimeout(function () {
+          t.deg=t.CallorieDeg(t.maxValue);
+        },700);
+        setTimeout(function () {
+          t.deg=t.CallorieDeg(t.rezultData.BMI);
+        },1400);
+        setTimeout(function () {
+          t.curShow=false;
+        },2150)
+      }
     },
-  created: function() {
-      this.animateVal = this.minValue;
+  mounted() {
+    this.deg = this.deg=this.CallorieDeg(this.minValue);
+    this.deg2=this.CallorieDegOp(this.rezultData.BMI);
+      this.animateVal = Math.round(parseFloat(this.minValue)*100)/100;
       this.valArray.push(this.minValue);
       this.valArray.push(this.maxValue);
       this.valArray.push(this.rezultData.BMI);
       var t = this;
       setTimeout(t.start, 1500);
+      setTimeout(t.start2, 1500);
     },
 }
 </script>
@@ -235,5 +259,8 @@ export default {
     opacity: 0.5;
     background: url("/static/img/indicator_2Cur.png") no-repeat;
     background-size: cover;
+  }
+  .cursor, .opacity_cursor{
+    transition: all 0.666s linear;
   }
 </style>

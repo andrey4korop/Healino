@@ -1,9 +1,10 @@
 <template>
-  <div class="mini_indicator mini_indicator2"  v-on:click="start">
+  <div class="mini_indicator mini_indicator2"  v-on:click="st">
     <div class="progress_bar2">
       <img src="/static/img/indicator_3.png" alt="">
-      <div class="cursor" v-bind:style="{ transform: 'rotate(' + BiologicalAgeDeg + 'deg)' }"></div>
-      <div class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + BiologicalAgeDegOp + 'deg)' }"></div>
+      <div class="cursor" v-bind:style="{ transform: 'rotate(' + deg + 'deg)' }"></div>
+      <div class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }"></div>
+      <div class="opacity_cursor"  v-if="curShow" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }" style="background: url(/static/img/indicator_3Cur2.png) no-repeat; background-size: cover;"></div>
       <div class="text_indicator">
       <p class="big">{{animateVal.digits}}</p>
       <p>years</p>
@@ -17,6 +18,9 @@ export default {
     props: ['rezultData'],
     data () {
         return {
+          deg:0,
+          deg2:0,
+          curShow:true,
             animateVal:{deg:0, digits:0} ,
             valArray:{
                 deg:[],
@@ -31,37 +35,42 @@ export default {
         maxValue:function () {
             return this.rezultData.BioAgeScale[this.rezultData.BioAgeScale.length-1].AgePercent;
         },
-        BiologicalAgeDeg:function(){
-            if(this.animateVal.deg<=this.minValue){
-                return 3.6 *0 + 1 -30;
-            }
-            if(this.animateVal.deg>=this.maxValue){
-                return 3.6 *100 -1 -30;
-            }
-            //return 3.6 * (this.animateVal.deg - this.minValue) * 100 / (this.maxValue - this.minValue) -30;
-            for(var w=0; w<this.rezultData.BioAgeScale.length; w++ ){
-                if(this.animateVal.deg < this.rezultData.BioAgeScale[w].AgePercent){
-                    break;
-                }
-            }
-            var howManyDegForScale = 360 / this.rezultData.BioAgeScale.length;
-            var per;
-            if(w>0) {
-                per = (this.animateVal.deg - this.rezultData.BioAgeScale[w-1].AgePercent) / (this.rezultData.BioAgeScale[w].AgePercent - this.rezultData.BioAgeScale[w - 1].AgePercent) * howManyDegForScale + howManyDegForScale * (w);
-            }else{
-                per = (this.animateVal.deg - this.minValue) / (this.rezultData.BioAgeScale[w].AgePercent - this.minValue) * howManyDegForScale;
-            }
-            return per-30;
-        },
-        BiologicalAgeDegOp:function(){
-            let t = (this.BiologicalAgeDeg-20- (this.BiologicalAgeDeg-20) % (360/9));
-            if(this.BiologicalAgeDeg-20>=0){
-                t += (360/9);
-            }
-            return t;
-        }
+
     },
     methods:{
+      st(){
+        this.start2();
+        this.start();
+      },
+      BiologicalAgeDeg(val){
+        if(val<=this.minValue){
+          return 3.6 *0 + 1 -30;
+        }
+        if(val>=this.maxValue){
+          return 3.6 *100 -1 -30;
+        }
+        //return 3.6 * (this.animateVal.deg - this.minValue) * 100 / (this.maxValue - this.minValue) -30;
+        for(var w=0; w<this.rezultData.BioAgeScale.length; w++ ){
+          if(val < this.rezultData.BioAgeScale[w].AgePercent){
+            break;
+          }
+        }
+        var howManyDegForScale = 360 / this.rezultData.BioAgeScale.length;
+        var per;
+        if(w>0) {
+          per = (val - this.rezultData.BioAgeScale[w-1].AgePercent) / (this.rezultData.BioAgeScale[w].AgePercent - this.rezultData.BioAgeScale[w - 1].AgePercent) * howManyDegForScale + howManyDegForScale * (w);
+        }else{
+          per = (val - this.minValue) / (this.rezultData.BioAgeScale[w].AgePercent - this.minValue) * howManyDegForScale;
+        }
+        return per-30;
+      },
+      BiologicalAgeDegOp(val){
+        let t = (this.BiologicalAgeDeg(val)-20- (this.BiologicalAgeDeg(val)-20) % (360/9));
+        if(this.BiologicalAgeDeg(val)-20>=0){
+          t += (360/9);
+        }
+        return t;
+      },
         animate () {
             if (TWEEN.update()) {
                 requestAnimationFrame(this.animate)
@@ -77,12 +86,27 @@ export default {
                     t.animateVal.deg = this.deg;
                     t.animateVal.digits = Math.round(this.digits);
                 })
-                .delay(200)
                 .start();
             this.animate()
-        }
+        },
+      start2(){
+        let t = this;
+        t.deg=t.BiologicalAgeDeg(t.maxValue);
+        t.curShow=true;
+        setTimeout(function () {
+          t.deg=t.BiologicalAgeDeg(t.minValue);
+        },700);
+        setTimeout(function () {
+          t.deg=t.BiologicalAgeDeg(t.rezultData.BioMentalAge.BiologicalAgeDiffPercentage);
+        },1400);
+        setTimeout(function () {
+          t.curShow=false;
+        },2050);
+      }
     },
     created: function() {
+      this.deg =this.BiologicalAgeDeg(this.minValue);
+      this.deg2=this.BiologicalAgeDegOp(this.rezultData.BioMentalAge.BiologicalAgeDiffPercentage);
         this.animateVal = {deg: this.minValue, digits: 0};
         this.valArray.deg.push(this.minValue);
         this.valArray.digits.push(0);
@@ -92,6 +116,7 @@ export default {
         this.valArray.digits.push(this.rezultData.BioMentalAge.BiologicalAge);
         var t = this;
         setTimeout(t.start, 3000);
+      setTimeout(t.start2, 3000);
     },
 
 }
@@ -115,5 +140,8 @@ export default {
     opacity: 0.5;
     background: url("/static/img/indicator_3Cur.png") no-repeat;
     background-size: cover;
+  }
+  .opacity_cursor, .cursor{
+    transition: all 0.7s linear;
   }
 </style>

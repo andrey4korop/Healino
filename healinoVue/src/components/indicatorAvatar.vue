@@ -1,6 +1,6 @@
 <template>
 
-  <div class="avatar_scale"v-on:click="start">
+  <div class="avatar_scale"v-on:click="st">
     <div class="description" v-bind:style="{zIndex:hIndex}" v-bind:class="(showDescription==1)?'on':''">
       <div class="text" v-lang.descriptionText="{THR: rezultData.HealthRate, THR_Comment: getComent}">
 
@@ -8,8 +8,9 @@
     </div>
     <div class="plus" v-on:click="$emit('onDescription','1')"><img src="static/img/plus.png" alt=""></div>
     <img src="static/img/cursor_2.png" alt="" class="cursor"
-         v-bind:style="{ transform: 'rotate(' + HealthRateDeg + 'deg)' }">
-    <div class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + HealthRateDegOp + 'deg)' }"></div>
+         v-bind:style="{ transform: 'rotate(' + deg + 'deg)' }">
+    <div class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }"></div>
+    <div class="opacity_cursor" v-if="curShow" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }"  style="background: url(/static/img/indiator_7Cur2.png) no-repeat; background-size: cover;"></div>
     <div class="avatar">
       <div v-bind:style="{background: 'url(' + img + ') center center / cover' }" class="img" ></div>
     </div>
@@ -23,6 +24,9 @@ export default {
     props: ['rezultData', 'img', 'showDescription'],
     data () {
         return {
+          deg:0,
+          deg2:0,
+          curShow:true,
             animateVal:0 ,
             valArray:[],
           hIndex:-10,
@@ -70,20 +74,7 @@ export default {
         maxValue:function () {
             return this.rezultData.HealthRatioScale[this.rezultData.HealthRatioScale.length-1].Value;
         },
-        HealthRateDeg:function(){
-            if(this.animateVal<this.minValue){
-                return 3.6 *(this.minValue - this.minValue) * 100 / (this.maxValue - this.minValue) +78;
-            }
-            if(this.animateVal>this.maxValue){
-                return 3.6 *(this.maxValue - this.minValue) * 100 / (this.maxValue - this.minValue) +78;
-            }
-            return 3.6 * (this.animateVal - this.minValue) * 100 / (this.maxValue - this.minValue) +78;
-        },
-        HealthRateDegOp:function(){
-            let t = (this.HealthRateDeg -78 - (this.HealthRateDeg-78) % (360/7));
 
-            return t;
-        },
         getComent:function () {
             if(this.rezultData.HealthRate > this.maxValue){
                 return this.translate( 'com'+(this.rezultData.HealthRatioScale.length-1));
@@ -111,6 +102,24 @@ export default {
     }
   },
     methods:{
+      st(){
+        this.start2();
+        this.start();
+      },
+      HealthRateDeg(val){
+        if(val<this.minValue){
+          return 3.6 *(this.minValue - this.minValue) * 100 / (this.maxValue - this.minValue) +78;
+        }
+        if(val>this.maxValue){
+          return 3.6 *(this.maxValue - this.minValue) * 100 / (this.maxValue - this.minValue) +78;
+        }
+        return 3.6 * (val - this.minValue) * 100 / (this.maxValue - this.minValue) +78;
+      },
+      HealthRateDegOp(val){
+        let t = (this.HealthRateDeg(val) -78 - (this.HealthRateDeg(val)-78) % (360/7));
+
+        return t;
+      },
         animate () {
             if (TWEEN.update()) {
                 requestAnimationFrame(this.animate)
@@ -125,18 +134,37 @@ export default {
                 .onUpdate(function () {
                     t.animateVal = Math.round(this.tweeningNumber);
                 })
-                .delay(200)
                 .start();
             this.animate()
-        }
+        },
+      start2(){
+        let t = this;
+        t.deg=t.HealthRateDeg(t.minValue);
+        t.curShow=true;
+        console.log('start2');
+        setTimeout(function () {
+          console.log('start2 1');
+          t.deg=t.HealthRateDeg(t.maxValue);
+        },700);
+        setTimeout(function () {
+          console.log('start2 2');
+          t.deg=t.HealthRateDeg(t.rezultData.HealthRate);
+        },1400);
+        setTimeout(function () {
+          t.curShow=false;
+        },2150);
+      }
     },
-    created: function() {
+  created:function() {
+      this.deg =this.HealthRateDeg(this.minValue);
+      this.deg2=this.HealthRateDegOp(this.rezultData.HealthRate);
         this.animateVal = this.minValue;
         this.valArray.push(this.minValue);
         this.valArray.push(this.maxValue);
         this.valArray.push(this.rezultData.HealthRate);
         var t = this;
-        setTimeout(t.start, 500);
+        //setTimeout(t.start, 500);
+        setTimeout(t.start2, 500);
     },
 }
 </script>
@@ -241,5 +269,8 @@ export default {
       height: 6.5vw;
       margin: 2vw 0 0.5vw 0;
     }
+  }
+  .cursor, .opacity_cursor{
+    transition: all 0.666s linear;
   }
 </style>

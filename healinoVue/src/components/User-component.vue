@@ -452,14 +452,16 @@
         created: function() {
 
             for(var index in this.userData) {
-
+                  console.log(index);
                  if(this.userData[index] && index in this){
                      this[index] = this.userData[index];
                      if(index == 'Birthday'){
                          this.Birthday = this.birth(this.userData.Birthday);
                      }
-                     this['obj'+index].showCheck= true;
-                     this['obj'+index].showLoad= false;
+                     if(index != 'PersonMeasurementSystem'){
+                       this['obj'+index].showCheck= true;
+                       this['obj'+index].showLoad= false;
+                     }
                      if((index=='Name' || index=='SurName' || index=='Location')&& this.userData[index]){
                          this['obj'+index].disable = true;
                        this.st = false;

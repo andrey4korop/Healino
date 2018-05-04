@@ -10,14 +10,14 @@
                    @changeValSelect="changeValSelect"
                    @pushSelectOption="pushSelectOption"
       ></selectBlock>
-      <selectBlock v-if="questionData.QuestionTypeEnum==2 && questionData.ValueStep!=0"
+      <selectBlock v-if="questionData.QuestionTypeEnum==2 && showSecondSelect"
               :valueItem="selectId2"
               :selectOption="valForSelect2"
               :errorQuest="errorQuest"
               :selectedBlock="selectedBlock"
               @changeValSelect="changeValSelect2"
       ></selectBlock>
-      <label  v-if="questionData.QuestionTypeEnum==2 && questionData.ValueStep==0">
+      <label  v-if="questionData.QuestionTypeEnum==2 && showSecondInput">
         <input type="number"
                v-model="AnswerValue"
                v-on:input="changeVal"
@@ -69,6 +69,12 @@ export default {
             showLoadInput: true,
     }},
     computed:{
+      showSecondSelect:function () {
+        return (this.questionData.AnswerOptions.length) && (parseInt(this.selectId) > -1) && (this.questionData.AnswerOptions[this.selectId].StepValue);
+      },
+      showSecondInput:function () {
+        return !this.showSecondSelect && !(this.questionData.AnswerOptions.length && this.questionData.AnswerOptions[0].StepValue)
+      },
       needMargin:function () {
           return this.showSelectId && this.questionData.QuestionTypeEnum!=2
       },
@@ -87,8 +93,8 @@ export default {
       },
       valForSelect2:function () {
         let r =[];
-        if(this.questionData.ValueStep) {
-          for (var val = this.questionData.MinValue, i = 0; val <= this.questionData.MaxValue; val += this.questionData.ValueStep, i++) {
+        if(this.showSecondSelect){
+          for (var val = this.questionData.AnswerOptions[this.selectId].MinValue, i = 0; val <= this.questionData.AnswerOptions[this.selectId].MaxValue; val += this.questionData.AnswerOptions[this.selectId].ValueStep, i++) {
             r.push({key: i, title: Math.round(val * 100) / 100, Id: Math.round(val * 100) / 100});
           }
         }

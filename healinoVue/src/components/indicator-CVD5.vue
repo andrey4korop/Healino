@@ -1,11 +1,12 @@
 <template>
-  <div class="mini_indicator mini_indicator4"  v-on:click="start">
+  <div class="mini_indicator mini_indicator4"  v-on:click="st">
     <div class="progress_bar2">
       <img src="/static/img/indicator_green.png" alt="">
       <div class="color" v-bind:style="{background:color[colorId]}"></div>
       <div class="cursor"
-           v-bind:style="{ transform: 'rotate(' + RASCVDDeg + 'deg)' }"></div>
-      <div class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + RASCVDDegOp + 'deg)' }"></div>
+           v-bind:style="{ transform: 'rotate(' + deg + 'deg)' }"></div>
+      <div class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }"></div>
+      <div class="opacity_cursor" v-if="curShow" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }" style="background: url(/static/img/indicator_greenCur2.png) no-repeat; background-size: cover;"></div>
       <div class="text_indicator">
       <p class="big">{{animateVal}}%</p>
       <p>whole life</p>
@@ -19,6 +20,9 @@ export default {
     props: ['rezultData'],
     data () {
         return {
+          deg:0,
+          deg2:0,
+          curShow:true,
             animateVal:0 ,
             valArray:[],
             color:['#2FAA52', '#79BA48', '#FEE79A', '#FAC342', '#DB4641'],
@@ -33,41 +37,46 @@ export default {
         maxValue:function () {
             return this.rezultData.RASCVDScale[this.rezultData.RASCVDScale.length-1].Value;
         },
-        RASCVDDeg:function(){
-            if(this.animateVal<=this.minValue){
-                this.colorId = 0;
-                return 360 - 3.6 *0 -37;
-            }
-            if(this.animateVal>=this.maxValue){
-                this.colorId = 4;
-                return 360 - 3.6 *100 -35;
-            }
-            //return 360 - 3.6 * (this.animateVal - this.minValue) * 100 / (this.maxValue - this.minValue) -36;
-            for(var w=0; w<this.rezultData.RASCVDScale.length; w++ ){
-                this.colorId = w;
-                if(this.animateVal < this.rezultData.RASCVDScale[w].Value){
-                    break;
-                }
-            }
-            var howManyDegForScale = 360 / this.rezultData.RASCVDScale.length;
-            var per;
-            if(w>0) {
-                per = (this.animateVal - this.rezultData.RASCVDScale[w-1].Value) / (this.rezultData.RASCVDScale[w].Value - this.rezultData.RASCVDScale[w - 1].Value) * howManyDegForScale + howManyDegForScale * (w);
-            }else{
-                per = (this.animateVal - this.minValue) / (this.rezultData.RASCVDScale[w].Value - this.minValue) * howManyDegForScale;
-            }
-            return 360 - per-36;
-        },
-        RASCVDDegOp:function(){
-            let t = (this.RASCVDDeg +36 - (this.RASCVDDeg+36) % (360/5));
-            //if(this.RASCVDDeg>=0){
-                t += (360/5);
-            //}
-            return t-(360-t)/100;
-        }
+
     },
 
     methods:{
+      st(){
+        this.start2();
+        this.start();
+      },
+      RASCVDDeg(val){
+        if(val<=this.minValue){
+          this.colorId = 0;
+          return 360 - 3.6 *0 -37;
+        }
+        if(val>=this.maxValue){
+          this.colorId = 4;
+          return 360 - 3.6 *100 -35;
+        }
+        //return 360 - 3.6 * (this.animateVal - this.minValue) * 100 / (this.maxValue - this.minValue) -36;
+        for(var w=0; w<this.rezultData.RASCVDScale.length; w++ ){
+          this.colorId = w;
+          if(val < this.rezultData.RASCVDScale[w].Value){
+            break;
+          }
+        }
+        var howManyDegForScale = 360 / this.rezultData.RASCVDScale.length;
+        var per;
+        if(w>0) {
+          per = (val - this.rezultData.RASCVDScale[w-1].Value) / (this.rezultData.RASCVDScale[w].Value - this.rezultData.RASCVDScale[w - 1].Value) * howManyDegForScale + howManyDegForScale * (w);
+        }else{
+          per = (val - this.minValue) / (this.rezultData.RASCVDScale[w].Value - this.minValue) * howManyDegForScale;
+        }
+        return 360 - per-36;
+      },
+      RASCVDDegOp(val){
+        let t = (this.RASCVDDeg(val) +36 - (this.RASCVDDeg(val)+36) % (360/5));
+        //if(this.RASCVDDeg>=0){
+        t += (360/5);
+        //}
+        return t-(360-t)/100;
+      },
         animate () {
             if (TWEEN.update()) {
                 requestAnimationFrame(this.animate)
@@ -82,18 +91,34 @@ export default {
                 .onUpdate(function () {
                     t.animateVal = Math.round(this.tweeningNumber);
                 })
-                .delay(200)
                 .start();
             this.animate()
-        }
+        },
+      start2(){
+        let t = this;
+        t.deg=t.RASCVDDeg(t.minValue);
+        t.curShow=true;
+        setTimeout(function () {
+          t.deg=t.RASCVDDeg(t.maxValue);
+        },700);
+        setTimeout(function () {
+          t.deg=t.RASCVDDeg(t.rezultData.RASCVD);
+        },1400);
+        setTimeout(function () {
+          t.curShow=false;
+        },2050);
+      }
     },
     created: function() {
+      this.deg =this.RASCVDDeg(this.minValue);
+      this.deg2=this.RASCVDDegOp(this.rezultData.RASCVD);
         this.animateVal = this.minValue;
         this.valArray.push(this.minValue);
         this.valArray.push(this.maxValue);
         this.valArray.push(this.rezultData.RASCVD);
         var t = this;
         setTimeout(t.start, 3500);
+        setTimeout(t.start2, 3500);
     }
 }
 </script>
@@ -128,5 +153,7 @@ export default {
     border: 1px solid #fff;
     box-sizing: border-box;
   }
-
+  .cursor, .opacity_cursor{
+    transition: all 0.666s linear;
+  }
 </style>

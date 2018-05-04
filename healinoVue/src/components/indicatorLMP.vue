@@ -1,5 +1,5 @@
 <template>
-  <div class="indicators" v-on:click="start">
+  <div class="indicators" v-on:click="st">
     <div class="title_indicator">
       <p></p>
       <p v-lang.title></p>
@@ -13,8 +13,8 @@
       <div class="progress_bar5">
         <img src="/static/img/indicator_5.png" alt="">
         <div class="plus" v-on:click="$emit('onDescription','7')"><img src="static/img/plus.png" alt=""></div>
-        <div class="opacity" v-bind:style="{ height: LMPPresent + '%' }"></div>
-        <div class="cursor" v-bind:style="{ top: LMPPresent + '%' }">
+        <div class="opacity" v-bind:style="{ height: deg + '%' }"></div>
+        <div class="cursor" v-bind:style="{ top: deg + '%' }">
           <img src="static/img/cursor_4.png" alt="">
           <div>
             <p class="big">{{animateVal}}%</p>
@@ -31,6 +31,7 @@ export default {
     props: ['rezultData','showDescription'],
     data () {
         return {
+          deg:0,
             animateVal:0 ,
             valArray:[],
           hIndex:-10,
@@ -96,15 +97,7 @@ export default {
         maxValue:function () {
             return this.rezultData.LMPCategoryScale[this.rezultData.LMPCategoryScale.length-1].BF;
         },
-        LMPPresent:function(){
-            if(this.animateVal>this.minValue){
-                return 100 - (this.minValue - this.minValue) * 100 / (this.maxValue - this.minValue);
-            }
-            if(this.animateVal<this.maxValue){
-                return 100 - (this.maxValue - this.minValue) * 100 / (this.maxValue - this.minValue);
-            }
-            return 100 - (this.animateVal - this.minValue) * 100 / (this.maxValue - this.minValue);
-        },
+
         getComent:function () {
             if(this.rezultData.LMP < this.maxValue){
                 return this.translate( 'com'+(this.rezultData.LMPCategoryScale.length-1));
@@ -136,11 +129,24 @@ export default {
     }
   },
     methods:{
+      LMPPresent(val){
+        if(val>this.minValue){
+          return 100 - (this.minValue - this.minValue) * 100 / (this.maxValue - this.minValue);
+        }
+        if(val<this.maxValue){
+          return 100 - (this.maxValue - this.minValue) * 100 / (this.maxValue - this.minValue);
+        }
+        return 100 - (val - this.minValue) * 100 / (this.maxValue - this.minValue);
+      },
         animate () {
             if (TWEEN.update()) {
                 requestAnimationFrame(this.animate)
             }
         },
+      st(){
+        this.start2();
+        this.start();
+      },
         start(){
             var t = this;
             new TWEEN.Tween({ tweeningNumber: this.animateVal })
@@ -150,18 +156,30 @@ export default {
                 .onUpdate(function () {
                     t.animateVal = Math.round(parseFloat(this.tweeningNumber)*10)/10;
                 })
-                .delay(200)
                 .start();
             this.animate()
-        }
+        },
+      start2(){
+          let t = this;
+
+          t.deg=t.LMPPresent(t.maxValue);
+
+          setTimeout(function () {
+            t.deg=t.LMPPresent(t.minValue);
+          },700);
+        setTimeout(function () {
+          t.deg=t.LMPPresent(t.rezultData.LMP);
+        },1400);
+      }
     },
-    created: function() {
+  mounted() {
         this.animateVal = this.minValue;
         this.valArray.push(this.minValue);
         this.valArray.push(this.maxValue);
         this.valArray.push(this.rezultData.LMP);
         var t = this;
         setTimeout(t.start, 5000);
+        setTimeout(t.start2, 5000);
     },
 }
 </script>
@@ -222,5 +240,8 @@ export default {
     padding: 3px;
     background: rgba(255,255,255,1);
     color: #585858;
+  }
+  .opacity, .cursor{
+    transition: all 0.7s linear;
   }
 </style>

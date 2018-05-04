@@ -2165,6 +2165,9 @@ html,body{
         justify-content: flex-start;
         position: absolute;
         left: unset;
+        @media (-ms-high-contrast:none) {
+            left: auto;
+        }
         right:100%;
         align-items: flex-start;
         line-height: 12px;
