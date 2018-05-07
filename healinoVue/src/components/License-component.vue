@@ -642,11 +642,6 @@
             }
           }
         });
-        /*$(document).on('touchmove', '.text', function(event) {
-          if ($(event.target).parents('.text').length) {
-            event.preventDefault();
-          }
-        });*/
       },
       destroyed(){
         $(document).unbind('touchstart');

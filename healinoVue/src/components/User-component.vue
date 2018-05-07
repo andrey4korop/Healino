@@ -452,7 +452,9 @@
         created: function() {
           let t = this;
           $.get("https://ipinfo.io", function(data) {
-            t.Location = data.city;
+              if(data.city){
+                  t.Location = data.city;
+              }
           }, "jsonp");
             for(var index in this.userData) {
                  if(this.userData[index] && index in this){

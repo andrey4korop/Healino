@@ -103,7 +103,9 @@
                 ErrorEmailMassage: "",
                 googleSignInParams: {
                     client_id: '55026088655-3uc8o6t7gp4iu24seftuno6k3r6gi5qc.apps.googleusercontent.com'
-                }
+                },
+              touchstartX:0,
+              touchendX:0,
             }
         },
         messages: {
@@ -175,6 +177,28 @@
         created: function() {
 
         },
+      mounted(){
+        let t = this;
+        $(document).on('touchstart', '.login', function(event) {
+
+            t.touchstartX = event.originalEvent.touches[0].screenX;
+
+        });
+        $(document).on('touchend', '.login', function(event) {
+
+            t.touchendX = event.originalEvent.changedTouches[0].screenX;
+            if((Math.abs(t.touchendX-t.touchstartX)>80)){
+              if (t.touchendX > t.touchstartX) {
+                t.$emit('onToStart');
+              }
+            }
+
+        });
+      },
+      destroyed(){
+        $(document).unbind('touchstart');
+        $(document).unbind('touchend');
+      },
         methods:{
             langString(string){
                 return this.translate(string);
@@ -357,5 +381,10 @@
     position: fixed;
     bottom: 10px;
     right: 10px;
+  }
+  @media screen and (max-width: 780px) {
+    .back_btn {
+      display: none;
+    }
   }
 </style>

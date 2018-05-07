@@ -352,6 +352,28 @@
         created: function() {
 
         },
+      mounted(){
+        let t = this;
+        $(document).on('touchstart', '.login', function(event) {
+
+            t.touchstartX = event.originalEvent.touches[0].screenX;
+
+        });
+        $(document).on('touchend', '.login', function(event) {
+
+            t.touchendX = event.originalEvent.changedTouches[0].screenX;
+            if((Math.abs(t.touchendX-t.touchstartX)>80)){
+              if (t.touchendX > t.touchstartX) {
+                t.$emit('onToStart');
+              }
+            }
+
+        });
+      },
+      destroyed(){
+        $(document).unbind('touchstart');
+        $(document).unbind('touchend');
+      },
         watch: {
             // эта функция запускается при любом изменении вопроса
             Password: function (newQuestion, oldQuestion) {
@@ -419,6 +441,11 @@
     }
     .prostoTask{
       height: 100vh;
+    }
+  }
+  @media screen and (max-width: 780px) {
+    .back_btn {
+      display: none;
     }
   }
 </style>

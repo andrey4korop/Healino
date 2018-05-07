@@ -154,7 +154,7 @@ export default {
         userData:{},
         themeActive:0,
         lang:'en',
-        state: 'start',
+        state: 'pay',
         SessionData: '',
         UserId: '',
       answerSelectSelected:[],
@@ -631,9 +631,7 @@ export default {
 </script>
 
 <style>
-  body{
-    overflow: hidden;
-  }
+
   .fade-enter-active {
     transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
     transition-delay: 0.5s;

@@ -50,6 +50,9 @@
       value: {}
     },
     computed: {
+      mousewheelevt(){
+        return (/Firefox/i.test(navigator.userAgent))? "DOMMouseScroll" : "mousewheel";
+      },
       renderData () {
         let temp = []
         for (let k = this.spin.start; k <= this.spin.end; k++) {
@@ -63,10 +66,11 @@
       }
     },
     mounted () {
-      this.$el.addEventListener('touchstart', this.itemTouchStart)
-      this.$el.addEventListener('touchmove', this.itemTouchMove)
-      this.$el.addEventListener('touchend', this.itemTouchEnd)
-      this.$el.addEventListener('mousewheel', this.mousewheel)
+      this.$el.addEventListener('touchstart', this.itemTouchStart);
+      this.$el.addEventListener('touchmove', this.itemTouchMove);
+      this.$el.addEventListener('touchend', this.itemTouchEnd);
+
+      this.$el.addEventListener(this.mousewheelevt, this.mousewheel);
       //let index = this.listData.indexOf(this.value)
       let index = this.value
       if (index === -1) {
@@ -149,8 +153,9 @@
         this.finger.startY = 0
         this.finger.transformY = this.$refs.list.getAttribute('scroll')
         this.finger.lastY = event.wheelDelta/3
-        this.finger.lastTime = event.timestamp || Date.now()
-        let move = event.wheelDelta/12
+        this.finger.lastTime = event.timestamp || Date.now();
+        var delta=event.detail? event.detail*(-80) : event.wheelDelta
+        let move = delta/12
         let time = 100
         let v = move / time
         let a = 1.8
@@ -225,7 +230,7 @@
       this.$el.removeEventListener('touchstart', this.itemTouchStart)
       this.$el.removeEventListener('touchmove', this.itemTouchMove)
       this.$el.removeEventListener('touchend', this.itemTouchEnd)
-      this.$el.removeEventListener('mousewheel', this.mousewheel)
+      this.$el.removeEventListener(this.mousewheelevt, this.mousewheel)
     }
   }
 </script>

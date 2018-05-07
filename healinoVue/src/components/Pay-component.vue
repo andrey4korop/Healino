@@ -1,6 +1,6 @@
 <template>
   <div class="container payContainer">
-    <headerComponent
+    <!--<headerComponent
             :lang="lang"
             :audio_p="audio_p"
             :userData="userData"
@@ -94,7 +94,7 @@
         <div class="rowPay">
           <h2>Your payment to Healino was succesful. Thank You for using our serveses. Please choose a receipt method below</h2>
         </div>
-        <div class="rowPay jsa">
+        <div class="rowPay jsa pc">
           <label class="pointer">
             {{langString('actual')}}
             <input type="checkbox" v-model="actualAdd">
@@ -110,6 +110,11 @@
         </div>
         <div class="rowPay">
           <div class="col">
+            <label class="pointer sm right">
+              {{langString('actual')}}
+              <input type="checkbox" v-model="actualAdd">
+              <span class="checkbox"><i class="fa fa-check" aria-hidden="true"></i></span><span v-lang.accept1></span>
+            </label>
             <label class="address">
               <p><span>*</span>{{langString('country')}}</p>
               <input type="text" v-model="Country" v-on:input="change(objCountry, Country, 'Country')" placeholder="Country, cod">
@@ -134,6 +139,11 @@
             </label>
           </div>
           <div class="col">
+            <label class="pointer sm right">
+              {{langString('sendToEmail')}}
+              <input type="checkbox" v-model="sendEmail">
+              <span class="checkbox"><i class="fa fa-check" aria-hidden="true"></i></span><span v-lang.accept1></span>
+            </label>
             <label class="email">
               <p><span>*</span>Email</p>
               <input type="text" v-model="Email" v-on:input="change(objEmail, Email, 'Email')">
@@ -501,5 +511,8 @@
 </script>
 
 <style scoped>
-
+ .rowLabelsInput label{
+   margin-top: 0!important;
+   margin-bottom: 0!important;
+ }
 </style>
