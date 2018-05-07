@@ -98,7 +98,7 @@
           }
         },
         created: function() {
-
+          this.$emit('changeLang', getCookie('lang'));
         },
         methods: {
 

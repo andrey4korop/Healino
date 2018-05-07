@@ -179,7 +179,7 @@
   }
 
   .row{
-    margin-top: 70px;
+    margin-top: 56px;
   }
   .text_rezult{
     position: absolute;
@@ -192,6 +192,11 @@
   }
   .text_rezult p{
     margin: auto;
+  }
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .text_rezult p{
+      width: 100%;
+    }
   }
   @media screen and (max-width: 760px) {
     .text_rezult p{

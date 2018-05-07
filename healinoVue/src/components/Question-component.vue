@@ -69,10 +69,17 @@
                 AnswerValue: "",
                 Type:-1,
               showPopupUser:false,
-
+              //answerSelectSelected:['см ', 'см'],
               touchstartX:0,
               touchendX:0,
               doPrevTouch:true,
+              /*questionData:{"PreviusQuestionId":0,"QuestionId":11,"QuestionNum":1,"TotalQuestions":3,"QuestionTypeEnum":2,"UserThemeTestId":152,
+                "IsAnswered":false,"AnsValue":0.0,"QText":"Измерьте размер талии\r\n","ImageUrl":null,"QuestionsProgress":0.0,
+                "AnswerOptions":[
+
+                  {"Id":37,"ParrentId":null,"AnswerText":"дюймы\r\n","ImageUrl":null,"MinValue":0.0,"MaxValue":100.0,"StepValue":1.0,"IsUserAnswered":false,"Children":null},
+          {"Id":36,"ParrentId":null,"AnswerText":"см","ImageUrl":null,"MinValue":10.0,"MaxValue":200.0,"StepValue":1.0,"IsUserAnswered":false,"Children":null}],
+                "NextQuestionId":12,"ErrorCode":1,"DebugMessage":null,"UIMessage":null},
              /*questionData:{"PreviusQuestionId":7,"QuestionId":8,"QuestionNum":2,"TotalQuestions":23,"QuestionTypeEnum":2,"UserThemeTestId":89,
                 "IsAnswered":true,"AnsValue":10,"QText":"У Вас высокий уровень толерантности?\r\n","ImageUrl":null,
                 "QuestionsProgress":22.0,

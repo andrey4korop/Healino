@@ -109,7 +109,7 @@ export default {
     showDescription:function (old, newVal) {
       let t = this;
       if(old==2){
-        this.hIndex=10;
+        this.hIndex=15;
       }else{
         setTimeout(function(){
           t.hIndex=-10;

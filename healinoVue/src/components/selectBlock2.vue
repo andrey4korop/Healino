@@ -6,7 +6,7 @@
              v-bind:class="(visibleBlock?'hidden':'')"
              ref="selectBlock"
         >
-            {{title}}
+            {{title(Id)}}
         </div>
         <div class="selectBlockNeed" v-if="visibleBlock">
                 <pd-select-item :listData="opt"
@@ -30,7 +30,7 @@ export default {
     data () {
         return {
             Id:0,
-            title:'',
+
             showSelectId:false,
             isAnimating:false,
             showCheckSelect:false,
@@ -42,8 +42,9 @@ export default {
     watch:{
         Id:function (old, newVal) {
             if((typeof newVal === "number" || typeof newVal === "string") && parseInt(newVal)>-1){
-                this.title = this.selectOption[newVal].title;
+
                 this.changeVal();
+                this.$emit('pushSelectOption', this.selectOption[old].title);
             }
         },
         /*selectedBlock:function (old, newVal) {
@@ -67,9 +68,10 @@ export default {
     created: function() {
         this.Id = this.valueItem;
         if((typeof this.Id === "number" || typeof this.Id === "string") && parseInt(this.Id)>-1){
-            this.title = this.selectOption[this.Id].title;
+            this.changeVal();
         }else{
             this.Id = 0;
+            this.changeVal();
         }
         var text = "";
         var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -92,9 +94,16 @@ export default {
         }
     },
     methods:{
+        title(id){
+            if(parseInt(id)>-1 && id<this.selectOption.length){
+                return this.selectOption[id].title;
+            }else{
+                return '';
+            }
+        },
         changeVal: function () {
             if(this.Id!=-1 && this.Id!=='' && this.Id!==null && (typeof this.Id =='number' || typeof this.Id =='string' )) {
-                this.title = this.selectOption[this.Id].title;
+
                 this.$emit('changeValSelect', this.Id);
             }
         },
@@ -129,6 +138,13 @@ export default {
         -webkit-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
+        margin-top: 35px;
+        &:last-child{
+            margin-bottom: 35px;
+        }
+        &:nth-child(2){
+            margin-bottom: 0px;
+        }
     }
     .selectBlock {
         width: 100%;

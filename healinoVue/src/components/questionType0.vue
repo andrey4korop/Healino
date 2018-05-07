@@ -10,14 +10,14 @@
                    @changeValSelect="changeValSelect"
                    @pushSelectOption="pushSelectOption"
       ></selectBlock>
-      <selectBlock v-if="questionData.QuestionTypeEnum==2 && showSecondSelect"
+      <selectBlock v-if="questionData.QuestionTypeEnum==2 && showSecondSelect(selectId)"
               :valueItem="selectId2"
               :selectOption="valForSelect2"
               :errorQuest="errorQuest"
               :selectedBlock="selectedBlock"
               @changeValSelect="changeValSelect2"
       ></selectBlock>
-      <label  v-if="questionData.QuestionTypeEnum==2 && showSecondInput">
+      <label  v-if="questionData.QuestionTypeEnum==2 && showSecondInput(selectId)">
         <input type="number"
                v-model="AnswerValue"
                v-on:input="changeVal"
@@ -69,12 +69,6 @@ export default {
             showLoadInput: true,
     }},
     computed:{
-      showSecondSelect:function () {
-        return (this.questionData.AnswerOptions.length) && (parseInt(this.selectId) > -1) && (this.questionData.AnswerOptions[this.selectId].StepValue);
-      },
-      showSecondInput:function () {
-        return !this.showSecondSelect && !(this.questionData.AnswerOptions.length && this.questionData.AnswerOptions[0].StepValue)
-      },
       needMargin:function () {
           return this.showSelectId && this.questionData.QuestionTypeEnum!=2
       },
@@ -92,17 +86,26 @@ export default {
         return r;
       },
       valForSelect2:function () {
-        let r =[];
-        if(this.showSecondSelect){
-          for (var val = this.questionData.AnswerOptions[this.selectId].MinValue, i = 0; val <= this.questionData.AnswerOptions[this.selectId].MaxValue; val += this.questionData.AnswerOptions[this.selectId].ValueStep, i++) {
-            r.push({key: i, title: Math.round(val * 100) / 100, Id: Math.round(val * 100) / 100});
-          }
-        }
-        return r;
+        return this.valForSelect2render(this.selectId);
       }
     },
 
     methods:{
+      valForSelect2render(selectId) {
+        let r =[];
+        if(this.showSecondSelect(selectId)){
+          for (var val = this.questionData.AnswerOptions[selectId].MinValue, i = 0; val <= this.questionData.AnswerOptions[selectId].MaxValue; val += this.questionData.AnswerOptions[selectId].StepValue, i++) {
+            r.push({key: i, title: Math.round(val * 100) / 100, Id: Math.round(val * 100) / 100});
+          }
+        }
+        return r;
+      },
+      showSecondSelect(selectId) {
+        return (this.questionData.AnswerOptions.length) && (parseInt(selectId) > -1) && (this.questionData.AnswerOptions[selectId].StepValue);
+      },
+      showSecondInput(selectId) {
+        return !((this.questionData.AnswerOptions.length) && (parseInt(selectId) > -1) && (this.questionData.AnswerOptions[selectId].StepValue)) && !(this.questionData.AnswerOptions.length && this.questionData.AnswerOptions[0].StepValue)
+      },
       pushSelectOption(opt){
         this.$emit('pushSelectOption', opt);
       },
@@ -126,6 +129,9 @@ export default {
             this.AnswersId = this.questionData.AnswerOptions[0].Id
           }
           this.changeVal();
+          this.selectId=k;
+          var p = this.valForSelect2;
+
         },
       changeValSelect2(k){
         this.AnswerValue = this.valForSelect2[k].key;
@@ -154,7 +160,7 @@ export default {
   created: function() {
       if (this.questionData.IsAnswered) {
         if (this.questionData.AnsValue) {
-          if (this.questionData.ValueStep) {
+          if (this.questionData.StepValue) {
             if (this.questionData.AnsValue > this.questionData.MaxValue) {
               this.selectId2 = this.valForSelect2.length - 1;
               this.AnswerValue = this.valForSelect2[this.valForSelect2.length - 1];

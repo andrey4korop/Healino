@@ -72,6 +72,9 @@
     <img v-bind:src="(audio_p)?'static/img/noMusic.png':'static/img/music.png'" >
 
   </div>
+  <div class="back_btn" v-on:click="$emit('onToStart')">
+    <i class="fa fa-chevron-circle-left"></i>
+  </div>
 </div>
 </template>
 
@@ -190,7 +193,7 @@
                             if(data.ErrorCode==1){
                                 //t.toQuestion(this.themeActive);
                                 t.SessionData = data.SessionString;
-                                t.$emit('changeLang', data.Language);
+                                t.$emit('changeLang', getCookie('lang'));
                                 setCookie('SessionData', data.SessionString, {
                                     expires: 10000*10000,
                                     path: '/'
@@ -223,7 +226,7 @@
                                     if(data.ErrorCode==1){
                                         //t.toQuestion(this.themeActive);
                                         tempthis.SessionData = data.SessionString;
-                                        tempthis.$emit('changeLang', data.Language);
+                                        tempthis.$emit('changeLang', getCookie('lang'));
                                         setCookie('SessionData', data.SessionString, {
                                             expires: 10000*10000,
                                             path: '/'
@@ -260,6 +263,7 @@
                               SessionString: data.SessionString,
                               remember:t.remember
                           };
+                          t.$emit('changeLang', getCookie('lang'));
                           t.$emit('logined', temp);
                       }else if(data.ErrorCode==5 || data.DebugMessage=="User not found. User name or password are not corect"){
                           t.showCheckPass = false;

@@ -27,7 +27,7 @@
           <div class="margin_op">
             <ul>
               <li v-on:click="$emit('onToUser')" v-lang.editUser></li>
-              <li v-lang.getRezult></li>
+              <!--<li v-lang.getRezult></li>-->
               <li v-on:click="$emit('exit')" v-lang.exit></li>
             </ul>
           </div>

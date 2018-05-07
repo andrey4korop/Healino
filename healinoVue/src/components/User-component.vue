@@ -450,9 +450,11 @@
         });
       },
         created: function() {
-
+          let t = this;
+          $.get("https://ipinfo.io", function(data) {
+            t.Location = data.city;
+          }, "jsonp");
             for(var index in this.userData) {
-                  console.log(index);
                  if(this.userData[index] && index in this){
                      this[index] = this.userData[index];
                      if(index == 'Birthday'){

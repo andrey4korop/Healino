@@ -6,6 +6,7 @@
       </audio>
     <background :backgr="backgr"
                 :bg="bg"></background>
+    <transition name="fade">
     <start-component v-if="state == 'start'"
                      @changeLang="changeLang"
                      @onRegister="register"
@@ -25,11 +26,13 @@
                      @changeLang="changeLang"
                      @logined="logined"
                      @exit="exit"
+                     @onToStart="onToStart"
                      @onForgot="onForgot"
                      @onLicense="license"></login-component>
     <recoveryPassComponent  v-if="state == 'forgot'"
                             @audio="audio"
                             @exit="exit"
+                            @onToStart="onToStart"
                             :audio_p="audio_p"
                             @onForgotMessage="onForgotMessage"></recoveryPassComponent>
     <recoveryPassMessageComponent  v-if="state == 'forgotMessage'"
@@ -38,6 +41,7 @@
                        @audio="audio"
                        @exit="exit"
                        @onLogin="login"
+                       @onToStart="onToStart"
                        :audio_p="audio_p"
                        :UniqId="UniqId"></recPassComponent>
     <register-component v-if="state == 'register'"
@@ -45,6 +49,7 @@
                         @audio="audio"
                         @exit="exit"
                         @changeLang="changeLang"
+                        @onToStart="onToStart"
                         :audio_p="audio_p"
                         @logined="logined"
                         @toShowMessageReg="toShowMessageReg"
@@ -127,6 +132,7 @@
                               @onToUser="ToUser"
                               @toStart="$emit('toStart')"
                               @changeLang="changeLang"></pay-component>
+    </transition>
   </div>
 </template>
 
@@ -244,6 +250,9 @@ export default {
           this.bg++;
       },
         changeLang: function (newLang) {
+        if(!newLang){
+          newLang='en';
+        }
             this.lang = newLang;
             this.language = newLang;
             let t = this;
@@ -251,18 +260,20 @@ export default {
                 expires: 10000*10000,
                 path: '/'
             });
-            $.post( '/api/Account/ChangeLanguage',
-                {
-                    Language:  this.lang,
-                    SessionData: this.SessionData
-                }).done(function () {
-                if(t.state=="theme"){
-                    t.toTheme();
-                }
-                if(t.state=="question"){
-                    t.toQuestion(t.activeId, t.questionData.QuestionId);
-                }
+          if(this.SessionData) {
+            $.post('/api/Account/ChangeLanguage',
+                    {
+                      Language: this.lang,
+                      SessionData: this.SessionData
+                    }).done(function () {
+              if (t.state == "theme") {
+                t.toTheme();
+              }
+              if (t.state == "question") {
+                t.toQuestion(t.activeId, t.questionData.QuestionId);
+              }
             });
+          }
         },
         register(){
             this.state = "register"
@@ -318,6 +329,7 @@ export default {
                 path: '/'
             });
             this.SessionData = odj.SessionString;
+            this.changeLang(getCookie('lang'));
             this.UserId = odj.UserId;
             this.isFirst();
         },
@@ -425,7 +437,7 @@ export default {
         exit(){
           deleteCookie('SessionData');
           deleteCookie('lang');
-          FB.logout();
+          //FB.logout();
           location.reload();
         },
         setErrorQuestion(){
@@ -433,6 +445,7 @@ export default {
         },
       pushSelectOption(opt){
           let t = this;
+        console.log('pushSelectOption opt='+opt)
           if(typeof opt ==="string") {
             this.answerSelectSelected.push(opt);
           }else{
@@ -555,7 +568,7 @@ export default {
           });
 
           FB.getLoginStatus(function(response) {
-              if (response.status === 'connected') {
+              if (response.status === 'connected' && getCookie('SessionData')) {
                   var accessToken = response.authResponse.accessToken;
 
                   $.post( '/api/Account/FacebookOAuthResponse',  t.bodyToken(accessToken)  )
@@ -618,5 +631,22 @@ export default {
 </script>
 
 <style>
+  body{
+    overflow: hidden;
+  }
+  .fade-enter-active {
+    transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    transition-delay: 0.5s;
+  }
+  .fade-leave-active {
+    transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .fade-enter{
+    transform: translateX(100%);
+  }
+  .fade-leave-to
+    /* .slide-fade-leave-active до версии 2.1.8 */ {
+    transform: translateX(-100%);
 
+  }
 </style>

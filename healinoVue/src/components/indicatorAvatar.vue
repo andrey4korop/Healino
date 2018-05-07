@@ -141,13 +141,10 @@ export default {
         let t = this;
         t.deg=t.HealthRateDeg(t.minValue);
         t.curShow=true;
-        console.log('start2');
         setTimeout(function () {
-          console.log('start2 1');
           t.deg=t.HealthRateDeg(t.maxValue);
         },700);
         setTimeout(function () {
-          console.log('start2 2');
           t.deg=t.HealthRateDeg(t.rezultData.HealthRate);
         },1400);
         setTimeout(function () {

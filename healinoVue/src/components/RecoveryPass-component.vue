@@ -37,6 +37,9 @@
       <img v-bind:src="(audio_p)?'static/img/noMusic.png':'static/img/music.png'" >
 
     </div>
+    <div class="back_btn" v-on:click="$emit('onToStart')">
+      <i class="fa fa-chevron-circle-left"></i>
+    </div>
   </div>
 
 </template>

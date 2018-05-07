@@ -57,7 +57,6 @@ export default {
         }
         var howManyDegForScale = 360 / this.rezultData.MentalAgeScale.length;
         var per;
-        console.log('w='+ w);
         if(w>0) {
           per = (val - this.rezultData.MentalAgeScale[w-1].AgePercent) / (this.rezultData.MentalAgeScale[w].AgePercent - this.rezultData.MentalAgeScale[w - 1].AgePercent) * howManyDegForScale + howManyDegForScale * (w);
         }else{
@@ -94,13 +93,10 @@ export default {
         let t = this;
         t.deg=t.MentalAgeDeg(t.maxValue);
         t.curShow=true;
-        console.log('MentalAgeDeg');
         setTimeout(function () {
-          console.log('MentalAgeDeg1');
           t.deg=t.MentalAgeDeg(t.minValue);
         },700);
         setTimeout(function () {
-          console.log('MentalAgeDeg 2');
           t.deg=t.MentalAgeDeg(t.rezultData.BioMentalAge.MentalAgeDiffPercentage);
         },1400);
         setTimeout(function () {

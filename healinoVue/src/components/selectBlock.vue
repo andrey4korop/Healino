@@ -6,7 +6,7 @@
              v-bind:style="{zIndex:(selectedBlock==className)?'1000':''}"
              ref="selectBlock"
         >
-            {{title}}
+            {{title(Id)}}
         </div>
         <div class="selectBlockNeed" v-if="visibleBlock" v-on:click="changeSelectColor(0)">
             <div class="select">
@@ -33,7 +33,7 @@ export default {
     data () {
         return {
             Id:0,
-            title:'',
+
             showSelectId:false,
             isAnimating:false,
 
@@ -55,9 +55,10 @@ export default {
     created: function() {
         this.Id = this.valueItem;
         if((typeof this.Id === "number" || typeof this.Id === "string") && parseInt(this.Id)>-1){
-            this.title = this.selectOption[this.Id].title;
+            this.changeVal();
         }else{
             this.Id = 0;
+            this.changeVal();
         }
         this.currentAnchor = this.Id;
         var text = "";
@@ -77,6 +78,13 @@ export default {
         }
     },
     methods:{
+        title(id){
+            if(id>-1 && id<this.selectOption.length){
+                return this.selectOption[id].title;
+            }else{
+                return '';
+            }
+        },
         updateAnchors() {
             this.anchors = [];
             let t = this;
@@ -91,7 +99,7 @@ export default {
         },
         changeVal: function () {
             if(this.Id!=-1 && this.Id!=='' && this.Id!==null && (typeof this.Id =='number' || typeof this.Id =='string' )) {
-                this.title = this.selectOption[this.Id].title;
+
                 this.$emit('changeValSelect', this.Id);
             }
         },

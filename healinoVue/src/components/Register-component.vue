@@ -86,6 +86,9 @@
     <img v-bind:src="(audio_p)?'static/img/noMusic.png':'static/img/music.png'" >
 
   </div>
+  <div class="back_btn" v-on:click="$emit('onToStart')">
+    <i class="fa fa-chevron-circle-left"></i>
+  </div>
 </div>
 </template>
 
@@ -204,11 +207,11 @@
                         .done(function( data ){
                             if(data.ErrorCode==1){
                                 t.SessionData = data.SessionString;
-                                t.$emit('changeLang', data.Language);
                                 setCookie('SessionData', data.SessionString, {
                                     expires: 10000*10000,
                                     path: '/'
                                 });
+                                t.$emit('changeLang', getCookie('lang'));
                                 let temp = {
                                     UserId: data.UserId,
                                     SessionString: data.SessionString,
@@ -238,7 +241,7 @@
                                     if(data.ErrorCode==1){
                                         //t.toQuestion(this.themeActive);
                                         tempthis.SessionData = data.SessionString;
-                                        tempthis.$emit('changeLang', data.Language);
+                                        tempthis.$emit('changeLang', getCookie('lang'));
                                         setCookie('SessionData', data.SessionString, {
                                             expires: 10000*10000,
                                             path: '/'

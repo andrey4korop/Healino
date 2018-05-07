@@ -62,12 +62,18 @@ export default {
         bgpersent: function () {
             //return (6.64 + ( this.bg * 15.53 ))+'%';
             //return /*6.26 +*/ 14.2856*this.bg;
+            if(window.screen.width<500){
+                return 300 *this.bg
+            }
             return 5 *this.bg /*+ this.posMouseTemp.x / document.body.clientWidth*0.1*/;
         },
         countNeedBg:function () {
             this.bgArray=[];
             for(var i = 0; i<=this.bgpersent/100;i++ ){
                 this.bgArray.push(i%7);
+            }
+            if(!this.bgArray.length){
+                this.bgArray.push(0);
             }
             return  this.bgArray.length;
         },

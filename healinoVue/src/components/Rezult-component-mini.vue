@@ -124,12 +124,12 @@
       <div class="indicators">
         <div class="title_indicator" v-html="langString('titleCAge')"></div>
         <div class="indicator">
-          <div class="description" v-bind:class="(showDescription==4)?'on':''">
+          <div class="description" v-bind:class="(showDescription==4)?'on':''" v-bind:style="{zIndex:descriptAge}">
             <div class="text"
                  v-lang.AgeDescriptionText="{ChronologicalAge: rezultData.BioMentalAge.ChronologicalAge, MentalAge: rezultData.BioMentalAge.MentalAge, BiologicalAge: rezultData.BioMentalAge.BiologicalAge, txtMental:txtMental, txtBiological:txtBiological}">
             </div>
           </div>
-          <div class="plus" v-bind:style="{zIndex:descriptAge}" v-on:click="onDescription(4)"><img src="static/img/plus.png" alt=""></div>
+          <div class="plus"  v-on:click="onDescription(4)"><img src="static/img/plus.png" alt=""></div>
           <div class="row_indicator">
             <indicator-real-age :rezultData="rezultData"></indicator-real-age>
           </div>
@@ -371,9 +371,9 @@
         showDescription:function (old, newVal) {
           let t = this;
           if(old==5){
-            this.descriptRACVD=10;
+            this.descriptRACVD=15;
           }else if(old==4){
-            this.descriptAge=10;
+            this.descriptAge=15;
           }else{
             setTimeout(function(){
               t.descriptRACVD=-10;
