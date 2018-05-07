@@ -42,7 +42,7 @@
                   placeholder="dd/mm/yyyy"
                   type="text" />-->
           <input type="text"
-                 v-model="Birthday" v-on:change="change(objBirthday, Birthday)"
+                 v-model="Birthday" v-on:change="changeBirth(Birthday)"
                  data-inputmask-alias="date"
                  data-inputmask-inputformat="dd/mm/yyyy">
 
@@ -616,6 +616,23 @@
               }
             }, 1500);
           },
+          changeBirth(val){
+            let t = this;
+            this.Birthday = val;
+            this.objBirthday.showCheck = true;
+            this.objBirthday.showLoad = true;
+            this.objBirthday.error = false;
+            setTimeout( function () {
+              t.objBirthday.showLoad = false;
+              if((new Date().valueOf() > new Date(t.Birthday.substr(6,4),  t.Birthday.substr(3,2), t.Birthday.substr(0,2)).valueOf())){
+                t.objBirthday.showCheck = true;
+              }else{
+                t.objBirthday.showLoad = false;
+                t.objBirthday.showCheck = false;
+                t.objBirthday.error = true;
+              }
+            }, 1500);
+          },
           changePhone(val){
             let t = this;
             this.Phone = val;
@@ -668,6 +685,10 @@
                         error = true;
                         this["obj"+index].error=true;
                     }
+                  if(index=="Birthday" && (new Date().valueOf() < new Date(this.Birthday.substr(6,4),  this.Birthday.substr(3,2), this.Birthday.substr(0,2)).valueOf())) {
+                    error = true;
+                    this["obj"+index].error=true;
+                  }
                 }
                 return error;
             }
@@ -683,6 +704,9 @@
     position: fixed;
     bottom: 10px;
     right: 10px;
+  }
+  label{
+    margin-top: 0!important;
   }
   @media screen and (max-width: 760px) {
     .firstPageContainer .row, .roww {
@@ -728,7 +752,7 @@
       padding: 10px 0;
     }
     .login{
-      padding: 30px 0 25px;
+      padding: 17px 0 17px;
     }
   }
   @media all and (-ms-high-contrast:none) and (max-height: 768px) and (orientation: landscape){
