@@ -3,17 +3,16 @@
 
 @include reset();
 
-*{
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-}
+
 html,body{
 
   font-family: 'Open Sans', sans-serif;
   font-size: 12px;
   color: #fff;
   z-index: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 #grad1 {
   background: url('../img/scale_web.png');

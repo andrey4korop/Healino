@@ -63,20 +63,6 @@
             <i class="fa fa-times" aria-hidden="true"></i>
           </span>
         </label>
-        <!--<label>
-          <p><span>*</span>{{langString('race')}}</p>
-          <select v-model="Race" v-on:change="change(objRace, Race)">
-            <option value="0">Caucasian</option>
-            <option value="1">Asian</option>
-            <option value="2">African </option>
-          </select>
-          <span class="check" v-bind:class="(objRace.showLoad) ? 'loading': ''" v-if="objRace.showCheck">
-            <i class="fa fa-check" aria-hidden="true"></i>
-          </span>
-          <span class="check" v-bind:class="(objRace.error) ? 'error' : ''" v-if="objRace.error">
-            <i class="fa fa-times" aria-hidden="true"></i>
-          </span>
-        </label>-->
         <label>
           <p><span>*</span>{{langString('race')}}</p></label>
         <selectBlock
@@ -88,19 +74,6 @@
         ></selectBlock>
         <label>
           <p><span>*</span>{{langString('phone')}}</p>
-          <!--<input type="tel" pattern="^(?:0|\(?\+\)?\s?|00\s?)[1-79](?:[\.\-\s]?\d\d){4}$"
-                 v-model="Phone" v-on:change="change(objPhone, Phone)">-->
-          <!--<the-mask
-                    v-model="Phone"
-                    v-on:change="change(objPhone, Phone)"
-                    type="tel"
-                    placeholder="(111)111-11-11"></the-mask>-->
-          <!--<masked-input
-                  v-on:change="change(objPhone, Phone)"
-                  v-model="Phone"
-                  mask="\+111111111111"
-                  placeholder="+xxxxxxxxxxxx"
-                  type="text" />-->
           <input type="text"
                  v-model="Phone" v-on:change="changePhone(Phone)"
                  data-inputmask="'alias': 'phone'">
@@ -114,11 +87,11 @@
         </label>
 
       </div>
-      <div class="formBlock login">
+      <div class="formBlock login" v-bind:class="(language=='pl' && PersonMeasurementSystem == '1')?'pl':''">
         <div class="Metrics">
           <div class="btn" v-bind:class="[(PersonMeasurementSystem == '0') ? 'active': '']"
                             v-on:click="changeMetrics('0')">{{langString('metric')}}</div>
-          <div class="btn" v-if="language=='en'"
+          <div class="btn" v-if="language!='ru' "
                v-bind:class="[(PersonMeasurementSystem == '1') ? 'active': '']"
                             v-on:click="changeMetrics('1')">US</div>
         </div>
@@ -335,6 +308,12 @@
                 someDate: 'Date Actualization',
                 button: 'SIGN IN',
               save:'UPDATE',
+              act1:'No Activity',
+              act2:'Sedentary',
+              act3:'Low Active',
+              act4:'Moderately Active',
+              act5:'Very Active',
+              act6:'Extra Active',
             },
             ru: {
                 name: 'Имя',
@@ -358,6 +337,12 @@
                 female: 'Женский',
                 someDate: 'Дата актуализации',
                 button: 'РЕГИСТРАЦИЯ',
+              act1:'Нет активности',
+              act2:'Сидячий',
+              act3:'Низкоактивных',
+              act4:'Умеренно активен',
+              act5:'Очень активный',
+              act6:'Экстра Активен',
               save:'ОБНОВИТЬ',
             },
             pl: {
@@ -370,18 +355,24 @@
                 metric: 'Metryki',
                 height: 'Wzrost',
                 cm: 'cm',
-                ft: 'st',
-                inn: 'ca',
+                ft: 'stóp',
+                inn: 'cali',
                 weight: 'Waga',
                 kg: 'kg',
-                lb: 'fu',
-                oz: 'un',
+                lb: 'funt',
+                oz: 'uncje',
                 activity: 'Poziom aktywności ',
                 gender: 'płeć',
                 male: 'męska',
                 female: 'żeńska',
                 someDate: 'Data aktualizacji',
                 button: 'REJESTRACJA',
+              act1:'Brak aktywności',
+              act2:'Siedzący',
+              act3:'Low Active',
+              act4:'Umiarkowanie aktywne',
+              act5:'Bardzo aktywny',
+              act6:'Extra Active',
               save:'AKTUALIZACJA',
             },
         },
@@ -395,12 +386,12 @@
           },
           activityOption:function(){
             let r =[];
-            r.push({key: 0, title: 'No Activity', Id:0});
-            r.push({key: 1, title: 'Sedentary', Id:1});
-            r.push({key: 2, title: 'Low Active', Id:2});
-            r.push({key: 3, title: 'Moderately Active', Id:3});
-            r.push({key: 4, title: 'Very Active', Id:4});
-            r.push({key: 5, title: 'Extra Active', Id:5});
+            r.push({key: 0, title: this.langString('act1'), Id:0});
+            r.push({key: 1, title: this.langString('act2'), Id:1});
+            r.push({key: 2, title: this.langString('act3'), Id:2});
+            r.push({key: 3, title: this.langString('act4'), Id:3});
+            r.push({key: 4, title: this.langString('act5'), Id:4});
+            r.push({key: 5, title: this.langString('act6'), Id:5});
             return r;
           },
           buttonTitle:function () {
@@ -698,7 +689,7 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped rel="stylesheet/scss">
 
   .music_btn{
     width: 30px;
@@ -710,16 +701,16 @@
   label{
     margin-top: 0!important;
   }
-  @media screen and (max-width: 760px) {
-    .firstPageContainer .row, .roww {
-      margin: 5px 0;
-    }
-    .container{
-      transform: scale(0.95);
-    }
-  }
   .row{
     margin-top: 2px;
+  }
+  .pl{
+    &.login label .razmer:nth-child(5)~.check {
+      left: calc(70% + 70px);
+    }
+    &.login label .razmer {
+      margin: 6px;
+    }
   }
   @media screen and (max-height: 768px) and (orientation: landscape){
     .container{
@@ -737,15 +728,19 @@
       margin-top: 10px;
       margin-bottom: 0px;
     }
-    .login label input[type=date], .login label input[type=email], .login label input[type=number], .login label input[type=password], .login label input[type=tel], .login label input[type=text], .login label option, .login label select, .login label .selectBlock {
-      height: unset;
-      font-size: 14px;
-      padding: 2% 15px;
-      margin-bottom: 10px;
-      margin-top: 7px;
-    }
-    .login label.pointer2 span, .login label.radio {
-      margin-top: 0px;
+
+    .login label {
+      input[type=date], input[type=email], input[type=number], input[type=password], input[type=tel],
+      input[type=text], option, select, .selectBlock {
+        height: unset;
+        font-size: 14px;
+        padding: 2% 15px;
+        margin-bottom: 10px;
+        margin-top: 7px;
+      }
+      &.pointer2 span, &.radio {
+        margin-top: 0px;
+      }
     }
     .formBlock .Metrics {
       margin-bottom: 22px;
@@ -757,17 +752,20 @@
       padding: 17px 0 17px;
     }
   }
+  @media screen and (max-width: 760px) {
+    .firstPageContainer .row, .roww {
+      margin: 5px 0;
+    }
+    .container{
+      transform: scale(0.95);
+    }
+  }
   @media all and (-ms-high-contrast:none) and (max-height: 768px) and (orientation: landscape){
-    .login label .selectBlock,
-    .login label input[type=date],
-    .login label input[type=email],
-    .login label input[type=number],
-    .login label input[type=password],
-    .login label input[type=tel],
-    .login label input[type=text],
-    .login label option,
-    .login label select{
-      height: auto!important;
+    .login label {
+      .selectBlock, input[type=date], input[type=email], input[type=number], input[type=password],
+      input[type=tel], input[type=text], option, select {
+        height: auto !important;
+      }
     }
     .usercomasdfgh .container{
       transform: none!important;

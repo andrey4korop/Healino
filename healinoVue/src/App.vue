@@ -154,7 +154,7 @@ export default {
         userData:{},
         themeActive:0,
         lang:'en',
-        state: 'pay',
+        state: 'start',
         SessionData: '',
         UserId: '',
       answerSelectSelected:[],
@@ -567,7 +567,7 @@ export default {
               version    : 'v2.11'
           });
 
-          FB.getLoginStatus(function(response) {
+          /*FB.getLoginStatus(function(response) {
               if (response.status === 'connected' && getCookie('SessionData')) {
                   var accessToken = response.authResponse.accessToken;
 
@@ -588,7 +588,7 @@ export default {
                       .fail(function() {
                       });
               }
-          } );
+          } );*/
       };
 
       (function(d, s, id){
