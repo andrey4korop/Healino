@@ -466,52 +466,9 @@
             if(this.userData.PhotoUrl){
                 this.img = this.userData.PhotoUrl;
             }
-
         },
         watch:{
-            /*Phone:function (newVal,oldVal) {
-                this.objPhone.showCheck = true;
-                this.objPhone.showLoad = true;
-                this.objPhone.error = false;
-                let t = this;
-                if(newVal.replace(/_/g,'').length>11) {
-                    setTimeout(function () {
-                        t.objPhone.showLoad = false;
-                        t.objPhone.showCheck = true;
-                        t.objPhone.error = false;
-                    }, 1600);
-                }else{
-                    setTimeout(function () {
-                        t.objPhone.showLoad = false;
-                        t.objPhone.showCheck = false;
-                        t.objPhone.error = true;
-                    }, 1500);
-                }
-            },*/
-            /*Birthday:function (newVal,oldVal) {
-                this.objBirthday.showCheck = true;
-                this.objBirthday.showLoad = true;
-                this.objBirthday.error = false;
-                let t = this;
-                if(newVal.indexOf('_')<0) {
-                    setTimeout(function () {
-                        t.objBirthday.showLoad = false;
-                        if ((new Date(newVal.substr(6,4), newVal.substr(3,2)-1, newVal.substr(0,2)) == 'Invalid Date') || (newVal.substr(3,2)>12) ||  (newVal.substr(0,2)>31)) {
-                            t.objBirthday.showCheck = false;
-                            t.objBirthday.error = true;
-                        }else{
-                            t.objBirthday.showCheck = true;
-                        }
-                    }, 1600);
-                }else{
-                    setTimeout(function () {
-                        t.objBirthday.showLoad = false;
-                        t.objBirthday.showCheck = false;
-                        t.objBirthday.error = false;
-                    }, 1500);
-                }
 
-            }*/
         },
         methods: {
             langString(string){

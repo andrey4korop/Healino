@@ -19,7 +19,7 @@ import licenseComponent  from './components/License-component.vue'
 import userComponent  from './components/User-component.vue'
 import themeComponent  from './components/Theme-component.vue'
 import questionComponent  from './components/Question-component.vue'
-import payComponent  from './components/Pay-component.vue'
+//import payComponent  from './components/Pay-component.vue'
 /**
  * загрущка малых компонентов
  * индикаторов
@@ -45,8 +45,8 @@ import questionType1  from './components/questionType1.vue'
 import questionType2  from './components/questionType2.vue'
 import background  from './components/background.vue'
 import bg  from './components/bg.vue'
-import  selectBlockIE from  './components/selectBlock.vue'
-import  selectBlock from  './components/selectBlock2.vue'
+import selectBlockIE from  './components/selectBlock.vue'
+import selectBlock from  './components/selectBlock2.vue'
 import pdSelectItem from './components/selectitem.vue'
 
 Vue.component('pdSelectItem', pdSelectItem);
@@ -80,7 +80,7 @@ Vue.component('license-component', licenseComponent);
 Vue.component('user-component', userComponent);
 Vue.component('theme-component', themeComponent);
 Vue.component('question-component', questionComponent);
-Vue.component('pay-component', payComponent);
+//Vue.component('pay-component', payComponent);
 Vue.component('rezultComponentMini', rezultComponentMini);
 /**
  * загрущка малых компонентов

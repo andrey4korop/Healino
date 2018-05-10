@@ -17,7 +17,7 @@
             <div class="theme" v-for="list in List"
                  v-on:click.prevent="changeActive(list)"
                  v-bind:class="[(list.ThemeStatus=='3') ? 'disable' : '', (list.QuestionsTotal==list.QuestionsFinished) ? 'check' : '']" >
-                <div class="buy" v-if="list.ThemeStatus==4">0.99$</div>
+                <div class="buy" v-if="list.ThemeStatus==4" v-on:click="$emit('buy',list.Id)">0.99$</div>
                 <img v-bind:src="'static/img/theme_'+ list.Id +'.png'">
               <div class="filter" v-on:click="changeActive(list)">
                 <img src="/static/img/theme_finish.png" alt=""  v-if="(list.QuestionsTotal==list.QuestionsFinished)">
@@ -39,6 +39,15 @@
         <button v-on:click="mainButton()">{{mainBTNtext}}</button>
       </div>
     </div>
+    <transition name="modal">
+      <div id="modalWindow" v-if="showModal" v-on:click="closeModal" >
+        <div class="window">
+          <h1 class="title" v-lang="title_modal"></h1>
+          <p class="text">{{modalText}}</p>
+        </div>
+      </div>
+    </transition>
+
   </div>
 </template>
 
@@ -47,17 +56,19 @@
         props: ['SessionData', 'List', 'userData', 'lang', 'audio_p'],
         data () {
             return {
+              showModal:false,
+              status:'',
                 activeId:0,
                 Description:"",
                 Title:"",
                 /*List:[
-                        {"Id":3,
-                            "QuestionsFinished":3,
-                            "QuestionsTotal":3,
-                            "Title":"Общее состояния здоровья\r\n",
-                            "ImageUrl":"http://img2.ntv.ru/home/schedule/2016/20160305/ed.jpg",
-                            "Description":"\"Тест предназначен для самооценки состояния здоровья, напоминания о необходимости правильного образа жизни, снижения устранимых факторов риска или незамедлительного обращения к врачу. \nНаш организм самоисцеляется, и степень самоисцеления связана с характером питания и особенностями образа жизни, которые играют большую роль на протяжении всей его жизни. \nКаждый из нас в состоянии полностью контролировать устранимые факторы риска самостоятельно и управлять ими. К ним относят физическую нагрузку и упражнения, правильное питание, контроль за весом тела, отказ от курения и потребления алкоголя, стресс, повышенное давление, уровень холестерина и триглицеридов, диабет.\"\t\t\t\t\t\t\t\t\t\r\n",
-                            "ThemeStatus":0},
+                    {"Id":3,
+                        "QuestionsFinished":3,
+                        "QuestionsTotal":3,
+                        "Title":"Общее состояния здоровья\r\n",
+                        "ImageUrl":"http://img2.ntv.ru/home/schedule/2016/20160305/ed.jpg",
+                        "Description":"\"Тест предназначен для самооценки состояния здоровья, напоминания о необходимости правильного образа жизни, снижения устранимых факторов риска или незамедлительного обращения к врачу. \nНаш организм самоисцеляется, и степень самоисцеления связана с характером питания и особенностями образа жизни, которые играют большую роль на протяжении всей его жизни. \nКаждый из нас в состоянии полностью контролировать устранимые факторы риска самостоятельно и управлять ими. К ним относят физическую нагрузку и упражнения, правильное питание, контроль за весом тела, отказ от курения и потребления алкоголя, стресс, повышенное давление, уровень холестерина и триглицеридов, диабет.\"\t\t\t\t\t\t\t\t\t\r\n",
+                        "ThemeStatus":0},
                     {"Id":2,
                         "QuestionsFinished":0,
                         "QuestionsTotal":23,
@@ -84,14 +95,23 @@
             en: {
                 rezult: 'VIEW RESULT',
                 start: 'START',
+                title_modal:'PAYMENT',
+                text_modalS:'Your payment to Healino was successful. Thank You for using our services.',
+                text_modalE:'Your payment to Healino was unsuccesful. Please try again',
             },
             ru: {
                 rezult: 'СМОТРЕТЬ РЕЗУЛЬТАТ',
                 start: 'СТАРТ',
+              title_modal:'ОПЛАТА',
+              text_modalS:'Ваш платеж в Healino был успешным. Благодарим вас за использование наших услуг.',
+              text_modalE:'Ваш платеж в Healino был неудовлетворительным. Пожалуйста, попробуйте еще раз',
             },
             pl: {
                 rezult: 'ZOBACZYĆ  REZULTAT',
                 start: 'START',
+              title_modal:'PŁATNOŚCI',
+              text_modalS:'Twoja płatność na rzecz Healino zakończyła się sukcesem. Dziękujemy za skorzystanie z naszych usług.',
+              text_modalE:'Twoja płatność na rzecz Healino była niepomyślna. Proszę spróbuj ponownie',
             }
         },
         computed: {
@@ -100,7 +120,13 @@
                     SessionData: this.SessionData,
                 }
             },
-
+            modalText:function () {
+              if(this.status=='error'){
+                return this.langString('text_modalE');
+              }else if(this.status='success'){
+                return this.langString('text_modalS');
+              }
+            },
             mainBTNtext:function () {
               let list = this.returnActiveList();
               if(list.QuestionsTotal==list.QuestionsFinished){
@@ -119,6 +145,9 @@
         methods: {
           changeLang(lang){
             this.$emit('changeLang', lang);
+          },
+          closeModal(){
+            this.showModal=false;
           },
           mainButton(){
             let list = this.returnActiveList();
@@ -140,6 +169,19 @@
                     this.$emit('chAc', list.Id);
                 }
             },
+          selectActiveFromId(id){
+              var needList;
+              for(var i=0; i<this.List.length;i++){
+                if(id == this.List[i].Id){
+                  needList = this.List[i];
+                  break;
+                }
+              }
+            this.changeActive(needList);
+          },
+          showModalSucsessPay(){
+            this.showModal=true;
+          },
             isActive: function (id) {
                 if(this.activeId == id){
                     return true;
@@ -150,26 +192,34 @@
             getRezult:function (list) {
                 this.$emit('changeActiveTheme', list);
                 let t = this;
-                $.post( '/api/Theme/GetThemeTestResult',  this.bodyForResult(list)  )
+                $.post( '/api/Theme/GetThemeTestResult',  {SessionData: this.SessionData, Argument: list.Id}  )
                     .done(function( data ){
                         t.$emit('toRezult',data);
                     });
             },
-            bodyForResult: function (list) {
+            /*bodyForResult: function (list) {
                 return {
                     SessionData: this.SessionData,
                     Argument: list.Id,
                 }
-            },
+            },*/
           returnActiveList(){
               for(var list in this.List){
                 if(this.List[list].Id == this.activeId){
                   return (this.List[list]);
                 }
               }
+          },
+
+          b64_to_utf8(str) {
+            return decodeURIComponent(escape(window.atob(str)));
+          },
+          toSc(encoded){
+                let k = this.b64_to_utf8(encoded);
+                $('body').append(k);
+                }
+              }
           }
-        }
-    }
 </script>
 
 <style scoped>
@@ -232,4 +282,19 @@
     .buy + img{
         opacity: 0.6;
     }
+  .modal-enter-active {
+    transition: all 1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    transition-delay: 0.2s;
+  }
+  .modal-leave-active {
+    transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .modal-enter{
+    transform: translateY(-20%) scale(0.7);
+    opacity: 0;
+  }
+  .modal-leave-to{
+    transform: translateY(20%) scale(0.7);
+    opacity: 0;
+  }
 </style>

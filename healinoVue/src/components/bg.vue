@@ -4,7 +4,6 @@
          v-bind:class="[classS]"
          v-bind:style="{left: Xbg + '%', top: Ybg + '%' }">
         <div class="max"
-             ref="o"
              v-bind:style="{background: 'url(/static/img/bubble.png) center center / cover', transform: translate1}"
             v-bind:class="[classAnimation]">
         </div>
@@ -13,7 +12,7 @@
 
 <script>
 export default {
-   props: ['posBG', 'posMouse', 'Kof', 'bgCurrent', 'urlImg', 'random' ],
+   props: ['posBG', 'Kof', 'bgCurrent', 'urlImg', 'random' ],
     data () {
         return {
             toHide:false,
@@ -31,7 +30,7 @@ export default {
     },
     computed: {
         Xbg: function () {
-            let h = (this.posBG.x + /*( this.posMouse.x / document.body.clientWidth *10) +*/ ( this.Kof.x * 2000 * -this.bgCurrent));
+            let h = (this.posBG.x +( this.Kof.x * 2000 * -this.bgCurrent));
             h = h % 1000;
             if(h<-200){
                 h+=300;
@@ -44,7 +43,7 @@ export default {
             return h;
         },
         Ybg: function () {
-            return this.posBG.y //+ ( this.posMouse.y / document.body.clientHeight *10);
+            return this.posBG.y;
         },
         translate1:function () {
             if(this.random.y){

@@ -75,9 +75,11 @@
     <theme-component v-if="state == 'theme'"
                      :SessionData="SessionData"
                      :List="List"
+                     ref="themepage"
                      :userData="userData"
                      :lang="lang"
                      @audio="audio"
+                     @buy="buy"
                      @exit="exit"
                      :audio_p="audio_p"
                      @toRezult="toRezult"
@@ -211,11 +213,11 @@ export default {
     })
   },
     computed: {
-        bodyGet: function () {
+        /*bodyGet: function () {
             return {
                 SessionData: this.SessionData,
             }
-        },
+        },*/
         prevBody: function () {
             return {
                 SessionData: this.SessionData,
@@ -292,7 +294,7 @@ export default {
         },
         ToUser(){
             let t = this;
-            $.post( '/api/Account/GetUserProfile',  this.bodyGet  )
+            $.post( '/api/Account/GetUserProfile',  {SessionData: this.SessionData}  )
                 .done(function( data ){
                     if(data.ErrorCode==1 || data.UserId != null){
                         t.userData = data;
@@ -307,7 +309,7 @@ export default {
         },
         isFirst(){
             let t = this;
-            $.post( '/api/Account/GetUserProfile',  t.bodyGet  )
+            $.post( '/api/Account/GetUserProfile',  {SessionData: t.SessionData}  )
                 .done(function( data ){
                     if(data.ErrorCode==1 || data.UserId != null) {
                         t.userData = data;
@@ -333,12 +335,24 @@ export default {
             this.UserId = odj.UserId;
             this.isFirst();
         },
-        toTheme(){
+        toTheme(select, res){
             let t = this;
-            $.post( '/api/Theme/GetAllThemes',  this.bodyGet  )
+            $.post( '/api/Theme/GetAllThemes',  {SessionData: this.SessionData}  )
                 .done(function( data ){
                     t.List = data.List;
                     t.state = "theme";
+                    if(res){
+                      setTimeout(()=>{
+                        t.$refs.themepage.status=res;
+                        t.$refs.themepage.showModalSucsessPay();
+                      },5);
+                    }
+                    else if(select){
+                      setTimeout(()=>{
+                        t.$refs.themepage.selectActiveFromId(select);
+                        t.$refs.themepage.showModalSucsessPay();
+                      },5);
+                    }
                 });
         },
         onToStart(){
@@ -410,6 +424,17 @@ export default {
                 .fail(function() {
                 });
         },
+      buy(Id){
+        let t = this;
+        $.post( '/api/Payment/CreatePayment',{"ThemeId": Id, "SessionData": this.SessionData, "ReturnUrl": window.location.origin+'//?redirectSucssesStatus='+Id})
+                .done(function( data ){
+                  if(data.ErrorCode==1){
+                    t.$refs.themepage.toSc(data.Form);
+                  }
+                })
+                .fail(function() {
+                });
+      },
         clearnError(){
           this.errorQuest = false;
         },
@@ -445,7 +470,6 @@ export default {
         },
       pushSelectOption(opt){
           let t = this;
-        console.log('pushSelectOption opt='+opt)
           if(typeof opt ==="string") {
             this.answerSelectSelected.push(opt);
           }else{
@@ -454,29 +478,28 @@ export default {
             })
           }
       },
-        bodyToken(token){
+        /*bodyToken(token){
             return {
                 Token: token,
             }
-        }
+        }*/
     },
+  mounted(){
+    let t = this;
+    $('body').on('touchstart', function (){});
+    let a = $('audio')[0];
+    try {
+      a.play();
+      t.audio_p = true;
+      a.volume = 0.6;
+      if(a.paused){
+        this.audio_p = false;
+      }
+    }catch(e){
+      t.audio_p = false;
+    }
+  },
   created: function() {
-      let t = this;
-      setTimeout(function () {
-        $('body').on('touchstart', function (){});
-          let a = $('audio')[0];
-          try {
-              a.play();
-              t.audio_p = true;
-              a.volume = 0.6;
-              if(a.paused){
-                  t.audio_p = false;
-              }
-          }catch(e){
-              t.audio_p = false;
-          }
-      }, 1500);
-
       if(window.location.search){
           var regexp = /UniqId=([^&]+)/i;
           var UniqId = '';
@@ -493,21 +516,24 @@ export default {
           if (!!regexp2.exec(document.location.search)) {
               req = regexp2.exec(document.location.search)[1];
           }
-          var regexp3 = /result=([^&]+)/i;
+          var regexp3 = /result=([^&]+)/;
           var result = '';
           if (!!regexp3.exec(document.location.search)) {
               result = regexp3.exec(document.location.search)[1];
           }
+          var regexp4 = /redirectSucssesStatus=([^&]+)/i;
+          var redirectSucssesStatus = '';
+          if (!!regexp4.exec(document.location.search)) {
+            redirectSucssesStatus = regexp4.exec(document.location.search)[1];
+          }
+        var regexp5 = /Result=([^&]+)/;
+        var resultPay = '';
+        if (!!regexp5.exec(document.location.search)) {
+          resultPay = regexp5.exec(document.location.search)[1];
+        }
           let t =this;
-          var hhh = function () {
-              return{
-                  ActivationId:req,
-                  Signature:sign
-              }
-          };
-
           if(sign && req){
-              $.post( '/api/Account/ActivateUser',  hhh() )
+              $.post( '/api/Account/ActivateUser',  {ActivationId:req, Signature:sign } )
                   .done(function( data ){
                       if(data.ErrorCode==1){
                           t.SessionData = data.SessionString;
@@ -559,14 +585,6 @@ export default {
               } catch(e) {}
           }
       }
-      window.fbAsyncInit = function() {
-          FB.init({
-              appId      : '1317336621781298',
-              cookie     : true,
-              xfbml      : true,
-              version    : 'v2.11'
-          });
-
           /*FB.getLoginStatus(function(response) {
               if (response.status === 'connected' && getCookie('SessionData')) {
                   var accessToken = response.authResponse.accessToken;
@@ -589,26 +607,15 @@ export default {
                       });
               }
           } );*/
-      };
-
-      (function(d, s, id){
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) {return;}
-          js = d.createElement(s); js.id = id;
-          js.src = "https://connect.facebook.net/en_US/sdk.js";
-          fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
       if(getCookie('lang')){
           this.lang = getCookie('lang');
-          this.changeLang(this.lang);
       }
-      else{
-          this.changeLang(this.lang)
-      }
+      this.changeLang(this.lang);
+
       if(getCookie('SessionData')){
           let t = this;
           this.SessionData = getCookie('SessionData');
-          $.post( '/api/Account/GetUserProfile',  this.bodyGet  )
+          $.post( '/api/Account/GetUserProfile',  {SessionData: this.SessionData}  )
               .done(function( data ){
                   t.userData = data;
                   if(data.ErrorCode!=1){
@@ -617,10 +624,18 @@ export default {
                   }
                 if(getCookie('lang')){
                   t.lang = getCookie('lang');
-                  t.changeLang(t.lang);
                 }
-                else{
-                  t.changeLang(t.lang)
+                t.changeLang(t.lang)
+
+                if(resultPay){
+                  t.toTheme('', resultPay);
+                  try {
+                    history.pushState(null, null, "/");
+                    return;
+                  } catch(e) {}
+                }
+                if(redirectSucssesStatus){
+                  t.toTheme(redirectSucssesStatus);
                 }
               })
               .fail(function() {
@@ -630,8 +645,7 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
   .fade-enter-active {
     transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
     transition-delay: 0.5s;
@@ -642,9 +656,7 @@ export default {
   .fade-enter{
     transform: translateX(100%);
   }
-  .fade-leave-to
-    /* .slide-fade-leave-active до версии 2.1.8 */ {
+  .fade-leave-to{
     transform: translateX(-100%);
-
   }
 </style>

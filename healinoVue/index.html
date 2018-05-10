@@ -7,17 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:600" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/static/css/a.css?9">
-	
-	<!--<script type="text/javascript">  var appInsights=window.appInsights||function(a){    function b(a){c[a]=function(){var b=arguments;c.queue.push(function(){c[a].apply(c,b)})}}var c={config:a},d=document,e=window;setTimeout(function(){var b=d.createElement("script");b.src=a.url||"https://az416426.vo.msecnd.net/scripts/a/ai.0.js",d.getElementsByTagName("script")[0].parentNode.appendChild(b)});try{c.cookie=d.cookie}catch(a){}c.queue=[];for(var f=["Event","Exception","Metric","PageView","Trace","Dependency"];f.length;)b("track"+f.pop());if(b("setAuthenticatedUserContext"),b("clearAuthenticatedUserContext"),b("startTrackEvent"),b("stopTrackEvent"),b("startTrackPage"),b("stopTrackPage"),b("flush"),!a.disableExceptionTracking){f="onerror",b("_"+f);var g=e[f];e[f]=function(a,b,d,e,h){var i=g&&g(a,b,d,e,h);return!0!==i&&c["_"+f](a,b,d,e,h),i}}return c    }({        instrumentationKey:"f666e81c-7337-4a68-9b30-f7c3b7af1976"    });      window.appInsights=appInsights,appInsights.queue&&0===appInsights.queue.length&&appInsights.trackPageView();</script>-->
-	
-    <!--<script src="//cdn.polyfill.io/v2/polyfill.min.js"></script>-->
-	<script src="/static/js/jquery.js"></script>
-    <!--<script src="static/js/jquery.plaxmove.js"></script>-->
+
+	<script src="https://cdn.polyfill.io/v2/polyfill.min.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="/static/js/lib.js"></script>
-    <!--<script src="static/js/jquery.maskedinput.min.js"></script>-->
-    <script src="/static/js//platform.js" async defer></script>
-    <script src="/static/js//Tween.js"></script>
-    <script src="/static/js/RequestAnimationFrame.js"></script>
+    <script src="/static/js//Tween.js" async></script>
+    <script src="/static/js/RequestAnimationFrame.js" async></script>
     <style type="text/css">
       @media all and (-ms-high-contrast:none)
       {
@@ -162,6 +157,26 @@
   <body>
 
     <div id="app"></div>
+    <script>
+      if(window.location.protocol!='https:'){
+        window.location.href = window.location.href.replace('http:','https:');
+      }
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '1317336621781298',
+          cookie     : true,
+          xfbml      : true,
+          version    : 'v2.11'
+        });
+      };
+      (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
     <script src="dist/build.js?8"></script>
   </body>
 </html>

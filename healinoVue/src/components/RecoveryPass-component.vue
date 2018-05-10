@@ -15,7 +15,7 @@
           <span class="check" v-bind:class="(errorEmail) ? 'error' : ''" v-if="errorEmail">
             <i class="fa fa-times" aria-hidden="true"></i>
           </span>
-          <div class="description" v-bind:class="(errorEmail)?'on':''">
+          <div class="descriptionLogin" v-bind:class="(errorEmail)?'on':''">
             <div class="text" v-lang.errorEmail></div>
           </div>
         </label>
@@ -142,5 +142,32 @@
     position: fixed;
     bottom: 10px;
     right: 10px;
+  }
+  .descriptionLogin{
+    background: rgba(255,0,0,0.2);
+    position: absolute;
+    left: 0;
+    top: 74%;
+    width: 100%;
+    text-align: left;
+    border-radius: 15px 0 15px 15px;
+    padding: 4px;
+    z-index: -10;
+    opacity: 0;
+    transition: all 0.5s linear;
+  }
+  .descriptionLogin.on{
+    z-index: 10;
+    opacity: 1;
+  }
+  .descriptionLogin .text{
+    border-radius: 15px 0 15px 15px;
+    max-height: 109px;
+    padding: 3px;
+    background: rgba(255,255,255,0.7);
+    color: #585858;
+  }
+  label{
+    margin-bottom: 20px;
   }
 </style>

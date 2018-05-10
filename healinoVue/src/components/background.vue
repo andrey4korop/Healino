@@ -72,6 +72,7 @@ export default {
             for(var i = 0; i<=this.bgpersent/100;i++ ){
                 this.bgArray.push(i%7);
             }
+            this.bgArray.push(i%7);
             if(!this.bgArray.length){
                 this.bgArray.push(0);
             }
