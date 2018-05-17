@@ -5,7 +5,7 @@
         :audio_p="audio_p"
         :isPublic="false"
         @audio="$emit('audio')"
-        @toTheme="$emit('toTheme')"
+        @toTheme="toTheme"
         @toStart="$emit('toStart')"
 ></rezultComponentMini>
 </template>
@@ -23,6 +23,11 @@
             return this.userData.PhotoUrl || '../static/img/noIMG.png';
           }
         },
+        methods:{
+            toTheme(q, i, j){
+                this.$emit('toTheme', q, i, j);
+            }
+        }
     }
 </script>
 

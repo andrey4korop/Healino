@@ -1,23 +1,14 @@
 <template>
   <div class="container themesPageContainer ">
-    <headerComponent
-            :lang="lang"
-            :audio_p="audio_p"
-            :userData="userData"
-            :QuestionsProgress="userData.QuestionsProgress"
-            @changeLang="changeLang"
-            @onToUser="$emit('onToUser')"
-            @exit="$emit('exit')"
-            @toStart="$emit('toStart')"
-            @audio="$emit('audio')"></headerComponent>
-    <div class="row sm-margin">
+
+    <div class="row sm-margin" ref="wind">
       <div class="content">
         <div class="mar">
           <div class="themes">
             <div class="theme" v-for="list in List"
                  v-on:click.prevent="changeActive(list)"
-                 v-bind:class="[(list.ThemeStatus=='3') ? 'disable' : '', (list.QuestionsTotal==list.QuestionsFinished) ? 'check' : '']" >
-                <div class="buy" v-if="list.ThemeStatus==4" v-on:click="$emit('buy',list.Id)">0.99$</div>
+                 v-bind:class="[(list.ThemeStatus=='10') ? 'disable' : '', (list.QuestionsTotal==list.QuestionsFinished) ? 'check' : '']" >
+                <div class="buy" v-if="(list.ThemeStatus==3 && list.QuestionsTotal!=list.QuestionsFinished)">{{list.Price}}$</div>
                 <img v-bind:src="'static/img/theme_'+ list.Id +'.png'">
               <div class="filter" v-on:click="changeActive(list)">
                 <img src="/static/img/theme_finish.png" alt=""  v-if="(list.QuestionsTotal==list.QuestionsFinished)">
@@ -40,10 +31,16 @@
       </div>
     </div>
     <transition name="modal">
-      <div id="modalWindow" v-if="showModal" v-on:click="closeModal" >
+      <div class="modalWindow" v-if="showModal" v-on:click="closeModal($event)" >
         <div class="window">
-          <h1 class="title" v-lang="title_modal"></h1>
-          <p class="text">{{modalText}}</p>
+          <i class="fa fa-times-circle-o close" v-on:click="closeModal()"></i>
+          <h1 class="title" v-lang.title_modal></h1>
+          <p class="text" v-html="modalText"></p>
+          <div class="jcsa">
+            <button v-if="status=='TwoButton'" v-on:click="buyOtherCard" v-lang.btn1></button>
+            <button v-if="status=='ErrorCard'" v-on:click="buyOtherCard" v-lang.btn1></button>
+            <button v-if="status=='TwoButton'" v-on:click="buyThisCard"  v-lang.btn2></button>
+          </div>
         </div>
       </div>
     </transition>
@@ -53,7 +50,7 @@
 
 <script>
     export default {
-        props: ['SessionData', 'List', 'userData', 'lang', 'audio_p'],
+        props: ['SessionData', 'List', 'userData', 'lang', 'audio_p', 'QuestionsProgress'],
         data () {
             return {
               showModal:false,
@@ -61,29 +58,6 @@
                 activeId:0,
                 Description:"",
                 Title:"",
-                /*List:[
-                    {"Id":3,
-                        "QuestionsFinished":3,
-                        "QuestionsTotal":3,
-                        "Title":"Общее состояния здоровья\r\n",
-                        "ImageUrl":"http://img2.ntv.ru/home/schedule/2016/20160305/ed.jpg",
-                        "Description":"\"Тест предназначен для самооценки состояния здоровья, напоминания о необходимости правильного образа жизни, снижения устранимых факторов риска или незамедлительного обращения к врачу. \nНаш организм самоисцеляется, и степень самоисцеления связана с характером питания и особенностями образа жизни, которые играют большую роль на протяжении всей его жизни. \nКаждый из нас в состоянии полностью контролировать устранимые факторы риска самостоятельно и управлять ими. К ним относят физическую нагрузку и упражнения, правильное питание, контроль за весом тела, отказ от курения и потребления алкоголя, стресс, повышенное давление, уровень холестерина и триглицеридов, диабет.\"\t\t\t\t\t\t\t\t\t\r\n",
-                        "ThemeStatus":0},
-                    {"Id":2,
-                        "QuestionsFinished":0,
-                        "QuestionsTotal":23,
-                        "Title":"Реальный возраст\r\n",
-                        "ImageUrl":"http://img2.ntv.ru/home/schedule/2016/20160305/ed.jpg",
-                        "Description":"\"Тест предназначен для определения ментального и биологического  возраста.\nСравнените возрасты  с хронологическим возрастом\"\t\t\t\t\t\t\t\t\t\r\n",
-                        "ThemeStatus":0},
-                    {"Id":1,
-                        "QuestionsFinished":0,
-                        "QuestionsTotal":6,
-                        "Title":"Риск возникновения атеросклеротического сердечно-сосудистого заболевания\r\n",
-                        "ImageUrl":"http://img2.ntv.ru/home/schedule/2016/20160305/ed.jpg",
-                        "Description":"\"Тест предназначен для оценки риска возникновения сердечно-сосудистого заболевания.\nПри этом горизонт риска - вся жизнь и ближайшие 10 лет\"\t\t\t\t\t\t\t\t\t\r\n",
-                        "ThemeStatus":4}],*/
-
             }
         },
         watch:{
@@ -95,23 +69,38 @@
             en: {
                 rezult: 'VIEW RESULT',
                 start: 'START',
+              buy:'BUY',
                 title_modal:'PAYMENT',
                 text_modalS:'Your payment to Healino was successful. Thank You for using our services.',
                 text_modalE:'Your payment to Healino was unsuccesful. Please try again',
+                text_modalTwoButton:'Use this payment method:<br> {CardMask}<br> Amount {Price}$',
+                text_modalE2:'Error',
+                btn1:'Use other',
+                btn2:'Pay',
             },
             ru: {
                 rezult: 'СМОТРЕТЬ РЕЗУЛЬТАТ',
                 start: 'СТАРТ',
+              buy:'КУПИТЬ',
               title_modal:'ОПЛАТА',
               text_modalS:'Ваш платеж в Healino был успешным. Благодарим вас за использование наших услуг.',
+              text_modalTwoButton:'Будет произведена оплата с карты<br> {CardMask}<br> Сумма {Price}$',
               text_modalE:'Ваш платеж в Healino был неудовлетворительным. Пожалуйста, попробуйте еще раз',
+              text_modalE2:'Error',
+              btn1:'Выбрать другую',
+              btn2:'Оплатить',
             },
             pl: {
                 rezult: 'ZOBACZYĆ  REZULTAT',
                 start: 'START',
+              buy:'KUPOWAĆ',
               title_modal:'PŁATNOŚCI',
               text_modalS:'Twoja płatność na rzecz Healino zakończyła się sukcesem. Dziękujemy za skorzystanie z naszych usług.',
+              text_modalTwoButton:'Użyj tej metody płatności:<br> {CardMask}<br> kwota {Price}$',
               text_modalE:'Twoja płatność na rzecz Healino była niepomyślna. Proszę spróbuj ponownie',
+              text_modalE2:'Error',
+              btn1:'Użyj innych',
+              btn2:'Zapłacić',
             }
         },
         computed: {
@@ -121,16 +110,23 @@
                 }
             },
             modalText:function () {
+              let list = this.returnActiveList();
               if(this.status=='error'){
                 return this.langString('text_modalE');
-              }else if(this.status='success'){
+              }else if(this.status=='success'){
                 return this.langString('text_modalS');
+              }else if(this.status=='ErrorCard'){
+                return this.langString('text_modalE2');
+              }else if(this.status=='TwoButton'){
+                return this.langString('text_modalTwoButton', {'CardMask': list.CardMask, 'Price': list.Price});
               }
             },
             mainBTNtext:function () {
               let list = this.returnActiveList();
               if(list.QuestionsTotal==list.QuestionsFinished){
                 return this.langString('rezult')
+              }else if(list.ThemeStatus == 3){
+                return this.langString('buy')
               }else{
                 return this.langString('start')
               }
@@ -140,34 +136,76 @@
             this.changeActive(this.List[0]);
         },
         mounted(){
-
+          this.$nextTick(function() {
+            window.addEventListener('resize', this.getWindowHeight);
+            this.getWindowHeight();
+          })
         },
+      destroyed() {
+        window.removeEventListener('resize', this.getWindowHeight);
+        $(this.$refs.wind).css({transform: ''});
+        $('body').css({overflow: ''});
+      },
         methods: {
+          getWindowHeight(event) {
+            let heigth = document.documentElement.clientHeight;
+            if(heigth > 1080){
+              let scale = Math.round(parseFloat(heigth / 1000)*10)/10;
+              $(this.$refs.wind).css({transform: 'scale('+scale+')'});
+              $('body').css({overflow: 'hidden'});
+            }else{
+              $(this.$refs.wind).css({transform: ''});
+              $('body').css({overflow: ''});
+            }
+          },
           changeLang(lang){
             this.$emit('changeLang', lang);
           },
-          closeModal(){
+          closeModal(e){
+            if(e) {
+              var clickEvObj = $(e.target);
+              if (clickEvObj[0].className == 'window' || clickEvObj.parents('.window').length) {
+                return false;
+              }
+            }
             this.showModal=false;
+          },
+          buyOtherCard(){
+            let list = this.returnActiveList();
+            this.$emit('buy', list, false);
+            this.showModal = false;
+          },
+          buyThisCard(){
+            let list = this.returnActiveList();
+            this.$emit('buy', list, true);
+            this.showModal = false;
           },
           mainButton(){
             let list = this.returnActiveList();
             if(list.QuestionsTotal==list.QuestionsFinished){
-              this.getRezult(list)
+              this.getRezult(list);
+            }else if(list.ThemeStatus == 3){
+              if(list.TokekExists){
+                this.status = 'TwoButton';
+                this.showModal=true;
+              }else {
+                this.$emit('buy', list, false);
+              }
             }else{
               this.$emit('toQuestion', this.activeId)
             }
           },
-            langString(string){
-                return this.translate(string);
+            langString(string, obj){
+                return this.translate(string, obj);
             },
             changeActive: function (list) {
                 this.$emit('changeActiveTheme', list);
-                if(list.ThemeStatus == 0 || list.ThemeStatus == 1 || list.ThemeStatus == 2 ) {
+
                     this.activeId = list.Id;
                     this.Description = list.Description;
                     this.Title = list.Title;
                     this.$emit('chAc', list.Id);
-                }
+
             },
           selectActiveFromId(id){
               var needList;
@@ -227,7 +265,15 @@
     opacity: 0.7;
     width: 40%;
   }
-
+  .close{
+    position: absolute;
+    top: -20px;
+    right: -15px;
+    font-size: 40px;
+    color: #fff;
+    text-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
+    cursor: pointer;
+  }
   .row{
     margin-top: 56px;
   }
@@ -243,16 +289,7 @@
   .text_rezult p{
     margin: auto;
   }
-  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-    .text_rezult p{
-      width: 100%;
-    }
-  }
-  @media screen and (max-width: 760px) {
-    .text_rezult p{
-      font-size: 0.65em;
-    }
-  }
+
   .themesPageContainer .themes .theme.check .filter p .mark{
     opacity: 1;
     width: 40%;
@@ -280,7 +317,7 @@
         z-index: 1;
     }
     .buy + img{
-        opacity: 0.6;
+        opacity: 0.2;
     }
   .modal-enter-active {
     transition: all 1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
@@ -296,5 +333,20 @@
   .modal-leave-to{
     transform: translateY(20%) scale(0.7);
     opacity: 0;
+  }
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .text_rezult p{
+      width: 100%;
+    }
+  }
+  @media screen and (max-width: 760px) {
+    .text_rezult p{
+      font-size: 0.65em;
+    }
+    .buy{
+      padding: 2% 10%;
+      top: 30%;
+      left: 45%;
+    }
   }
 </style>

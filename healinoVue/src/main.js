@@ -48,6 +48,8 @@ import bg  from './components/bg.vue'
 import selectBlockIE from  './components/selectBlock.vue'
 import selectBlock from  './components/selectBlock2.vue'
 import pdSelectItem from './components/selectitem.vue'
+import wrapper from './components/wrapper-component.vue'
+import back_btn from './components/back_btn-component.vue'
 
 Vue.component('pdSelectItem', pdSelectItem);
 Vue.use(MultiLanguage, {
@@ -108,6 +110,8 @@ Vue.component('questionType1', questionType1);
 Vue.component('questionType2', questionType2);
 Vue.component('background', background);
 Vue.component('bg', bg);
+Vue.component('wrapper', wrapper);
+Vue.component('back_btn', back_btn);
 
 if (document.documentMode || /Edge/.test(navigator.userAgent)) {
     Vue.component('selectBlock', selectBlockIE);

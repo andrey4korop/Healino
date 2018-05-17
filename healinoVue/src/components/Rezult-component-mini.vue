@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div class="container pc" v-if="width>760">
+    <wrapper v-if="width>760">
       <div class="row">
         <indicatorAvatar :rezultData="rezultData"
                          :img="photoImg"
@@ -98,8 +98,9 @@
       </div>
       <div class="button_share">
         <button class="share" v-on:click.prevent="share" v-lang.share></button>
+        <button class="share" v-on:click.prevent="invite" v-lang.invite></button>
       </div>
-    </div>
+    </wrapper>
 
 
   <div class="containerMob sm" v-if="width<=760">
@@ -187,6 +188,7 @@
 
       <div class="button_share">
         <button class="share" v-on:click.prevent="share" v-lang.share></button>
+        <button class="share" v-on:click.prevent="invite" v-lang.invite></button>
       </div>
     </div>
     <div class="pos7">
@@ -204,9 +206,7 @@
     <img v-bind:src="(audio_p)?'static/img/noMusic.png':'static/img/music.png'" >
 
   </div>
-  <div class="back_btn" v-on:click="back">
-    <i class="fa fa-chevron-circle-left"></i>
-  </div>
+  <back_btn :callback="back"></back_btn>
 </div>
 
 </template>
@@ -222,12 +222,16 @@
                 descriptRACVD:-10,
                 //rezultData:{"BMI":17.99,"BMR":1472.5,"BFP":-90.56,"FM":-47.09,"LMP":90.56,"RASCVD":69,"WHRatio":1,"TenYearsASCVD":{"Calculated":0,"Optimal":0.03},"DaylyCallorie":1767,"HealthRate":40,"BioMentalAge":{"MentalAge":23,"BiologicalAge":26,"ChronologicalAge":23,"MentalAgeDiffPercentage":0,"BiologicalAgeDiffPercentage":13},"BMIScale":[{"Gender":0,"BMIScale":0,"BMI":16},{"Gender":0,"BMIScale":1,"BMI":17},{"Gender":0,"BMIScale":2,"BMI":18.5},{"Gender":0,"BMIScale":3,"BMI":25},{"Gender":0,"BMIScale":4,"BMI":30},{"Gender":0,"BMIScale":5,"BMI":35},{"Gender":0,"BMIScale":6,"BMI":40},{"Gender":0,"BMIScale":7,"BMI":45}],"BFCategoryScale":[{"Gender":0,"BFScale":0,"BF":2.5},{"Gender":0,"BFScale":1,"BF":4.9},{"Gender":0,"BFScale":2,"BF":7.3},{"Gender":0,"BFScale":3,"BF":9.5},{"Gender":0,"BFScale":4,"BF":13.6},{"Gender":0,"BFScale":5,"BF":17},{"Gender":0,"BFScale":6,"BF":21.2},{"Gender":0,"BFScale":7,"BF":24.4},{"Gender":0,"BFScale":8,"BF":25.8}],"FMCategoryScale":[{"Gender":0,"BFScale":0,"BF":1.7},{"Gender":0,"BFScale":1,"BF":3.3},{"Gender":0,"BFScale":2,"BF":5},{"Gender":0,"BFScale":3,"BF":6.5},{"Gender":0,"BFScale":4,"BF":9.2},{"Gender":0,"BFScale":5,"BF":11.6},{"Gender":0,"BFScale":6,"BF":14.4},{"Gender":0,"BFScale":7,"BF":16.6},{"Gender":0,"BFScale":8,"BF":17.5}],"LMPCategoryScale":[{"Gender":0,"BFScale":0,"BF":97.5},{"Gender":0,"BFScale":1,"BF":95.1},{"Gender":0,"BFScale":2,"BF":92.7},{"Gender":0,"BFScale":3,"BF":90.5},{"Gender":0,"BFScale":4,"BF":86.4},{"Gender":0,"BFScale":5,"BF":83},{"Gender":0,"BFScale":6,"BF":78.8},{"Gender":0,"BFScale":7,"BF":75.6},{"Gender":0,"BFScale":8,"BF":74.2}],"RASCVDScale":[{"RASCVDScale":0,"Value":5},{"RASCVDScale":1,"Value":36},{"RASCVDScale":2,"Value":46},{"RASCVDScale":3,"Value":50},{"RASCVDScale":4,"Value":69}],"TenYearsASCVDScale":[{"RASCVDScale":0,"Value":5},{"RASCVDScale":1,"Value":11},{"RASCVDScale":2,"Value":17},{"RASCVDScale":3,"Value":23},{"RASCVDScale":4,"Value":30}],"CallorieScale":[{"Gender":0,"Activity":0,"Callorie":1687},{"Gender":0,"Activity":1,"Callorie":2025},{"Gender":0,"Activity":2,"Callorie":2320},{"Gender":0,"Activity":3,"Callorie":2615},{"Gender":0,"Activity":4,"Callorie":2911},{"Gender":0,"Activity":5,"Callorie":3206}],"BioAgeScale":[{"Gender":0,"AgeScale":4,"AgePercent":-31},{"Gender":0,"AgeScale":4,"AgePercent":-20},{"Gender":0,"AgeScale":3,"AgePercent":-10},{"Gender":0,"AgeScale":3,"AgePercent":-4},{"Gender":0,"AgeScale":3,"AgePercent":3},{"Gender":0,"AgeScale":2,"AgePercent":9},{"Gender":0,"AgeScale":1,"AgePercent":19},{"Gender":0,"AgeScale":0,"AgePercent":30},{"Gender":0,"AgeScale":0,"AgePercent":40}],"MentalAgeScale":[{"Gender":0,"AgeScale":0,"AgePercent":-31},{"Gender":0,"AgeScale":1,"AgePercent":-20},{"Gender":0,"AgeScale":2,"AgePercent":-10},{"Gender":0,"AgeScale":3,"AgePercent":-4},{"Gender":0,"AgeScale":4,"AgePercent":3},{"Gender":0,"AgeScale":3,"AgePercent":9},{"Gender":0,"AgeScale":2,"AgePercent":19},{"Gender":0,"AgeScale":1,"AgePercent":30},{"Gender":0,"AgeScale":0,"AgePercent":40}],"CronologicalAgeScale":[{"Gender":0,"AgeScale":4,"AgePercent":24},{"Gender":0,"AgeScale":3,"AgePercent":48},{"Gender":0,"AgeScale":2,"AgePercent":72},{"Gender":0,"AgeScale":1,"AgePercent":96},{"Gender":0,"AgeScale":0,"AgePercent":120}],"HealthRatioScale":[{"IllnessScale":0,"Value":5},{"IllnessScale":1,"Value":10},{"IllnessScale":2,"Value":20},{"IllnessScale":3,"Value":30},{"IllnessScale":4,"Value":40},{"IllnessScale":5,"Value":50},{"IllnessScale":6,"Value":70}],"WHRatioScale":[{"WHRScale":0,"Value":0.7},{"WHRScale":1,"Value":0.75},{"WHRScale":2,"Value":0.8},{"WHRScale":3,"Value":0.85},{"WHRScale":4,"Value":0.9},{"WHRScale":5,"Value":0.99},{"WHRScale":6,"Value":1.1},{"WHRScale":7,"Value":1.15}],"IsFinished":true,"PublicHash":"fde3c96c21015369d4df912317362d97","PreviusQuestionId":0,"QuestionId":0,"QuestionNum":0,"TotalQuestions":0,"QuestionTypeEnum":0,"UserThemeTestId":0,"IsAnswered":false,"QText":null,"ImageUrl":null,"QuestionsProgress":0,"AnswerOptions":null,"NextQuestionId":0,"ErrorCode":1,"DebugMessage":null,"UIMessage":null},
                 gender:"body0.png",
-                img:""
+                img:"",
+              touchstartX:0,
+              touchendX:0,
             }
         },
         messages: {
             en: {
                 share: 'SHARE',
+                invite: 'INVITE FRIENDS',
+              textInvite:'',
                 AgeDescriptionText:
                 "<p>Your age:</p>"+
                 "<p>Mental {MentalAge} years. {txtMental}</p>"+
@@ -264,6 +268,8 @@
             },
             ru: {
                 share: 'ПОДЕЛИТЬСЯ',
+              invite: 'ПРИГЛАСИТЬ ДРУЗЕЙ',
+              textInvite:'',
                 AgeDescriptionText:
                 "<p>Ваш возраст:</p>"+
                 "<p>Ментальный {MentalAge} лет. {txtMental}</p>"+
@@ -299,7 +305,8 @@
             },
             pl: {
                 share: 'DZIELIĆ SIĘ',
-
+              invite: 'ZAPROSIĆ PRZYJACIÓŁ',
+              textInvite:'',
                 AgeDescriptionText:
                 "<p>Twój wiek:</p>"+
                 "<p>Mentalne {MentalAge}. {txtMental}</p>"+
@@ -383,29 +390,25 @@
         }
       },
         mounted() {
-
           let t = this;
           $(document).on('touchstart', '.containerMob, .container', function(event) {
               t.touchstartX = event.originalEvent.touches[0].screenX;
           });
           $(document).on('touchend', '.containerMob, .container', function(event) {
               t.touchendX = event.originalEvent.changedTouches[0].screenX;
-              if((Math.abs(t.touchendX-t.touchstartX)>70)){
+              if((Math.abs(t.touchendX-t.touchstartX)>100)){
                 if (t.touchendX > t.touchstartX) {
                   t.back();
                 }
               }
           });
+          window.addEventListener('resize', this.getWindowWidth);
             this.$nextTick(function() {
-                window.addEventListener('resize', this.getWindowWidth);
-                window.addEventListener('resize', this.getWindowHeight);
-
-                //Init
-                this.getWindowWidth()
+                this.getWindowWidth();
             })
         },
-        beforeDestroy() {
-            window.removeEventListener('resize', this.getWindowWidth);
+      destroyed() {
+          window.removeEventListener('resize', this.getWindowWidth);
           $(document).unbind('touchstart');
           $(document).unbind('touchend');
         },
@@ -414,8 +417,13 @@
             if(this.isPublic){
               this.$emit('toStart');
             }else{
-              this.$emit('toTheme');
+              this.$emit('toTheme', '', '', true);
             }
+          },
+          invite(){
+            FB.ui({ method: 'apprequests',
+              message: this.langString('textInvite:')
+            });
           },
           langString(string){
             return this.translate(string);
@@ -427,7 +435,7 @@
                 FB.ui({
                     method: 'share',
                     mobile_iframe: true,
-                    href: window.location.origin+'//?result='+this.rezultData.PublicHash,
+                    href: window.location.origin,
                 }, function(response){});
             },
             onDescription(val){
@@ -535,6 +543,7 @@
     position: fixed;
     bottom: 10px;
     right: 10px;
+    z-index: 50;
   }
   .indicator:hover .plus{
     animation: anima 2s infinite ease-in-out;

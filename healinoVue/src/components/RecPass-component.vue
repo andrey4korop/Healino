@@ -2,7 +2,7 @@
 
   <div class="container firstPageContainer">
     <div class="row">
-      <form action="" class="login">
+      <form action="" class="login" ref="wind">
         <h4 v-lang.title></h4>
         <label>
           <p><span>*</span>{{langString('password')}}</p>
@@ -45,9 +45,7 @@
       <img v-bind:src="(audio_p)?'static/img/noMusic.png':'static/img/music.png'" >
 
     </div>
-    <div class="back_btn" v-on:click="$emit('onToStart')">
-      <i class="fa fa-chevron-circle-left"></i>
-    </div>
+    <back_btn :callback="onToStart"></back_btn>
   </div>
 
 </template>
@@ -71,6 +69,8 @@
                 showCheckVPass: false,
                 showLoadVPass: true,
 
+              touchstartX:0,
+              touchendX:0,
             }
         },
         messages: {
@@ -110,11 +110,49 @@
         created: function() {
 
         },
+      mounted(){
+        let t = this;
+        $(document).on('touchstart', function(event) {
+          t.touchstartX = event.originalEvent.touches[0].screenX;
+        });
+        $(document).on('touchend', function(event) {
+          t.touchendX = event.originalEvent.changedTouches[0].screenX;
+          if((Math.abs(t.touchendX-t.touchstartX)>100)){
+            if (t.touchendX > t.touchstartX) {
+              t.$emit('onToStart');
+            }
+          }
+        });
+        this.$nextTick(function() {
+          window.addEventListener('resize', this.getWindowHeight);
+          this.getWindowHeight();
+        })
+      },
+      destroyed(){
+        $(document).unbind('touchstart');
+        $(document).unbind('touchend');
+        window.removeEventListener('resize', this.getWindowHeight);
+        $(this.$refs.wind).css({transform: ''});
+        $('body').css({overflow: ''});
+      },
         methods:{
             langString(string){
                 return this.translate(string);
             },
-
+          onToStart(){
+            this.$emit('onToStart');
+          },
+          getWindowHeight(event) {
+            let heigth = document.documentElement.clientHeight;
+            if(heigth > 1080){
+              let scale = Math.round(parseFloat(heigth / 900)*10)/10;
+              $(this.$refs.wind).css({transform: 'scale('+scale+')'});
+              $('body').css({overflow: 'hidden'});
+            }else{
+              $(this.$refs.wind).css({transform: ''});
+              $('body').css({overflow: ''});
+            }
+          },
             send(){
                 let t = this;
                 let p = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}/g.test(this.Password);

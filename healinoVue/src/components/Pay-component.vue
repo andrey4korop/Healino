@@ -330,7 +330,6 @@
           CardNumber:function (old, newVal) {
             let t = this;
             if(this.getCardNumber.length>15){
-              console.log(this.getCardNumber.length);
               this.objCardNumber.showCheck = true;
               this.objCardNumber.showLoad = true;
               this.objCardNumber.error = false;
@@ -419,9 +418,6 @@
             }
             setTimeout(function () {
               if(t.Year.length==4 && t.Month.length==2){
-                console.log((new Date(t.Year, t.Month-1) != 'Invalid Date'));
-                console.log((t.Month < 13));
-                console.log((t.Year >= new Date().getFullYear()));
                 if ((new Date(t.Year, t.Month-1) != 'Invalid Date') && (t.Month < 13) && (t.Year >= new Date().getFullYear())) {
                   t.objExp.showLoad = false;
                   t.objExp.showCheck = true;

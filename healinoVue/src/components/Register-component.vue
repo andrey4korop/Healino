@@ -2,7 +2,7 @@
 <div class="prostoTask">
   <div class="container firstPageContainer">
     <div class="row">
-      <form action="" class="login">
+      <form action="" class="login" ref="wind">
         <div class="btn_social facebook g-signin-button" v-on:click.prevent="FacebookLogin">
           <img src="static/img/facebook.png" alt=""> {{langString('loginFB')}}
         </div>
@@ -86,9 +86,7 @@
     <img v-bind:src="(audio_p)?'static/img/noMusic.png':'static/img/music.png'" >
 
   </div>
-  <div class="back_btn" v-on:click="$emit('onToStart')">
-    <i class="fa fa-chevron-circle-left"></i>
-  </div>
+  <back_btn :callback="onToStart"></back_btn>
 </div>
 </template>
 
@@ -120,7 +118,8 @@
                 showErrorVPass: false,
 
                 ErrorEmailMassage:"",
-
+              touchstartX:0,
+              touchendX:0,
                 googleSignInParams: {
                     client_id: '55026088655-3uc8o6t7gp4iu24seftuno6k3r6gi5qc.apps.googleusercontent.com'
                 }
@@ -200,6 +199,20 @@
                     Token: token,
                 }
             },
+          onToStart(){
+            this.$emit('onToStart');
+          },
+          getWindowHeight(event) {
+            let heigth = document.documentElement.clientHeight;
+            if(heigth > 1080){
+              let scale = Math.round(parseFloat(heigth / 900)*10)/10;
+              $(this.$refs.wind).css({transform: 'scale('+scale+')'});
+              $('body').css({overflow: 'hidden'});
+            }else{
+              $(this.$refs.wind).css({transform: ''});
+              $('body').css({overflow: ''});
+            }
+          },
             onSignInSuccess (googleUser) {
                 let t = this;
                 if(googleUser.Zi.access_token){
@@ -224,10 +237,8 @@
                         .fail(function() {
                         });
                 }
-
             },
             onSignInError (error) {
-
             },
             FacebookLogin(){
                 var t = this;
@@ -257,12 +268,8 @@
                                 })
                                 .fail(function() {
                                 });
-
                         }
-                    },
-                    {
-                        scope: 'public_profile',
-                    }
+                    },{scope: 'public_profile',}
                 );
             },
             send(){
@@ -354,28 +361,30 @@
         },
       mounted(){
         let t = this;
-        $(document).on('touchstart', '.login', function(event) {
-
+        $(document).on('touchstart', function(event) {
             t.touchstartX = event.originalEvent.touches[0].screenX;
-
         });
-        $(document).on('touchend', '.login', function(event) {
-
+        $(document).on('touchend', function(event) {
             t.touchendX = event.originalEvent.changedTouches[0].screenX;
-            if((Math.abs(t.touchendX-t.touchstartX)>80)){
+            if((Math.abs(t.touchendX-t.touchstartX)>100)){
               if (t.touchendX > t.touchstartX) {
                 t.$emit('onToStart');
               }
             }
-
+        });
+        this.$nextTick(function() {
+          window.addEventListener('resize', this.getWindowHeight);
+          this.getWindowHeight();
         });
       },
       destroyed(){
         $(document).unbind('touchstart');
         $(document).unbind('touchend');
+        window.removeEventListener('resize', this.getWindowHeight);
+        $(this.$refs.wind).css({transform: ''});
+        $('body').css({overflow: ''});
       },
         watch: {
-            // эта функция запускается при любом изменении вопроса
             Password: function (newQuestion, oldQuestion) {
                 this.showCheckVPass = false;
                 if(this.VPassword==newQuestion){
@@ -443,7 +452,7 @@
       height: 100vh;
     }
   }
-  @media screen and (max-width: 780px) {
+  @media screen and (max-width: 560px) {
     .back_btn {
       display: none;
     }

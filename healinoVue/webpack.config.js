@@ -8,14 +8,14 @@ module.exports = {
     publicPath: '/dist/',
     filename: 'build.js'
   },
-  plugins: [
+  /*plugins: [
     new webpack.ProvidePlugin({
       $: 'jquery',
       jquery: 'jquery',
       'window.jQuery': 'jquery',
       jQuery: 'jquery'
     })
-  ],
+  ],*/
   module: {
     rules: [
       {

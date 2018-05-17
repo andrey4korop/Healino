@@ -1,6 +1,6 @@
 <template>
 <div class="prostoTask">
-  <div class="container firstPageContainer">
+  <div class="container firstPageContainer"  ref="wind">
     <div class="row">
       <div class="logo">
         <img src="static/img/logo.png" alt="">
@@ -100,9 +100,29 @@
         created: function() {
           this.$emit('changeLang', getCookie('lang'));
         },
+      mounted() {
+        this.$nextTick(function() {
+          window.addEventListener('resize', this.getWindowHeight);
+          this.getWindowHeight();
+        })
+      },
+      destroyed() {
+        window.removeEventListener('resize', this.getWindowHeight);
+        $(this.$refs.wind).css({transform: ''});
+        $('body').css({overflow: ''});
+      },
         methods: {
-
-
+          getWindowHeight(event) {
+            let heigth = document.documentElement.clientHeight;
+            if(heigth > 1080){
+              let scale = Math.round(parseFloat(heigth / 1000)*10)/10;
+              $(this.$refs.wind).css({transform: 'scale('+scale+')'});
+              $('body').css({overflow: 'hidden'});
+            }else{
+              $(this.$refs.wind).css({transform: ''});
+              $('body').css({overflow: ''});
+            }
+          },
         }
     }
 </script>

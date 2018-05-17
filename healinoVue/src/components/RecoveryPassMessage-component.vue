@@ -1,5 +1,5 @@
 <template>
-  <div class="container firstPageContainer">
+  <div class="container firstPageContainer" ref="wind">
     <div class="row">
       <form action="" class="login">
         <h4 v-lang.h4></h4>
@@ -17,7 +17,8 @@
         props: [],
         data () {
             return {
-
+              touchstartX:0,
+              touchendX:0,
             }
         },
         messages: {
@@ -41,7 +42,43 @@
             langString(string){
                 return this.translate(string);
             },
-        }
+          getWindowHeight(event) {
+            let heigth = document.documentElement.clientHeight;
+            if(heigth > 1080){
+              let scale = Math.round(parseFloat(heigth / 900)*10)/10;
+              $(this.$refs.wind).css({transform: 'scale('+scale+')'});
+              $('body').css({overflow: 'hidden'});
+            }else{
+              $(this.$refs.wind).css({transform: ''});
+              $('body').css({overflow: ''});
+            }
+          },
+        },
+      mounted(){
+        let t = this;
+        $(document).on('touchstart', function(event) {
+          t.touchstartX = event.originalEvent.touches[0].screenX;
+        });
+        $(document).on('touchend', function(event) {
+          t.touchendX = event.originalEvent.changedTouches[0].screenX;
+          if((Math.abs(t.touchendX-t.touchstartX)>100)){
+            if (t.touchendX > t.touchstartX) {
+              t.$emit('onToStart');
+            }
+          }
+        });
+        this.$nextTick(function() {
+          window.addEventListener('resize', this.getWindowHeight);
+          this.getWindowHeight();
+        })
+      },
+      destroyed(){
+        $(document).unbind('touchstart');
+        $(document).unbind('touchend');
+        window.removeEventListener('resize', this.getWindowHeight);
+        $(this.$refs.wind).css({transform: ''});
+        $('body').css({overflow: ''});
+      },
     }
 
 </script>

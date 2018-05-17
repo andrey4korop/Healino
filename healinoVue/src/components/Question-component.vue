@@ -1,16 +1,7 @@
 <template>
 
   <div class="container themesPageContainer">
-    <headerComponent
-            :lang="lang"
-            :audio_p="audio_p"
-            :userData="userData"
-            :QuestionsProgress="userData.QuestionsProgress"
-            @changeLang="changeLang"
-            @onToUser="$emit('onToUser')"
-            @exit="$emit('exit')"
-            @toStart="$emit('toStart')"
-            @audio="$emit('audio')"></headerComponent>
+
     <div class="row sm">
       <div id="grad1" class="progressBarTheme">
 
@@ -19,7 +10,11 @@
         <div class="white" v-bind:style="{width: per + '%'}"></div>
       </div>
     </div>
-    <div class="row ques">
+    <transition name="fade"
+                v-bind:enter-class="nextAnimationEnter()"
+                v-bind:leave-to-class="nextAnimationLeave()"
+                mode="out-in">
+    <div class="row ques" v-if="Type!=-1">
       <div class="content col">
         <div id="grad1" class="progressBarTheme pc">
           <img src="static/img/kl.png" alt="" id="hren">
@@ -43,6 +38,7 @@
                        :answerSelectSelected="answerSelectSelected"
                        @pushSelectOption="pushSelectOption"
                        @changeVal="changeVal"></questionType1>
+
       </div>
       <div class="green">
         <button v-if="(questionData.QuestionNum > 1)"
@@ -55,7 +51,7 @@
                 v-lang.finish></button>
       </div>
     </div>
-
+    </transition>
   </div>
 
 </template>
@@ -73,6 +69,7 @@
               touchstartX:0,
               touchendX:0,
               doPrevTouch:true,
+              nextAnimationStatus:'next',
               /*questionData:{"PreviusQuestionId":0,"QuestionId":11,"QuestionNum":1,"TotalQuestions":3,"QuestionTypeEnum":2,"UserThemeTestId":152,
                 "IsAnswered":false,"AnsValue":0.0,"QText":"Измерьте размер талии\r\n","ImageUrl":null,"QuestionsProgress":0.0,
                 "AnswerOptions":[
@@ -173,7 +170,7 @@
                 let t = this;
                 setTimeout(function () {
                     t.Type = newVal.QuestionTypeEnum;
-                },5);
+                },500);
 
                 this.AnswersId = "";
                 this.AnswerValue = "";
@@ -194,6 +191,7 @@
           }
         });
         $(document).on('touchend', '.ques', function(event) {
+          console.log('touchend');
           if ($(event.target).parents('.ques').length && t.doPrevTouch &&
                   !($(event.target).parents('.selectBlock').length ||
                   $(event.target).parents('.selectBlockNeed').length ||
@@ -204,6 +202,8 @@
               if (t.touchendX > t.touchstartX) {
                 if(t.questionData.QuestionNum > 1) {
                   t.prevQuestion();
+                }else{
+                  t.$emit('toTheme');
                 }
               }
             }
@@ -215,6 +215,20 @@
         $(document).unbind('touchend');
       },
         methods: {
+          nextAnimationEnter(){
+            if(this.nextAnimationStatus=='next'){
+              return 'fade-enter';
+            }else{
+              return 'fade2-enter'
+            }
+          },
+          nextAnimationLeave(){
+            if(this.nextAnimationStatus=='next'){
+              return 'fade-leave-to';
+            }else{
+              return 'fade2-leave-to'
+            }
+          },
           changeLang(lang){
             this.$emit('changeLang', lang);
           },
@@ -255,6 +269,25 @@
 </script>
 
 <style scoped>
+  .fade-enter-active {
+    transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    transition-delay: 0.5s;
+  }
+  .fade-leave-active {
+    transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .fade-enter{
+    transform: translateX(200%);
+  }
+  .fade-leave-to{
+    transform: translateX(-200%);
+  }
+  .fade2-enter{
+    transform: translateX(-200%);
+  }
+  .fade2-leave-to{
+    transform: translateX(200%);
+  }
   .row.sm{
     position: unset;
     top: 100px;

@@ -65,7 +65,7 @@ export default {
             if(window.screen.width<500){
                 return 300 *this.bg
             }
-            return 5 *this.bg /*+ this.posMouseTemp.x / document.body.clientWidth*0.1*/;
+            return 40 *this.bg /*+ this.posMouseTemp.x / document.body.clientWidth*0.1*/;
         },
         countNeedBg:function () {
             this.bgArray=[];

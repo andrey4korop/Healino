@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div class="header" ref="wind">
     <div class="headerContainer">
       <a href="/" class="logo_head" v-on:click.prevent="$emit('toStart')"><img src="static/img/logoHeader.png" alt="" class=""></a>
       <a href="/" class="logo_head m" v-on:click.prevent="$emit('toStart')"><img src="static/img/logoM.png" alt="" class=""></a>
@@ -9,7 +9,7 @@
       <div class="music_btn1" v-on:click="$emit('audio')">
         <img v-bind:src="(audio_p)?'static/img/noMusic.png':'static/img/music.png'" >
       </div>
-      <div class="lang">
+      <div class="lang" v-bind:class="(showPopupLang)?'on':''" v-on:touchstart="showPopupLangOn()">
         <img src="static/img/langPL.png" alt="" v-if="lang=='pl'">
         <img src="static/img/langUSA.png" alt="" v-if="lang=='en'">
         <img src="static/img/langUA.png" alt="" v-if="lang=='ru'">
@@ -43,6 +43,7 @@
         data () {
             return {
               showPopupUser:false,
+              showPopupLang:false,
             }
         },
         messages: {
@@ -50,7 +51,7 @@
             main: 'Home',
             forum: 'Forum',
             editUser:'Edit profile',
-            getRezult:'Email results',
+            //getRezult:'Email results',
             exit:'Exit',
             forumUrl: 'https://www.healino.com/blog-us'
           },
@@ -58,7 +59,7 @@
             main: 'Главная',
             forum: 'Форум',
             editUser:'Редактировать профиль',
-            getRezult:'Результаты электронной почты',
+           // getRezult:'Результаты электронной почты',
             exit:'Выход',
             forumUrl: 'https://www.healino.com/blog-ru'
           },
@@ -66,29 +67,51 @@
             main: 'Strona główna',
             forum: 'Forum',
             editUser:'Edytuj profil',
-            getRezult:'Wyślij wyniki e-mailem',
+            //getRezult:'Wyślij wyniki e-mailem',
             exit:'Wyjście',
             forumUrl: 'https://www.healino.com/blog-pl'
           }
         },
         methods:{
+          getWindowHeight(event) {
+            let heigth = document.documentElement.clientHeight;
+            if(heigth > 1080){
+              let scale = Math.round(parseFloat(heigth / 1000)*10)/10;
+              $(this.$refs.wind).css({transform: 'scale('+scale+')'});
+            }else{
+              $(this.$refs.wind).css({transform: ''});
+            }
+          },
             langString(string){
                 return this.translate(string);
             },
           showPopupUserOn(){
             this.showPopupUser = true;
           },
+          showPopupLangOn(){
+            this.showPopupLang = true;
+          }
         },
       mounted(){
         let t = this;
-        $(document).mouseup(function (e) {
+        this.$nextTick(function() {
+          window.addEventListener('resize', this.getWindowHeight);
+          this.getWindowHeight();
+        })
+        $(document).on('mouseup touchstart',function (e) {
           if ($(".user_Avatar").has(e.target).length === 0){
             t.showPopupUser = false;
+          }
+          if ($(".lang").has(e.target).length === 0){
+            t.showPopupLang = false;
           }
         })
       },
       destroyed(){
         $(document).unbind('mouseup');
+        $(document).unbind('touchstart');
+        window.removeEventListener('resize', this.getWindowHeight);
+        $(this.$refs.wind).css({transform: ''});
       },
       computed:{
         userIMG: function () {
@@ -109,5 +132,8 @@
     width: 30px;
     height: 27px;
     margin-left: 10px;
+  }
+  .header{
+    transform-origin: center top;
   }
 </style>

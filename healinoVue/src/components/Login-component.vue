@@ -2,7 +2,7 @@
 <div class="prostoTask">
   <div class="container firstPageContainer">
     <div class="row">
-      <form action="" class="login">
+      <form action="" class="login" ref="wind">
 
         <div class="btn_social facebook g-signin-button" v-on:click.prevent="FacebookLogin">
           <img src="static/img/facebook.png" alt=""> {{langString('loginFB')}}
@@ -49,6 +49,9 @@
         </label>
         <label class="pointer">
           <p v-lang.forgotPass v-on:click="$emit('onForgot')"></p>
+        </label>
+        <label class="pointer">
+          <p></p>
           <input type="checkbox" v-model="remember">
           <span class="checkbox">
             <i class="fa fa-check" aria-hidden="true"></i>
@@ -72,9 +75,7 @@
     <img v-bind:src="(audio_p)?'static/img/noMusic.png':'static/img/music.png'" >
 
   </div>
-  <div class="back_btn" v-on:click="$emit('onToStart')">
-    <i class="fa fa-chevron-circle-left"></i>
-  </div>
+  <back_btn :callback="onToStart"></back_btn>
 </div>
 </template>
 
@@ -179,31 +180,47 @@
         },
       mounted(){
         let t = this;
-        $(document).on('touchstart', '.login', function(event) {
-
+        $(document).on('touchstart', function(event) {
             t.touchstartX = event.originalEvent.touches[0].screenX;
-
         });
-        $(document).on('touchend', '.login', function(event) {
-
+        $(document).on('touchend', function(event) {
             t.touchendX = event.originalEvent.changedTouches[0].screenX;
-            if((Math.abs(t.touchendX-t.touchstartX)>80)){
+            if((Math.abs(t.touchendX-t.touchstartX)>100)){
               if (t.touchendX > t.touchstartX) {
                 t.$emit('onToStart');
               }
             }
-
         });
+        this.$nextTick(function() {
+          window.addEventListener('resize', this.getWindowHeight);
+          this.getWindowHeight();
+        })
       },
       destroyed(){
         $(document).unbind('touchstart');
         $(document).unbind('touchend');
+        window.removeEventListener('resize', this.getWindowHeight);
+        $(this.$refs.wind).css({transform: ''});
+        $('body').css({overflow: ''});
       },
         methods:{
             langString(string){
                 return this.translate(string);
             },
-
+          onToStart(){
+            this.$emit('onToStart');
+          },
+          getWindowHeight(event) {
+            let heigth = document.documentElement.clientHeight;
+            if(heigth > 1080){
+              let scale = Math.round(parseFloat(heigth / 900)*10)/10;
+              $(this.$refs.wind).css({transform: 'scale('+scale+')'});
+              $('body').css({overflow: 'hidden'});
+            }else{
+              $(this.$refs.wind).css({transform: ''});
+              $('body').css({overflow: ''});
+            }
+          },
             bodyToken(token){
                 return {
                     Token: token,
@@ -382,7 +399,7 @@
     bottom: 10px;
     right: 10px;
   }
-  @media screen and (max-width: 780px) {
+  @media screen and (max-width: 560px) {
     .back_btn {
       display: none;
     }

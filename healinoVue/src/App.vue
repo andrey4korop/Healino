@@ -6,7 +6,23 @@
       </audio>
     <background :backgr="backgr"
                 :bg="bg"></background>
-    <transition name="fade">
+    <transition name="fade3">
+    <headerComponent
+            v-if="state == 'theme' || state == 'question'"
+            :lang="lang"
+            :audio_p="audio_p"
+            :userData="userData"
+            :QuestionsProgress="QuestionsProgress"
+            @changeLang="changeLang"
+            @onToUser="onToStart"
+            @exit="exit"
+            @toStart="onToStart"
+            @audio="audio"></headerComponent>
+    </transition>
+    <transition name="fade"
+                v-bind:enter-class="nextAnimationEnter()"
+                v-bind:leave-to-class="nextAnimationLeave()"
+                mode="out-in">
     <start-component v-if="state == 'start'"
                      @changeLang="changeLang"
                      @onRegister="register"
@@ -75,6 +91,7 @@
     <theme-component v-if="state == 'theme'"
                      :SessionData="SessionData"
                      :List="List"
+                     :QuestionsProgress="QuestionsProgress"
                      ref="themepage"
                      :userData="userData"
                      :lang="lang"
@@ -87,7 +104,7 @@
                      @changeActiveTheme="changeActiveTheme"
                      @toQuestion="toQuestion"
                      @onToUser="ToUser"
-                     @toStart="toStart"
+                     @toStart="onToStart"
                      @chAc="chAc"></theme-component>
     <question-component v-if="state == 'question'"
                         :questionData="questionData"
@@ -107,7 +124,7 @@
                         @setErrorQuestion="setErrorQuestion"
                         @pushSelectOption="pushSelectOption"
                         @onToUser="ToUser"
-                        @toStart="toStart"
+                        @toStart="onToStart"
                         @clearnError="clearnError"></question-component>
 
     <rezult-component v-else-if="state == 'rezult'"
@@ -117,23 +134,15 @@
                       :userData="userData"
                       :themeActiveObj="themeActiveObj"
                       @toTheme="toTheme"
-                      @toStart="toStart"
+                      @toStart="onToStart"
                       :rezultData="rezultData"></rezult-component>
     <rezultPublic-component v-else-if="state == 'rezultPublic'"
                             @audio="audio"
                             @exit="exit"
                             @toTheme="toTheme"
-                            @toStart="toStart"
+                            @toStart="onToStart"
                             :audio_p="audio_p"
                       :rezultData="rezultData"></rezultPublic-component>
-      <pay-component v-else-if="state == 'pay'"
-                              @audio="audio"
-                              @exit="exit"
-                              :audio_p="audio_p"
-                              :lang="lang"
-                              @onToUser="ToUser"
-                              @toStart="$emit('toStart')"
-                              @changeLang="changeLang"></pay-component>
     </transition>
   </div>
 </template>
@@ -144,6 +153,8 @@ export default {
   name: 'app',
    data () {
     return {
+      QuestionsProgress:'',
+      nextAnimationStatus:'next',
         audio_p:false,
         UniqId:'',
         activeId:0,
@@ -232,6 +243,20 @@ export default {
         },
     },
     methods:{
+      nextAnimationEnter(){
+        if(this.nextAnimationStatus=='next'){
+          return 'fade-enter';
+        }else{
+          return 'fade2-enter'
+        }
+      },
+      nextAnimationLeave(){
+        if(this.nextAnimationStatus=='next'){
+          return 'fade-leave-to';
+        }else{
+          return 'fade2-leave-to'
+        }
+      },
       toStart(){
         this.state="start";
       },
@@ -313,6 +338,7 @@ export default {
                 .done(function( data ){
                     if(data.ErrorCode==1 || data.UserId != null) {
                         t.userData = data;
+                        t.QuestionsProgress = data.QuestionsProgress;
                         if (!data.Phone) {
                             t.license();
                         } else {
@@ -335,29 +361,42 @@ export default {
             this.UserId = odj.UserId;
             this.isFirst();
         },
-        toTheme(select, res){
+        toTheme(select, res, nextAnimation){
             let t = this;
             $.post( '/api/Theme/GetAllThemes',  {SessionData: this.SessionData}  )
                 .done(function( data ){
+                  console.log(nextAnimation);
+                  if(nextAnimation) {
+
+                    t.nextAnimationStatus = "prev";
+                    setTimeout(()=> {
+                      t.nextAnimationStatus = "next"
+                    }, 1300);
+                  }
                     t.List = data.List;
                     t.state = "theme";
+                    t.QuestionsProgress = data.QuestionsProgress;
+                  console.log(res);
                     if(res){
                       setTimeout(()=>{
                         t.$refs.themepage.status=res;
                         t.$refs.themepage.showModalSucsessPay();
-                      },5);
+                      },700);
                     }
                     else if(select){
                       setTimeout(()=>{
                         t.$refs.themepage.selectActiveFromId(select);
                         t.$refs.themepage.showModalSucsessPay();
-                      },5);
+                      },700);
                     }
                 });
         },
         onToStart(){
+          this.nextAnimationStatus = "prev";
+
             this.state="start";
             this.bg-=2;
+          setTimeout(()=>{this.nextAnimationStatus = "next"},1300);
         },
         toQuestion(id, questId){
             this.activeId = id;
@@ -370,6 +409,7 @@ export default {
             $.post( '/api/Theme/GetNextThemeQuestionWithAnswers',  body)
                 .done(function( data ){
                     if(data.ErrorCode==1){
+                      t.QuestionsProgress = data.QuestionsProgress;
                         if(data.IsFinished){
                             t.toRezult(data);
                         }else {
@@ -387,6 +427,7 @@ export default {
             $.post( '/api/Theme/AnswerTheQuestion',  body  )
                 .done(function( data ){
                     if(data.ErrorCode==1){
+                      t.QuestionsProgress = data.QuestionsProgress;
                         if(data.IsFinished){
                             t.toRezult(data);
                         }else {
@@ -408,6 +449,7 @@ export default {
             $.post( '/api/Theme/GetNextThemeQuestionWithAnswers',  this.prevBody  )
                 .done(function( data ){
                     if(data.ErrorCode==1){
+                      t.QuestionsProgress = data.QuestionsProgress;
                         if(data.IsFinished){
                             t.toRezult(data);
                         }else {
@@ -424,12 +466,19 @@ export default {
                 .fail(function() {
                 });
         },
-      buy(Id){
+      buy(list, useToken){
         let t = this;
-        $.post( '/api/Payment/CreatePayment',{"ThemeId": Id, "SessionData": this.SessionData, "ReturnUrl": window.location.origin+'//?redirectSucssesStatus='+Id})
+        $.post( '/api/Payment/CreatePayment',{"UseToken": useToken, "ThemeId": list.Id, "SessionData": this.SessionData, "ReturnUrl": window.location.origin+'//?redirectSucssesStatus='+list.Id})
                 .done(function( data ){
                   if(data.ErrorCode==1){
-                    t.$refs.themepage.toSc(data.Form);
+                    if(data.PaymentStateResult==0) {
+                      t.$refs.themepage.toSc(data.Form);
+                    }else if(data.PaymentStateResult==1){
+                      t.toTheme('', 'success');
+                    }else if(data.PaymentStateResult==2){
+                      t.$refs.themepage.status='ErrorCard';
+                      t.$refs.themepage.showModalSucsessPay();
+                    }
                   }
                 })
                 .fail(function() {
@@ -478,15 +527,9 @@ export default {
             })
           }
       },
-        /*bodyToken(token){
-            return {
-                Token: token,
-            }
-        }*/
     },
   mounted(){
     let t = this;
-    $('body').on('touchstart', function (){});
     let a = $('audio')[0];
     try {
       a.play();
@@ -648,7 +691,6 @@ export default {
 <style scoped>
   .fade-enter-active {
     transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-    transition-delay: 0.5s;
   }
   .fade-leave-active {
     transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
@@ -658,5 +700,23 @@ export default {
   }
   .fade-leave-to{
     transform: translateX(-100%);
+  }
+  .fade2-enter{
+    transform: translateX(-100%);
+  }
+  .fade2-leave-to{
+    transform: translateX(100%);
+  }
+  .fade3-enter-active {
+    transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .fade3-leave-active {
+    transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .fade3-enter{
+    transform: translateY(-100%);
+  }
+  .fade3-leave-to{
+    transform: translateY(-100%);
   }
 </style>
