@@ -1667,7 +1667,7 @@ html,body{
       height: 45px;
       border-radius: 25px;
       margin: 20px;
-      @include sm(margin, 20px 0);
+      @include sm(margin, 20px 1%);
       background: #ff8304;
       padding-right: 30px;
       padding-left: 30px;

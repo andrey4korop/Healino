@@ -5,21 +5,19 @@
     </div>
     <div class="indicator indicator1">
 
-      <div class="description" v-bind:style="{zIndex:hIndex}" v-bind:class="(showDescription==9)?'on':''">
+      <div v-if="isActive" class="description" v-bind:style="{zIndex:hIndex}" v-bind:class="(showDescription==9)?'on':''">
         <div class="text" v-lang.descriptionText="{FM: rezultData.FM, coment: getComent, ideal: getIdeal}"></div>
       </div>
-      <div class="progress_bar1" v-on:click="start">
+      <div class="progress_bar1" v-on:click="st">
         <img src="static/img/indicator_6.png" alt="">
-        <div class="plus" v-on:click="$emit('onDescription','9')"><img src="static/img/plus.png" alt=""></div>
-        <img src="static/img/cursor_1.png" alt="" class="cursor"
-             v-bind:style="{ left: FMPDeg + '%' }">
-        <div class="opacity_cursor" v-bind:style="{ width: 'calc('+FMPDegOp + '% + 1px)' }">
-         <!-- <img src="/static/img/indicator_6Cur.png" alt="">-->
-        </div>
-        <div class="opacity_cursor2" v-bind:style="{ width: 'calc('+FMPDegOp2 + '% + 1px)' }">
-          <!--<img src="/static/img/indicator_6Cur.png" alt="">-->
-        </div>
-        <span class="percent" v-bind:style="{ left: FMPDeg + '%' }"> {{animateVal}}kg</span>
+        <div v-if="isActive" class="plus" v-on:click="$emit('onDescription','9')"><img src="static/img/plus.png" alt=""></div>
+        <img src="static/img/cursor_1.png" alt="" class="cursor" v-if="isActive"
+             v-bind:style="{ left: deg + '%' }">
+        <div v-if="isActive && !curShow" class="opacity_cursor" v-bind:style="{ width: 'calc('+FMPDegOp + '% + 1px)' }"></div>
+        <div v-if="isActive && !curShow" class="opacity_cursor2" v-bind:style="{ width: 'calc(' + FMPDegOp2 + '% + 1px)' }"></div>
+        <div v-if="isActive && curShow" class="opacity_cursor2" style="width: calc(100% + 1px);"></div>
+        <div class="opacity_cursor3" v-if="!isActive" v-on:click="$emit('toTheme')"><p ><i class="fa fa-lock" aria-hidden="true"></i></p></div>
+        <span v-if="isActive" class="percent" v-bind:style="{ left: deg + '%' }"> {{animateVal}}kg</span>
         <!--<span class="shkala-1">10%</span>
         <span class="shkala-2">18%</span>
         <span class="shkala-3">24%</span>-->
@@ -36,6 +34,8 @@ export default {
             animateVal:0 ,
             valArray:[],
             hIndex:-10,
+            curShow:true,
+          deg:100,
         }
     },
   watch:{
@@ -66,7 +66,8 @@ export default {
             com6: "Obese Class I",
             com7: "Obese Class II",
             com8: "Obese Class III",
-            title:"Fat mass"
+            title:"Fat mass",
+          textNonActive:"some text"
         },
         ru: {
             descriptionText:
@@ -84,6 +85,7 @@ export default {
             com7: "Ожирение II класса",
             com8: "Ожирение III класса",
             title:"Масса жира",
+          textNonActive:"some text"
         },
         pl: {
             descriptionText:
@@ -101,9 +103,17 @@ export default {
             com7: "Otyłość klasy II",
             com8: "Otyłość stopnia III",
             title:"Masa tłuszczu",
+          textNonActive:"some text"
         }
     },
     computed:{
+      isActive:function () {
+        if(true){
+          return true;
+        }else{
+          return false;
+        }
+      },
         minValue:function () {
             return Math.round(parseFloat(this.rezultData.FMCategoryScale[0].BF - (this.rezultData.FMCategoryScale[1].BF - this.rezultData.FMCategoryScale[0].BF))*100)/100;
         },
@@ -111,41 +121,39 @@ export default {
             return this.rezultData.FMCategoryScale[this.rezultData.FMCategoryScale.length-1].BF;
         },
         FMPDeg:function(){
-            if(this.animateVal<=this.minValue){
+            if(this.rezultData.FM<=this.minValue){
                 return 0;
             }
-            if(this.animateVal>=this.maxValue){
+            if(this.rezultData.FM>=this.maxValue){
                 return 100;
             }
             //return (this.animateVal - this.minValue) * 100 / (this.maxValue - this.minValue)+2;
             for(var w=0; w<this.rezultData.FMCategoryScale.length; w++ ){
-                if(this.animateVal < this.rezultData.FMCategoryScale[w].BF){
+                if(this.rezultData.FM < this.rezultData.FMCategoryScale[w].BF){
                     break;
                 }
             }
             var howManyDegForScale = 100 / this.rezultData.FMCategoryScale.length;
             var per;
             if(w>0) {
-                per = (this.animateVal - this.rezultData.FMCategoryScale[w-1].BF) / (this.rezultData.FMCategoryScale[w].BF - this.rezultData.FMCategoryScale[w - 1].BF) * howManyDegForScale + howManyDegForScale * (w);
+                per = (this.rezultData.FM - this.rezultData.FMCategoryScale[w-1].BF) / (this.rezultData.FMCategoryScale[w].BF - this.rezultData.FMCategoryScale[w - 1].BF) * howManyDegForScale + howManyDegForScale * (w);
             }else{
-                per = (this.animateVal - this.minValue) / (this.rezultData.FMCategoryScale[w].BF - this.minValue) * howManyDegForScale;
+                per = (this.rezultData.FM - this.minValue) / (this.rezultData.FMCategoryScale[w].BF - this.minValue) * howManyDegForScale;
             }
             return per;
         },
         FMPDegOp:function(){
-            let t = (this.FMPDeg- (this.FMPDeg) % (100/9));
-            if(t < 100/9){
-                t=0;
+            let t = (this.FMPDeg - (this.FMPDeg) % (100 / 9));
+            if (t < 100 / 9) {
+                t = 0;
             }
-            if(t > 100/9*8){
-                t=100/9*8;
+            if (t > 100 / 9 * 8) {
+                t = 100 / 9 * 8;
             }
             return t;
         },
         FMPDegOp2:function(){
-
-
-            return 100 - this.FMPDegOp - 100/9;
+            return 100 - this.FMPDegOp - 100 / 9;
         },
         getComent:function () {
             if(this.rezultData.FM > this.maxValue){
@@ -165,33 +173,78 @@ export default {
         }
     },
 
-    methods:{
-        animate () {
-            if (TWEEN.update()) {
-                requestAnimationFrame(this.animate)
-            }
-        },
-        start(){
-            var t = this;
-            new TWEEN.Tween({ tweeningNumber: this.animateVal })
-                .easing(TWEEN.Easing.Quadratic.InOut)
-                .interpolation( TWEEN.Interpolation.Linear)
-                .to({ tweeningNumber: this.valArray }, 2000)
-                .onUpdate(function () {
-                    t.animateVal = Math.round(this.tweeningNumber);
-                })
-                .delay(200)
-                .start();
-            this.animate()
+    methods: {
+      st(){
+        this.start2();
+        this.start();
+      },
+      FDeg(val){
+        if (val <= this.minValue) {
+          return 0;
         }
+        if (val >= this.maxValue) {
+          return 100;
+        }
+        //return (this.animateVal - this.minValue) * 100 / (this.maxValue - this.minValue)+2;
+        for (var w = 0; w < this.rezultData.FMCategoryScale.length; w++) {
+          if (val < this.rezultData.FMCategoryScale[w].BF) {
+            break;
+          }
+        }
+        var howManyDegForScale = 100 / this.rezultData.FMCategoryScale.length;
+        var per;
+        if (w > 0) {
+          per = (val - this.rezultData.FMCategoryScale[w - 1].BF) / (this.rezultData.FMCategoryScale[w].BF - this.rezultData.FMCategoryScale[w - 1].BF) * howManyDegForScale + howManyDegForScale * (w);
+        } else {
+          per = (val - this.minValue) / (this.rezultData.FMCategoryScale[w].BF - this.minValue) * howManyDegForScale;
+        }
+        return per;
+      },
+
+      animate () {
+        if (TWEEN.update()) {
+          requestAnimationFrame(this.animate)
+        }
+      },
+      start(){
+        var t = this;
+        new TWEEN.Tween({tweeningNumber: this.animateVal})
+                .easing(TWEEN.Easing.Quadratic.InOut)
+                .interpolation(TWEEN.Interpolation.Linear)
+                .to({tweeningNumber: this.valArray}, 2000)
+                .onUpdate(function () {
+                  t.animateVal = Math.round(this.tweeningNumber);
+                })
+                .start();
+        this.animate()
+      },
+      start2(){
+        let t = this;
+        t.deg = t.FDeg(t.minValue);
+        t.curShow = true;
+
+        setTimeout(function () {
+          t.deg = t.FDeg(t.maxValue);
+        }, 700);
+        setTimeout(function () {
+          t.deg = t.FDeg(t.rezultData.FM);
+        }, 1400);
+        setTimeout(function () {
+          t.curShow = false;
+        }, 2150)
+      },
     },
     created: function() {
+      if(this.isActive) {
+        this.deg = this.deg = this.FDeg(this.minValue);
         this.animateVal = this.minValue;
         this.valArray.push(this.minValue);
         this.valArray.push(this.maxValue);
         this.valArray.push(this.rezultData.FM);
         var t = this;
         setTimeout(t.start, 6000);
+        setTimeout(t.start2, 6000);
+      }
     },
 }
 </script>
@@ -288,6 +341,22 @@ export default {
     background: url("/static/img/indicator_6Cur.png") no-repeat;
     background-size: cover;
   }
+  .opacity_cursor3{
+    position: absolute;
+    top:0%;
+    left: -1px;
+    width: calc(100% + 2px);
+    height: 100%;
+    opacity: 0.8;
+    background: url("/static/img/indicator_6Cur_op.png") no-repeat;
+    background-size: cover;
+    text-align: center;
+    color: #000;
+    display: flex;
+  }
+  .opacity_cursor3 p{
+    margin: auto;
+  }
   @media screen and (max-width: 760px){
     .opacity_cursor2, .opacity_cursor{
       top:0;
@@ -296,5 +365,8 @@ export default {
   }
   .opacity_cursor2 img{
     height: 100%;
+  }
+  .opacity_cursor3, .percent, .cursor{
+    transition: all 0.666s linear;
   }
 </style>

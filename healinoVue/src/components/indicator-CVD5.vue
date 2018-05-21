@@ -2,12 +2,13 @@
   <div class="mini_indicator mini_indicator4"  v-on:click="st">
     <div class="progress_bar2">
       <img src="/static/img/indicator_green.png" alt="">
-      <div class="color" v-bind:style="{background:color[colorId]}"></div>
-      <div class="cursor"
+      <div v-if="isActive" class="color" v-bind:style="{background:color[colorId]}"></div>
+      <div v-if="isActive" class="cursor"
            v-bind:style="{ transform: 'rotate(' + deg + 'deg)' }"></div>
-      <div class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }"></div>
-      <div class="opacity_cursor" v-if="curShow" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }" style="background: url(/static/img/indicator_greenCur2.png) no-repeat; background-size: cover;"></div>
-      <div class="text_indicator">
+      <div v-if="isActive" class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }"></div>
+      <div v-if="isActive && curShow" class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }" style="background: url(/static/img/indicator_greenCur2.png) no-repeat; background-size: cover;"></div>
+      <div class="opacity_cursor3" v-if="!isActive" v-on:click="$emit('toTheme')"><p ><i class="fa fa-lock" aria-hidden="true"></i></p></div>
+      <div v-if="isActive" class="text_indicator">
       <p class="big">{{animateVal}}%</p>
       <p>whole life</p>
       </div>
@@ -31,6 +32,13 @@ export default {
     },
 
     computed:{
+      isActive:function () {
+        if(true){
+          return true;
+        }else{
+          return false;
+        }
+      },
         minValue:function () {
             return 0;
         },
@@ -39,7 +47,17 @@ export default {
         },
 
     },
-
+  messages: {
+    en: {
+      textNonActive:"some text"
+    },
+    ru: {
+      textNonActive:"some text"
+    },
+    pl: {
+      textNonActive:"some text"
+    }
+  },
     methods:{
       st(){
         this.start2();
@@ -110,8 +128,9 @@ export default {
       }
     },
     created: function() {
-      this.deg =this.RASCVDDeg(this.minValue);
-      this.deg2=this.RASCVDDegOp(this.rezultData.RASCVD);
+      if(this.isActive) {
+        this.deg = this.RASCVDDeg(this.minValue);
+        this.deg2 = this.RASCVDDegOp(this.rezultData.RASCVD);
         this.animateVal = this.minValue;
         this.valArray.push(this.minValue);
         this.valArray.push(this.maxValue);
@@ -119,6 +138,7 @@ export default {
         var t = this;
         setTimeout(t.start, 3500);
         setTimeout(t.start2, 3500);
+      }
     }
 }
 </script>
@@ -155,5 +175,20 @@ export default {
   }
   .cursor, .opacity_cursor{
     transition: all 0.666s linear;
+  }
+  .opacity_cursor3{
+    position: absolute;
+    top:0%;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+    background: url("/static/img/indicator_3Cur_op.png") no-repeat;
+    background-size: cover;
+    text-align: center;
+    color: #000;
+    display: flex;
+  }
+  .opacity_cursor3 p{
+    margin: auto;
   }
 </style>

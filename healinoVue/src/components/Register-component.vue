@@ -60,7 +60,7 @@
             <i class="fa fa-times" aria-hidden="true"></i>
           </span>
           <div class="description" v-bind:class="(showErrorVPass)?'on':''">
-            <div class="text" v-lang.errorTextPass></div>
+            <div class="text" v-html="ErrorVPass"></div>
           </div>
         </label>
         <label class="pointer2">
@@ -118,6 +118,7 @@
                 showErrorVPass: false,
 
                 ErrorEmailMassage:"",
+              ErrorVPass:"",
               touchstartX:0,
               touchendX:0,
                 googleSignInParams: {
@@ -142,6 +143,7 @@
                 "Password must be at least 8 characters<br>" +
                 "The presence of at least 1 capital letter<br>" +
                 "The presence of at least 1 digits",
+              errorTextVPass:"Passwords must match",
                 emailUse:"User with e-mails already registered"
             },
             ru: {
@@ -159,6 +161,7 @@
                 errorTextPass:"Пароль должен быть не менее 8 символов<br>" +
                 "Наличие не менее 1 большой буквы<br>" +
                 "Наличие не менее 1 цифры",
+              errorTextVPass:"Пароли должны совпадать",
                 emailUse:"Пользователь с тами E-mail уже зарегистрирован"
             },
             pl: {
@@ -177,6 +180,7 @@
                 "Hasło musi mieć co najmniej 8 znaków<br>" +
                 "Obecność co najmniej 1 wielkiej litery<br>" +
                 "Obecność co najmniej 1 cyfry",
+              errorTextVPass:"Hasło musi pasować",
                 emailUse:"Użytkownik z już zarejestrowanymi wiadomościami e-mail"
             }
         },
@@ -276,7 +280,8 @@
                 let t = this;
                 let p = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}/g.test(this.Password);
                 let e = /^[a-zA-Z0-9_.-]+@\w+\.\w{2,4}$/i.test(this.Email);
-                if(p && e && true){
+                let f = this.Password == this.VPassword ;
+                if(p && e && f && true){
                     $.post( '/api/Account/Register', this.body )
                         .done(function( data ){
                             if(data.ErrorCode==1){
@@ -294,6 +299,19 @@
                         })
                         .fail(function() {
                         });
+                }else{
+                  var r = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}/g;
+                  if (!r.test(this.Password)){
+                    this.showErrorPass =true;
+                  }
+                  if(!r.test(this.VPassword)){
+                    this.showErrorVPass =true;
+                    if(this.VPassword!=this.Password){
+                      this.ErrorVPass = this.langString('errorTextVPass');
+                    }else{
+                      this.ErrorVPass = this.langString('errorTextPass');
+                    }
+                  }
                 }
             },
             toShowPass(){
@@ -352,6 +370,11 @@
                     if (!r.test(t.VPassword) || t.VPassword!=t.Password){
                         t.showCheckVPass = false;
                         t.showErrorVPass = true;
+                        if(t.VPassword!=t.Password){
+                          t.ErrorVPass = t.langString('errorTextVPass');
+                        }else{
+                          t.ErrorVPass = t.langString('errorTextPass');
+                        }
                     }
                 }, 1500);
             }

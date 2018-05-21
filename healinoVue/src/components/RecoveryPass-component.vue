@@ -7,7 +7,7 @@
         <h4 v-lang.title></h4>
         <label>
           <p><span>*</span>{{langString('email')}}</p>
-          <input type="email" v-model="Email" v-on:change="changeEmail">
+          <input type="email" v-model="Email" v-on:change="changeEmail" v-on:input="change">
 
           <span class="check" v-bind:class="(showLoadEmail) ? 'loading': ''" v-if="showCheckEmail">
             <i class="fa fa-check" aria-hidden="true"></i>
@@ -15,9 +15,11 @@
           <span class="check" v-bind:class="(errorEmail) ? 'error' : ''" v-if="errorEmail">
             <i class="fa fa-times" aria-hidden="true"></i>
           </span>
-          <div class="descriptionLogin" v-bind:class="(errorEmail)?'on':''">
-            <div class="text" v-lang.errorEmail></div>
+          <transition name="fade">
+          <div class="descriptionLogin" v-if="errorEmail">
+            <div class="text">{{erMess()}}</div>
           </div>
+          </transition>
         </label>
 
 
@@ -61,6 +63,7 @@
                 title:'Password recovery',
                 login: 'RESTORE',
                 errorEmail:"No account with this email was found",
+              errorTextEmail:"Not a valid E-mail",
             },
             ru: {
 
@@ -68,21 +71,18 @@
                 title:'Восстановление пароля',
                 login: 'ВОССТАНОВИТЬ',
                 errorEmail:"Пользователя с таким Email не найден",
+              errorTextEmail:"Не верный E-mail",
             },
             pl: {
                 email:'E-mail',
                 title:'Odzyskiwanie hasła',
                 login: 'PRZYWRACAĆ',
                 errorEmail:"Nie znaleziono konta z tym e-mailem",
+              errorTextEmail:"Nieprawidłowy adres e-mail",
             }
         },
         computed: {
-            body: function () {
-                return{
-                    Email: this.Email,
 
-                }
-            },
         },
         created: function() {
 
@@ -116,6 +116,13 @@
             langString(string){
                 return this.translate(string);
             },
+          erMess(){
+            if(/^[a-zA-Z0-9_.-]+@\w+\.\w{2,4}$/i.test(this.Email)){
+              return this.langString('errorEmail');
+            }else{
+              return this.langString('errorTextEmail');
+            }
+          },
           onToStart(){
             this.$emit('onToStart');
           },
@@ -132,10 +139,10 @@
           },
             send(){
                 let t = this;
-                let e = /^\w+@\w+\.\w{2,4}$/i.test(this.Email);
+              let e = /^[a-zA-Z0-9_.-]+@\w+\.\w{2,4}$/i.test(this.Email);
 
                 if(e && true){
-                  $.post( '/api/Account/RecoverPassword',  this.body  )
+                  $.post( '/api/Account/RecoverPassword', {Email: this.Email}  )
                   .done(function( data ){
                       if(data.ErrorCode==1){
 
@@ -147,9 +154,16 @@
                   })
                   .fail(function() {
                   });
+                }else{
+                  t.showCheckEmail = false;
+                  t.errorEmail = true;
                 }
             },
-
+            change(){
+              this.showCheckEmail = false;
+              this.showLoadEmail =false;
+              this.errorEmail=false;
+            },
             changeEmail(){
                 let t = this;
                 this.showCheckEmail = true;
@@ -157,7 +171,7 @@
                 this.errorEmail=false;
                 setTimeout( function () {
                     t.showLoadEmail = false;
-                    var r = /^\w+@\w+\.\w{2,4}$/i;
+                    var r =  /^[a-zA-Z0-9_.-]+@\w+\.\w{2,4}$/i;
                     if (!r.test(t.Email)){
                         t.showCheckEmail = false;
                     }
@@ -177,6 +191,7 @@
     bottom: 10px;
     right: 10px;
   }
+
   .descriptionLogin{
     background: rgba(255,0,0,0.2);
     position: absolute;
@@ -186,13 +201,9 @@
     text-align: left;
     border-radius: 15px 0 15px 15px;
     padding: 4px;
-    z-index: -10;
-    opacity: 0;
-    transition: all 0.5s linear;
-  }
-  .descriptionLogin.on{
     z-index: 10;
     opacity: 1;
+    transition: all 0.5s linear;
   }
   .descriptionLogin .text{
     border-radius: 15px 0 15px 15px;
@@ -203,5 +214,11 @@
   }
   label{
     margin-bottom: 20px;
+  }
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+  }
+  .fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+    opacity: 0;
   }
 </style>

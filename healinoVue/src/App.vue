@@ -14,7 +14,7 @@
             :userData="userData"
             :QuestionsProgress="QuestionsProgress"
             @changeLang="changeLang"
-            @onToUser="onToStart"
+            @onToUser="onToUser"
             @exit="exit"
             @toStart="onToStart"
             @audio="audio"></headerComponent>

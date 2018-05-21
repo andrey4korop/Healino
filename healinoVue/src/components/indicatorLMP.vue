@@ -6,15 +6,16 @@
     </div>
     <div class="indicator indicatorLMP">
 
-      <div class="description" v-bind:style="{zIndex:hIndex}"  v-bind:class="(showDescription==7)?'on':''">
+      <div v-if="isActive" class="description" v-bind:style="{zIndex:hIndex}"  v-bind:class="(showDescription==7)?'on':''">
         <div class="text" v-lang.descriptionText="{LMP: rezultData.LMP, coment: getComent, ideal:getIdeal}">
         </div>
       </div>
       <div class="progress_bar5">
         <img src="/static/img/indicator_5.png" alt="">
-        <div class="plus" v-on:click="$emit('onDescription','7')"><img src="static/img/plus.png" alt=""></div>
-        <div class="opacity" v-bind:style="{ height: deg + '%' }"></div>
-        <div class="cursor" v-bind:style="{ top: deg + '%' }">
+        <div v-if="isActive" class="plus" v-on:click="$emit('onDescription','7')"><img src="static/img/plus.png" alt=""></div>
+        <div v-if="isActive" class="opacity" v-bind:style="{ height: deg + '%' }"></div>
+        <div class="opacity_cursor3" v-if="!isActive" v-on:click="$emit('toTheme')"><p ><i class="fa fa-lock" aria-hidden="true"></i></p></div>
+        <div v-if="isActive" class="cursor" v-bind:style="{ top: deg + '%' }">
           <img src="static/img/cursor_4.png" alt="">
           <div>
             <p class="big">{{animateVal}}%</p>
@@ -54,6 +55,7 @@ export default {
             com7: "Obese Class II",
             com8: "Obese Class III",
             title:"Lean Mass Percentage",
+          textNonActive:"some text"
         },
         ru: {
             descriptionText:
@@ -71,6 +73,7 @@ export default {
             com7: "Ожирение II класса",
             com8: "Ожирение III класса",
             title:"Мышечная масса",
+          textNonActive:"some text"
         },
         pl: {
             descriptionText:
@@ -88,9 +91,17 @@ export default {
             com7: "Otyłość klasy II",
             com8: "Otyłość stopnia III",
             title:"Masa mięśniowa",
+          textNonActive:"some text"
         }
     },
     computed:{
+      isActive:function () {
+        if(true){
+          return true;
+        }else{
+          return false;
+        }
+      },
         minValue:function () {
             return Math.round(parseFloat(this.rezultData.LMPCategoryScale[0].BF - (this.rezultData.LMPCategoryScale[1].BF - this.rezultData.LMPCategoryScale[0].BF))*100)/100;
         },
@@ -173,13 +184,15 @@ export default {
       }
     },
   mounted() {
-        this.animateVal = this.minValue;
-        this.valArray.push(this.minValue);
-        this.valArray.push(this.maxValue);
-        this.valArray.push(this.rezultData.LMP);
-        var t = this;
-        setTimeout(t.start, 5000);
-        setTimeout(t.start2, 5000);
+    if(this.isActive) {
+      this.animateVal = this.minValue;
+      this.valArray.push(this.minValue);
+      this.valArray.push(this.maxValue);
+      this.valArray.push(this.rezultData.LMP);
+      var t = this;
+      setTimeout(t.start, 5000);
+      setTimeout(t.start2, 5000);
+    }
     },
 }
 </script>
@@ -243,5 +256,20 @@ export default {
   }
   .opacity, .cursor{
     transition: all 0.7s linear;
+  }
+  .opacity_cursor3{
+    position: absolute;
+    top:0%;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+    background: url("/static/img/opasity22.png") no-repeat;
+    background-size: cover;
+    text-align: center;
+    color: #000;
+    display: flex;
+  }
+  .opacity_cursor3 p{
+    margin: auto;
   }
 </style>

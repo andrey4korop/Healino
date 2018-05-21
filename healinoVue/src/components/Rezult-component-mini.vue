@@ -5,33 +5,39 @@
         <indicatorAvatar :rezultData="rezultData"
                          :img="photoImg"
                          :showDescription="showDescription"
+                         @toTheme="$emit('toTheme')"
                          @onDescription="onDescription"></indicatorAvatar>
       </div>
       <div class="row">
         <div class="left">
           <indicatorLMP :rezultData="rezultData"
                         :showDescription="showDescription"
+                        @toTheme="$emit('toTheme')"
                         @onDescription="onDescription"></indicatorLMP>
         </div>
         <div class="center" v-bind:style="{background: 'url(/static/img/'+gender+') top center / contain no-repeat'}">
           <indicator2 :rezultData="rezultData"
                       :showDescription="showDescription"
+                      @toTheme="$emit('toTheme')"
                       @onDescription="onDescription"></indicator2>
           <indicatorBMI :rezultData="rezultData"
                         :showDescription="showDescription"
+                        @toTheme="$emit('toTheme')"
                         @onDescription="onDescription"></indicatorBMI>
 
           <div class="indicators">
             <div class="title_indicator" v-html="langString('titleCAge')"></div>
             <div class="indicator">
-              <div class="description" v-bind:style="{zIndex:descriptAge}" v-bind:class="(showDescription==4)?'on':''">
+              <div v-if="isActiveAge" class="description" v-bind:style="{zIndex:descriptAge}" v-bind:class="(showDescription==4)?'on':''">
                 <div class="text"
                      v-lang.AgeDescriptionText="{ChronologicalAge: rezultData.BioMentalAge.ChronologicalAge, MentalAge: rezultData.BioMentalAge.MentalAge, BiologicalAge: rezultData.BioMentalAge.BiologicalAge, txtMental:txtMental, txtBiological:txtBiological}">
                 </div>
               </div>
-              <div class="plus" v-on:click="onDescription(4)"><img src="static/img/plus.png" alt=""></div>
+              <div v-if="isActiveAge" class="plus" v-on:click="onDescription(4)"><img src="static/img/plus.png" alt=""></div>
               <div class="row_indicator">
-                <indicator-real-age :rezultData="rezultData"></indicator-real-age>
+                <indicator-real-age
+                        @toTheme="$emit('toTheme')"
+                        :rezultData="rezultData"></indicator-real-age>
               </div>
               <div class="row_indicator rowt">
                 <div class="title_indicator">
@@ -42,8 +48,12 @@
                 </div>
               </div>
               <div class="row_indicator">
-                <indicator-Chronologi-age :rezultData="rezultData"></indicator-Chronologi-age>
-                <indicator-Mental-age :rezultData="rezultData"></indicator-Mental-age>
+                <indicator-Chronologi-age
+                        @toTheme="$emit('toTheme')"
+                        :rezultData="rezultData"></indicator-Chronologi-age>
+                <indicator-Mental-age
+                        @toTheme="$emit('toTheme')"
+                        :rezultData="rezultData"></indicator-Mental-age>
 
               </div>
             </div>
@@ -58,15 +68,19 @@
               <p class="cvd" v-lang.titleCVD></p>
             </div>
             <div class="indicator">
-              <div class="description" v-bind:style="{zIndex:descriptRACVD}" v-bind:class="(showDescription==5)?'on':''">
+              <div v-if="isActiveRASVD" class="description" v-bind:style="{zIndex:descriptRACVD}" v-bind:class="(showDescription==5)?'on':''">
                 <div class="text" v-lang.CVDdescriptionText="{RASCVD: rezultData.RASCVD, TenYearsASCVDCalculated: rezultData.TenYearsASCVD.Calculated, TenYearsASCVDOptimal: rezultData.TenYearsASCVD.Optimal}"></div>
               </div>
-              <div class="plus" v-on:click="onDescription(5)"><img src="static/img/plus.png" alt=""></div>
+              <div v-if="isActiveRASVD" class="plus" v-on:click="onDescription(5)"><img src="static/img/plus.png" alt=""></div>
 
               <div class="row_indicator">
-                <indicator-CVD5 :rezultData="rezultData"></indicator-CVD5>
+                <indicator-CVD5
+                        @toTheme="$emit('toTheme')"
+                        :rezultData="rezultData"></indicator-CVD5>
 
-                <indicator-CVD10 :rezultData="rezultData"></indicator-CVD10>
+                <indicator-CVD10
+                        @toTheme="$emit('toTheme')"
+                        :rezultData="rezultData"></indicator-CVD10>
               </div>
             </div>
             <!--<div class="info_indicator_top">
@@ -79,6 +93,7 @@
           <div class="right_indicator">
             <indicatorWHR :rezultData="rezultData"
                           :showDescription="showDescription"
+                          @toTheme="$emit('toTheme')"
                           @onDescription="onDescription"></indicatorWHR>
 
           </div>
@@ -88,10 +103,12 @@
         <div class="bottom">
           <indicatorBF :rezultData="rezultData"
                        :showDescription="showDescription"
+                       @toTheme="$emit('toTheme')"
                        @onDescription="onDescription"></indicatorBF>
 
           <indicator1 :rezultData="rezultData"
                       :showDescription="showDescription"
+                      @toTheme="$emit('toTheme')"
                       @onDescription="onDescription"></indicator1>
 
         </div>
@@ -107,17 +124,20 @@
     <div class="pos1">
       <indicator2 :rezultData="rezultData"
                   :showDescription="showDescription"
+                  @toTheme="$emit('toTheme')"
                   @onDescription="onDescription"></indicator2>
     </div>
     <div class="pos2">
       <indicatorBMI :rezultData="rezultData"
                     :showDescription="showDescription"
+                    @toTheme="$emit('toTheme')"
                     @onDescription="onDescription"></indicatorBMI>
     </div>
     <div class="pos3">
       <indicatorAvatar :rezultData="rezultData"
                        :img="photoImg"
                        :showDescription="showDescription"
+                       @toTheme="$emit('toTheme')"
                        @onDescription="onDescription"></indicatorAvatar>
     </div>
 
@@ -125,14 +145,16 @@
       <div class="indicators">
         <div class="title_indicator" v-html="langString('titleCAge')"></div>
         <div class="indicator">
-          <div class="description" v-bind:class="(showDescription==4)?'on':''" v-bind:style="{zIndex:descriptAge}">
+          <div v-if="isActiveAge" class="description" v-bind:class="(showDescription==4)?'on':''" v-bind:style="{zIndex:descriptAge}">
             <div class="text"
                  v-lang.AgeDescriptionText="{ChronologicalAge: rezultData.BioMentalAge.ChronologicalAge, MentalAge: rezultData.BioMentalAge.MentalAge, BiologicalAge: rezultData.BioMentalAge.BiologicalAge, txtMental:txtMental, txtBiological:txtBiological}">
             </div>
           </div>
-          <div class="plus"  v-on:click="onDescription(4)"><img src="static/img/plus.png" alt=""></div>
+          <div v-if="isActiveAge" class="plus"  v-on:click="onDescription(4)"><img src="static/img/plus.png" alt=""></div>
           <div class="row_indicator">
-            <indicator-real-age :rezultData="rezultData"></indicator-real-age>
+            <indicator-real-age
+                    @toTheme="$emit('toTheme')"
+                    :rezultData="rezultData"></indicator-real-age>
           </div>
           <div class="row_indicator">
             <div class="title_indicator">
@@ -143,8 +165,12 @@
             </div>
           </div>
           <div class="row_indicator">
-            <indicator-Chronologi-age :rezultData="rezultData"></indicator-Chronologi-age>
-            <indicator-Mental-age :rezultData="rezultData"></indicator-Mental-age>
+            <indicator-Chronologi-age
+                    @toTheme="$emit('toTheme')"
+                    :rezultData="rezultData"></indicator-Chronologi-age>
+            <indicator-Mental-age
+                    @toTheme="$emit('toTheme')"
+                    :rezultData="rezultData"></indicator-Mental-age>
           </div>
         </div>
         <!--<div class="info_indicator">
@@ -160,13 +186,17 @@
           <p class="cvd" v-lang.titleCVD></p>
         </div>
         <div class="indicator">
-          <div class="description" v-bind:style="{zIndex:descriptRACVD}" v-bind:class="(showDescription==5)?'on':''">
+          <div v-if="isActiveRASVD" class="description" v-bind:style="{zIndex:descriptRACVD}" v-bind:class="(showDescription==5)?'on':''">
             <div class="text" v-lang.CVDdescriptionText="{RASCVD: rezultData.RASCVD, TenYearsASCVDCalculated: rezultData.TenYearsASCVD.Calculated, TenYearsASCVDOptimal: rezultData.TenYearsASCVD.Optimal}"></div>
           </div>
-          <div class="plus" v-on:click="onDescription(5)"><img src="static/img/plus.png" alt=""></div>
+          <div v-if="isActiveRASVD" class="plus" v-on:click="onDescription(5)"><img src="static/img/plus.png" alt=""></div>
           <div class="row_indicator">
-            <indicator-CVD5 :rezultData="rezultData"></indicator-CVD5>
-            <indicator-CVD10 :rezultData="rezultData"></indicator-CVD10>
+            <indicator-CVD5
+                    @toTheme="$emit('toTheme')"
+                    :rezultData="rezultData"></indicator-CVD5>
+            <indicator-CVD10
+                    @toTheme="$emit('toTheme')"
+                    :rezultData="rezultData"></indicator-CVD10>
           </div>
         </div>
         <!--<div class="info_indicator_top">
@@ -180,10 +210,12 @@
 
       <indicatorBF :rezultData="rezultData"
                    :showDescription="showDescription"
+                   @toTheme="$emit('toTheme')"
                    @onDescription="onDescription"></indicatorBF>
 
       <indicator1 :rezultData="rezultData"
                   :showDescription="showDescription"
+                  @toTheme="$emit('toTheme')"
                   @onDescription="onDescription"></indicator1>
 
       <div class="button_share">
@@ -194,11 +226,13 @@
     <div class="pos7">
       <indicatorLMP :rezultData="rezultData"
                     :showDescription="showDescription"
+                    @toTheme="$emit('toTheme')"
                     @onDescription="onDescription"></indicatorLMP>
     </div>
     <div class="pos8">
       <indicatorWHR :rezultData="rezultData"
                     :showDescription="showDescription"
+                    @toTheme="$emit('toTheme')"
                     @onDescription="onDescription"></indicatorWHR>
     </div>
   </div>
@@ -220,7 +254,7 @@
                 showDescription:"none",
                 descriptAge:-10,
                 descriptRACVD:-10,
-                //rezultData:{"BMI":17.99,"BMR":1472.5,"BFP":-90.56,"FM":-47.09,"LMP":90.56,"RASCVD":69,"WHRatio":1,"TenYearsASCVD":{"Calculated":0,"Optimal":0.03},"DaylyCallorie":1767,"HealthRate":40,"BioMentalAge":{"MentalAge":23,"BiologicalAge":26,"ChronologicalAge":23,"MentalAgeDiffPercentage":0,"BiologicalAgeDiffPercentage":13},"BMIScale":[{"Gender":0,"BMIScale":0,"BMI":16},{"Gender":0,"BMIScale":1,"BMI":17},{"Gender":0,"BMIScale":2,"BMI":18.5},{"Gender":0,"BMIScale":3,"BMI":25},{"Gender":0,"BMIScale":4,"BMI":30},{"Gender":0,"BMIScale":5,"BMI":35},{"Gender":0,"BMIScale":6,"BMI":40},{"Gender":0,"BMIScale":7,"BMI":45}],"BFCategoryScale":[{"Gender":0,"BFScale":0,"BF":2.5},{"Gender":0,"BFScale":1,"BF":4.9},{"Gender":0,"BFScale":2,"BF":7.3},{"Gender":0,"BFScale":3,"BF":9.5},{"Gender":0,"BFScale":4,"BF":13.6},{"Gender":0,"BFScale":5,"BF":17},{"Gender":0,"BFScale":6,"BF":21.2},{"Gender":0,"BFScale":7,"BF":24.4},{"Gender":0,"BFScale":8,"BF":25.8}],"FMCategoryScale":[{"Gender":0,"BFScale":0,"BF":1.7},{"Gender":0,"BFScale":1,"BF":3.3},{"Gender":0,"BFScale":2,"BF":5},{"Gender":0,"BFScale":3,"BF":6.5},{"Gender":0,"BFScale":4,"BF":9.2},{"Gender":0,"BFScale":5,"BF":11.6},{"Gender":0,"BFScale":6,"BF":14.4},{"Gender":0,"BFScale":7,"BF":16.6},{"Gender":0,"BFScale":8,"BF":17.5}],"LMPCategoryScale":[{"Gender":0,"BFScale":0,"BF":97.5},{"Gender":0,"BFScale":1,"BF":95.1},{"Gender":0,"BFScale":2,"BF":92.7},{"Gender":0,"BFScale":3,"BF":90.5},{"Gender":0,"BFScale":4,"BF":86.4},{"Gender":0,"BFScale":5,"BF":83},{"Gender":0,"BFScale":6,"BF":78.8},{"Gender":0,"BFScale":7,"BF":75.6},{"Gender":0,"BFScale":8,"BF":74.2}],"RASCVDScale":[{"RASCVDScale":0,"Value":5},{"RASCVDScale":1,"Value":36},{"RASCVDScale":2,"Value":46},{"RASCVDScale":3,"Value":50},{"RASCVDScale":4,"Value":69}],"TenYearsASCVDScale":[{"RASCVDScale":0,"Value":5},{"RASCVDScale":1,"Value":11},{"RASCVDScale":2,"Value":17},{"RASCVDScale":3,"Value":23},{"RASCVDScale":4,"Value":30}],"CallorieScale":[{"Gender":0,"Activity":0,"Callorie":1687},{"Gender":0,"Activity":1,"Callorie":2025},{"Gender":0,"Activity":2,"Callorie":2320},{"Gender":0,"Activity":3,"Callorie":2615},{"Gender":0,"Activity":4,"Callorie":2911},{"Gender":0,"Activity":5,"Callorie":3206}],"BioAgeScale":[{"Gender":0,"AgeScale":4,"AgePercent":-31},{"Gender":0,"AgeScale":4,"AgePercent":-20},{"Gender":0,"AgeScale":3,"AgePercent":-10},{"Gender":0,"AgeScale":3,"AgePercent":-4},{"Gender":0,"AgeScale":3,"AgePercent":3},{"Gender":0,"AgeScale":2,"AgePercent":9},{"Gender":0,"AgeScale":1,"AgePercent":19},{"Gender":0,"AgeScale":0,"AgePercent":30},{"Gender":0,"AgeScale":0,"AgePercent":40}],"MentalAgeScale":[{"Gender":0,"AgeScale":0,"AgePercent":-31},{"Gender":0,"AgeScale":1,"AgePercent":-20},{"Gender":0,"AgeScale":2,"AgePercent":-10},{"Gender":0,"AgeScale":3,"AgePercent":-4},{"Gender":0,"AgeScale":4,"AgePercent":3},{"Gender":0,"AgeScale":3,"AgePercent":9},{"Gender":0,"AgeScale":2,"AgePercent":19},{"Gender":0,"AgeScale":1,"AgePercent":30},{"Gender":0,"AgeScale":0,"AgePercent":40}],"CronologicalAgeScale":[{"Gender":0,"AgeScale":4,"AgePercent":24},{"Gender":0,"AgeScale":3,"AgePercent":48},{"Gender":0,"AgeScale":2,"AgePercent":72},{"Gender":0,"AgeScale":1,"AgePercent":96},{"Gender":0,"AgeScale":0,"AgePercent":120}],"HealthRatioScale":[{"IllnessScale":0,"Value":5},{"IllnessScale":1,"Value":10},{"IllnessScale":2,"Value":20},{"IllnessScale":3,"Value":30},{"IllnessScale":4,"Value":40},{"IllnessScale":5,"Value":50},{"IllnessScale":6,"Value":70}],"WHRatioScale":[{"WHRScale":0,"Value":0.7},{"WHRScale":1,"Value":0.75},{"WHRScale":2,"Value":0.8},{"WHRScale":3,"Value":0.85},{"WHRScale":4,"Value":0.9},{"WHRScale":5,"Value":0.99},{"WHRScale":6,"Value":1.1},{"WHRScale":7,"Value":1.15}],"IsFinished":true,"PublicHash":"fde3c96c21015369d4df912317362d97","PreviusQuestionId":0,"QuestionId":0,"QuestionNum":0,"TotalQuestions":0,"QuestionTypeEnum":0,"UserThemeTestId":0,"IsAnswered":false,"QText":null,"ImageUrl":null,"QuestionsProgress":0,"AnswerOptions":null,"NextQuestionId":0,"ErrorCode":1,"DebugMessage":null,"UIMessage":null},
+                //rezultData:{"BMI":22.49,"BMR":1602.5,"BFP":5.19,"FM":3.37,"LMP":94.81,"RASCVD":5.0,"WHRatio":4.2,"TenYearsASCVD":{"Calculated":0.0,"Optimal":0.03},"DaylyCallorie":2203.44,"HealthRate":22.0,"BioMentalAge":{"MentalAge":23,"BiologicalAge":23,"ChronologicalAge":23,"MentalAgeDiffPercentage":0.0,"BiologicalAgeDiffPercentage":0.0},"BMIScale":[{"Gender":0,"BMIScale":0,"BMI":16.0},{"Gender":0,"BMIScale":1,"BMI":17.0},{"Gender":0,"BMIScale":2,"BMI":18.5},{"Gender":0,"BMIScale":3,"BMI":25.0},{"Gender":0,"BMIScale":4,"BMI":30.0},{"Gender":0,"BMIScale":5,"BMI":35.0},{"Gender":0,"BMIScale":6,"BMI":40.0},{"Gender":0,"BMIScale":7,"BMI":45.0}],"BFCategoryScale":[{"Gender":0,"BFScale":0,"BF":2.5},{"Gender":0,"BFScale":1,"BF":4.9},{"Gender":0,"BFScale":2,"BF":7.3},{"Gender":0,"BFScale":3,"BF":9.5},{"Gender":0,"BFScale":4,"BF":13.6},{"Gender":0,"BFScale":5,"BF":17.0},{"Gender":0,"BFScale":6,"BF":21.2},{"Gender":0,"BFScale":7,"BF":24.4},{"Gender":0,"BFScale":8,"BF":25.8}],"FMCategoryScale":[{"Gender":0,"BFScale":0,"BF":1.7},{"Gender":0,"BFScale":1,"BF":3.3},{"Gender":0,"BFScale":2,"BF":5.0},{"Gender":0,"BFScale":3,"BF":6.5},{"Gender":0,"BFScale":4,"BF":9.2},{"Gender":0,"BFScale":5,"BF":11.6},{"Gender":0,"BFScale":6,"BF":14.4},{"Gender":0,"BFScale":7,"BF":16.6},{"Gender":0,"BFScale":8,"BF":17.5}],"LMPCategoryScale":[{"Gender":0,"BFScale":0,"BF":97.5},{"Gender":0,"BFScale":1,"BF":95.1},{"Gender":0,"BFScale":2,"BF":92.7},{"Gender":0,"BFScale":3,"BF":90.5},{"Gender":0,"BFScale":4,"BF":86.4},{"Gender":0,"BFScale":5,"BF":83.0},{"Gender":0,"BFScale":6,"BF":78.8},{"Gender":0,"BFScale":7,"BF":75.6},{"Gender":0,"BFScale":8,"BF":74.2}],"RASCVDScale":[{"RASCVDScale":0,"Value":5.0},{"RASCVDScale":1,"Value":36.0},{"RASCVDScale":2,"Value":46.0},{"RASCVDScale":3,"Value":50.0},{"RASCVDScale":4,"Value":69.0}],"TenYearsASCVDScale":[{"RASCVDScale":0,"Value":5.0},{"RASCVDScale":1,"Value":11.0},{"RASCVDScale":2,"Value":17.0},{"RASCVDScale":3,"Value":23.0},{"RASCVDScale":4,"Value":30.0}],"CallorieScale":[{"Gender":0,"Activity":0,"Callorie":1687.0},{"Gender":0,"Activity":1,"Callorie":2025.0},{"Gender":0,"Activity":2,"Callorie":2320.0},{"Gender":0,"Activity":3,"Callorie":2615.0},{"Gender":0,"Activity":4,"Callorie":2911.0},{"Gender":0,"Activity":5,"Callorie":3206.0}],"BioAgeScale":[{"Gender":0,"AgeScale":4,"AgePercent":-31.0},{"Gender":0,"AgeScale":4,"AgePercent":-20.0},{"Gender":0,"AgeScale":3,"AgePercent":-10.0},{"Gender":0,"AgeScale":3,"AgePercent":-4.0},{"Gender":0,"AgeScale":3,"AgePercent":3.0},{"Gender":0,"AgeScale":2,"AgePercent":9.0},{"Gender":0,"AgeScale":1,"AgePercent":19.0},{"Gender":0,"AgeScale":0,"AgePercent":30.0},{"Gender":0,"AgeScale":0,"AgePercent":40.0}],"MentalAgeScale":[{"Gender":0,"AgeScale":0,"AgePercent":-31.0},{"Gender":0,"AgeScale":1,"AgePercent":-20.0},{"Gender":0,"AgeScale":2,"AgePercent":-10.0},{"Gender":0,"AgeScale":3,"AgePercent":-4.0},{"Gender":0,"AgeScale":4,"AgePercent":3.0},{"Gender":0,"AgeScale":3,"AgePercent":9.0},{"Gender":0,"AgeScale":2,"AgePercent":19.0},{"Gender":0,"AgeScale":1,"AgePercent":30.0},{"Gender":0,"AgeScale":0,"AgePercent":40.0}],"CronologicalAgeScale":[{"Gender":0,"AgeScale":4,"AgePercent":24.0},{"Gender":0,"AgeScale":3,"AgePercent":48.0},{"Gender":0,"AgeScale":2,"AgePercent":72.0},{"Gender":0,"AgeScale":1,"AgePercent":96.0},{"Gender":0,"AgeScale":0,"AgePercent":120.0}],"HealthRatioScale":[{"IllnessScale":0,"Value":5.0},{"IllnessScale":1,"Value":10.0},{"IllnessScale":2,"Value":20.0},{"IllnessScale":3,"Value":30.0},{"IllnessScale":4,"Value":40.0},{"IllnessScale":5,"Value":50.0},{"IllnessScale":6,"Value":70.0}],"WHRatioScale":[{"WHRScale":0,"Value":0.7},{"WHRScale":1,"Value":0.75},{"WHRScale":2,"Value":0.8},{"WHRScale":3,"Value":0.85},{"WHRScale":4,"Value":0.9},{"WHRScale":5,"Value":0.99},{"WHRScale":6,"Value":1.1},{"WHRScale":7,"Value":1.15}],"IsFinished":true,"PublicHash":"5a66122bdcd3611be0e08b256c3ed832","PreviusQuestionId":0,"QuestionId":0,"QuestionNum":0,"TotalQuestions":0,"QuestionTypeEnum":0,"UserThemeTestId":0,"IsAnswered":false,"AnsValue":0.0,"QText":null,"ImageUrl":null,"QuestionsProgress":0.0,"AnswerOptions":null,"NextQuestionId":0,"ErrorCode":1,"DebugMessage":null,"UIMessage":null},
                 gender:"body0.png",
                 img:"",
               touchstartX:0,
@@ -342,6 +376,20 @@
             }
         },
         computed: {
+          isActiveAge:function () {
+            if(true){
+              return true;
+            }else{
+              return false;
+            }
+          },
+          isActiveRASVD:function () {
+            if(true){
+              return true;
+            }else{
+              return false;
+            }
+          },
             txtMental:function () {
                 if(this.rezultData.BioMentalAge.MentalAgeDiffPercentage > this.rezultData.MentalAgeScale[this.rezultData.MentalAgeScale.length-1].AgePercent){
                     return this.translate( 'AgeMCom'+(this.rezultData.MentalAgeScale.length-1));
@@ -422,7 +470,7 @@
           },
           invite(){
             FB.ui({ method: 'apprequests',
-              message: this.langString('textInvite:')
+              message: 'Тест здоровья'
             });
           },
           langString(string){

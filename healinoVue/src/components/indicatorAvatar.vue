@@ -1,16 +1,17 @@
 <template>
 
   <div class="avatar_scale"v-on:click="st">
-    <div class="description" v-bind:style="{zIndex:hIndex}" v-bind:class="(showDescription==1)?'on':''">
+    <div v-if="isActive" class="description" v-bind:style="{zIndex:hIndex}" v-bind:class="(showDescription==1)?'on':''">
       <div class="text" v-lang.descriptionText="{THR: rezultData.HealthRate, THR_Comment: getComent}">
 
       </div>
     </div>
-    <div class="plus" v-on:click="$emit('onDescription','1')"><img src="static/img/plus.png" alt=""></div>
-    <img src="static/img/cursor_2.png" alt="" class="cursor"
+    <div v-if="isActive" class="plus" v-on:click="$emit('onDescription','1')"><img src="static/img/plus.png" alt=""></div>
+    <img  v-if="isActive" src="static/img/cursor_2.png" alt="" class="cursor"
          v-bind:style="{ transform: 'rotate(' + deg + 'deg)' }">
-    <div class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }"></div>
-    <div class="opacity_cursor" v-if="curShow" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }"  style="background: url(/static/img/indiator_7Cur2.png) no-repeat; background-size: cover;"></div>
+    <div v-if="isActive" class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }"></div>
+    <div class="opacity_cursor" v-if="isActive && curShow" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }"  style="background: url(/static/img/indiator_7Cur2.png) no-repeat; background-size: cover;"></div>
+    <div class="opacity_cursor3" v-if="!isActive" v-on:click="$emit('toTheme')"><p ><i class="fa fa-lock" aria-hidden="true"></i></p></div>
     <div class="avatar">
       <div v-bind:style="{background: 'url(' + img + ') center center / cover' }" class="img" ></div>
     </div>
@@ -43,6 +44,7 @@ export default {
             com5: "diseases",
             com6: "serious illness",
           title:"Index deviations from the norm (IDN)",
+          textNonActive:"some text"
         },
         ru: {
             descriptionText: "<p>Ваш интегрированный индекс отклонения от нормативов составляет {THR}%.</p><p>Что соответсвует {THR_Comment}</p>",
@@ -54,6 +56,7 @@ export default {
             com5: "болезни",
             com6: "серьезной болезни",
           title:"Индекс отклонений от нормативов",
+          textNonActive:"some text"
         },
         pl: {
             descriptionText: "<p>Twój zintegrowany indeks odchylenia wynosi {THR}%.</p><p>Co odpowiada {THR_Comment}</p>",
@@ -65,9 +68,17 @@ export default {
             com5: "chorobie",
             com6: "poważnej chorobie",
           title:"Indeks odchyleń od norm",
+          textNonActive:"some text"
         }
     },
     computed:{
+      isActive:function () {
+        if(true){
+          return true;
+        }else{
+          return false;
+        }
+      },
         minValue:function () {
             return this.rezultData.HealthRatioScale[0].Value - (this.rezultData.HealthRatioScale[1].Value - this.rezultData.HealthRatioScale[0].Value);
         },
@@ -153,15 +164,17 @@ export default {
       }
     },
   created:function() {
-      this.deg =this.HealthRateDeg(this.minValue);
-      this.deg2=this.HealthRateDegOp(this.rezultData.HealthRate);
-        this.animateVal = this.minValue;
-        this.valArray.push(this.minValue);
-        this.valArray.push(this.maxValue);
-        this.valArray.push(this.rezultData.HealthRate);
-        var t = this;
-        //setTimeout(t.start, 500);
-        setTimeout(t.start2, 500);
+    if(this.isActive) {
+      this.deg = this.HealthRateDeg(this.minValue);
+      this.deg2 = this.HealthRateDegOp(this.rezultData.HealthRate);
+      this.animateVal = this.minValue;
+      this.valArray.push(this.minValue);
+      this.valArray.push(this.maxValue);
+      this.valArray.push(this.rezultData.HealthRate);
+      var t = this;
+      //setTimeout(t.start, 500);
+      setTimeout(t.start2, 500);
+    }
     },
 }
 </script>
@@ -269,5 +282,21 @@ export default {
   }
   .cursor, .opacity_cursor{
     transition: all 0.666s linear;
+  }
+  .opacity_cursor3{
+    position: absolute;
+    top:0%;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+    background: url("/static/img/indicator_3Cur_op.png") no-repeat;
+    background-size: cover;
+    text-align: center;
+    color: #000;
+    display: flex;
+    z-index: 1000;
+  }
+  .opacity_cursor3 p{
+    margin: auto;
   }
 </style>

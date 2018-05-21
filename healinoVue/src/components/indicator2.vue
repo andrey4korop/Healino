@@ -2,17 +2,18 @@
   <div class="indicators">
     <div class="title_indicator" v-html="langString('title')"></div>
     <div class="indicator DaylyCallorie">
-      <div class="description" v-bind:style="{zIndex:hIndex}" v-bind:class="(showDescription==2)?'on':''">
+      <div v-if="isActive" class="description" v-bind:style="{zIndex:hIndex}" v-bind:class="(showDescription==2)?'on':''">
         <div class="text"v-lang.descriptionText="{Calorie_Counting: rezultData.DaylyCallorie, Calorie_CountingM: rezultData.DaylyCallorie-500, Calorie_CountingP: rezultData.DaylyCallorie+500,}">
         </div>
       </div>
       <div class="progress_bar3" v-on:click="st">
         <img src="/static/img/indicator_1.png" alt="">
-        <div class="plus" v-on:click="$emit('onDescription','2')"><img src="static/img/plus.png" alt=""></div>
-        <div class="cursor" v-bind:style="{ transform: 'rotate(' + deg + 'deg)' }"></div>
-        <div class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }"></div>
-        <div class="opacity_cursor" v-if="curShow" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }" style="background: url(/static/img/indicator_1Cur2.png) no-repeat; background-size: cover;"></div>
-        <div class="text_indicator">
+        <div v-if="isActive" class="plus" v-on:click="$emit('onDescription','2')"><img src="static/img/plus.png" alt=""></div>
+        <div v-if="isActive" class="cursor" v-bind:style="{ transform: 'rotate(' + deg + 'deg)' }"></div>
+        <div v-if="isActive" class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }"></div>
+        <div  v-if="isActive && curShow" class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }" style="background: url(/static/img/indicator_1Cur2.png) no-repeat; background-size: cover;"></div>
+        <div class="opacity_cursor3" v-if="!isActive" v-on:click="$emit('toTheme')"><p ><i class="fa fa-lock" aria-hidden="true"></i></p></div>
+        <div v-if="isActive" class="text_indicator">
 
           <p>{{animateVal}} Kcal</p>
         </div>
@@ -43,6 +44,7 @@ export default {
             "<p>If you consume {Calorie_CountingM} calories a day, then your weight will go down by 0.45 kg per week.</p>"+
             "<p>If you consume {Calorie_CountingP} calories a day, then your weight will increase by 0.45 kg per week.</p>",
             title:"<p>&nbsp;</p><p>Calories Burned</p>",
+          textNonActive:"some text"
         },
         ru: {
             descriptionText:
@@ -51,6 +53,7 @@ export default {
             "<p>Если Вы будете потреблять {Calorie_CountingM} калорий в день, то ваш вес будет снижаться на 0,45 кг в неделю.</p>"+
             "<p>Если Вы будете потреблять {Calorie_CountingP} калорий в день, то ваш вес будет увеличиваться на 0,45 кг в неделю.</p>",
             title:"<p>Дневная потребность</p><p>в калориях</p>",
+          textNonActive:"some text"
         },
         pl: {
             descriptionText:
@@ -59,9 +62,17 @@ export default {
             "<p>Jeśli spożywasz {Calorie_CountingM} kalorii dziennie, Twoja waga spadnie o 0,45 kg na tydzień.</p>"+
             "<p>Jeśli spożywasz {Calorie_CountingP} kalorii dziennie, Twoja waga wzrośnie o 0,45 kg na tydzień.</p>",
             title:"<p>Codzienne zapotrzebowanie</p><p>na kalorie</p>",
+          textNonActive:"some text"
         }
     },
     computed:{
+      isActive:function () {
+        if(true){
+          return true;
+        }else{
+          return false;
+        }
+      },
         minValue:function () {
           return this.rezultData.CallorieScale[0].Callorie - (this.rezultData.CallorieScale[1].Callorie - this.rezultData.CallorieScale[0].Callorie);
         },
@@ -174,7 +185,7 @@ export default {
       start2(){
           let t = this;
           t.deg=t.CDeg(t.minValue);
-        t.curShow=true;
+          t.curShow=true;
           setTimeout(function () {
             t.deg=t.CDeg(t.maxValue);
           },700);
@@ -187,8 +198,9 @@ export default {
       }
     },
   created: function() {
-      this.deg = this.deg=this.CDeg(this.minValue);
-    this.deg2=this.CallorieDegOp(this.rezultData.DaylyCallorie);
+    if(this.isActive) {
+      this.deg = this.deg = this.CDeg(this.minValue);
+      this.deg2 = this.CallorieDegOp(this.rezultData.DaylyCallorie);
       this.animateVal = this.minValue;
       this.valArray.push(this.minValue);
       this.valArray.push(this.maxValue);
@@ -196,6 +208,7 @@ export default {
       var t = this;
       setTimeout(t.start, 1000);
       setTimeout(t.start2, 1000);
+    }
     },
 }
 </script>
@@ -269,5 +282,20 @@ export default {
   }
   .cursor, .opacity_cursor{
     transition: all 0.666s linear;
+  }
+  .opacity_cursor3{
+    position: absolute;
+    top:0%;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+    background: url("/static/img/indicator_3Cur_op.png") no-repeat;
+    background-size: cover;
+    text-align: center;
+    color: #000;
+    display: flex;
+  }
+  .opacity_cursor3 p{
+    margin: auto;
   }
 </style>

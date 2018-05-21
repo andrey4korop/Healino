@@ -9,7 +9,7 @@
                  v-on:click.prevent="changeActive(list)"
                  v-bind:class="[(list.ThemeStatus=='10') ? 'disable' : '', (list.QuestionsTotal==list.QuestionsFinished) ? 'check' : '']" >
                 <div class="buy" v-if="(list.ThemeStatus==3 && list.QuestionsTotal!=list.QuestionsFinished)">{{list.Price}}$</div>
-                <img v-bind:src="'static/img/theme_'+ list.Id +'.png'">
+                <img v-bind:src="list.ImageUrl">
               <div class="filter" v-on:click="changeActive(list)">
                 <img src="/static/img/theme_finish.png" alt=""  v-if="(list.QuestionsTotal==list.QuestionsFinished)">
                 <img src="/static/img/activeTheme.png" alt="" v-if="(isActive(list.Id))" style="position: absolute; top: 0; left: -1px;" class="checktheme1">
@@ -27,6 +27,7 @@
         </div>
       </div>
       <div class="green">
+        <button v-if="isNeedSecondBtn()" v-on:click="secondButton()">{{secondBTNtext}}</button>
         <button v-on:click="mainButton()">{{mainBTNtext}}</button>
       </div>
     </div>
@@ -121,6 +122,14 @@
                 return this.langString('text_modalTwoButton', {'CardMask': list.CardMask, 'Price': list.Price});
               }
             },
+            secondBTNtext:function () {
+                let list = this.returnActiveList();
+                if(list.ThemeStatus == 3){
+                    return this.langString('buy')
+                }else{
+                    return this.langString('start')
+                }
+            },
             mainBTNtext:function () {
               let list = this.returnActiveList();
               if(list.QuestionsTotal==list.QuestionsFinished){
@@ -147,6 +156,10 @@
         $('body').css({overflow: ''});
       },
         methods: {
+          isNeedSecondBtn(){
+            let list = this.returnActiveList();
+            return list.QuestionsTotal == list.QuestionsFinished;
+          },
           getWindowHeight(event) {
             let heigth = document.documentElement.clientHeight;
             if(heigth > 1080){
@@ -179,6 +192,19 @@
             let list = this.returnActiveList();
             this.$emit('buy', list, true);
             this.showModal = false;
+          },
+          secondButton(){
+            let list = this.returnActiveList();
+            if(list.ThemeStatus == 3){
+              if(list.TokekExists){
+                this.status = 'TwoButton';
+                this.showModal=true;
+              }else {
+                this.$emit('buy', list, false);
+              }
+            }else{
+              this.$emit('toQuestion', this.activeId)
+            }
           },
           mainButton(){
             let list = this.returnActiveList();
@@ -235,12 +261,6 @@
                         t.$emit('toRezult',data);
                     });
             },
-            /*bodyForResult: function (list) {
-                return {
-                    SessionData: this.SessionData,
-                    Argument: list.Id,
-                }
-            },*/
           returnActiveList(){
               for(var list in this.List){
                 if(this.List[list].Id == this.activeId){
@@ -248,7 +268,6 @@
                 }
               }
           },
-
           b64_to_utf8(str) {
             return decodeURIComponent(escape(window.atob(str)));
           },
@@ -276,6 +295,11 @@
   }
   .row{
     margin-top: 56px;
+  }
+  @media all and (-ms-high-contrast:none){
+    .row{
+      margin-top: 75px;
+    }
   }
   .text_rezult{
     position: absolute;

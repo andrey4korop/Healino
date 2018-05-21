@@ -2,13 +2,13 @@
   <div class="indicators" v-on:click="st">
     <div class="title_indicator" v-html="langString('title')"></div>
     <div class="indicator indicatorWHR">
-      <div class="description" v-bind:style="{zIndex:hIndex}" v-bind:class="(showDescription==6)?'on':''">
+      <div v-if="isActive" class="description" v-bind:style="{zIndex:hIndex}" v-bind:class="(showDescription==6)?'on':''">
         <div class="text" v-lang.descriptionText="{WHR: rezultData.WHRatio, coment: getComent}"></div>
       </div>
       <div class="progress_bar6">
         <img src="/static/img/indicator_4.png" alt="">
-        <div class="plus" v-on:click="$emit('onDescription','6')"><img src="static/img/plus.png" alt=""></div>
-        <div class="sometext">
+        <div  v-if="isActive" class="plus" v-on:click="$emit('onDescription','6')"><img src="static/img/plus.png" alt=""></div>
+        <div  v-if="isActive" class="sometext">
           <div class="txt">
             <p>Excellent</p>
             <p class="big"><{{minValue}}</p>
@@ -18,8 +18,9 @@
             <p>At Risk</p>
           </div>
         </div>
-        <div class="opacity" v-bind:style="{ height: deg + '%' }"></div>
-        <div class="cursor" v-bind:style="{ top: deg + '%' }">
+        <div  v-if="isActive" class="opacity" v-bind:style="{ height: deg + '%' }"></div>
+        <div class="opacity_cursor3" v-if="!isActive"><p v-lang.textNonActive v-on:click="$emit('toTheme')"></p></div>
+        <div  v-if="isActive" class="cursor" v-bind:style="{ top: deg + '%' }">
           <img src="static/img/cursor_4.png" alt="">
           <div>
             <p class="big">{{animateVal}}</p>
@@ -55,6 +56,7 @@ export default {
             com6: "obesity of the Class II",
             com7: "obesity of the Class III",
             title:"<p>Waist-to-hip</p><p>ratio</p>",
+          textNonActive:"some text"
         },
         ru: {
             descriptionText:
@@ -69,6 +71,7 @@ export default {
             com6: "ожирению второй степени",
             com7: "ожирению третьей степени (морбидное)",
             title:"<p>Отношение талии</p><p>к бедрам </p>",
+          textNonActive:"some text"
         },
         pl: {
             descriptionText:
@@ -83,9 +86,17 @@ export default {
             com6: "otyłości drugiego stopnia",
             com7: "otyłości trzeciego stopnia (chorobliwe)",
             title:"<p>Stosunek talii</p><p>do bioder</p>",
+          textNonActive:"some text"
         }
     },
     computed:{
+      isActive:function () {
+        if(true){
+          return true;
+        }else{
+          return false;
+        }
+      },
         minValue:function () {
             return Math.round(parseFloat(this.rezultData.WHRatioScale[0].Value - (this.rezultData.WHRatioScale[1].Value - this.rezultData.WHRatioScale[0].Value))*100)/100;
         },
@@ -167,7 +178,8 @@ export default {
       }
     },
     created: function() {
-      this.deg=this.WHRPresent(this.minValue);
+      if(this.isActive) {
+        this.deg = this.WHRPresent(this.minValue);
         this.animateVal = this.minValue;
         this.valArray.push(this.minValue);
         this.valArray.push(this.maxValue);
@@ -175,6 +187,7 @@ export default {
         var t = this;
         setTimeout(t.start, 4500);
         setTimeout(t.start2, 4500);
+      }
     },
 }
 </script>
@@ -238,5 +251,20 @@ export default {
   }
   .opacity, .cursor{
     transition: all 0.7s linear;
+  }
+  .opacity_cursor3{
+    position: absolute;
+    top:0%;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+    background: url("/static/img/opasity22.png") no-repeat;
+    background-size: cover;
+    text-align: center;
+    color: #000;
+    display: flex;
+  }
+  .opacity_cursor3 p{
+    margin: auto;
   }
 </style>

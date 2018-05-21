@@ -2,10 +2,11 @@
   <div class="mini_indicator mini_indicator3" v-on:click="st">
     <div class="progress_bar2">
       <img src="/static/img/indicator_3.png" alt="">
-      <div class="cursor" v-bind:style="{ transform: 'rotate(' + deg + 'deg)' }"></div>
-      <div class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }"></div>
-      <div class="opacity_cursor"  v-if="curShow" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }" style="background: url(/static/img/indicator_3Cur2.png) no-repeat; background-size: cover;"></div>
-      <div class="text_indicator">
+      <div v-if="isActive" class="cursor" v-bind:style="{ transform: 'rotate(' + deg + 'deg)' }"></div>
+      <div v-if="isActive" class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }"></div>
+      <div v-if="isActive && curShow" class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }" style="background: url(/static/img/indicator_3Cur2.png) no-repeat; background-size: cover;"></div>
+      <div class="opacity_cursor3" v-if="!isActive" v-on:click="$emit('toTheme')"><p ><i class="fa fa-lock" aria-hidden="true"></i></p></div>
+      <div v-if="isActive" class="text_indicator">
       <p class="big">{{animateVal.digits}}</p>
       <p>years</p>
       </div>
@@ -28,7 +29,25 @@ export default {
             }
         }
     },
+  messages: {
+    en: {
+      textNonActive:"some text"
+    },
+    ru: {
+      textNonActive:"some text"
+    },
+    pl: {
+      textNonActive:"some text"
+    }
+  },
     computed:{
+      isActive:function () {
+        if(true){
+          return true;
+        }else{
+          return false;
+        }
+      },
         minValue:function () {
             return this.rezultData.MentalAgeScale[0].AgePercent - (this.rezultData.MentalAgeScale[1].AgePercent - this.rezultData.MentalAgeScale[0].AgePercent);
         },
@@ -105,8 +124,9 @@ export default {
       }
     },
     created: function() {
-      this.deg =this.MentalAgeDeg(this.minValue);
-      this.deg2=this.MentalAgeDegOp(this.rezultData.BioMentalAge.MentalAgeDiffPercentage);
+      if(this.isActive) {
+        this.deg = this.MentalAgeDeg(this.minValue);
+        this.deg2 = this.MentalAgeDegOp(this.rezultData.BioMentalAge.MentalAgeDiffPercentage);
         this.animateVal = {deg: this.minValue, digits: 0};
         this.valArray.deg.push(this.minValue);
         this.valArray.digits.push(0);
@@ -117,6 +137,7 @@ export default {
         var t = this;
         setTimeout(t.start, 2500);
         setTimeout(t.start2, 2500);
+      }
     },
 }
 </script>
@@ -142,5 +163,20 @@ export default {
   }
   .opacity_cursor, .cursor{
     transition: all 0.7s linear;
+  }
+  .opacity_cursor3{
+    position: absolute;
+    top:0%;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+    background: url("/static/img/indicator_3Cur_op.png") no-repeat;
+    background-size: cover;
+    text-align: center;
+    color: #000;
+    display: flex;
+  }
+  .opacity_cursor3 p{
+    margin: auto;
   }
 </style>

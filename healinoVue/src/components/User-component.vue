@@ -307,6 +307,9 @@
                 female: 'Female',
                 someDate: 'Date Actualization',
                 button: 'SIGN IN',
+              race1:'Caucasian',
+              race2:'Asian',
+              race3:'African',
               save:'UPDATE',
               act1:'No Activity',
               act2:'Sedentary',
@@ -337,6 +340,9 @@
                 female: 'Женский',
                 someDate: 'Дата актуализации',
                 button: 'РЕГИСТРАЦИЯ',
+              race1:'Европеоидная',
+              race2:'Азиатская',
+              race3:'Негроидная',
               act1:'Нет активности',
               act2:'Сидячий',
               act3:'Низкоактивных',
@@ -350,7 +356,7 @@
                 surname: 'Nazwisko',
                 date: 'Data urodzenia',
                 location: 'Lokalizacja',
-                race: 'Rasa ',
+                race: 'Odmiana',
                 phone: 'numer telefonu',
                 metric: 'Metryki',
                 height: 'Wzrost',
@@ -367,6 +373,9 @@
                 female: 'żeńska',
                 someDate: 'Data aktualizacji',
                 button: 'REJESTRACJA',
+              race1:'Biała',
+              race2:'Żółta',
+              race3:'Czarna',
               act1:'Brak aktywności',
               act2:'Siedzący',
               act3:'Low Active',
@@ -379,9 +388,9 @@
         computed: {
           raseOption:function(){
             let r =[];
-            r.push({key: 0, title: 'Caucasian', Id:0});
-            r.push({key: 1, title: 'Asian', Id:1});
-            r.push({key: 2, title: 'African', Id:2});
+            r.push({key: 0, title: this.langString('race1'), Id:0});
+            r.push({key: 1, title: this.langString('race2'), Id:1});
+            r.push({key: 2, title: this.langString('race3'), Id:2});
             return r;
           },
           activityOption:function(){

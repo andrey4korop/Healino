@@ -6,17 +6,17 @@
     </div>
     <div class="indicator">
 
-      <div class="description" v-bind:style="{zIndex:hIndex}"  v-bind:class="(showDescription==3)?'on':''">
+      <div v-if="isActive" class="description" v-bind:style="{zIndex:hIndex}"  v-bind:class="(showDescription==3)?'on':''">
         <div class="text" v-lang.descriptionText="{BMI: rezultData.BMI, coment: getComent}"></div>
       </div>
       <div class="progress_bar4"  v-on:click="st">
         <img src="/static/img/indicator_2.png" alt="">
-        <div class="plus"v-on:click="$emit('onDescription','3')"><img src="static/img/plus.png" alt=""></div>
-        <div class="cursor" v-bind:style="{ transform: 'rotate(' + deg + 'deg)' }"></div>
-        <div class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }"></div>
-        <div class="opacity_cursor" v-if="curShow" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }" style="background: url(/static/img/indicator_2Cur2.png) no-repeat; background-size: cover;"></div>
-
-        <div class="text_indicator">
+        <div v-if="isActive" class="plus"v-on:click="$emit('onDescription','3')"><img src="static/img/plus.png" alt=""></div>
+        <div v-if="isActive" class="cursor" v-bind:style="{ transform: 'rotate(' + deg + 'deg)' }"></div>
+        <div v-if="isActive" class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }"></div>
+        <div v-if="isActive && curShow" class="opacity_cursor" v-bind:style="{ transform: 'rotate(' + deg2 + 'deg)' }" style="background: url(/static/img/indicator_2Cur2.png) no-repeat; background-size: cover;"></div>
+        <div class="opacity_cursor3" v-if="!isActive" v-on:click="$emit('toTheme')"><p ><i class="fa fa-lock" aria-hidden="true"></i></p></div>
+        <div v-if="isActive" class="text_indicator">
           <p class="big">{{animateVal}}</p>
         </div>
       </div>
@@ -52,6 +52,7 @@ export default {
             com6: "obesity of the Class II",
             com7: "obesity of the Class III",
             title:"Body Mass Index",
+          textNonActive:"some text"
         },
         ru: {
             descriptionText:
@@ -66,6 +67,7 @@ export default {
             com6: "ожирению второй степени",
             com7: "ожирению третьей степени (морбидное)",
             title:"Индекс массы тела",
+          textNonActive:"some text"
         },
         pl: {
             descriptionText:
@@ -80,9 +82,17 @@ export default {
             com6: "otyłości drugiego stopnia",
             com7: "otyłości trzeciego stopnia (chorobliwe)",
             title:"Wskaźnik masy ciała",
+          textNonActive:"some text"
         }
     },
     computed:{
+      isActive:function () {
+        if(true){
+          return true;
+        }else{
+          return false;
+        }
+      },
         minValue:function () {
           return this.rezultData.BMIScale[0].BMI - (this.rezultData.BMIScale[1].BMI - this.rezultData.BMIScale[0].BMI);
         },
@@ -180,15 +190,17 @@ export default {
       }
     },
   mounted() {
-    this.deg = this.deg=this.CallorieDeg(this.minValue);
-    this.deg2=this.CallorieDegOp(this.rezultData.BMI);
-      this.animateVal = Math.round(parseFloat(this.minValue)*100)/100;
+    if(this.isActive) {
+      this.deg = this.deg = this.CallorieDeg(this.minValue);
+      this.deg2 = this.CallorieDegOp(this.rezultData.BMI);
+      this.animateVal = Math.round(parseFloat(this.minValue) * 100) / 100;
       this.valArray.push(this.minValue);
       this.valArray.push(this.maxValue);
       this.valArray.push(this.rezultData.BMI);
       var t = this;
       setTimeout(t.start, 1500);
       setTimeout(t.start2, 1500);
+    }
     },
 }
 </script>
@@ -262,5 +274,20 @@ export default {
   }
   .cursor, .opacity_cursor{
     transition: all 0.666s linear;
+  }
+  .opacity_cursor3{
+    position: absolute;
+    top:0%;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+    background: url("/static/img/indicator_3Cur_op.png") no-repeat;
+    background-size: cover;
+    text-align: center;
+    color: #000;
+    display: flex;
+  }
+  .opacity_cursor3 p{
+    margin: auto;
   }
 </style>

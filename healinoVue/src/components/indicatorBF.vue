@@ -4,17 +4,19 @@
       <p v-lang.title></p>
     </div>
     <div class="indicator indicatorBF">
-      <div class="description" v-bind:style="{zIndex:hIndex}"  v-bind:class="(showDescription==8)?'on':''">
+      <div v-if="isActive" class="description" v-bind:style="{zIndex:hIndex}"  v-bind:class="(showDescription==8)?'on':''">
         <div class="text" v-lang.descriptionText="{BFP: rezultData.BFP, coment: getComent, ideal: getIdeal}"></div>
       </div>
-      <div class="progress_bar1" v-on:click="start">
+      <div class="progress_bar1" v-on:click="st">
         <img src="static/img/indicator_6.png" alt="">
-        <div class="plus" v-on:click="$emit('onDescription','8')"><img src="static/img/plus.png" alt=""></div>
-        <img src="static/img/cursor_1.png" alt="" class="cursor"
-             v-bind:style="{ left: BFPDeg + '%' }">
-        <div class="opacity_cursor" v-bind:style="{ width: 'calc('+BFPDegOp + '% + 1px)' }"></div>
-        <div class="opacity_cursor2" v-bind:style="{ width: 'calc('+BFPDegOp2 + '% + 1px)' }"></div>
-        <span class="percent" v-bind:style="{ left: BFPDeg + '%' }">{{animateVal}}%</span>
+        <div  v-if="isActive" class="plus" v-on:click="$emit('onDescription','8')"><img src="static/img/plus.png" alt=""></div>
+        <img  v-if="isActive" src="static/img/cursor_1.png" alt="" class="cursor"
+             v-bind:style="{ left: deg + '%' }">
+        <div  v-if="isActive && !curShow" class="opacity_cursor" v-bind:style="{ width: 'calc('+BFPDegOp + '% + 1px)' }"></div>
+        <div  v-if="isActive && !curShow" class="opacity_cursor2" v-bind:style="{ width: 'calc('+BFPDegOp2 + '% + 1px)' }"></div>
+        <div v-if="isActive && curShow" class="opacity_cursor2" style="width: calc(100% + 1px);"></div>
+        <div class="opacity_cursor3" v-if="!isActive" v-on:click="$emit('toTheme')"><p ><i class="fa fa-lock" aria-hidden="true"></i></p></div>
+        <span  v-if="isActive" class="percent" v-bind:style="{ left: deg + '%' }">{{animateVal}}%</span>
         <!--<span class="shkala-1">10%</span>
         <span class="shkala-2">18%</span>
         <span class="shkala-3">24%</span>-->
@@ -31,6 +33,7 @@ export default {
             animateVal:0 ,
             valArray:[],
           hIndex:-10,
+          curShow:true,
         }
     },
     messages: {
@@ -50,6 +53,7 @@ export default {
             com7: "Obese Class II",
             com8: "Obese Class III",
             title:"Body Fat Percentage",
+          textNonActive:"some text"
         },
         ru: {
             descriptionText:
@@ -67,6 +71,7 @@ export default {
             com7: "Ожирение II класса",
             com8: "Ожирение III класса",
             title:"Процент жировой ткани",
+          textNonActive:"some text"
         },
         pl: {
             descriptionText:
@@ -84,9 +89,17 @@ export default {
             com7: "Otyłość klasy II",
             com8: "Otyłość stopnia III",
             title:"Odsetek tkanki tłuszczowej",
+          textNonActive:"some text"
         }
     },
     computed:{
+      isActive:function () {
+        if(true){
+          return true;
+        }else{
+          return false;
+        }
+      },
         minValue:function () {
             return Math.round(parseFloat(this.rezultData.BFCategoryScale[0].BF - (this.rezultData.BFCategoryScale[1].BF - this.rezultData.BFCategoryScale[0].BF))*100)/100;
         },
@@ -94,24 +107,24 @@ export default {
             return this.rezultData.BFCategoryScale[this.rezultData.BFCategoryScale.length-1].BF;
         },
         BFPDeg:function(){
-            if(this.animateVal<=this.minValue){
+            if(this.rezultData.BFP<=this.minValue){
                 return 0;
             }
-            if(this.animateVal>=this.maxValue){
+            if(this.rezultData.BFP>=this.maxValue){
                 return 100;
             }
             //return (this.animateVal - this.minValue) * 100 / (this.maxValue - this.minValue)+2;
             for(var w=0; w<this.rezultData.BFCategoryScale.length; w++ ){
-                if(this.animateVal < this.rezultData.BFCategoryScale[w].BF){
+                if(this.rezultData.BFP < this.rezultData.BFCategoryScale[w].BF){
                     break;
                 }
             }
             var howManyDegForScale = 100 / this.rezultData.BFCategoryScale.length;
             var per;
             if(w>0) {
-                per = (this.animateVal - this.rezultData.BFCategoryScale[w-1].BF) / (this.rezultData.BFCategoryScale[w].BF - this.rezultData.BFCategoryScale[w - 1].BF) * howManyDegForScale + howManyDegForScale * (w);
+                per = (this.rezultData.BFP - this.rezultData.BFCategoryScale[w-1].BF) / (this.rezultData.BFCategoryScale[w].BF - this.rezultData.BFCategoryScale[w - 1].BF) * howManyDegForScale + howManyDegForScale * (w);
             }else{
-                per = (this.animateVal - this.minValue) / (this.rezultData.BFCategoryScale[w].BF - this.minValue) * howManyDegForScale;
+                per = (this.rezultData.BFP - this.minValue) / (this.rezultData.BFCategoryScale[w].BF - this.minValue) * howManyDegForScale;
             }
             return per;
         },
@@ -161,6 +174,32 @@ export default {
     }
   },
     methods:{
+      BDeg:function(val){
+        if(val<=this.minValue){
+          return 0;
+        }
+        if(val>=this.maxValue){
+          return 100;
+        }
+        //return (this.animateVal - this.minValue) * 100 / (this.maxValue - this.minValue)+2;
+        for(var w=0; w<this.rezultData.BFCategoryScale.length; w++ ){
+          if(val < this.rezultData.BFCategoryScale[w].BF){
+            break;
+          }
+        }
+        var howManyDegForScale = 100 / this.rezultData.BFCategoryScale.length;
+        var per;
+        if(w>0) {
+          per = (val - this.rezultData.BFCategoryScale[w-1].BF) / (this.rezultData.BFCategoryScale[w].BF - this.rezultData.BFCategoryScale[w - 1].BF) * howManyDegForScale + howManyDegForScale * (w);
+        }else{
+          per = (val - this.minValue) / (this.rezultData.BFCategoryScale[w].BF - this.minValue) * howManyDegForScale;
+        }
+        return per;
+      },
+      st(){
+        this.start2();
+        this.start();
+      },
         animate () {
             if (TWEEN.update()) {
                 requestAnimationFrame(this.animate)
@@ -175,18 +214,36 @@ export default {
                 .onUpdate(function () {
                     t.animateVal = Math.round(this.tweeningNumber);
                 })
-                .delay(200)
                 .start();
             this.animate()
-        }
+        },
+      start2(){
+        let t = this;
+        t.deg = t.BDeg(t.minValue);
+        t.curShow = true;
+
+        setTimeout(function () {
+          t.deg = t.BDeg(t.maxValue);
+        }, 700);
+        setTimeout(function () {
+          t.deg = t.BDeg(t.rezultData.BFP);
+        }, 1400);
+        setTimeout(function () {
+          t.curShow = false;
+        }, 2150)
+      },
     },
     created: function() {
+      if(this.isActive) {
+        this.deg = this.deg = this.BDeg(this.minValue);
         this.animateVal = this.minValue;
         this.valArray.push(this.minValue);
         this.valArray.push(this.maxValue);
         this.valArray.push(this.rezultData.BFP);
         var t = this;
         setTimeout(t.start, 5500);
+        setTimeout(t.start2, 5500);
+      }
     },
 }
 </script>
@@ -289,5 +346,24 @@ export default {
   }
   .opacity_cursor2 img{
     height: 100%;
+  }
+  .opacity_cursor3{
+    position: absolute;
+    top:0%;
+    left: -1px;
+    width: calc(100% + 2px);
+    height: 100%;
+    opacity: 0.8;
+    background: url("/static/img/indicator_6Cur_op.png") no-repeat;
+    background-size: cover;
+    text-align: center;
+    color: #000;
+    display: flex;
+  }
+  .opacity_cursor3 p{
+    margin: auto;
+  }
+  .opacity_cursor3, .percent, .cursor{
+    transition: all 0.666s linear;
   }
 </style>
