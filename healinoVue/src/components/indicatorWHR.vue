@@ -19,7 +19,7 @@
           </div>
         </div>
         <div  v-if="isActive" class="opacity" v-bind:style="{ height: deg + '%' }"></div>
-        <div class="opacity_cursor3" v-if="!isActive"><p v-lang.textNonActive v-on:click="$emit('toTheme')"></p></div>
+        <div class="opacity_cursor3" v-if="!isActive" v-on:click="$emit('toTheme')"><p ><i class="fa fa-lock" aria-hidden="true"></i></p></div>
         <div  v-if="isActive" class="cursor" v-bind:style="{ top: deg + '%' }">
           <img src="static/img/cursor_4.png" alt="">
           <div>
@@ -91,7 +91,7 @@ export default {
     },
     computed:{
       isActive:function () {
-        if(true){
+        if(this.rezultData.FinishedTests.indexOf(3)>-1){
           return true;
         }else{
           return false;
@@ -263,6 +263,7 @@ export default {
     text-align: center;
     color: #000;
     display: flex;
+    flex-direction: column;
   }
   .opacity_cursor3 p{
     margin: auto;

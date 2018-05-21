@@ -5,24 +5,24 @@
         <indicatorAvatar :rezultData="rezultData"
                          :img="photoImg"
                          :showDescription="showDescription"
-                         @toTheme="$emit('toTheme')"
+                         @toTheme="back"
                          @onDescription="onDescription"></indicatorAvatar>
       </div>
       <div class="row">
         <div class="left">
           <indicatorLMP :rezultData="rezultData"
                         :showDescription="showDescription"
-                        @toTheme="$emit('toTheme')"
+                        @toTheme="back(3)"
                         @onDescription="onDescription"></indicatorLMP>
         </div>
         <div class="center" v-bind:style="{background: 'url(/static/img/'+gender+') top center / contain no-repeat'}">
           <indicator2 :rezultData="rezultData"
                       :showDescription="showDescription"
-                      @toTheme="$emit('toTheme')"
+                      @toTheme="back(3)"
                       @onDescription="onDescription"></indicator2>
           <indicatorBMI :rezultData="rezultData"
                         :showDescription="showDescription"
-                        @toTheme="$emit('toTheme')"
+                        @toTheme="back(3)"
                         @onDescription="onDescription"></indicatorBMI>
 
           <div class="indicators">
@@ -36,7 +36,7 @@
               <div v-if="isActiveAge" class="plus" v-on:click="onDescription(4)"><img src="static/img/plus.png" alt=""></div>
               <div class="row_indicator">
                 <indicator-real-age
-                        @toTheme="$emit('toTheme')"
+                        @toTheme="back(2)"
                         :rezultData="rezultData"></indicator-real-age>
               </div>
               <div class="row_indicator rowt">
@@ -49,10 +49,10 @@
               </div>
               <div class="row_indicator">
                 <indicator-Chronologi-age
-                        @toTheme="$emit('toTheme')"
+                        @toTheme="back(2)"
                         :rezultData="rezultData"></indicator-Chronologi-age>
                 <indicator-Mental-age
-                        @toTheme="$emit('toTheme')"
+                        @toTheme="back(2)"
                         :rezultData="rezultData"></indicator-Mental-age>
 
               </div>
@@ -75,11 +75,11 @@
 
               <div class="row_indicator">
                 <indicator-CVD5
-                        @toTheme="$emit('toTheme')"
+                        @toTheme="back(1)"
                         :rezultData="rezultData"></indicator-CVD5>
 
                 <indicator-CVD10
-                        @toTheme="$emit('toTheme')"
+                        @toTheme="back(1)"
                         :rezultData="rezultData"></indicator-CVD10>
               </div>
             </div>
@@ -93,7 +93,7 @@
           <div class="right_indicator">
             <indicatorWHR :rezultData="rezultData"
                           :showDescription="showDescription"
-                          @toTheme="$emit('toTheme')"
+                          @toTheme="back(3)"
                           @onDescription="onDescription"></indicatorWHR>
 
           </div>
@@ -103,12 +103,12 @@
         <div class="bottom">
           <indicatorBF :rezultData="rezultData"
                        :showDescription="showDescription"
-                       @toTheme="$emit('toTheme')"
+                       @toTheme="back(3)"
                        @onDescription="onDescription"></indicatorBF>
 
           <indicator1 :rezultData="rezultData"
                       :showDescription="showDescription"
-                      @toTheme="$emit('toTheme')"
+                      @toTheme="back(3)"
                       @onDescription="onDescription"></indicator1>
 
         </div>
@@ -124,20 +124,20 @@
     <div class="pos1">
       <indicator2 :rezultData="rezultData"
                   :showDescription="showDescription"
-                  @toTheme="$emit('toTheme')"
+                  @toTheme="back(3)"
                   @onDescription="onDescription"></indicator2>
     </div>
     <div class="pos2">
       <indicatorBMI :rezultData="rezultData"
                     :showDescription="showDescription"
-                    @toTheme="$emit('toTheme')"
+                    @toTheme="back(3)"
                     @onDescription="onDescription"></indicatorBMI>
     </div>
     <div class="pos3">
       <indicatorAvatar :rezultData="rezultData"
                        :img="photoImg"
                        :showDescription="showDescription"
-                       @toTheme="$emit('toTheme')"
+                       @toTheme="back"
                        @onDescription="onDescription"></indicatorAvatar>
     </div>
 
@@ -153,7 +153,7 @@
           <div v-if="isActiveAge" class="plus"  v-on:click="onDescription(4)"><img src="static/img/plus.png" alt=""></div>
           <div class="row_indicator">
             <indicator-real-age
-                    @toTheme="$emit('toTheme')"
+                    @toTheme="back(2)"
                     :rezultData="rezultData"></indicator-real-age>
           </div>
           <div class="row_indicator">
@@ -166,10 +166,10 @@
           </div>
           <div class="row_indicator">
             <indicator-Chronologi-age
-                    @toTheme="$emit('toTheme')"
+                    @toTheme="back(2)"
                     :rezultData="rezultData"></indicator-Chronologi-age>
             <indicator-Mental-age
-                    @toTheme="$emit('toTheme')"
+                    @toTheme="back(2)"
                     :rezultData="rezultData"></indicator-Mental-age>
           </div>
         </div>
@@ -192,10 +192,10 @@
           <div v-if="isActiveRASVD" class="plus" v-on:click="onDescription(5)"><img src="static/img/plus.png" alt=""></div>
           <div class="row_indicator">
             <indicator-CVD5
-                    @toTheme="$emit('toTheme')"
+                    @toTheme="back(1)"
                     :rezultData="rezultData"></indicator-CVD5>
             <indicator-CVD10
-                    @toTheme="$emit('toTheme')"
+                    @toTheme="back(1)"
                     :rezultData="rezultData"></indicator-CVD10>
           </div>
         </div>
@@ -210,12 +210,12 @@
 
       <indicatorBF :rezultData="rezultData"
                    :showDescription="showDescription"
-                   @toTheme="$emit('toTheme')"
+                   @toTheme="back(3)"
                    @onDescription="onDescription"></indicatorBF>
 
       <indicator1 :rezultData="rezultData"
                   :showDescription="showDescription"
-                  @toTheme="$emit('toTheme')"
+                  @toTheme="back(3)"
                   @onDescription="onDescription"></indicator1>
 
       <div class="button_share">
@@ -226,13 +226,13 @@
     <div class="pos7">
       <indicatorLMP :rezultData="rezultData"
                     :showDescription="showDescription"
-                    @toTheme="$emit('toTheme')"
+                    @toTheme="back(3)"
                     @onDescription="onDescription"></indicatorLMP>
     </div>
     <div class="pos8">
       <indicatorWHR :rezultData="rezultData"
                     :showDescription="showDescription"
-                    @toTheme="$emit('toTheme')"
+                    @toTheme="back(3)"
                     @onDescription="onDescription"></indicatorWHR>
     </div>
   </div>
@@ -377,14 +377,14 @@
         },
         computed: {
           isActiveAge:function () {
-            if(true){
+            if(this.rezultData.FinishedTests.indexOf(2)>-1){
               return true;
             }else{
               return false;
             }
           },
           isActiveRASVD:function () {
-            if(true){
+            if(this.rezultData.FinishedTests.indexOf(1)>-1){
               return true;
             }else{
               return false;
@@ -461,11 +461,11 @@
           $(document).unbind('touchend');
         },
         methods:{
-          back(){
+          back(id){
             if(this.isPublic){
               this.$emit('toStart');
             }else{
-              this.$emit('toTheme', '', '', true);
+              this.$emit('toTheme', id, '', true);
             }
           },
           invite(){

@@ -619,7 +619,7 @@
                 accept2: 'Akceptuję warunki użytkowania',
                 accept3: 'Akceptuję politykę dotyczącą plików cookie',
                 button: 'Akceptuj',
-                buttonPrev:'Nazad'
+                buttonPrev:'Wróć'
             }
         },
       mounted(){

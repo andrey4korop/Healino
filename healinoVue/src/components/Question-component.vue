@@ -127,7 +127,7 @@
             pl: {
                 main: 'Strona główna',
                 forum: 'Forum',
-                back: 'NAZAD',
+                back: 'WRÓĆ',
                 next: 'NASTĘPNY',
                 finish: 'FINISZ',
               editUser:'Edytuj profil',
@@ -171,7 +171,9 @@
                 setTimeout(function () {
                     t.Type = newVal.QuestionTypeEnum;
                 },500);
-
+                setTimeout(function () {
+                  t.nextAnimationStatus='next';
+                }, 2000);
                 this.AnswersId = "";
                 this.AnswerValue = "";
             }
@@ -262,6 +264,7 @@
               }
             },
             prevQuestion(){
+              this.nextAnimationStatus='prev';
                 this.$emit('prevQuestion');
             }
         }

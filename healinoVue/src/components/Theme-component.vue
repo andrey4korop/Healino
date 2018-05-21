@@ -8,7 +8,7 @@
             <div class="theme" v-for="list in List"
                  v-on:click.prevent="changeActive(list)"
                  v-bind:class="[(list.ThemeStatus=='10') ? 'disable' : '', (list.QuestionsTotal==list.QuestionsFinished) ? 'check' : '']" >
-                <div class="buy" v-if="(list.ThemeStatus==3 && list.QuestionsTotal!=list.QuestionsFinished)">{{list.Price}}$</div>
+                <div class="buy" v-if="(list.ThemeStatus==3 && list.QuestionsTotal!=list.QuestionsFinished)">{{list.Price}} {{list.Currency}}</div>
                 <img v-bind:src="list.ImageUrl">
               <div class="filter" v-on:click="changeActive(list)">
                 <img src="/static/img/theme_finish.png" alt=""  v-if="(list.QuestionsTotal==list.QuestionsFinished)">
@@ -74,7 +74,7 @@
                 title_modal:'PAYMENT',
                 text_modalS:'Your payment to Healino was successful. Thank You for using our services.',
                 text_modalE:'Your payment to Healino was unsuccesful. Please try again',
-                text_modalTwoButton:'Use this payment method:<br> {CardMask}<br> Amount {Price}$',
+                text_modalTwoButton:'Use this payment method:<br> {CardMask}<br> Amount {Price} {Currency}',
                 text_modalE2:'Error',
                 btn1:'Use other',
                 btn2:'Pay',
@@ -85,7 +85,7 @@
               buy:'КУПИТЬ',
               title_modal:'ОПЛАТА',
               text_modalS:'Ваш платеж в Healino был успешным. Благодарим вас за использование наших услуг.',
-              text_modalTwoButton:'Будет произведена оплата с карты<br> {CardMask}<br> Сумма {Price}$',
+              text_modalTwoButton:'Будет произведена оплата с карты<br> {CardMask}<br> Сумма {Price} {Currency}',
               text_modalE:'Ваш платеж в Healino был неудовлетворительным. Пожалуйста, попробуйте еще раз',
               text_modalE2:'Error',
               btn1:'Выбрать другую',
@@ -97,7 +97,7 @@
               buy:'KUPOWAĆ',
               title_modal:'PŁATNOŚCI',
               text_modalS:'Twoja płatność na rzecz Healino zakończyła się sukcesem. Dziękujemy za skorzystanie z naszych usług.',
-              text_modalTwoButton:'Użyj tej metody płatności:<br> {CardMask}<br> kwota {Price}$',
+              text_modalTwoButton:'Użyj tej metody płatności:<br> {CardMask}<br> kwota {Price} {Currency}',
               text_modalE:'Twoja płatność na rzecz Healino była niepomyślna. Proszę spróbuj ponownie',
               text_modalE2:'Error',
               btn1:'Użyj innych',
@@ -119,7 +119,7 @@
               }else if(this.status=='ErrorCard'){
                 return this.langString('text_modalE2');
               }else if(this.status=='TwoButton'){
-                return this.langString('text_modalTwoButton', {'CardMask': list.CardMask, 'Price': list.Price});
+                return this.langString('text_modalTwoButton', {'CardMask': list.CardMask, 'Price': list.Price, 'Currency' : list.Currency});
               }
             },
             secondBTNtext:function () {

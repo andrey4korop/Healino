@@ -295,6 +295,7 @@ export default {
     color: #000;
     display: flex;
     z-index: 1000;
+    flex-direction: column;
   }
   .opacity_cursor3 p{
     margin: auto;

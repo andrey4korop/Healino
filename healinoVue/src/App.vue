@@ -14,7 +14,7 @@
             :userData="userData"
             :QuestionsProgress="QuestionsProgress"
             @changeLang="changeLang"
-            @onToUser="onToUser"
+            @onToUser="ToUser"
             @exit="exit"
             @toStart="onToStart"
             @audio="audio"></headerComponent>
@@ -365,7 +365,7 @@ export default {
             let t = this;
             $.post( '/api/Theme/GetAllThemes',  {SessionData: this.SessionData}  )
                 .done(function( data ){
-                  console.log(nextAnimation);
+                  //console.log(nextAnimation);
                   if(nextAnimation) {
 
                     t.nextAnimationStatus = "prev";
@@ -376,18 +376,36 @@ export default {
                     t.List = data.List;
                     t.state = "theme";
                     t.QuestionsProgress = data.QuestionsProgress;
-                  console.log(res);
+                 // console.log(res);
                     if(res){
                       setTimeout(()=>{
-                        t.$refs.themepage.status=res;
-                        t.$refs.themepage.showModalSucsessPay();
-                      },700);
+                        if(typeof t.$refs.themepage != "undefined") {
+                          t.$refs.themepage.status = res;
+                          t.$refs.themepage.showModalSucsessPay();
+                        }else{
+                          setTimeout(()=>{
+                            if(typeof t.$refs.themepage != "undefined") {
+                              t.$refs.themepage.status = res;
+                              t.$refs.themepage.showModalSucsessPay();
+                            }
+                          },900);
+                        }
+                      },900);
                     }
-                    else if(select){
+                  if(select){
                       setTimeout(()=>{
-                        t.$refs.themepage.selectActiveFromId(select);
-                        t.$refs.themepage.showModalSucsessPay();
-                      },700);
+                        if(typeof t.$refs.themepage != "undefined") {
+                          t.$refs.themepage.selectActiveFromId(select);
+
+                        }else {
+                          setTimeout(()=>{
+                            if(typeof t.$refs.themepage != "undefined") {
+                              t.$refs.themepage.selectActiveFromId(select);
+
+                            }
+                          },900);
+                        }
+                      },900);
                     }
                 });
         },

@@ -40,7 +40,7 @@ export default {
   },
     computed:{
       isActive:function () {
-        if(true){
+        if(this.rezultData.FinishedTests.indexOf(2)>-1){
           return true;
         }else{
           return false;
@@ -159,6 +159,7 @@ export default {
     background-size: cover;
     text-align: center;
     color: #000;
+    flex-direction: column;
     display: flex;
   }
   .opacity_cursor3 p{
